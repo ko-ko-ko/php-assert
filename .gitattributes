@@ -1,0 +1,9 @@
+# Autodetect text files
+
+*.pp text eol=lf
+*.sh text eol=lf
+*.yaml text eol=lf
+.bash_aliases text eol=lf
+.vimrc text eol=lf
+.bash_git eol=lf
+.profile eol=lf

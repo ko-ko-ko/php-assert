@@ -1,0 +1,15 @@
+{
+    "name": "index0h/validator",
+    "description": "Fast flexible php validator",
+    "require-dev": {
+        "codeception/codeception": "2.0.x"
+    },
+    "license": "mit",
+    "authors": [
+        {
+            "name": "Roman Levishchenko",
+            "email": "index.0h@gmail.com"
+        }
+    ],
+    "require": {}
+}
