@@ -1,6 +1,7 @@
 .idea/
 .vagrant/
 composer.phar
+composer.lock
 vendor/
 
 tests/_output/*
