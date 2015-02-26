@@ -4,12 +4,16 @@
     "require-dev": {
         "codeception/codeception": "2.0.x"
     },
-    "license": "mit",
+    "license": "MIT",
     "authors": [
         {
             "name": "Roman Levishchenko",
             "email": "index.0h@gmail.com"
         }
     ],
-    "require": {}
+    "autoload": {
+        "psr-4": {
+            "index0h\\log\\": "src"
+        }
+    }
 }
