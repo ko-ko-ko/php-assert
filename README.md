@@ -22,15 +22,6 @@ or add line to require section of `composer.json`
 
 ## Testing
 
-#### Run tests from IDE (example for PhpStorm)
-
-- Select Run/Debug Configuration -> Edit Configurations
-- Select Add New Configuration -> PHP Script
-- Type:
-    * File: /path/to/yii-phar/.test.php
-    * Arguments run: run  --coverage --html
-- OK
-
 #### Run tests from console
 
 ```sh
