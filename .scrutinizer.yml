@@ -1,49 +1,63 @@
-filter:
-    excluded_paths:
-        - 'vendor/*'
-        - 'tests/*'
+checks:
+    php:
+        code_rating: true
+        duplication: true
+        fix_php_opening_tag: true
+        remove_php_closing_tag: true
+        one_class_per_file: true
+        side_effects_or_types: true
+        no_mixed_inline_html: false
+        require_braces_around_control_structures: false
+        php5_style_constructor: true
+        no_global_keyword: true
+        avoid_usage_of_logical_operators: true
+        psr2_class_declaration: true
+        no_underscore_prefix_in_properties: true
+        no_underscore_prefix_in_methods: true
+        blank_line_after_namespace_declaration: true
+        single_namespace_per_use: true
+        psr2_switch_declaration: true
+        psr2_control_structure_declaration: false
+        avoid_superglobals: false
+        security_vulnerabilities: true
+        use_self_instead_of_fqcn: true
+        uppercase_constants: true
+        return_doc_comments: true
+        simplify_boolean_return: true
+        return_doc_comment_if_not_inferrable: true
+        remove_extra_empty_lines: true
+        properties_in_camelcaps: true
+        prefer_while_loop_over_for_loop: true
+        phpunit_assertions: true
+        parameters_in_camelcaps: true
+        parameter_doc_comments: true
+        param_doc_comment_if_not_inferrable: true
+        optional_parameters_at_the_end: true
+        no_long_variable_names:
+            maximum: '20'
+        no_goto: true
+        newline_at_end_of_file: true
+        more_specific_types_in_doc_comments: true
+        function_in_camel_caps: true
+        fix_use_statements:
+            remove_unused: true
+            preserve_multiple: true
+            preserve_blanklines: true
+            order_alphabetically: true
+        fix_line_ending: true
+        encourage_postdec_operator: true
+        classes_in_camel_caps: true
+        avoid_unnecessary_concatenation: true
+        avoid_todo_comments: true
+        avoid_perl_style_comments: true
+        align_assignments: true
+
+coding_style:
+    php: {  }
+
 tools:
-    external_code_coverage:
-        timeout: 600
     php_code_sniffer:
         config:
-            standard: PSR2
-            sniffs: { psr1: { classes: { class_declaration_sniff: true } }, generic: { code_analysis: { unused_function_parameter_sniff: true, unconditional_if_statement_sniff: true, for_loop_should_be_while_loop_sniff: true }, php: { disallow_short_open_tag_sniff: true, sapi_usage_sniff: true }, metrics: { cyclomatic_complexity_sniff: true, nesting_level_sniff: true } }, squiz: { operators: { comparison_operator_usage_sniff: true } } }
-    php_analyzer:
-        enabled: true
-        extensions:
-            - php
-        filter:
-            excluded_paths:
-                - 'vendor/*'
-                - 'tests/*'
-            paths: {  }
-    php_cpd:
-        excluded_dirs:
-            - vendor
-            - tests
-        enabled: true
-        command: phpcpd
-        names:
-            - '*.php'
-        min_lines: 5
-        min_tokens: 70
-        filter:
-            excluded_paths:
-                - 'vendor/*'
-                - 'tests/*'
-    php_pdepend:
-        excluded_dirs:
-            - vendor
-            - tests
-        enabled: true
-        command: pdepend
-        configuration_file: null
-        suffixes:
-            - php
-changetracking:
-    bug_patterns:
-        - '\bfix(?:es|ed)?\b'
-    feature_patterns:
-        - '\badd(?:s|ed)?\b'
-        - '\bimplement(?:s|ed)?\b'
+            standard: "PSR2"
+    external_code_coverage:
+        timeout: 600
