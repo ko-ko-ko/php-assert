@@ -1,7 +1,10 @@
+filter:
+    paths: [src/*]
+
 checks:
     php:
         code_rating: true
-        duplication: true
+        duplication: false
         fix_php_opening_tag: true
         remove_php_closing_tag: true
         one_class_per_file: true
@@ -50,7 +53,7 @@ checks:
         avoid_unnecessary_concatenation: true
         avoid_todo_comments: true
         avoid_perl_style_comments: true
-        align_assignments: true
+        align_assignments: false
 
 coding_style:
     php: {  }
