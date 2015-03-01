@@ -2,4 +2,7 @@
 test:
 	php ./vendor/bin/codecept run --coverage-xml --quiet
 
-.PHONY: test
+benchmark:
+	php ./.test.php benchmark
+
+.PHONY: test benchmark

@@ -1,2 +1,6 @@
 <?php
-// Here you can initialize variables that will be available to your tests
+/**
+ * @link      https://github.com/index0h/php-validator
+ * @copyright Copyright (c) 2015 Roman Levishchenko <index.0h@gmail.com>
+ * @license   https://raw.github.com/index0h/php-validator/master/LICENSE
+ */

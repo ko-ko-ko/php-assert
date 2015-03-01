@@ -13,7 +13,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "index0h\\log\\": "src"
+            "index0h\\validator\\": "src",
+            "index0h\\validator\\tests\\": "tests"
         }
     }
 }

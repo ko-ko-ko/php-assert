@@ -27,3 +27,9 @@ or add line to require section of `composer.json`
 ```sh
 make test
 ```
+
+#### Run benchmark from console
+
+```sh
+make benchmark
+```

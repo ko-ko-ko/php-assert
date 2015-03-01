@@ -55,11 +55,11 @@ class Variable
     public static function assert($value, $name, $exceptionClass = self::EXCEPTION_CLASS)
     {
         if (!is_string($name)) {
-            throw new \InvalidArgumentException('$name must be string');
+            throw new \InvalidArgumentException('Param $name must be string');
         }
 
         if (!is_subclass_of($exceptionClass, '\Exception')) {
-            throw new \InvalidArgumentException('$exceptionClass must be subclass of \Exception');
+            throw new \InvalidArgumentException('Param $exceptionClass must be subclass of \Exception');
         }
 
         $validator = new self;
@@ -80,11 +80,11 @@ class Variable
     public static function validate($value, $name, $skipOnError = true)
     {
         if (!is_string($name)) {
-            throw new \InvalidArgumentException('$name must be string');
+            throw new \InvalidArgumentException('Param $name must be string');
         }
 
         if (!is_bool($skipOnError)) {
-            throw new \InvalidArgumentException('$skipOnError must be bool');
+            throw new \InvalidArgumentException('Param $skipOnError must be bool');
         }
 
         $validator = new self;
@@ -165,6 +165,70 @@ class Variable
     /**
      * @return $this|Variable
      */
+    public function isDigit()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (ctype_digit($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function isEmail()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (filter_var($this->value, FILTER_VALIDATE_EMAIL)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function isEmpty()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (empty($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function isGraph()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (ctype_graph($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
     public function isInt()
     {
         if (!empty($this->errors) && $this->skipOnErrors) {
@@ -176,6 +240,42 @@ class Variable
         }
 
         return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function isJson()
+    {
+        $this->isString()->notEmpty();
+
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if ((bool)json_decode($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function isMacAddress()
+    {
+        $this->isString()->notEmpty();
+
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (preg_match('/^(([0-9a-fA-F]{2}-){5}|([0-9a-fA-F]{2}:){5})[0-9a-fA-F]{2}$/', $this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
     }
 
     /**
@@ -229,6 +329,22 @@ class Variable
     /**
      * @return $this|Variable
      */
+    public function isString()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (is_string($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
     public function notArray()
     {
         if (!empty($this->errors) && $this->skipOnErrors) {
@@ -259,6 +375,70 @@ class Variable
     }
 
     /**
+     * @return $this|Variable
+     */
+    public function notDigit()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (!ctype_digit($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function notEmail()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (!filter_var($this->value, FILTER_VALIDATE_EMAIL)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function notEmpty()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (empty($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function notGraph()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (!ctype_graph($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
      * @param array $range
      *
      * @return $this|Variable
@@ -286,6 +466,42 @@ class Variable
         }
 
         if (!is_int($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function notJson()
+    {
+        $this->isString()->notEmpty();
+
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (!((bool)json_decode($this->value))) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function notMacAddress()
+    {
+        $this->isString()->notEmpty();
+
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (!preg_match('/^(([0-9a-fA-F]{2}-){5}|([0-9a-fA-F]{2}:){5})[0-9a-fA-F]{2}$/', $this->value)) {
             return $this;
         }
 
@@ -338,6 +554,22 @@ class Variable
         }
 
         return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'resource']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function notString()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (!is_string($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
     }
 
     /**
