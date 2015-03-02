@@ -1,5 +1,6 @@
 <?php
-use Codeception\Util\Stub;
+use AspectMock\Test as test;
+use index0h\validator\Variable;
 
 /**
  * @link      https://github.com/index0h/php-validator
@@ -8,228 +9,413 @@ use Codeception\Util\Stub;
  */
 class VariableCest
 {
+    /** @var array */
+    private static $fixtures;
 
-    private $fixtures;
-
-    public function testIsArray(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function isArray(\UnitTester $I)
     {
-        $this->check($I, 'isArray', 'isArray');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testIsBool(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function isBool(\UnitTester $I)
     {
-        $this->check($I, 'notBool', 'isBool');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testIsDigit(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function isDigit(\UnitTester $I)
     {
-        $this->check($I, 'isDigit', 'isDigit');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testIsEmail(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function isEmail(\UnitTester $I)
     {
-        $this->check($I, 'isEmail', 'isEmail');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testIsEmpty(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function isEmpty(\UnitTester $I)
     {
-        $this->check($I, 'isEmpty', 'isEmpty');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testIsGraph(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function isGraph(\UnitTester $I)
     {
-        $this->check($I, 'isGraph', 'isGraph');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testIsInt(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function isInt(\UnitTester $I)
     {
-        $this->check($I, 'isInt', 'isInt');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testIsMacAddress(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function isMacAddress(\UnitTester $I)
     {
-        $this->check($I, 'isMacAddress', 'isMacAddress');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testIsObject(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function isObject(\UnitTester $I)
     {
-        $this->check($I, 'isObject', 'isObject');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testIsResource(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function isResource(\UnitTester $I)
     {
-        $this->check($I, 'isResource', 'isResource');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testIsString(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function isString(\UnitTester $I)
     {
-        $this->check($I, 'isString', 'isString');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testNotArray(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function notArray(\UnitTester $I)
     {
-        $this->check($I, 'notArray', 'isArray');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testNotBool(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function notBool(\UnitTester $I)
     {
-        $this->check($I, 'notBool', 'isBool');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testNotDigit(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function notDigit(\UnitTester $I)
     {
-        $this->check($I, 'notDigit', 'isDigit');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testNotEmail(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function notEmail(\UnitTester $I)
     {
-        $this->check($I, 'notEmail', 'isEmail');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testNotEmpty(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function notEmpty(\UnitTester $I)
     {
-        $this->check($I, 'notEmpty', 'isEmpty');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testNotGraph(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function notGraph(\UnitTester $I)
     {
-        $this->check($I, 'notGraph', 'isGraph');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testNotInt(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function notInt(\UnitTester $I)
     {
-        $this->check($I, 'notInt', 'isInt');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testNotMacAddress(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function notMacAddress(\UnitTester $I)
     {
-        $this->check($I, 'notMacAddress', 'isMacAddress');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testNotObject(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function notObject(\UnitTester $I)
     {
-        $this->check($I, 'notObject', 'isObject');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testNotResource(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function notResource(\UnitTester $I)
     {
-        $this->check($I, 'notResource', 'isResource');
+        $this->check($I, __FUNCTION__);
     }
 
-    public function testNotString(\UnitTester $I)
+    /**
+     * @param UnitTester $I
+     */
+    public function notString(\UnitTester $I)
     {
-        $this->check($I, 'notString', 'isString');
+        $this->check($I, __FUNCTION__);
     }
 
-    private function check(\UnitTester $I, $methodName, $okTagName)
+    /**
+     * @param UnitTester $I
+     * @param string     $methodName
+     */
+    private function check(\UnitTester $I, $methodName)
     {
-        $okIsPresented = true;
-        if ($methodName !== $okTagName) {
-            $okIsPresented = false;
-        }
+        $I->wantToTest($methodName);
+        $fixtures = $this->getFixturesForMethod($methodName);
 
-        $okFixtures = $this->getFixturesByTagName($okTagName, $okIsPresented);
-        $errorFixtures = $this->getFixturesByTagName($okTagName, !$okIsPresented);
-
-        $this->checkOk($I, $methodName, $okFixtures);
-        $this->checkError($I, $methodName, $errorFixtures);
-    }
-
-    private function checkError(\UnitTester $I, $methodName, $fixtures)
-    {
         foreach ($fixtures as $fixture) {
-            $I->amGoingTo('check error with: ' . $fixture['comment']);
-            $stub = $this->makeValidationStubNegative($fixture['value']);
-            $stub->$methodName();
-            $stub->__phpunit_getInvocationMocker()->verify();
+            $I->amGoingTo('check with fixture: ' . $fixture['comment']);
+
+            $validator = Variable::validate($fixture['value'], 'var', false);
+
+            $aspect = test::double($validator);
+
+            $validator->{$methodName}();
+
+            $aspect->verifyInvokedMultipleTimes('processError', $fixture['errors']);
+
+            test::clean();
         }
     }
 
-    private function checkOk(\UnitTester $I, $methodName, $fixtures)
-    {
-        foreach ($fixtures as $fixture) {
-            $I->amGoingTo('check ok with: ' . $fixture['comment']);
-            $this->makeValidationStubPositive($fixture['value'])->$methodName();
-        }
-    }
-
+    /**
+     * @return array
+     */
     private function getFixtures()
     {
-        if (!is_null($this->fixtures)) {
-            return $this->fixtures;
+        if (!is_null(self::$fixtures)) {
+            return self::$fixtures;
         }
 
-        $this->fixtures = [
-            ['comment' => '[]', 'value' => [], 'ok' => ['isArray', 'isEmpty'], 'skip' => ['isMacAddress']],
+        self::$fixtures = [
+            [
+                'comment' => '[]',
+                'value' => [],
+                'errors' => [
+                    'isArray' => 0,
+                    'isEmpty' => 0,
+                    'isMacAddress' => 2,
+                    'notArray' => 1,
+                    'notMacAddress' => 2,
+                    'notEmpty' => 1
+                ]
+            ],
             [
                 'comment' => 'ArrayIterator',
                 'value' => new \ArrayIterator,
-                'ok' => ['isArray', 'isObject'],
-                'skip' => ['notEmpty', 'isEmpty', 'notMacAddress', 'isMacAddress']
+                'errors' => [
+                    'isArray' => 0,
+                    'isObject' => 0,
+                    'notArray' => 1,
+                    'notObject' => 1,
+                    'notMacAddress' => 1
+                ]
             ],
             [
                 'comment' => 'SplMinHeap',
                 'value' => new \SplMinHeap,
-                'ok' => ['isObject'],
-                'skip' => ['notEmpty', 'isEmpty']
+                'errors' => [
+                    'isObject' => 0,
+                    'notObject' => 1,
+                    'notMacAddress' => 1
+                ]
             ],
-            ['comment' => 'true', 'value' => true, 'ok' => ['isBool']],
-            ['comment' => '10', 'value' => 10, 'ok' => ['isInt', 'isNumeric']],
-            ['comment' => '"10"', 'value' => '10', 'ok' => ['isNumeric', 'isString', 'isDigit', 'isGraph']],
-            ['comment' => '"10.25"', 'value' => '10.25', 'ok' => ['isNumeric', 'isString', 'isGraph']],
-            ['comment' => 'tmpfile()', 'value' => tmpfile(), 'ok' => ['isResource']],
-            ['comment' => '"some_string"', 'value' => 'some_string', 'ok' => ['isString', 'isGraph']],
+            [
+                'comment' => 'true',
+                'value' => true,
+                'errors' => [
+                    'isBool' => 0,
+                    'notBool' => 1,
+                    'notMacAddress' => 1
+                ]
+            ],
+            [
+                'comment' => '10',
+                'value' => 10,
+                'errors' => [
+                    'isInt' => 0,
+                    'isNumeric' => 0,
+                    'notInt' => 1,
+                    'notMacAddress' => 1
+                ]
+            ],
+            [
+                'comment' => '"10"',
+                'value' => '10',
+                'errors' => [
+                    'isNumeric' => 0,
+                    'isDigit' => 0,
+                    'isGraph' => 0,
+                    'isString' => 0,
+                    'notDigit' => 1,
+                    'notString' => 1,
+                    'notGraph' => 1
+                ]
+            ],
+            [
+                'comment' => '"10.25"',
+                'value' => '10.25',
+                'errors' => [
+                    'isNumeric' => 0,
+                    'isString' => 0,
+                    'isGraph' => 0,
+                    'notString' => 1,
+                    'notGraph' => 1
+                ]
+            ],
+            [
+                'comment' => 'tmpfile()',
+                'value' => tmpfile(),
+                'errors' => [
+                    'isResource' => 0,
+                    'notResource' => 1,
+                    'notMacAddress' => 1
+                ]
+            ],
+            [
+                'comment' => '"some_string"',
+                'value' => 'some_string',
+                'errors' => [
+                    'isString' => 0,
+                    'isGraph' => 0,
+                    'notString' => 1,
+                    'notGraph' => 1
+                ]
+            ],
             [
                 'comment' => '"email@example.com"',
                 'value' => 'email@example.com',
-                'ok' => ['isEmail', 'isString', 'isGraph']
+                'errors' => [
+                    'isEmail' => 0,
+                    'isString' => 0,
+                    'isGraph' => 0,
+                    'notString' => 1,
+                    'notGraph' => 1,
+                    'notEmail' => 1
+                ]
             ],
-            ['comment' => '"a\t\r\n"', 'value' => "a\t\r\n", 'ok' => ['isString']],
-            ['comment' => '"{"a": "b"}"', 'value' => '{"a": "b"}', 'ok' => ['isString', 'isJson']],
-            ['comment' => '"{"a":"b"}"', 'value' => '{"a":"b"}', 'ok' => ['isString', 'isJson', 'isGraph']],
-            ['comment' => '0', 'value' => 0, 'ok' => ['isInt', 'isNumeric', 'isEmpty']],
             [
-                'comment' => '"aa-AA-bb-CC-dd-00"',
-                'value' => 'aa-AA-bb-CC-dd-00',
-                'ok' => ['isString', 'isMacAddress', 'isGraph']
+                'comment' => '"a\t\r\n"',
+                'value' => "a\t\r\n",
+                'errors' => [
+                    'isString' => 0,
+                    'notString' => 1
+                ]
+            ],
+            [
+                'comment' => '"{"a": "b"}"',
+                'value' => '{"a": "b"}',
+                'errors' => [
+                    'isJson' => 0,
+                    'isString' => 0,
+                    'notString' => 1
+                ]
+            ],
+            [
+                'comment' => '"{"a":"b"}"',
+                'value' => '{"a":"b"}',
+                'errors' => [
+                    'isJson' => 0,
+                    'isString' => 0,
+                    'isGraph' => 0,
+                    'notString' => 1,
+                    'notGraph' => 1
+                ]
+            ],
+            [
+                'comment' => '0',
+                'value' => 0,
+                'errors' => [
+                    'isInt' => 0,
+                    'isNumeric' => 0,
+                    'isEmpty' => 0,
+                    'isMacAddress' => 2,
+                    'notMacAddress' => 2,
+                    'notInt' => 1,
+                    'notEmpty' => 1
+                ]
+            ],
+            [
+                'comment' => '""',
+                'value' => '',
+                'errors' => [
+                    'isEmpty' => 0,
+                    'isString' => 0,
+                    'isMacAddress' => 1,
+                    'notMacAddress' => 1,
+                    'notEmpty' => 1,
+                    'notString' => 1
+                ]
+            ],
+            [
+                'comment' => '"01:02:03:a1:a2:a3"',
+                'value' => '01:02:03:a1:a2:a3',
+                'errors' => [
+                    'isString' => 0,
+                    'isMacAddress' => 0,
+                    'isGraph' => 0,
+                    'notMacAddress' => 1,
+                    'notString' => 1,
+                    'notGraph' => 1
+                ]
             ],
         ];
 
-        return $this->fixtures;
+        return self::$fixtures;
     }
 
-    private function getFixturesByTagName($tagName, $isPresented)
+    /**
+     * @param string $methodName
+     *
+     * @return array
+     */
+    private function getFixturesForMethod($methodName)
     {
         $result = [];
         foreach ($this->getFixtures() as $fixture) {
-            if (isset($fixture['skip']) && in_array($tagName, $fixture['skip'])) {
-                continue;
+            if (!isset($fixture['errors'][$methodName])) {
+                $fixture['errors'] = (strpos($methodName, 'not') === 0)? 0 : 1;
+            } else {
+                $fixture['errors'] = $fixture['errors'][$methodName];
             }
 
-            $isFixturePositive = in_array($tagName, $fixture['ok']);
-
-            if (($isFixturePositive && $isPresented) || (!$isFixturePositive && !$isPresented)) {
-                $result[] = $fixture;
-            }
+            $result[] = $fixture;
         }
 
         return $result;
-    }
-
-    private function makeValidationStubNegative($value)
-    {
-        return Stub::make(
-            'index0h\validator\Variable',
-            ['processError' => Stub::once(), 'throwError' => false, 'skipOnErrors' => true, 'value' => $value],
-            $this
-        );
-    }
-
-    private function makeValidationStubPositive($value)
-    {
-        return Stub::make(
-            'index0h\validator\Variable',
-            ['processError' => Stub::never(), 'throwError' => false, 'skipOnErrors' => true, 'value' => $value]
-        );
     }
 }

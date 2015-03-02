@@ -97,6 +97,16 @@ class Variable
     }
 
     /**
+     * @return $this
+     */
+    public function clearErrors()
+    {
+        $this->errors = [];
+
+        return $this;
+    }
+
+    /**
      * @return string[]
      */
     public function getErrors()
@@ -249,7 +259,7 @@ class Variable
     {
         $this->isString()->notEmpty();
 
-        if (!empty($this->errors) && $this->skipOnErrors) {
+        if (!empty($this->errors)) {
             return $this;
         }
 
@@ -265,9 +275,9 @@ class Variable
      */
     public function isMacAddress()
     {
-        $this->isString()->notEmpty();
+        $this->notEmpty()->isString();
 
-        if (!empty($this->errors) && $this->skipOnErrors) {
+        if (!empty($this->errors)) {
             return $this;
         }
 
@@ -415,7 +425,7 @@ class Variable
             return $this;
         }
 
-        if (empty($this->value)) {
+        if (!empty($this->value)) {
             return $this;
         }
 
@@ -497,7 +507,7 @@ class Variable
     {
         $this->isString()->notEmpty();
 
-        if (!empty($this->errors) && $this->skipOnErrors) {
+        if (!empty($this->errors)) {
             return $this;
         }
 
@@ -570,6 +580,54 @@ class Variable
         }
 
         return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * @param string $exceptionClass
+     *
+     * @return $this
+     */
+    public function setExceptionClass($exceptionClass = self::EXCEPTION_CLASS)
+    {
+        if (!is_subclass_of($exceptionClass, '\Exception')) {
+            throw new \InvalidArgumentException('Param $exceptionClass must be subclass of \Exception');
+        }
+
+        $this->exceptionClass = $exceptionClass;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $skipOnErrors
+     *
+     * @return $this
+     */
+    public function setSkipOnErrors($skipOnErrors)
+    {
+        if (!is_bool($skipOnErrors)) {
+            throw new \InvalidArgumentException('Param $skipOnErrors must be bool');
+        }
+
+        $this->skipOnErrors = $skipOnErrors;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $throwException
+     *
+     * @return $this
+     */
+    public function setThrowErrors($throwException)
+    {
+        if (!is_bool($throwException)) {
+            throw new \InvalidArgumentException('Param $throwException must be bool');
+        }
+
+        $this->throwException = $throwException;
+
+        return $this;
     }
 
     /**

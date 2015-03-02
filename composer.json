@@ -2,7 +2,8 @@
     "name": "index0h/validator",
     "description": "Fast flexible php validator",
     "require-dev": {
-        "codeception/codeception": "2.0.x"
+        "codeception/codeception": "2.0.x",
+        "codeception/aspect-mock": "0.5.x"
     },
     "license": "MIT",
     "authors": [
