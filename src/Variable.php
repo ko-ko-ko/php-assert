@@ -21,7 +21,7 @@ class Variable
     const EXCEPTION_VALUE_TEXT_NEGATIVE = 'Param ${{variable}} must be not {{value}}';
 
     const EXCEPTION_VALUE_IN_ARRAY_POSITIVE = '${{variable}} out of range {{value}}';
-    const EXCEPTION_VALUE_IN_ARRAY_NEGATIVE = '${{variable}} must be not {{value}}';
+    const EXCEPTION_VALUE_IN_ARRAY_NEGATIVE = '${{variable}} must be not in range {{value}}';
 
     /** @var Variable */
     private static $validator;
@@ -197,7 +197,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'digit']);
     }
 
     /**
@@ -213,7 +213,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'email']);
     }
 
     /**
@@ -229,7 +229,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'empty']);
     }
 
     /**
@@ -245,7 +245,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'graph']);
     }
 
     /**
@@ -279,7 +279,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'json']);
     }
 
     /**
@@ -297,7 +297,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'MAC Address']);
     }
 
     /**
@@ -361,7 +361,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'string']);
     }
 
     /**
@@ -409,7 +409,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'digit']);
     }
 
     /**
@@ -425,7 +425,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'email']);
     }
 
     /**
@@ -441,7 +441,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'empty']);
     }
 
     /**
@@ -457,7 +457,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'graph']);
     }
 
     /**
@@ -501,7 +501,7 @@ class Variable
     {
         $this->isString()->notEmpty();
 
-        if (!empty($this->errors) && $this->skipOnErrors) {
+        if (!empty($this->errors)) {
             return $this;
         }
 
@@ -509,7 +509,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'json']);
     }
 
     /**
@@ -527,7 +527,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'MAC Address']);
     }
 
     /**

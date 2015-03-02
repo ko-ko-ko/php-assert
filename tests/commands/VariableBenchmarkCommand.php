@@ -21,19 +21,25 @@ class VariableBenchmarkCommand extends Command
     const COUNT_TEST = 100000;
 
     /** @var array */
-    private $totalNative = ['time' => 0, 'memory' => 0];
-    /** @var array */
-    private $totalWithObjectCreation = ['time' => 0, 'memory' => 0];
-    /** @var array */
-    private $totalWithoutObjectCreation = ['time' => 0, 'memory' => 0];
-    /** @var array */
     private $fixtures;
+
     /** @var int */
     private $memory = 0;
+
     /** @var TableHelper */
     private $resultTable;
+
     /** @var float */
     private $time = 0;
+
+    /** @var array */
+    private $totalNative = ['time' => 0, 'memory' => 0];
+
+    /** @var array */
+    private $totalWithObjectCreation = ['time' => 0, 'memory' => 0];
+
+    /** @var array */
+    private $totalWithoutObjectCreation = ['time' => 0, 'memory' => 0];
 
     /**
      * @param array $var
@@ -82,6 +88,182 @@ class VariableBenchmarkCommand extends Command
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (!ctype_digit($var)) {
                 throw new \InvalidArgumentException('var must be digit');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function isEmail($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!filter_var($var, FILTER_VALIDATE_EMAIL)) {
+                throw new \InvalidArgumentException('var must be email');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param array $var
+     *
+     * @return array
+     */
+    public function isEmpty($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!empty($var)) {
+                throw new \InvalidArgumentException('var must be empty');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function isGraph($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!ctype_graph($var)) {
+                throw new \InvalidArgumentException('var must be graph');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param int $var
+     *
+     * @return array
+     */
+    public function isInt($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_int($var)) {
+                throw new \InvalidArgumentException('var must be int');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function isJson($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_string($var)) {
+                throw new \InvalidArgumentException('var must be string');
+            }
+
+            if (empty($var)) {
+                throw new \InvalidArgumentException('var must be not empty');
+            }
+
+            if (!(bool)json_decode($var)) {
+                throw new \InvalidArgumentException('var must be json');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function isMacAddress($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_string($var)) {
+                throw new \InvalidArgumentException('var must be string');
+            }
+
+            if (empty($var)) {
+                throw new \InvalidArgumentException('var must be not empty');
+            }
+
+            if (!preg_match('/^(([0-9a-fA-F]{2}-){5}|([0-9a-fA-F]{2}:){5})[0-9a-fA-F]{2}$/', $var)) {
+                throw new \InvalidArgumentException('var must be MAC address');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function isNumeric($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param object $var
+     *
+     * @return array
+     */
+    public function isObject($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_object($var)) {
+                throw new \InvalidArgumentException('var must be object');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param resource $var
+     *
+     * @return array
+     */
+    public function isResource($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_resource($var)) {
+                throw new \InvalidArgumentException('var must be resource');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function isString($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_string($var)) {
+                throw new \InvalidArgumentException('var must be string');
             }
         }
         return $this->stop();
@@ -143,12 +325,28 @@ class VariableBenchmarkCommand extends Command
      *
      * @return array
      */
-    public function isGraph($var)
+    public function notEmail($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!ctype_graph($var)) {
-                throw new \InvalidArgumentException('var must be graph');
+            if (filter_var($var, FILTER_VALIDATE_EMAIL)) {
+                throw new \InvalidArgumentException('var must be not email');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function notEmpty($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (empty($var)) {
+                throw new \InvalidArgumentException('var must be not empty');
             }
         }
         return $this->stop();
@@ -170,10 +368,147 @@ class VariableBenchmarkCommand extends Command
         return $this->stop();
     }
 
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function notInt($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (is_int($var)) {
+                throw new \InvalidArgumentException('var must be not int');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function notJson($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_string($var)) {
+                throw new \InvalidArgumentException('var must be string');
+            }
+
+            if (empty($var)) {
+                throw new \InvalidArgumentException('var must be not empty');
+            }
+
+            if ((bool)json_decode($var)) {
+                throw new \InvalidArgumentException('var must be not json');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function notMacAddress($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_string($var)) {
+                throw new \InvalidArgumentException('var must be string');
+            }
+
+            if (empty($var)) {
+                throw new \InvalidArgumentException('var must be not empty');
+            }
+
+            if (preg_match('/^(([0-9a-fA-F]{2}-){5}|([0-9a-fA-F]{2}:){5})[0-9a-fA-F]{2}$/', $var)) {
+                throw new \InvalidArgumentException('var must be not MAC address');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function notNumeric($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be not numeric');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function notObject($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (is_object($var)) {
+                throw new \InvalidArgumentException('var must be not object');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function notResource($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (is_resource($var)) {
+                throw new \InvalidArgumentException('var must be not resource');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param array $var
+     *
+     * @return array
+     */
+    public function notString($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $type
+     * @param array  $results
+     */
+    protected function addTotal($type, $results)
+    {
+        $this->{$type}['time'] += $results['time'];
+        $this->{$type}['memory'] += $results['memory'];
+    }
+
     protected function configure()
     {
-        $this
-            ->setName('benchmark')
+        $this->setName('benchmark')
             ->setDescription('Benchmark of Variable validator');
     }
 
@@ -196,7 +531,7 @@ class VariableBenchmarkCommand extends Command
                 [
                     'Test x' . self::COUNT_TEST,
                     'Type',
-                    'Time, µs',
+                    'Time, ms',
                     'Time rate, curr/min',
                     'Memory, byte',
                     'Memory rate, curr/min'
@@ -256,31 +591,11 @@ class VariableBenchmarkCommand extends Command
     }
 
     /**
-     * @param string $type
-     * @param array $results
-     */
-    protected function addTotal($type, $results)
-    {
-        $this->{$type}['time'] += $results['time'];
-        $this->{$type}['memory'] += $results['memory'];
-    }
-
-    protected function processTotal()
-    {
-        $minTime = min($this->totalNative['time'], $this->totalWithObjectCreation['time'], $this->totalWithoutObjectCreation['time']);
-        $minMemory = min($this->totalNative['memory'], $this->totalWithObjectCreation['memory'], $this->totalWithoutObjectCreation['memory']);
-
-        $this->processRow('TOTAL', 'native', $this->totalNative, $minTime, $minMemory);
-        $this->processRow('TOTAL', 'validator (light)', $this->totalWithoutObjectCreation, $minTime, $minMemory);
-        $this->processRow('TOTAL', 'validator', $this->totalWithObjectCreation, $minTime, $minMemory);
-    }
-
-    /**
      * @param string $methodName
      * @param string $type
-     * @param array $result
-     * @param float $minTime
-     * @param int $minMemory
+     * @param array  $result
+     * @param float  $minTime
+     * @param int    $minMemory
      */
     protected function processRow($methodName, $type, $result, $minTime, $minMemory)
     {
@@ -288,7 +603,7 @@ class VariableBenchmarkCommand extends Command
             [
                 $methodName,
                 $type,
-                round($result['time'] * 1000000, 1),
+                round($result['time'] * 1000),
                 'x' . round($result['time'] / $minTime, 2),
                 $result['memory'],
                 'x' . round($result['memory'] / $minMemory, 2)
@@ -298,7 +613,7 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $methodName
-     * @param mixed $fixture
+     * @param mixed  $fixture
      *
      * @return array
      */
@@ -313,7 +628,7 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $methodName
-     * @param mixed $fixture
+     * @param mixed  $fixture
      *
      * @return array
      */
@@ -326,6 +641,24 @@ class VariableBenchmarkCommand extends Command
             $validator->{$methodName}();
         }
         return $this->stop();
+    }
+
+    protected function processTotal()
+    {
+        $minTime = min(
+            $this->totalNative['time'],
+            $this->totalWithObjectCreation['time'],
+            $this->totalWithoutObjectCreation['time']
+        );
+        $minMemory = min(
+            $this->totalNative['memory'],
+            $this->totalWithObjectCreation['memory'],
+            $this->totalWithoutObjectCreation['memory']
+        );
+
+        $this->processRow('TOTAL', 'native', $this->totalNative, $minTime, $minMemory);
+        $this->processRow('TOTAL', 'validator (light)', $this->totalWithoutObjectCreation, $minTime, $minMemory);
+        $this->processRow('TOTAL', 'validator', $this->totalWithObjectCreation, $minTime, $minMemory);
     }
 
     protected function start()
@@ -358,14 +691,45 @@ class VariableBenchmarkCommand extends Command
     {
         if (is_null($this->fixtures)) {
             $this->fixtures = [
+                //
                 'isArray' => [],
                 'notArray' => false,
+                //
                 'isBool' => true,
                 'notBool' => [],
+                //
                 'isDigit' => '50',
                 'notDigit' => [],
+                //
+                'isEmail' => 'some_email@example.com',
+                'notEmail' => 'not_email',
+                //
+                'isEmpty' => [],
+                'notEmpty' => 'not_empty',
+                //
                 'isGraph' => 'a',
                 'notGraph' => "\n",
+                //
+                'isInt' => 10,
+                'notInt' => "A",
+                //
+                'isJson' => '{"a":"b"}',
+                'notJson' => "-----",
+                //
+                'isNumeric' => '123',
+                'notNumeric' => "-----",
+                //
+                'isMacAddress' => '01:02:03:a1:a2:a3',
+                'notMacAddress' => "-----",
+                //
+                'isObject' => new \StdClass,
+                'notObject' => 'A',
+                //
+                'isResource' => tmpfile(),
+                'notResource' => 'A',
+                //
+                'isString' => 'A',
+                'notString' => [],
             ];
         }
 
