@@ -225,6 +225,8 @@ class VariableBenchmarkCommand extends Command
             }
         }
 
+        sort($result);
+
         return $result;
     }
 
