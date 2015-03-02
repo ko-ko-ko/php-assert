@@ -9,6 +9,7 @@ use index0h\validator\Variable;
  */
 class VariableCest
 {
+
     /** @var array */
     private static $fixtures;
 
@@ -408,7 +409,7 @@ class VariableCest
         $result = [];
         foreach ($this->getFixtures() as $fixture) {
             if (!isset($fixture['errors'][$methodName])) {
-                $fixture['errors'] = (strpos($methodName, 'not') === 0)? 0 : 1;
+                $fixture['errors'] = (strpos($methodName, 'not') === 0) ? 0 : 1;
             } else {
                 $fixture['errors'] = $fixture['errors'][$methodName];
             }
