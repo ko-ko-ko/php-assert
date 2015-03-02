@@ -23,6 +23,9 @@ class Variable
     const EXCEPTION_VALUE_IN_ARRAY_POSITIVE = '${{variable}} out of range {{value}}';
     const EXCEPTION_VALUE_IN_ARRAY_NEGATIVE = '${{variable}} must be not {{value}}';
 
+    /** @var Variable */
+    private static $validator;
+
     /** @var string[] */
     protected $errors = [];
 
@@ -58,16 +61,21 @@ class Variable
             throw new \InvalidArgumentException('Param $name must be string');
         }
 
-        if (!is_subclass_of($exceptionClass, '\Exception')) {
+        if (($exceptionClass !== self::EXCEPTION_CLASS) && (!is_subclass_of($exceptionClass, '\Exception'))) {
             throw new \InvalidArgumentException('Param $exceptionClass must be subclass of \Exception');
         }
 
-        $validator = new self;
-        $validator->exceptionClass = $exceptionClass;
-        $validator->name = $name;
-        $validator->value = $value;
+        if (is_null(self::$validator)) {
+            self::$validator = new self;
+        }
 
-        return $validator;
+        self::$validator->exceptionClass = $exceptionClass;
+        self::$validator->name = $name;
+        self::$validator->value = $value;
+        self::$validator->errors = [];
+        self::$validator->throwException = true;
+
+        return self::$validator;
     }
 
     /**
@@ -87,13 +95,17 @@ class Variable
             throw new \InvalidArgumentException('Param $skipOnError must be bool');
         }
 
-        $validator = new self;
-        $validator->skipOnErrors = $skipOnError;
-        $validator->name = $name;
-        $validator->value = $value;
-        $validator->throwException = false;
+        if (is_null(self::$validator)) {
+            self::$validator = new self;
+        }
 
-        return $validator;
+        self::$validator->skipOnErrors = $skipOnError;
+        self::$validator->name = $name;
+        self::$validator->value = $value;
+        self::$validator->errors = [];
+        self::$validator->throwException = false;
+
+        return self::$validator;
     }
 
     /**
