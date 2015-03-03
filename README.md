@@ -59,60 +59,60 @@ if (!ctype_graph($var)) {
 
 #### Available validators
 
- * `isArray`
- * `notArray`
+ * `isArray()`
+ * `notArray()`
 
 -- --
- * `isBool`
- * `notBool`
+ * `isBool()`
+ * `notBool()`
 
 -- --
- * `isDigit`
- * `notDigit`
+ * `isDigit()`
+ * `notDigit()`
 
 -- --
- * `isEmail`
- * `notEmail`
+ * `isEmail()`
+ * `notEmail()`
 
 -- --
- * `isEmpty`
- * `notEmpty`
+ * `isEmpty()`
+ * `notEmpty()`
 
 -- --
- * `isGraph`
- * `notGraph`
+ * `isGraph()`
+ * `notGraph()`
 
 -- --
- * `isInt`
- * `notInt`
+ * `isInt()`
+ * `notInt()`
 
 -- --
-Both run only after `notEmpty` -> `isString`
+Both run only after internal check `notEmpty()` and `isString()`
 
- * `isJson`
- * `notJson`
-
--- --
- * `isNumeric`
- * `notNumeric`
+ * `isJson()`
+ * `notJson()`
 
 -- --
-Both run only after `notEmpty` -> `isString`
-
- * `isMacAddress`
- * `notMacAddress`
+ * `isNumeric()`
+ * `notNumeric()`
 
 -- --
- * `isObject`
- * `notObject`
+Both run only after internal check `notEmpty()` and `isString()`
+
+ * `isMacAddress()`
+ * `notMacAddress()`
 
 -- --
- * `isResource`
- * `notResource`
+ * `isObject()`
+ * `notObject()`
 
 -- --
- * `isString`
- * `notString`
+ * `isResource()`
+ * `notResource()`
+
+-- --
+ * `isString()`
+ * `notString()`
 
 
 ## Testing
