@@ -3,6 +3,13 @@ php-validator
 
 [![Build Status](https://travis-ci.org/index0h/php-validator.svg)](https://travis-ci.org/index0h/php-validator) [![Dependency Status](https://gemnasium.com/index0h/php-validator.svg)](https://gemnasium.com/index0h/php-validator) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/index0h/php-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/index0h/php-validator/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/index0h/php-validator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/index0h/php-validator/?branch=master)
 
+## Yet another validator, WHY??
+
+One answer is **SPEED**
+
+There many other cool validators, but for their user-friendly you must pay by time & memory of execution.
+This validator give very simple API and it's fast. You can see benchmark results at bottom of [build logs](https://travis-ci.org/index0h/php-validator).
+
 ## Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
@@ -39,7 +46,7 @@ if (!ctype_graph($var)) {
 }
 ```
 
-#### There are two ways of using `vlidator\Variable`:
+#### There are two ways of using `index0h\vlidator\Variable`:
 
 * `v::assert` - It'll throw exception on first validation fail
     - mixed `$value` - checking variable
