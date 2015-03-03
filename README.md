@@ -46,7 +46,7 @@ if (!ctype_graph($var)) {
 }
 ```
 
-#### There are two ways of using `index0h\vlidator\Variable`:
+#### There are two ways of using `index0h\validator\Variable`:
 
 * `v::assert` - It'll throw exception on first validation fail
     - mixed `$value` - checking variable
