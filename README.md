@@ -29,7 +29,7 @@ or add line to require section of `composer.json`
 ```php
 use index0h\validator\Variable as v;
 
-v::assert($var, 'var')->notEmpty()->isString()->notGraph();
+v::assert($var, 'var')->notEmpty()->isString()->isGraph();
 
 // It's the same as
 
