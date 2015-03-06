@@ -119,7 +119,7 @@ class Variable
      */
     public function hasErrors()
     {
-        return empty($this->errors);
+        return !empty($this->errors);
     }
 
     /**
