@@ -133,7 +133,7 @@ class Variable
             return $this;
         }
 
-        if (in_array($this->value, $range)) {
+        if (in_array($this->value, $range, true)) {
             return $this;
         }
 
@@ -170,6 +170,22 @@ class Variable
         }
 
         return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'bool']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function isCallable()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (is_callable($this->value, false)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'callable']);
     }
 
     /**
@@ -223,6 +239,22 @@ class Variable
     /**
      * @return $this|Variable
      */
+    public function isFloat()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (is_float($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'float']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
     public function isGraph()
     {
         if (!empty($this->errors) && $this->skipOnErrors) {
@@ -257,7 +289,7 @@ class Variable
      */
     public function isJson()
     {
-        $this->isString()->notEmpty();
+        $this->notEmpty()->isString();
 
         if (!empty($this->errors)) {
             return $this;
@@ -387,6 +419,22 @@ class Variable
     /**
      * @return $this|Variable
      */
+    public function notCallable()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (!is_callable($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'callable']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
     public function notDigit()
     {
         if (!empty($this->errors) && $this->skipOnErrors) {
@@ -430,6 +478,22 @@ class Variable
         }
 
         return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'empty']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function notFloat()
+    {
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (!is_float($this->value)) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'float']);
     }
 
     /**
@@ -487,7 +551,7 @@ class Variable
      */
     public function notJson()
     {
-        $this->isString()->notEmpty();
+        $this->notEmpty()->isString();
 
         if (!empty($this->errors)) {
             return $this;

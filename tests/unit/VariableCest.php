@@ -32,6 +32,14 @@ class VariableCest
     /**
      * @param UnitTester $I
      */
+    public function isCallable(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
     public function isDigit(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -49,6 +57,14 @@ class VariableCest
      * @param UnitTester $I
      */
     public function isEmpty(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
+    public function isFloat(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -128,6 +144,14 @@ class VariableCest
     /**
      * @param UnitTester $I
      */
+    public function notCallable(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
     public function notDigit(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -145,6 +169,14 @@ class VariableCest
      * @param UnitTester $I
      */
     public function notEmpty(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
+    public function notFloat(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -251,8 +283,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -297,8 +335,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -343,8 +387,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -389,8 +439,14 @@ class VariableCest
                     'isBool' => 0,
                     'notBool' => 1,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -435,8 +491,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -481,8 +543,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 0,
                     'notDigit' => 1,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -527,8 +595,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -573,8 +647,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -619,8 +699,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -665,8 +751,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 0,
                     'notEmail' => 1,
@@ -711,8 +803,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -757,8 +855,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -803,8 +907,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -849,8 +959,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -895,8 +1011,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -941,8 +1063,14 @@ class VariableCest
                     'isBool' => 1,
                     'notBool' => 0,
                     //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
                     'isDigit' => 1,
                     'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
@@ -973,6 +1101,111 @@ class VariableCest
                     //
                     'isString' => 0,
                     'notString' => 1,
+                ]
+            ],
+// 15.25
+            [
+                'comment' => '15.25',
+                'value' => 15.25,
+                'errors' => [
+                    //
+                    'isArray' => 1,
+                    'notArray' => 0,
+                    //
+                    'isBool' => 1,
+                    'notBool' => 0,
+                    //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
+                    'isDigit' => 1,
+                    'notDigit' => 0,
+                    //
+                    'isFloat' => 0,
+                    'notFloat' => 1,
+                    //
+                    'isEmail' => 1,
+                    'notEmail' => 0,
+                    //
+                    'isEmpty' => 1,
+                    'notEmpty' => 0,
+                    //
+                    'isGraph' => 1,
+                    'notGraph' => 0,
+                    //
+                    'isInt' => 1,
+                    'notInt' => 0,
+                    //
+                    'isJson' => 1,
+                    'notJson' => 1,
+                    //
+                    'isNumeric' => 1,
+                    'notNumeric' => 0,
+                    //
+                    'isMacAddress' => 1,
+                    'notMacAddress' => 1,
+                    //
+                    'isObject' => 1,
+                    'notObject' => 0,
+                    //
+                    'isResource' => 1,
+                    'notResource' => 0,
+                    //
+                    'isString' => 1,
+                    'notString' => 0,
+                ]
+            ],
+// function () {}
+            [
+                'comment' => 'function () {}',
+                'value' => function () {
+                },
+                'errors' => [
+                    //
+                    'isArray' => 1,
+                    'notArray' => 0,
+                    //
+                    'isBool' => 1,
+                    'notBool' => 0,
+                    //
+                    'isCallable' => 0,
+                    'notCallable' => 1,
+                    //
+                    'isDigit' => 1,
+                    'notDigit' => 0,
+                    //
+                    'isFloat' => 1,
+                    'notFloat' => 0,
+                    //
+                    'isEmail' => 1,
+                    'notEmail' => 0,
+                    //
+                    'isEmpty' => 1,
+                    'notEmpty' => 0,
+                    //
+                    'isGraph' => 1,
+                    'notGraph' => 0,
+                    //
+                    'isInt' => 1,
+                    'notInt' => 0,
+                    //
+                    'isJson' => 1,
+                    'notJson' => 1,
+                    //
+                    'isNumeric' => 1,
+                    'notNumeric' => 0,
+                    //
+                    'isMacAddress' => 1,
+                    'notMacAddress' => 1,
+                    //
+                    'isObject' => 0,
+                    'notObject' => 1,
+                    //
+                    'isResource' => 1,
+                    'notResource' => 0,
+                    //
+                    'isString' => 1,
+                    'notString' => 0,
                 ]
             ],
         ];

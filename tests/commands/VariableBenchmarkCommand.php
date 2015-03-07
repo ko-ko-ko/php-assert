@@ -78,6 +78,22 @@ class VariableBenchmarkCommand extends Command
     }
 
     /**
+     * @param callable $var
+     *
+     * @return array
+     */
+    public function isCallable($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_callable($var)) {
+                throw new \InvalidArgumentException('var must be callable');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
      * @param string $var
      *
      * @return array
@@ -120,6 +136,22 @@ class VariableBenchmarkCommand extends Command
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (!empty($var)) {
                 throw new \InvalidArgumentException('var must be empty');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param float $var
+     *
+     * @return array
+     */
+    public function isFloat($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_float($var)) {
+                throw new \InvalidArgumentException('var must be float');
             }
         }
         return $this->stop();
@@ -305,6 +337,22 @@ class VariableBenchmarkCommand extends Command
     }
 
     /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function notCallable($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (is_callable($var)) {
+                throw new \InvalidArgumentException('var must be not callable');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
      * @param array $var
      *
      * @return array
@@ -347,6 +395,22 @@ class VariableBenchmarkCommand extends Command
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (empty($var)) {
                 throw new \InvalidArgumentException('var must be not empty');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function notFloat($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (is_float($var)) {
+                throw new \InvalidArgumentException('var must be not float');
             }
         }
         return $this->stop();
@@ -698,8 +762,15 @@ class VariableBenchmarkCommand extends Command
                 'isBool' => true,
                 'notBool' => [],
                 //
+                'isCallable' => function () {
+                },
+                'notCallable' => '10',
+                //
                 'isDigit' => '50',
                 'notDigit' => [],
+                //
+                'isFloat' => 10.15,
+                'notFloat' => 'A',
                 //
                 'isEmail' => 'some_email@example.com',
                 'notEmail' => 'not_email',

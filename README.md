@@ -67,8 +67,16 @@ if (!ctype_graph($var)) {
  * `notBool()`
 
 -- --
+  * `isCallable()`
+  * `notCallable()`
+
+-- --
  * `isDigit()`
  * `notDigit()`
+
+-- --
+  * `isFloat()`
+  * `notFloat()`
 
 -- --
  * `isEmail()`
