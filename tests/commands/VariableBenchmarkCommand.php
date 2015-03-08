@@ -19,6 +19,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 class VariableBenchmarkCommand extends Command
 {
     const COUNT_TEST = 100000;
+    const TYPE_NATIVE = 'native';
+    const TYPE_VALIDATOR = 'validator';
+    const TYPE_VALIDATOR_LIGHT = 'validator_light';
+    const METRIC_TIME = 'time';
+    const METRIC_MEMORY = 'memory';
+    const TOTAL = 'TOTAL';
+
+    /** @var array */
+    private $countTests = [self::TOTAL => 0];
 
     /** @var array */
     private $fixtures;
@@ -29,17 +38,31 @@ class VariableBenchmarkCommand extends Command
     /** @var TableHelper */
     private $resultTable;
 
+    /** @var array */
+    private $results = [];
+
     /** @var float */
     private $time = 0;
 
-    /** @var array */
-    private $totalNative = ['time' => 0, 'memory' => 0];
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function inArray($var, $array)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_array($array)) {
+                throw new \InvalidArgumentException('argument must be an array');
+            }
 
-    /** @var array */
-    private $totalWithObjectCreation = ['time' => 0, 'memory' => 0];
-
-    /** @var array */
-    private $totalWithoutObjectCreation = ['time' => 0, 'memory' => 0];
+            if (!in_array($var, $array)) {
+                throw new \InvalidArgumentException('var must be in array');
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
 
     /**
      * @param array $var
@@ -58,7 +81,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be array');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -74,7 +97,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be bool');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -90,7 +113,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be callable');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -106,7 +129,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be digit');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -122,7 +145,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be email');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -138,7 +161,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be empty');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -154,7 +177,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be float');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -170,7 +193,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be graph');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -186,7 +209,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be int');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -210,7 +233,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be json');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -234,7 +257,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be MAC address');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -258,7 +281,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be negative');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -274,7 +297,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be numeric');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -290,7 +313,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be object');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -314,7 +337,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be positive');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -330,7 +353,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be resource');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -346,7 +369,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be string');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -365,7 +388,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not array');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -381,7 +404,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not bool');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -397,7 +420,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not callable');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -413,7 +436,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not digit');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -429,7 +452,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not email');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -445,7 +468,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not empty');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -461,7 +484,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not float');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -477,7 +500,27 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not graph');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function notInArray($var, $array)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_array($array)) {
+                throw new \InvalidArgumentException('argument must be an array');
+            }
+
+            if (in_array($var, $array)) {
+                throw new \InvalidArgumentException('var must be in not array');
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -493,7 +536,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not int');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -517,7 +560,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not json');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -541,7 +584,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not MAC address');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -557,7 +600,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not numeric');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -573,7 +616,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not object');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -589,7 +632,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not resource');
             }
         }
-        return $this->stop();
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
@@ -605,17 +648,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not string');
             }
         }
-        return $this->stop();
-    }
-
-    /**
-     * @param string $type
-     * @param array  $results
-     */
-    protected function addTotal($type, $results)
-    {
-        $this->{$type}['time'] += $results['time'];
-        $this->{$type}['memory'] += $results['memory'];
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     protected function configure()
@@ -635,25 +668,15 @@ class VariableBenchmarkCommand extends Command
         // Cache object
         Variable::assert('var', 'var');
 
-        $methods = $this->getValidationMethods();
-
         $this->resultTable = $this->getHelper('table');
         $this->resultTable
             ->setHeaders(
-                [
-                    'Test x' . self::COUNT_TEST,
-                    'Type',
-                    'Time, ms',
-                    'Time rate, curr/min',
-                    'Memory, byte',
-                    'Memory rate, curr/min'
-                ]
+                ['Test x{count}', 'Type', 'Time, ms', 'Time rate, curr/min', 'Memory, byte', 'Memory rate, curr/min']
             );
 
-        foreach ($methods as $method) {
-            $this->processGroup($method);
-        }
-        $this->processTotal();
+        $this->prepareResults();
+        $this->runBenchmarks($output);
+        $this->processTable();
 
         $this->resultTable->render($output);
     }
@@ -677,100 +700,144 @@ class VariableBenchmarkCommand extends Command
         return $result;
     }
 
-    /**
-     * @param string $methodName
-     */
-    protected function processGroup($methodName)
+    protected function prepareResults()
     {
-        $fixture = $this->getFixture($methodName);
+        $this->results = [];
 
-        $native = $this->{$methodName}($fixture);
-        $withoutObjectCreation = $this->processTestWithoutObjectCreation($methodName, $fixture);
-        $withObjectCreation = $this->processTestWithObjectCreation($methodName, $fixture);
-
-        $this->addTotal('totalNative', $native);
-        $this->addTotal('totalWithoutObjectCreation', $withoutObjectCreation);
-        $this->addTotal('totalWithObjectCreation', $withObjectCreation);
-
-        $minTime = min($native['time'], $withObjectCreation['time'], $withoutObjectCreation['time']);
-        $minMemory = min($native['memory'], $withObjectCreation['memory'], $withoutObjectCreation['memory']);
-
-        $this->processRow($methodName, 'native', $native, $minTime, $minMemory);
-        $this->processRow($methodName, 'validator (light)', $withoutObjectCreation, $minTime, $minMemory);
-        $this->processRow($methodName, 'validator', $withObjectCreation, $minTime, $minMemory);
-
-        $this->resultTable->addRows([new TableSeparator()]);
-    }
-
-    /**
-     * @param string $methodName
-     * @param string $type
-     * @param array  $result
-     * @param float  $minTime
-     * @param int    $minMemory
-     */
-    protected function processRow($methodName, $type, $result, $minTime, $minMemory)
-    {
-        $this->resultTable->addRow(
-            [
-                $methodName,
-                $type,
-                round($result['time'] * 1000),
-                'x' . round($result['time'] / $minTime, 2),
-                $result['memory'],
-                'x' . round($result['memory'] / $minMemory, 2)
-            ]
-        );
-    }
-
-    /**
-     * @param string $methodName
-     * @param mixed  $fixture
-     *
-     * @return array
-     */
-    protected function processTestWithObjectCreation($methodName, $fixture)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            Variable::assert($fixture, 'var')->{$methodName}();
+        $methods = $this->getValidationMethods();
+        $methods[] = self::TOTAL;
+        foreach ($methods as $methodName) {
+            foreach ([self::TYPE_NATIVE, self::TYPE_VALIDATOR, self::TYPE_VALIDATOR_LIGHT] as $type) {
+                $this->results[$methodName][$type] = [self::METRIC_TIME => 0, self::METRIC_MEMORY => 0];
+            }
         }
-        return $this->stop();
+    }
+
+    protected function processTable()
+    {
+        $this->countTests[self::TOTAL] = array_sum(array_values($this->countTests));
+
+        foreach ($this->results as $methodName => $results) {
+            $minTime = min(
+                $results[self::TYPE_NATIVE][self::METRIC_TIME],
+                $results[self::TYPE_VALIDATOR][self::METRIC_TIME],
+                $results[self::TYPE_VALIDATOR_LIGHT][self::METRIC_TIME]
+            );
+
+            $minMemory = min(
+                $results[self::TYPE_NATIVE][self::METRIC_MEMORY],
+                $results[self::TYPE_VALIDATOR][self::METRIC_MEMORY],
+                $results[self::TYPE_VALIDATOR_LIGHT][self::METRIC_MEMORY]
+            );
+
+            foreach ($results as $type => $values) {
+                $testName = $methodName . ' x' . (self::COUNT_TEST * $this->countTests[$methodName]);
+                $time = round($values[self::METRIC_TIME] * 1000);
+                $rateTime = ($minTime > 0) ? 'x' . round($values[self::METRIC_TIME] / $minTime, 2) : '-';
+                $rateMemory = ($minMemory > 0) ? 'x' . round($values[self::METRIC_MEMORY] / $minMemory, 2) : '-';
+
+                $this->resultTable
+                    ->addRow([$testName, $type, $time, $rateTime, $values[self::METRIC_MEMORY], $rateMemory]);
+            }
+            if ($methodName !== self::TOTAL) {
+                $this->resultTable->addRows([new TableSeparator()]);
+            }
+        }
     }
 
     /**
      * @param string $methodName
-     * @param mixed  $fixture
-     *
-     * @return array
+     * @param        $value
+     * @param        $arguments
      */
-    protected function processTestWithoutObjectCreation($methodName, $fixture)
+    protected function runBenchmarkForNative($methodName, $value, $arguments)
     {
-        $validator = Variable::assert($fixture, 'var');
-
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            $validator->{$methodName}();
+        if (count($arguments) === 0) {
+            $this->{$methodName}($value);
+        } elseif (count($arguments) === 1) {
+            $this->{$methodName}($value, $arguments[0]);
+        } elseif (count($arguments) === 2) {
+            $this->{$methodName}($value, $arguments[0], $arguments[1]);
         }
-        return $this->stop();
     }
 
-    protected function processTotal()
+    /**
+     * @param string $methodName
+     * @param        $value
+     * @param        $arguments
+     */
+    protected function runBenchmarkForValidator($methodName, $value, $arguments)
     {
-        $minTime = min(
-            $this->totalNative['time'],
-            $this->totalWithObjectCreation['time'],
-            $this->totalWithoutObjectCreation['time']
-        );
-        $minMemory = min(
-            $this->totalNative['memory'],
-            $this->totalWithObjectCreation['memory'],
-            $this->totalWithoutObjectCreation['memory']
-        );
+        if (count($arguments) === 0) {
+            $this->start();
+            for ($i = 0; $i < self::COUNT_TEST; $i++) {
+                Variable::assert($value, 'var')->{$methodName}();
+            }
+            $this->stop($methodName, self::TYPE_VALIDATOR);
+        } elseif (count($arguments) === 1) {
+            $this->start();
+            for ($i = 0; $i < self::COUNT_TEST; $i++) {
+                Variable::assert($value, 'var')->{$methodName}($arguments[0]);
+            }
+            $this->stop($methodName, self::TYPE_VALIDATOR);
+        } elseif (count($arguments) === 2) {
+            $this->start();
+            for ($i = 0; $i < self::COUNT_TEST; $i++) {
+                Variable::assert($value, 'var')->{$methodName}($arguments[0], $arguments[1]);
+            }
+            $this->stop($methodName, self::TYPE_VALIDATOR);
+        }
+    }
 
-        $this->processRow('TOTAL', 'native', $this->totalNative, $minTime, $minMemory);
-        $this->processRow('TOTAL', 'validator (light)', $this->totalWithoutObjectCreation, $minTime, $minMemory);
-        $this->processRow('TOTAL', 'validator', $this->totalWithObjectCreation, $minTime, $minMemory);
+    /**
+     * @param string $methodName
+     * @param        $value
+     * @param        $arguments
+     */
+    protected function runBenchmarkForValidatorLight($methodName, $value, $arguments)
+    {
+        $validator = Variable::assert($value, 'var');
+
+        if (count($arguments) === 0) {
+            $this->start();
+            for ($i = 0; $i < self::COUNT_TEST; $i++) {
+                $validator->{$methodName}();
+            }
+            $this->stop($methodName, self::TYPE_VALIDATOR_LIGHT);
+        } elseif (count($arguments) === 1) {
+            $this->start();
+            for ($i = 0; $i < self::COUNT_TEST; $i++) {
+                $validator->{$methodName}($arguments[0]);
+            }
+            $this->stop($methodName, self::TYPE_VALIDATOR_LIGHT);
+        } elseif (count($arguments) === 2) {
+            $this->start();
+            for ($i = 0; $i < self::COUNT_TEST; $i++) {
+                $validator->{$methodName}($arguments[0], $arguments[1]);
+            }
+            $this->stop($methodName, self::TYPE_VALIDATOR_LIGHT);
+        }
+    }
+
+    /**
+     * @param OutputInterface $output
+     */
+    protected function runBenchmarks($output)
+    {
+        $methods = $this->getValidationMethods();
+
+        foreach ($methods as $method) {
+            $output->writeln('<info>process tests for: ' . $method . '</info>');
+            $fixtures = $this->getFixturesForMethod($method);
+            foreach ($fixtures as $fixture) {
+                // Native
+                $this->runBenchmarkForNative($method, $fixture['value'], $fixture['arguments']);
+                // Validator light
+                $this->runBenchmarkForValidatorLight($method, $fixture['value'], $fixture['arguments']);
+                // Validator
+                $this->runBenchmarkForValidator($method, $fixture['value'], $fixture['arguments']);
+            }
+        }
     }
 
     protected function start()
@@ -779,82 +846,63 @@ class VariableBenchmarkCommand extends Command
         $this->memory = memory_get_usage();
     }
 
-    /**
-     * @return array
-     */
-    protected function stop()
+    protected function stop($methodName, $type)
     {
-        $result = [
-            'time' => (microtime(true) - $this->time),
-            'memory' => (memory_get_usage() - $this->memory),
-        ];
+        $time = microtime(true) - $this->time;
+        $memory = memory_get_usage() - $this->memory;
+
+        $this->results[$methodName][$type][self::METRIC_TIME] += $time;
+        $this->results[$methodName][$type][self::METRIC_MEMORY] += $memory;
+
+        $this->results[self::TOTAL][$type][self::METRIC_TIME] += $time;
+        $this->results[self::TOTAL][$type][self::METRIC_MEMORY] += $memory;
+
         $this->time = 0;
         $this->memory = 0;
-
-        return $result;
     }
 
     /**
-     * @param string $name
-     *
-     * @return mixed
+     * @return array
      */
-    private function getFixture($name)
+    private function getFixtures()
     {
-        if (is_null($this->fixtures)) {
-            $this->fixtures = [
-                //
-                'isArray' => [],
-                'notArray' => false,
-                //
-                'isBool' => true,
-                'notBool' => [],
-                //
-                'isCallable' => function () {
-                },
-                'notCallable' => '10',
-                //
-                'isDigit' => '50',
-                'notDigit' => [],
-                //
-                'isFloat' => 10.15,
-                'notFloat' => 'A',
-                //
-                'isEmail' => 'some_email@example.com',
-                'notEmail' => 'not_email',
-                //
-                'isEmpty' => [],
-                'notEmpty' => 'not_empty',
-                //
-                'isGraph' => 'a',
-                'notGraph' => "\n",
-                //
-                'isInt' => 10,
-                'notInt' => "A",
-                //
-                'isJson' => '{"a":"b"}',
-                'notJson' => "-----",
-                //
-                'isNumeric' => '123',
-                'notNumeric' => "-----",
-                //
-                'isMacAddress' => '01:02:03:a1:a2:a3',
-                'notMacAddress' => "-----",
-                //
-                'isObject' => new \StdClass,
-                'notObject' => 'A',
-                //
-                'isPositive' => 10.25,
-                'isNegative' => -10.25,
-                //
-                'isResource' => tmpfile(),
-                'notResource' => 'A',
-                //
-                'isString' => 'A',
-                'notString' => [],
-            ];
+        if (!is_null($this->fixtures)) {
+            return $this->fixtures;
         }
 
-        return $this->fixtures[$name];
+        $this->fixtures = require_once __DIR__ . '/../_data/fixtures.php';
+
+        return $this->fixtures;
+    }
+
+    /**
+     * @param string $methodName
+     *
+     * @return array
+     */
+    private function getFixturesForMethod($methodName)
+    {
+        $result = [];
+        foreach ($this->getFixtures() as $fixture) {
+            if (!isset($fixture['errors'][$methodName])) {
+                continue;
+            }
+
+            if ($fixture['errors'][$methodName] > 0) {
+                continue;
+            }
+
+            if (!isset($fixture['arguments'])) {
+                $fixture['arguments'] = [];
+            }
+
+            $fixture['errors'] = $fixture['errors'][$methodName];
+
+            $result[] = $fixture;
+        }
+
+        $this->countTests[$methodName] = count($result);
+
+        return $result;
     }
 }
