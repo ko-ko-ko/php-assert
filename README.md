@@ -115,6 +115,12 @@ Both run only after internal check `notEmpty()` and `isString()`
  * `notObject()`
 
 -- --
+Both run only after internal check `isNumeric()` and `notString()`
+
+ * `isPositive()`
+ * `isNegative()`
+
+-- --
  * `isResource()`
  * `notResource()`
 

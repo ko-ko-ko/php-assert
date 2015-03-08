@@ -242,6 +242,30 @@ class VariableBenchmarkCommand extends Command
      *
      * @return array
      */
+    public function isNegative($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var > 0) {
+                throw new \InvalidArgumentException('var must be negative');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
     public function isNumeric($var)
     {
         $this->start();
@@ -264,6 +288,30 @@ class VariableBenchmarkCommand extends Command
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (!is_object($var)) {
                 throw new \InvalidArgumentException('var must be object');
+            }
+        }
+        return $this->stop();
+    }
+
+    /**
+     * @param string $var
+     *
+     * @return array
+     */
+    public function isPositive($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var < 0) {
+                throw new \InvalidArgumentException('var must be positive');
             }
         }
         return $this->stop();
@@ -795,6 +843,9 @@ class VariableBenchmarkCommand extends Command
                 //
                 'isObject' => new \StdClass,
                 'notObject' => 'A',
+                //
+                'isPositive' => 10.25,
+                'isNegative' => -10.25,
                 //
                 'isResource' => tmpfile(),
                 'notResource' => 'A',

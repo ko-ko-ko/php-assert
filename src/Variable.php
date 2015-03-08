@@ -323,6 +323,24 @@ class Variable
     /**
      * @return $this|Variable
      */
+    public function isNegative()
+    {
+        $this->isNumeric()->notString();
+
+        if (!empty($this->errors)) {
+            return $this;
+        }
+
+        if ($this->value < 0) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'negative']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
     public function isNumeric()
     {
         if (!empty($this->errors) && $this->skipOnErrors) {
@@ -350,6 +368,24 @@ class Variable
         }
 
         return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'object']);
+    }
+
+    /**
+     * @return $this|Variable
+     */
+    public function isPositive()
+    {
+        $this->isNumeric()->notString();
+
+        if (!empty($this->errors)) {
+            return $this;
+        }
+
+        if ($this->value > 0) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'positive']);
     }
 
     /**
@@ -643,7 +679,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'string']);
     }
 
     /**

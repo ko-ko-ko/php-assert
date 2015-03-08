@@ -104,7 +104,23 @@ class VariableCest
     /**
      * @param UnitTester $I
      */
+    public function isNegative(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
     public function isObject(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
+    public function isPositive(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -316,6 +332,9 @@ class VariableCest
                     'isObject' => 1,
                     'notObject' => 0,
                     //
+                    'isPositive' => 1,
+                    'isNegative' => 1,
+                    //
                     'isResource' => 1,
                     'notResource' => 0,
                     //
@@ -367,6 +386,9 @@ class VariableCest
                     //
                     'isObject' => 0,
                     'notObject' => 1,
+                    //
+                    'isPositive' => 1,
+                    'isNegative' => 1,
                     //
                     'isResource' => 1,
                     'notResource' => 0,
@@ -420,6 +442,9 @@ class VariableCest
                     'isObject' => 0,
                     'notObject' => 1,
                     //
+                    'isPositive' => 1,
+                    'isNegative' => 1,
+                    //
                     'isResource' => 1,
                     'notResource' => 0,
                     //
@@ -471,6 +496,9 @@ class VariableCest
                     //
                     'isObject' => 1,
                     'notObject' => 0,
+                    //
+                    'isPositive' => 1,
+                    'isNegative' => 1,
                     //
                     'isResource' => 1,
                     'notResource' => 0,
@@ -524,6 +552,9 @@ class VariableCest
                     'isObject' => 1,
                     'notObject' => 0,
                     //
+                    'isPositive' => 0,
+                    'isNegative' => 1,
+                    //
                     'isResource' => 1,
                     'notResource' => 0,
                     //
@@ -575,6 +606,9 @@ class VariableCest
                     //
                     'isObject' => 1,
                     'notObject' => 0,
+                    //
+                    'isPositive' => 1,
+                    'isNegative' => 1,
                     //
                     'isResource' => 1,
                     'notResource' => 0,
@@ -628,6 +662,9 @@ class VariableCest
                     'isObject' => 1,
                     'notObject' => 0,
                     //
+                    'isPositive' => 1,
+                    'isNegative' => 1,
+                    //
                     'isResource' => 1,
                     'notResource' => 0,
                     //
@@ -679,6 +716,9 @@ class VariableCest
                     //
                     'isObject' => 1,
                     'notObject' => 0,
+                    //
+                    'isPositive' => 1,
+                    'isNegative' => 1,
                     //
                     'isResource' => 0,
                     'notResource' => 1,
@@ -732,6 +772,9 @@ class VariableCest
                     'isObject' => 1,
                     'notObject' => 0,
                     //
+                    'isPositive' => 2,
+                    'isNegative' => 2,
+                    //
                     'isResource' => 1,
                     'notResource' => 0,
                     //
@@ -783,6 +826,9 @@ class VariableCest
                     //
                     'isObject' => 1,
                     'notObject' => 0,
+                    //
+                    'isPositive' => 2,
+                    'isNegative' => 2,
                     //
                     'isResource' => 1,
                     'notResource' => 0,
@@ -836,6 +882,9 @@ class VariableCest
                     'isObject' => 1,
                     'notObject' => 0,
                     //
+                    'isPositive' => 2,
+                    'isNegative' => 2,
+                    //
                     'isResource' => 1,
                     'notResource' => 0,
                     //
@@ -887,6 +936,9 @@ class VariableCest
                     //
                     'isObject' => 1,
                     'notObject' => 0,
+                    //
+                    'isPositive' => 2,
+                    'isNegative' => 2,
                     //
                     'isResource' => 1,
                     'notResource' => 0,
@@ -940,6 +992,9 @@ class VariableCest
                     'isObject' => 1,
                     'notObject' => 0,
                     //
+                    'isPositive' => 2,
+                    'isNegative' => 2,
+                    //
                     'isResource' => 1,
                     'notResource' => 0,
                     //
@@ -991,6 +1046,9 @@ class VariableCest
                     //
                     'isObject' => 1,
                     'notObject' => 0,
+                    //
+                    'isPositive' => 1,
+                    'isNegative' => 1,
                     //
                     'isResource' => 1,
                     'notResource' => 0,
@@ -1044,6 +1102,9 @@ class VariableCest
                     'isObject' => 1,
                     'notObject' => 0,
                     //
+                    'isPositive' => 2,
+                    'isNegative' => 2,
+                    //
                     'isResource' => 1,
                     'notResource' => 0,
                     //
@@ -1095,6 +1156,9 @@ class VariableCest
                     //
                     'isObject' => 1,
                     'notObject' => 0,
+                    //
+                    'isPositive' => 2,
+                    'isNegative' => 2,
                     //
                     'isResource' => 1,
                     'notResource' => 0,
@@ -1148,6 +1212,9 @@ class VariableCest
                     'isObject' => 1,
                     'notObject' => 0,
                     //
+                    'isPositive' => 0,
+                    'isNegative' => 1,
+                    //
                     'isResource' => 1,
                     'notResource' => 0,
                     //
@@ -1200,6 +1267,64 @@ class VariableCest
                     //
                     'isObject' => 0,
                     'notObject' => 1,
+                    //
+                    'isPositive' => 1,
+                    'isNegative' => 1,
+                    //
+                    'isResource' => 1,
+                    'notResource' => 0,
+                    //
+                    'isString' => 1,
+                    'notString' => 0,
+                ]
+            ],
+// -8
+            [
+                'comment' => '-8',
+                'value' => -8,
+                'errors' => [
+                    //
+                    'isArray' => 1,
+                    'notArray' => 0,
+                    //
+                    'isBool' => 1,
+                    'notBool' => 0,
+                    //
+                    'isCallable' => 1,
+                    'notCallable' => 0,
+                    //
+                    'isDigit' => 1,
+                    'notDigit' => 0,
+                    //
+                    'isFloat' => 1, //////////////////////////
+                    'notFloat' => 0, /////////////////////////
+                    //
+                    'isEmail' => 1,
+                    'notEmail' => 0,
+                    //
+                    'isEmpty' => 1,
+                    'notEmpty' => 0,
+                    //
+                    'isGraph' => 1,
+                    'notGraph' => 0,
+                    //
+                    'isInt' => 0,
+                    'notInt' => 1,
+                    //
+                    'isJson' => 1,
+                    'notJson' => 1,
+                    //
+                    'isNumeric' => 1,
+                    'notNumeric' => 0,
+                    //
+                    'isMacAddress' => 1,
+                    'notMacAddress' => 1,
+                    //
+                    'isObject' => 1,
+                    'notObject' => 0,
+                    //
+                    'isPositive' => 1,
+                    'isNegative' => 0,
                     //
                     'isResource' => 1,
                     'notResource' => 0,
