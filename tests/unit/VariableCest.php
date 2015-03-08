@@ -463,6 +463,16 @@ class VariableCest
             $aspect->verifyInvokedMultipleTimes('processError', $fixture['errors']);
 
             test::clean();
+
+            if ($fixture === 0) {
+                Variable::assert($fixture['value'], 'var');
+            } else {
+                try {
+                    Variable::assert($fixture['value'], 'var');
+                    $I->fail('Test must throw exception');
+                } catch (\Exception $error) {
+                }
+            }
         }
     }
 
