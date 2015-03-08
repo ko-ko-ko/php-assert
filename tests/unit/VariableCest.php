@@ -21,19 +21,19 @@ class VariableCest
         try {
             Variable::assert('var', false);
             $I->fail('Second argument must be string');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
         try {
             Variable::assert('var', 'var', false);
             $I->fail('Third argument must be string');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
         try {
             Variable::assert('var', 'var', '\ArrayIterator');
             $I->fail('Third argument must be sub class of \Exception');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
         $I->assertTrue(is_object(Variable::assert('var', 'var', '\InvalidArgumentException')));
@@ -382,13 +382,13 @@ class VariableCest
         try {
             Variable::validate('var', 'var')->setExceptionClass(false);
             $I->fail('Argument must be string');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
         try {
             Variable::validate('var', 'var')->setExceptionClass('\ArrayIterator');
             $I->fail('Argument must be sub class of \Exception');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
         Variable::validate('var', 'var')->setExceptionClass('\InvalidArgumentException');
@@ -402,7 +402,7 @@ class VariableCest
         try {
             Variable::validate('var', 'var')->setSkipOnErrors('notBool');
             $I->fail('Argument must be bool');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
         Variable::validate('var', 'var')->setSkipOnErrors(true);
@@ -416,7 +416,7 @@ class VariableCest
         try {
             Variable::validate('var', 'var')->setThrowErrors('notBool');
             $I->fail('Argument must be bool');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
         Variable::validate('var', 'var')->setThrowErrors(true);
@@ -430,13 +430,13 @@ class VariableCest
         try {
             Variable::validate('var', false);
             $I->fail('Second argument must be string');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
         try {
             Variable::validate('var', 'var', 'notBool');
             $I->fail('Third argument must be bool');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
         $I->assertTrue(is_object(Variable::validate('var', 'var')));
@@ -464,13 +464,13 @@ class VariableCest
 
             test::clean();
 
-            if ($fixture === 0) {
+            if ($fixture['errors'] === 0) {
                 Variable::assert($fixture['value'], 'var');
             } else {
                 try {
-                    Variable::assert($fixture['value'], 'var');
+                    Variable::assert($fixture['value'], 'var')->{$methodName}();
                     $I->fail('Test must throw exception');
-                } catch (\Exception $error) {
+                } catch (\InvalidArgumentException $error) {
                 }
             }
         }
