@@ -8,7 +8,7 @@ php-validator
 One answer is **SPEED**
 
 There many other cool validators, but for their user-friendly you must pay by time & memory of execution.
-This validator give very simple API and it's fast. You can see benchmark results at bottom of [build logs](https://travis-ci.org/index0h/php-validator).
+This validator gives you very simple and fast API. You can see benchmark results at bottom of [build logs](https://travis-ci.org/index0h/php-validator).
 
 ## Installation
 
