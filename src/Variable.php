@@ -689,6 +689,10 @@ class Variable
      */
     public function setExceptionClass($exceptionClass = self::EXCEPTION_CLASS)
     {
+        if (!is_string($exceptionClass)) {
+            throw new \InvalidArgumentException('Param $exceptionClass must be string');
+        }
+
         if (!is_subclass_of($exceptionClass, '\Exception')) {
             throw new \InvalidArgumentException('Param $exceptionClass must be subclass of \Exception');
         }
@@ -741,12 +745,11 @@ class Variable
         $placeholders['{{variable}}'] = $this->name;
         $placeholders['{{value}}'] = var_export($this->value, true);
 
-        if ($this->throwException) {
-            $exception = new $this->exceptionClass(implode("\n", $this->errors));
-            throw $exception;
-        }
-
         $this->errors[] = strtr($pattern, $placeholders);
+
+        if ($this->throwException) {
+            throw new $this->exceptionClass(implode("\n", $this->errors));
+        }
 
         return $this;
     }

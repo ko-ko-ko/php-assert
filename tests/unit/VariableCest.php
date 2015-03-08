@@ -16,6 +16,32 @@ class VariableCest
     /**
      * @param UnitTester $I
      */
+    public function assert(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', false);
+            $I->fail('Second argument must be string');
+        } catch (\Exception $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var', false);
+            $I->fail('Third argument must be string');
+        } catch (\Exception $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var', '\ArrayIterator');
+            $I->fail('Third argument must be sub class of \Exception');
+        } catch (\Exception $error) {
+        }
+
+        $I->assertTrue(is_object(Variable::assert('var', 'var', '\InvalidArgumentException')));
+    }
+
+    /**
+     * @param UnitTester $I
+     */
     public function clearErrors(\UnitTester $I)
     {
         $validator = Variable::validate('var', 'var');
@@ -346,6 +372,74 @@ class VariableCest
     {
         $this->check($I, __FUNCTION__);
         $this->checkSkipErrors($I, __FUNCTION__);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
+    public function setExceptionClass(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->setExceptionClass(false);
+            $I->fail('Argument must be string');
+        } catch (\Exception $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->setExceptionClass('\ArrayIterator');
+            $I->fail('Argument must be sub class of \Exception');
+        } catch (\Exception $error) {
+        }
+
+        Variable::validate('var', 'var')->setExceptionClass('\InvalidArgumentException');
+    }
+
+    /**
+     * @param UnitTester $I
+     */
+    public function setSkipOnError(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->setSkipOnErrors('notBool');
+            $I->fail('Argument must be bool');
+        } catch (\Exception $error) {
+        }
+
+        Variable::validate('var', 'var')->setSkipOnErrors(true);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
+    public function setThrowErrors(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->setThrowErrors('notBool');
+            $I->fail('Argument must be bool');
+        } catch (\Exception $error) {
+        }
+
+        Variable::validate('var', 'var')->setThrowErrors(true);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
+    public function validate(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', false);
+            $I->fail('Second argument must be string');
+        } catch (\Exception $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var', 'notBool');
+            $I->fail('Third argument must be bool');
+        } catch (\Exception $error) {
+        }
+
+        $I->assertTrue(is_object(Variable::validate('var', 'var')));
     }
 
     /**
