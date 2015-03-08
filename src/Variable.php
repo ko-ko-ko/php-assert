@@ -765,3 +765,4 @@ class Variable
         );
     }
 }
+
