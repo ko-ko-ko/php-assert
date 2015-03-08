@@ -59,6 +59,10 @@ if (!ctype_graph($var)) {
 
 #### Available validators
 
+ * `inArray(array)`
+ * `notInArray(array)`
+
+-- --
  * `isArray()`
  * `notArray()`
 
@@ -67,16 +71,16 @@ if (!ctype_graph($var)) {
  * `notBool()`
 
 -- --
-  * `isCallable()`
-  * `notCallable()`
+ * `isCallable()`
+ * `notCallable()`
 
 -- --
  * `isDigit()`
  * `notDigit()`
 
 -- --
-  * `isFloat()`
-  * `notFloat()`
+ * `isFloat()`
+ * `notFloat()`
 
 -- --
  * `isEmail()`
