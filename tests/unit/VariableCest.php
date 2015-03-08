@@ -1296,8 +1296,8 @@ class VariableCest
                     'isDigit' => 1,
                     'notDigit' => 0,
                     //
-                    'isFloat' => 1, //////////////////////////
-                    'notFloat' => 0, /////////////////////////
+                    'isFloat' => 1,
+                    'notFloat' => 0,
                     //
                     'isEmail' => 1,
                     'notEmail' => 0,
