@@ -16,9 +16,57 @@ class VariableCest
     /**
      * @param UnitTester $I
      */
+    public function clearErrors(\UnitTester $I)
+    {
+        $validator = Variable::validate('var', 'var');
+
+        $property = new ReflectionProperty($validator, 'errors');
+        $property->setAccessible(true);
+        $property->setValue($validator, ['some-error']);
+
+        $I->assertEquals(get_class($validator), get_class($validator->clearErrors()));
+        $I->assertEquals([], $validator->getErrors());
+    }
+
+    /**
+     * @param UnitTester $I
+     */
+    public function getErrors(\UnitTester $I)
+    {
+        $errors = ['some-error'];
+
+        $validator = Variable::validate('var', 'var');
+
+        $property = new ReflectionProperty($validator, 'errors');
+        $property->setAccessible(true);
+        $property->setValue($validator, $errors);
+
+        $I->assertEquals($errors, $validator->getErrors());
+    }
+
+    /**
+     * @param UnitTester $I
+     */
+    public function hasErrors(\UnitTester $I)
+    {
+        $validator = Variable::validate('var', 'var');
+
+        $I->assertFalse($validator->hasErrors());
+
+        $property = new ReflectionProperty($validator, 'errors');
+        $property->setAccessible(true);
+        $property->setValue($validator, ['some-error']);
+
+        $I->assertTrue($validator->hasErrors());
+    }
+
+    /**
+     * @param UnitTester $I
+     */
     public function isArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -27,6 +75,7 @@ class VariableCest
     public function isBool(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -35,6 +84,7 @@ class VariableCest
     public function isCallable(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -43,6 +93,7 @@ class VariableCest
     public function isDigit(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -51,6 +102,7 @@ class VariableCest
     public function isEmail(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -59,6 +111,7 @@ class VariableCest
     public function isEmpty(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -67,6 +120,7 @@ class VariableCest
     public function isFloat(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -75,6 +129,7 @@ class VariableCest
     public function isGraph(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -83,6 +138,7 @@ class VariableCest
     public function isInt(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -91,6 +147,7 @@ class VariableCest
     public function isJson(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -99,6 +156,7 @@ class VariableCest
     public function isMacAddress(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -107,6 +165,16 @@ class VariableCest
     public function isNegative(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
+    public function isNumeric(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -115,6 +183,7 @@ class VariableCest
     public function isObject(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -123,6 +192,7 @@ class VariableCest
     public function isPositive(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -131,6 +201,7 @@ class VariableCest
     public function isResource(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -139,6 +210,7 @@ class VariableCest
     public function isString(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -147,6 +219,7 @@ class VariableCest
     public function notArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -155,6 +228,7 @@ class VariableCest
     public function notBool(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -163,6 +237,7 @@ class VariableCest
     public function notCallable(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -171,6 +246,7 @@ class VariableCest
     public function notDigit(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -179,6 +255,7 @@ class VariableCest
     public function notEmail(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -187,6 +264,7 @@ class VariableCest
     public function notEmpty(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -195,6 +273,7 @@ class VariableCest
     public function notFloat(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -203,6 +282,7 @@ class VariableCest
     public function notGraph(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -211,6 +291,7 @@ class VariableCest
     public function notInt(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -219,6 +300,7 @@ class VariableCest
     public function notJson(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -227,6 +309,16 @@ class VariableCest
     public function notMacAddress(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
+    public function notNumeric(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -235,6 +327,7 @@ class VariableCest
     public function notObject(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -243,6 +336,7 @@ class VariableCest
     public function notResource(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -251,6 +345,7 @@ class VariableCest
     public function notString(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -275,6 +370,29 @@ class VariableCest
 
             test::clean();
         }
+    }
+
+    /**
+     * @param UnitTester $I
+     * @param string     $methodName
+     */
+    private function checkSkipErrors(\UnitTester $I, $methodName)
+    {
+        $I->amGoingTo('check with skipErrors');
+
+        $validator = Variable::validate('var', 'var', true);
+
+        $property = new ReflectionProperty($validator, 'errors');
+        $property->setAccessible(true);
+        $property->setValue($validator, ['some-error']);
+
+        $aspect = test::double($validator);
+
+        $validator->{$methodName}();
+
+        $aspect->verifyNeverInvoked('processError');
+
+        test::clean();
     }
 
     /**
@@ -1203,8 +1321,8 @@ class VariableCest
                     'isJson' => 1,
                     'notJson' => 1,
                     //
-                    'isNumeric' => 1,
-                    'notNumeric' => 0,
+                    'isNumeric' => 0,
+                    'notNumeric' => 1,
                     //
                     'isMacAddress' => 1,
                     'notMacAddress' => 1,
@@ -1314,8 +1432,8 @@ class VariableCest
                     'isJson' => 1,
                     'notJson' => 1,
                     //
-                    'isNumeric' => 1,
-                    'notNumeric' => 0,
+                    'isNumeric' => 0,
+                    'notNumeric' => 1,
                     //
                     'isMacAddress' => 1,
                     'notMacAddress' => 1,
