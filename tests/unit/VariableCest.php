@@ -89,6 +89,15 @@ class VariableCest
     /**
      * @param UnitTester $I
      */
+    public function inArray(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__, [[1]]);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
     public function isArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -314,6 +323,15 @@ class VariableCest
     /**
      * @param UnitTester $I
      */
+    public function notInArray(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__, [[1]]);
+    }
+
+    /**
+     * @param UnitTester $I
+     */
     public function notInt(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -458,17 +476,19 @@ class VariableCest
 
             $aspect = test::double($validator);
 
-            $validator->{$methodName}();
+            call_user_func_array([$validator, $methodName], $fixture['arguments']);
 
             $aspect->verifyInvokedMultipleTimes('processError', $fixture['errors']);
 
             test::clean();
 
+            $validator = Variable::assert($fixture['value'], 'var');
+
             if ($fixture['errors'] === 0) {
-                Variable::assert($fixture['value'], 'var');
+                call_user_func_array([$validator, $methodName], $fixture['arguments']);
             } else {
                 try {
-                    Variable::assert($fixture['value'], 'var')->{$methodName}();
+                    call_user_func_array([$validator, $methodName], $fixture['arguments']);
                     $I->fail('Test must throw exception');
                 } catch (\InvalidArgumentException $error) {
                 }
@@ -479,8 +499,9 @@ class VariableCest
     /**
      * @param UnitTester $I
      * @param string     $methodName
+     * @param array      $arguments
      */
-    private function checkSkipErrors(\UnitTester $I, $methodName)
+    private function checkSkipErrors(\UnitTester $I, $methodName, $arguments = [])
     {
         $I->amGoingTo('check with skipErrors');
 
@@ -492,7 +513,7 @@ class VariableCest
 
         $aspect = test::double($validator);
 
-        $validator->{$methodName}();
+        call_user_func_array([$validator, $methodName], $arguments);
 
         $aspect->verifyNeverInvoked('processError');
 
@@ -1555,6 +1576,26 @@ class VariableCest
                     'notString' => 0,
                 ]
             ],
+            // [1, 2] -> 1
+            [
+                'comment' => '[1, 2] -> 1',
+                'arguments' => [[1, 2]],
+                'value' => 1,
+                'errors' => [
+                    'inArray' => 0,
+                    'notInArray' => 1
+                ]
+            ],
+            // [1, 2] -> 5
+            [
+                'comment' => '[1, 2] -> 5',
+                'arguments' => [[1, 2]],
+                'value' => 5,
+                'errors' => [
+                    'inArray' => 1,
+                    'notInArray' => 0
+                ]
+            ],
         ];
 
         return self::$fixtures;
@@ -1571,6 +1612,10 @@ class VariableCest
         foreach ($this->getFixtures() as $fixture) {
             if (!isset($fixture['errors'][$methodName])) {
                 continue;
+            }
+
+            if (!isset($fixture['arguments'])) {
+                $fixture['arguments'] = [];
             }
 
             $fixture['errors'] = $fixture['errors'][$methodName];
