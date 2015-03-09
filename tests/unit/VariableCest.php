@@ -9,10 +9,6 @@ use index0h\validator\Variable;
  */
 class VariableCest
 {
-
-    /** @var array */
-    private static $fixtures;
-
     /**
      * @param UnitTester $I
      */
@@ -518,44 +514,5 @@ class VariableCest
         $aspect->verifyNeverInvoked('processError');
 
         test::clean();
-    }
-
-    /**
-     * @return array
-     */
-    private function getFixtures()
-    {
-        if (!is_null(self::$fixtures)) {
-            return self::$fixtures;
-        }
-
-        self::$fixtures = require_once __DIR__ . '/../_data/fixtures.php';
-
-        return self::$fixtures;
-    }
-
-    /**
-     * @param string $methodName
-     *
-     * @return array
-     */
-    private function getFixturesForMethod($methodName)
-    {
-        $result = [];
-        foreach ($this->getFixtures() as $fixture) {
-            if (!isset($fixture['errors'][$methodName])) {
-                continue;
-            }
-
-            if (!isset($fixture['arguments'])) {
-                $fixture['arguments'] = [];
-            }
-
-            $fixture['errors'] = $fixture['errors'][$methodName];
-
-            $result[] = $fixture;
-        }
-
-        return $result;
     }
 }

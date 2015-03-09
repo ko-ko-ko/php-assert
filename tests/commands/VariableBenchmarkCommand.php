@@ -26,22 +26,22 @@ class VariableBenchmarkCommand extends Command
     const METRIC_MEMORY = 'memory';
     const TOTAL = 'TOTAL';
 
-    /** @var array */
+    /** @type array */
     private $countTests = [self::TOTAL => 0];
 
-    /** @var array */
+    /** @type array */
     private $fixtures;
 
-    /** @var int */
+    /** @type int */
     private $memory = 0;
 
-    /** @var TableHelper */
+    /** @type TableHelper */
     private $resultTable;
 
-    /** @var array */
+    /** @type array */
     private $results = [];
 
-    /** @var float */
+    /** @type float */
     private $time = 0;
 
     /**
@@ -870,7 +870,7 @@ class VariableBenchmarkCommand extends Command
             return $this->fixtures;
         }
 
-        $this->fixtures = require_once __DIR__ . '/../_data/fixtures.php';
+        $this->fixtures = require_once __DIR__ . '/../_data/fixtures/variable.php';
 
         return $this->fixtures;
     }

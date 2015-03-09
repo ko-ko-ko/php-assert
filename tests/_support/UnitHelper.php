@@ -11,7 +11,7 @@ namespace Codeception\Module;
  */
 class UnitHelper extends \Codeception\Module
 {
-    /** @var array */
+    /** @type array */
     private static $fixtures;
 
     /**
@@ -48,7 +48,7 @@ class UnitHelper extends \Codeception\Module
             return self::$fixtures;
         }
 
-        self::$fixtures = require_once __DIR__ . '/../_data/fixtures.php';
+        self::$fixtures = require_once __DIR__ . '/../_data/fixtures/variable.php';
 
         return self::$fixtures;
     }

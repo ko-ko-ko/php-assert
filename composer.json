@@ -3,7 +3,9 @@
     "description": "Fast flexible php validator",
     "require-dev": {
         "codeception/codeception": "2.0.x",
-        "codeception/aspect-mock": "0.5.x"
+        "codeception/aspect-mock": "0.5.x",
+        "yiisoft/yii": "1.1.x",
+        "symfony/http-foundation": "2.6.x"
     },
     "license": "MIT",
     "authors": [

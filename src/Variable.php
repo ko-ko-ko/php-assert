@@ -23,22 +23,22 @@ class Variable
     const EXCEPTION_VALUE_IN_ARRAY_POSITIVE = '${{variable}} out of range {{value}}';
     const EXCEPTION_VALUE_IN_ARRAY_NEGATIVE = '${{variable}} must be not in range {{value}}';
 
-    /** @var string[] */
+    /** @type string[] */
     protected $errors = [];
 
-    /** @var string */
+    /** @type string */
     protected $exceptionClass;
 
-    /** @var string */
+    /** @type string */
     protected $name;
 
-    /** @var bool */
+    /** @type bool */
     protected $skipOnErrors;
 
-    /** @var bool */
+    /** @type bool */
     protected $throwException = true;
 
-    /** @var mixed */
+    /** @type mixed */
     protected $value;
 
     protected function __construct()
@@ -50,7 +50,7 @@ class Variable
      * @param string $name
      * @param string $exceptionClass
      *
-     * @return Variable
+     * @return static
      */
     public static function assert($value, $name, $exceptionClass = self::EXCEPTION_CLASS)
     {
@@ -58,11 +58,11 @@ class Variable
             throw new \InvalidArgumentException('Param $name must be string');
         }
 
-        if (($exceptionClass !== self::EXCEPTION_CLASS) && (!is_subclass_of($exceptionClass, '\Exception'))) {
+        if (($exceptionClass !== static::EXCEPTION_CLASS) && (!is_subclass_of($exceptionClass, '\Exception'))) {
             throw new \InvalidArgumentException('Param $exceptionClass must be subclass of \Exception');
         }
 
-        $validator = new self;
+        $validator = new static;
         $validator->exceptionClass = $exceptionClass;
         $validator->name = $name;
         $validator->value = $value;
@@ -75,7 +75,7 @@ class Variable
      * @param string $name
      * @param bool   $skipOnError
      *
-     * @return Variable
+     * @return static
      */
     public static function validate($value, $name, $skipOnError = true)
     {
@@ -87,7 +87,7 @@ class Variable
             throw new \InvalidArgumentException('Param $skipOnError must be bool');
         }
 
-        $validator = new self;
+        $validator = new static;
         $validator->skipOnErrors = $skipOnError;
         $validator->name = $name;
         $validator->value = $value;
@@ -97,7 +97,7 @@ class Variable
     }
 
     /**
-     * @return $this
+     * @return Variable
      */
     public function clearErrors()
     {
@@ -115,6 +115,14 @@ class Variable
     }
 
     /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
      * @return bool
      */
     public function hasErrors()
@@ -125,7 +133,7 @@ class Variable
     /**
      * @param array $range
      *
-     * @return $this|Variable
+     * @return Variable
      */
     public function inArray(array $range)
     {
@@ -141,7 +149,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isArray()
     {
@@ -157,7 +165,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isBool()
     {
@@ -173,7 +181,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isCallable()
     {
@@ -189,7 +197,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isDigit()
     {
@@ -205,7 +213,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isEmail()
     {
@@ -221,7 +229,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isEmpty()
     {
@@ -237,7 +245,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isFloat()
     {
@@ -253,7 +261,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isGraph()
     {
@@ -269,7 +277,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isInt()
     {
@@ -285,7 +293,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isJson()
     {
@@ -303,7 +311,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isMacAddress()
     {
@@ -321,7 +329,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isNegative()
     {
@@ -339,7 +347,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isNumeric()
     {
@@ -355,7 +363,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isObject()
     {
@@ -371,7 +379,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isPositive()
     {
@@ -389,7 +397,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isResource()
     {
@@ -405,7 +413,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function isString()
     {
@@ -421,7 +429,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notArray()
     {
@@ -437,7 +445,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notBool()
     {
@@ -453,7 +461,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notCallable()
     {
@@ -469,7 +477,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notDigit()
     {
@@ -485,7 +493,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notEmail()
     {
@@ -501,7 +509,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notEmpty()
     {
@@ -517,7 +525,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notFloat()
     {
@@ -533,7 +541,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notGraph()
     {
@@ -551,7 +559,7 @@ class Variable
     /**
      * @param array $range
      *
-     * @return $this|Variable
+     * @return Variable
      */
     public function notInArray(array $range)
     {
@@ -567,7 +575,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notInt()
     {
@@ -583,7 +591,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notJson()
     {
@@ -601,7 +609,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notMacAddress()
     {
@@ -619,7 +627,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notNumeric()
     {
@@ -635,7 +643,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notObject()
     {
@@ -651,7 +659,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notResource()
     {
@@ -667,7 +675,7 @@ class Variable
     }
 
     /**
-     * @return $this|Variable
+     * @return Variable
      */
     public function notString()
     {
@@ -685,7 +693,7 @@ class Variable
     /**
      * @param string $exceptionClass
      *
-     * @return $this
+     * @return Variable
      */
     public function setExceptionClass($exceptionClass = self::EXCEPTION_CLASS)
     {
@@ -705,7 +713,7 @@ class Variable
     /**
      * @param bool $skipOnErrors
      *
-     * @return $this
+     * @return Variable
      */
     public function setSkipOnErrors($skipOnErrors)
     {
@@ -721,7 +729,7 @@ class Variable
     /**
      * @param bool $throwException
      *
-     * @return $this
+     * @return Variable
      */
     public function setThrowErrors($throwException)
     {
@@ -738,7 +746,7 @@ class Variable
      * @param string $pattern
      * @param array  $placeholders
      *
-     * @return $this
+     * @return Variable
      */
     protected function processError($pattern, $placeholders = [])
     {
