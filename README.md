@@ -190,8 +190,9 @@ Cast::validate(['a', 'b', 'c'], 'var')->toString()->getErrors();
 
 Interface declares methods to get and validate data from HTTP request. Currently there are two realisations:
 
-* `index0h\validator\request\Symfony` for `Symfony\Component\HttpFoundation\Request`
-* `index0h\validator\request\Yii1` for `CHttpRequest`
+* `index0h\validator\request\Symfony` for [`Symfony\Component\HttpFoundation\Request`][symfony-request]
+* `index0h\validator\request\Yii1` for [`CHttpRequest`][yii1-request]
+* `index0h\validator\request\Simple` for `$_POST`, `$_GET`, or any user arrays
 
 #### Example
 
@@ -260,3 +261,6 @@ make test
 ```sh
 make benchmark
 ```
+
+[yii1-request]: https://github.com/yiisoft/yii/blob/master/framework/web/CHttpRequest.php
+[symfony-request]: https://github.com/symfony/HttpFoundation/blob/master/Request.php

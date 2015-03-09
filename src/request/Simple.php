@@ -6,22 +6,24 @@
  */
 namespace index0h\validator\request;
 
-use CHttpRequest;
-
 /**
- * Class Yii
+ * Class Simple
  */
-class Yii1 extends AbstractRequest
+class Simple extends AbstractRequest
 {
-    /** @type CHttpRequest */
-    protected $request;
+    /** @type array */
+    protected $data = [];
 
     /**
-     * @param CHttpRequest $request
+     * @param array $data
      */
-    public function __construct(CHttpRequest $request)
+    public function __construct(array $data)
     {
-        $this->request = $request;
+        if (empty($data)) {
+            $data = array_merge($_GET, $_POST);
+        }
+
+        $this->data = $data;
     }
 
     /**
@@ -36,6 +38,6 @@ class Yii1 extends AbstractRequest
             throw new \InvalidArgumentException('Param $name must be string');
         }
 
-        return $this->request->getParam($name, $default);
+        return isset($data[$name]) ? $_GET[$name] : $default;
     }
 }
