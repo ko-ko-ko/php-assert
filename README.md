@@ -188,7 +188,7 @@ Cast::validate(['a', 'b', 'c'], 'var')->toString()->getErrors();
 
 #### `index0h\validator\request\RequestInterface`
 
-Interface declares methods to get and validate data from HTTP request. Currently there are two realisations:
+Interface declares methods to get and validate data from HTTP request
 
 * `index0h\validator\request\Symfony` for [`Symfony\Component\HttpFoundation\Request`][symfony-request]
 * `index0h\validator\request\Yii1` for [`CHttpRequest`][yii1-request]
