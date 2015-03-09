@@ -1,6 +1,6 @@
 
 test:
-	php ./.test.php run --xml --html --coverage-html --coverage-xml --steps
+	php ./.test.php run --xml --html --coverage-html --coverage-xml
 
 benchmark:
 	php ./.test.php benchmark
