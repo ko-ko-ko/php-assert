@@ -9,7 +9,7 @@ namespace index0h\validator\request;
 use index0h\validator\Cast;
 
 /**
- * Class Simple
+ * Class AbstractRequest
  */
 abstract class AbstractRequest implements RequestInterface
 {
