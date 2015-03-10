@@ -163,12 +163,13 @@ Class for type conversion, extends Variable. By design these methods `MAY` be ca
 `validate` methods, after them you can call any validations.
 
 * `Cast::toBool` - converts value to `bool` type or processing an error
+    - float `$default` (false)
 * `Cast::toFloat` - converts value to `float` type or processing an error
-    - bool `$allowEmpty` (true) - if value is empty and param is true - it'll cast `(float)0` else - process an error
+    - float `$default` (0.0)
 * `Cast::toInt` - converts value to `int` type or processing an error
-    - bool `$allowEmpty` (true) - if value is empty and param is true - it'll cast `0` else - process an error
+    - int `$default` (0)
 * `Cast::toString` - converts value to `string` type or processing an error
-    - bool `$allowEmpty` (true) - if value is empty and param is true - it'll cast `''` else - process an error
+    - string `$default` ('')
 
 #### Example
 
@@ -193,6 +194,28 @@ Interface declares methods to get and validate data from HTTP request
 * `index0h\validator\request\Symfony` for [`Symfony\Component\HttpFoundation\Request`][symfony-request]
 * `index0h\validator\request\Yii1` for [`CHttpRequest`][yii1-request]
 * `index0h\validator\request\Simple` for `$_POST`, `$_GET`, or any user arrays
+
+##### API
+
+* `setSoft` - next checks will be by `validate` scenario
+    - bool `$skipOnError` (true)
+* `setStrict` - next checks will be by `assert` scenario
+    - string `$exceptionClass` (`Cast::EXCEPTION_CLASS`)
+* `get` - return validator without value casting
+    - string `$name` - name of param
+    - mixed `$default` (null)
+* `toBool` - proxy for `Cast::toBool`
+    - string `$name` - name of param
+    - bool `$default` (false)
+* `toFloat` - proxy for `Cast::toFloat`
+    - string `$name` - name of param
+    - float `$default` (0.0)
+* `toInt` - proxy for `Cast::toInt`
+    - string `$name` - name of param
+    - int `$default` (0)
+* toString - proxy for `Cast::toString`
+    - string `$name` - name of param
+    - string `$default` ('')
 
 #### Example
 
