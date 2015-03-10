@@ -43,6 +43,8 @@ abstract class AbstractRequest implements RequestInterface
 
     /**
      * @param bool $skipOnError
+     *
+     * @return $this
      */
     public function setSoft($skipOnError = true)
     {
@@ -52,10 +54,14 @@ abstract class AbstractRequest implements RequestInterface
 
         $this->throwException = false;
         $this->skipOnErrors = $skipOnError;
+
+        return $this;
     }
 
     /**
      * @param string $exceptionClass
+     *
+     * @return $this
      */
     public function setStrict($exceptionClass = Cast::EXCEPTION_CLASS)
     {
@@ -65,6 +71,8 @@ abstract class AbstractRequest implements RequestInterface
 
         $this->throwException = true;
         $this->exceptionClass = $exceptionClass;
+
+        return $this;
     }
 
     /**

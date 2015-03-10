@@ -23,11 +23,15 @@ interface RequestInterface
 
     /**
      * @param bool $skipOnError
+     *
+     * @return $this
      */
     public function setSoft($skipOnError = true);
 
     /**
      * @param string $exceptionClass
+     *
+     * @return $this
      */
     public function setStrict($exceptionClass = Cast::EXCEPTION_CLASS);
 
