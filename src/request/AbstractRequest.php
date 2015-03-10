@@ -71,7 +71,7 @@ abstract class AbstractRequest implements RequestInterface
      * @param string $name
      * @param bool   $default
      *
-     * @return $this|Cast
+     * @return Cast
      */
     public function toBool($name, $default = false)
     {
@@ -102,7 +102,7 @@ abstract class AbstractRequest implements RequestInterface
             throw new \InvalidArgumentException('Param $name must be string');
         }
 
-        if (!is_bool($default)) {
+        if (!is_float($default)) {
             throw new \InvalidArgumentException('Param $default must be bool');
         }
 
