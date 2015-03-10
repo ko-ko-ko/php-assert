@@ -96,7 +96,7 @@ abstract class AbstractRequest implements RequestInterface
      *
      * @return Cast
      */
-    public function toFloat($name, $default = (float)0)
+    public function toFloat($name, $default = 0.0)
     {
         if (!is_string($name)) {
             throw new \InvalidArgumentException('Param $name must be string');

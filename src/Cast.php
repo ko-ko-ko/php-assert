@@ -19,7 +19,7 @@ class Cast extends Variable
      *
      * @return Cast
      */
-    public function toFloat($default = (float)0)
+    public function toFloat($default = 0.0)
     {
         if (!is_float($default)) {
             throw new \InvalidArgumentException('Param $default must be float');

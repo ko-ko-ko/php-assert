@@ -45,7 +45,7 @@ interface RequestInterface
      *
      * @return Cast
      */
-    public function toFloat($name, $default = (float)0);
+    public function toFloat($name, $default = 0.0);
 
     /**
      * @param string $name

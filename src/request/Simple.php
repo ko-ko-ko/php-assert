@@ -19,10 +19,6 @@ class Simple extends AbstractRequest
      */
     public function __construct(array $data)
     {
-        if (empty($data)) {
-            $data = array_merge($_GET, $_POST);
-        }
-
         $this->data = $data;
     }
 
@@ -38,6 +34,10 @@ class Simple extends AbstractRequest
             throw new \InvalidArgumentException('Param $name must be string');
         }
 
-        return isset($data[$name]) ? $_GET[$name] : $default;
+        if (empty($this->data)) {
+            return isset($_GET[$name]) ? $_GET[$name] : (isset($_POST[$name]) ? $_POST[$name] : $default);
+        }
+
+        return isset($this->data[$name]) ? $this->data[$name] : $default;
     }
 }
