@@ -19,12 +19,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 class VariableBenchmarkCommand extends Command
 {
     const COUNT_TEST = 100000;
-    const TYPE_NATIVE = 'native';
-    const TYPE_VALIDATOR = 'validator';
-    const TYPE_VALIDATOR_LIGHT = 'validator_light';
-    const METRIC_TIME = 'time';
+
     const METRIC_MEMORY = 'memory';
+
+    const METRIC_TIME = 'time';
+
     const TOTAL = 'TOTAL';
+
+    const TYPE_NATIVE = 'native';
+
+    const TYPE_VALIDATOR = 'validator';
+
+    const TYPE_VALIDATOR_LIGHT = 'validator_light';
 
     /** @type array */
     private $countTests = [self::TOTAL => 0];

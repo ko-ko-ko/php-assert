@@ -1,16 +1,21 @@
 <?php
-use AspectMock\Test as test;
-use index0h\validator\Variable;
-
 /**
  * @link      https://github.com/index0h/php-validator
  * @copyright Copyright (c) 2015 Roman Levishchenko <index.0h@gmail.com>
  * @license   https://raw.github.com/index0h/php-validator/master/LICENSE
  */
+namespace index0h\validator\tests\unit;
+
+use AspectMock\Test as test;
+use index0h\validator\Variable;
+
+/**
+ * Class VariableCest
+ */
 class VariableCest
 {
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function assert(\UnitTester $I)
     {
@@ -36,13 +41,13 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function clearErrors(\UnitTester $I)
     {
         $validator = Variable::validate('var', 'var');
 
-        $property = new ReflectionProperty($validator, 'errors');
+        $property = new \ReflectionProperty($validator, 'errors');
         $property->setAccessible(true);
         $property->setValue($validator, ['some-error']);
 
@@ -51,7 +56,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function getErrors(\UnitTester $I)
     {
@@ -59,7 +64,7 @@ class VariableCest
 
         $validator = Variable::validate('var', 'var');
 
-        $property = new ReflectionProperty($validator, 'errors');
+        $property = new \ReflectionProperty($validator, 'errors');
         $property->setAccessible(true);
         $property->setValue($validator, $errors);
 
@@ -67,7 +72,18 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
+     */
+    public function getValue(\UnitTester $I)
+    {
+        $expected = 'SOME_DATA_HERE';
+        $actual = Variable::assert($expected, 'var')->getValue();
+
+        $I->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @param \UnitTester $I
      */
     public function hasErrors(\UnitTester $I)
     {
@@ -75,7 +91,7 @@ class VariableCest
 
         $I->assertFalse($validator->hasErrors());
 
-        $property = new ReflectionProperty($validator, 'errors');
+        $property = new \ReflectionProperty($validator, 'errors');
         $property->setAccessible(true);
         $property->setValue($validator, ['some-error']);
 
@@ -83,7 +99,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function inArray(\UnitTester $I)
     {
@@ -92,7 +108,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isArray(\UnitTester $I)
     {
@@ -101,7 +117,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isBool(\UnitTester $I)
     {
@@ -110,7 +126,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isCallable(\UnitTester $I)
     {
@@ -119,7 +135,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isDigit(\UnitTester $I)
     {
@@ -128,7 +144,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isEmail(\UnitTester $I)
     {
@@ -137,7 +153,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isEmpty(\UnitTester $I)
     {
@@ -146,7 +162,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isFloat(\UnitTester $I)
     {
@@ -155,7 +171,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isGraph(\UnitTester $I)
     {
@@ -164,7 +180,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isInt(\UnitTester $I)
     {
@@ -173,7 +189,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isJson(\UnitTester $I)
     {
@@ -182,7 +198,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isMacAddress(\UnitTester $I)
     {
@@ -191,7 +207,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isNegative(\UnitTester $I)
     {
@@ -200,7 +216,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isNumeric(\UnitTester $I)
     {
@@ -209,7 +225,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isObject(\UnitTester $I)
     {
@@ -218,7 +234,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isPositive(\UnitTester $I)
     {
@@ -227,7 +243,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isResource(\UnitTester $I)
     {
@@ -236,7 +252,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function isString(\UnitTester $I)
     {
@@ -245,7 +261,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notArray(\UnitTester $I)
     {
@@ -254,7 +270,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notBool(\UnitTester $I)
     {
@@ -263,7 +279,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notCallable(\UnitTester $I)
     {
@@ -272,7 +288,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notDigit(\UnitTester $I)
     {
@@ -281,7 +297,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notEmail(\UnitTester $I)
     {
@@ -290,7 +306,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notEmpty(\UnitTester $I)
     {
@@ -299,7 +315,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notFloat(\UnitTester $I)
     {
@@ -308,7 +324,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notGraph(\UnitTester $I)
     {
@@ -317,7 +333,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notInArray(\UnitTester $I)
     {
@@ -326,7 +342,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notInt(\UnitTester $I)
     {
@@ -335,7 +351,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notJson(\UnitTester $I)
     {
@@ -344,7 +360,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notMacAddress(\UnitTester $I)
     {
@@ -353,7 +369,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notNumeric(\UnitTester $I)
     {
@@ -362,7 +378,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notObject(\UnitTester $I)
     {
@@ -371,7 +387,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notResource(\UnitTester $I)
     {
@@ -380,7 +396,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function notString(\UnitTester $I)
     {
@@ -389,7 +405,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function setExceptionClass(\UnitTester $I)
     {
@@ -409,7 +425,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function setSkipOnError(\UnitTester $I)
     {
@@ -423,7 +439,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function setThrowErrors(\UnitTester $I)
     {
@@ -437,7 +453,7 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
+     * @param \UnitTester $I
      */
     public function validate(\UnitTester $I)
     {
@@ -457,10 +473,10 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
-     * @param string     $methodName
+     * @param \UnitTester $I
+     * @param string      $methodName
      */
-    private function check(\UnitTester $I, $methodName)
+    protected function check(\UnitTester $I, $methodName)
     {
         $I->wantToTest($methodName);
         $fixtures = $I->getFixturesForMethod($methodName);
@@ -493,17 +509,17 @@ class VariableCest
     }
 
     /**
-     * @param UnitTester $I
-     * @param string     $methodName
-     * @param array      $arguments
+     * @param \UnitTester $I
+     * @param string      $methodName
+     * @param array       $arguments
      */
-    private function checkSkipErrors(\UnitTester $I, $methodName, $arguments = [])
+    protected function checkSkipErrors(\UnitTester $I, $methodName, $arguments = [])
     {
         $I->amGoingTo('check with skipErrors');
 
         $validator = Variable::validate('var', 'var', true);
 
-        $property = new ReflectionProperty($validator, 'errors');
+        $property = new \ReflectionProperty($validator, 'errors');
         $property->setAccessible(true);
         $property->setValue($validator, ['some-error']);
 

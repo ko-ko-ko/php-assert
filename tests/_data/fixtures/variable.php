@@ -59,6 +59,11 @@ return [
             //
             'isString' => 1,
             'notString' => 0,
+            //
+            'toFloat' => 0,
+            'toInt' => 0,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // new \ArrayIterator
@@ -114,6 +119,11 @@ return [
             //
             'isString' => 1,
             'notString' => 0,
+            //
+            'toFloat' => 1,
+            'toInt' => 1,
+            'toBool' => 0,
+            'toString' => 1,
         ]
     ],
 // new \SplMinHeap
@@ -169,6 +179,11 @@ return [
             //
             'isString' => 1,
             'notString' => 0,
+            //
+            'toFloat' => 1,
+            'toInt' => 1,
+            'toBool' => 0,
+            'toString' => 1,
         ]
     ],
 // true
@@ -224,6 +239,11 @@ return [
             //
             'isString' => 1,
             'notString' => 0,
+            //
+            'toFloat' => 0,
+            'toInt' => 0,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // 10
@@ -279,6 +299,11 @@ return [
             //
             'isString' => 1,
             'notString' => 0,
+            //
+            'toFloat' => 0,
+            'toInt' => 0,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // '10'
@@ -334,6 +359,11 @@ return [
             //
             'isString' => 0,
             'notString' => 1,
+            //
+            'toFloat' => 0,
+            'toInt' => 0,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // '10.25'
@@ -389,6 +419,11 @@ return [
             //
             'isString' => 0,
             'notString' => 1,
+            //
+            'toFloat' => 0,
+            'toInt' => 0,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // tmpfile()
@@ -444,6 +479,11 @@ return [
             //
             'isString' => 1,
             'notString' => 0,
+            //
+            'toFloat' => 1,
+            'toInt' => 1,
+            'toBool' => 0,
+            'toString' => 1,
         ]
     ],
 // 'some_string'
@@ -499,6 +539,11 @@ return [
             //
             'isString' => 0,
             'notString' => 1,
+            //
+            'toFloat' => 1,
+            'toInt' => 1,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // 'email@example.com'
@@ -554,6 +599,11 @@ return [
             //
             'isString' => 0,
             'notString' => 1,
+            //
+            'toFloat' => 1,
+            'toInt' => 1,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // "a\t\r\n"
@@ -609,6 +659,11 @@ return [
             //
             'isString' => 0,
             'notString' => 1,
+            //
+            'toFloat' => 1,
+            'toInt' => 1,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // '{"a" : "b"}'
@@ -664,6 +719,11 @@ return [
             //
             'isString' => 0,
             'notString' => 1,
+            //
+            'toFloat' => 1,
+            'toInt' => 1,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // '{"a":"b"}'
@@ -719,6 +779,11 @@ return [
             //
             'isString' => 0,
             'notString' => 1,
+            //
+            'toFloat' => 1,
+            'toInt' => 1,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // 0
@@ -774,6 +839,11 @@ return [
             //
             'isString' => 1,
             'notString' => 0,
+            //
+            'toFloat' => 0,
+            'toInt' => 0,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // ''
@@ -829,6 +899,11 @@ return [
             //
             'isString' => 0,
             'notString' => 1,
+            //
+            'toFloat' => 0,
+            'toInt' => 0,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // '01:02:03:a1:a2:a3'
@@ -884,6 +959,11 @@ return [
             //
             'isString' => 0,
             'notString' => 1,
+            //
+            'toFloat' => 1,
+            'toInt' => 1,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // 15.25
@@ -939,6 +1019,11 @@ return [
             //
             'isString' => 1,
             'notString' => 0,
+            //
+            'toFloat' => 0,
+            'toInt' => 0,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // function () {}
@@ -995,6 +1080,11 @@ return [
             //
             'isString' => 1,
             'notString' => 0,
+            //
+            'toFloat' => 1,
+            'toInt' => 1,
+            'toBool' => 0,
+            'toString' => 1,
         ]
     ],
 // -8
@@ -1050,6 +1140,71 @@ return [
             //
             'isString' => 1,
             'notString' => 0,
+            //
+            'toFloat' => 0,
+            'toInt' => 0,
+            'toBool' => 0,
+            'toString' => 0,
+        ]
+    ],
+// new ToString
+    [
+        'comment' => 'new ToString',
+        'value' => new \index0h\validator\tests\_data\ToString,
+        'errors' => [
+            //
+            'isArray' => 1,
+            'notArray' => 0,
+            //
+            'isBool' => 1,
+            'notBool' => 0,
+            //
+            'isCallable' => 1,
+            'notCallable' => 0,
+            //
+            'isDigit' => 1,
+            'notDigit' => 0,
+            //
+            'isFloat' => 1,
+            'notFloat' => 0,
+            //
+            'isEmail' => 1,
+            'notEmail' => 0,
+            //
+            'isEmpty' => 1,
+            'notEmpty' => 0,
+            //
+            'isGraph' => 1,
+            'notGraph' => 0,
+            //
+            'isInt' => 1,
+            'notInt' => 0,
+            //
+            'isJson' => 1,
+            'notJson' => 1,
+            //
+            'isNumeric' => 1,
+            'notNumeric' => 0,
+            //
+            'isMacAddress' => 1,
+            'notMacAddress' => 1,
+            //
+            'isObject' => 0,
+            'notObject' => 1,
+            //
+            'isPositive' => 1,
+            'isNegative' => 1,
+            //
+            'isResource' => 1,
+            'notResource' => 0,
+            //
+            'isString' => 1,
+            'notString' => 0,
+            //
+            'toFloat' => 1,
+            'toInt' => 1,
+            'toBool' => 0,
+            'toString' => 0,
         ]
     ],
 // [1, 2] -> 1

@@ -12,14 +12,42 @@ namespace index0h\validator;
  */
 class Cast extends Variable
 {
+    const DEFAULT_CAST_BOOL = false;
+
+    const DEFAULT_CAST_FLOAT = 0.0;
+
+    const DEFAULT_CAST_INT = 0;
+
+    const DEFAULT_CAST_STRING = '';
+
     const EXCEPTION_CAST_TEXT = 'Can not cast ${{variable}} to {{type}}';
+
+    /**
+     * @param bool $default
+     *
+     * @return Cast
+     */
+    public function toBool($default = self::DEFAULT_CAST_BOOL)
+    {
+        if (is_bool($this->value)) {
+            return $this;
+        }
+
+        if (empty($this->value)) {
+            $this->value = $default;
+        }
+
+        $this->value = true;
+
+        return $this;
+    }
 
     /**
      * @param float $default
      *
      * @return Cast
      */
-    public function toFloat($default = 0.0)
+    public function toFloat($default = self::DEFAULT_CAST_FLOAT)
     {
         if (!is_float($default)) {
             throw new \InvalidArgumentException('Param $default must be float');
@@ -34,7 +62,7 @@ class Cast extends Variable
             return $this;
         }
 
-        if (is_numeric($this->value) && is_bool($this->value)) {
+        if (is_numeric($this->value) || is_bool($this->value)) {
             $this->value = (float)$this->value;
 
             return $this;
@@ -48,7 +76,7 @@ class Cast extends Variable
      *
      * @return Cast
      */
-    public function toInt($default = 0)
+    public function toInt($default = self::DEFAULT_CAST_INT)
     {
         if (!is_int($default)) {
             throw new \InvalidArgumentException('Param $default must be int');
@@ -63,7 +91,7 @@ class Cast extends Variable
             return $this;
         }
 
-        if (is_numeric($this->value) && is_bool($this->value)) {
+        if (is_numeric($this->value) || is_bool($this->value)) {
             $this->value = (int)$this->value;
 
             return $this;
@@ -77,7 +105,7 @@ class Cast extends Variable
      *
      * @return Cast
      */
-    public function toString($default = '')
+    public function toString($default = self::DEFAULT_CAST_STRING)
     {
         if (!is_string($default)) {
             throw new \InvalidArgumentException('Param $default must be string');
@@ -92,7 +120,7 @@ class Cast extends Variable
             return $this;
         }
 
-        if (is_numeric($this->value) && is_bool($this->value)) {
+        if (is_numeric($this->value) || is_bool($this->value)) {
             $this->value = (string)$this->value;
 
             return $this;
@@ -105,25 +133,5 @@ class Cast extends Variable
         }
 
         return $this->processError(self::EXCEPTION_CAST_TEXT, ['{{type}}' => 'string']);
-    }
-
-    /**
-     * @param bool $default
-     *
-     * @return Cast
-     */
-    public function toBool($default = false)
-    {
-        if (is_bool($this->value)) {
-            return $this;
-        }
-
-        if (empty($this->value)) {
-            $this->value = $default;
-        }
-
-        $this->value = true;
-
-        return $this;
     }
 }
