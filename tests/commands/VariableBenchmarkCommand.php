@@ -659,7 +659,7 @@ class VariableBenchmarkCommand extends Command
 
     protected function configure()
     {
-        $this->setName('benchmark')
+        $this->setName('benchmark:variable')
             ->setDescription('Benchmark of Variable validator');
     }
 
