@@ -15,7 +15,7 @@ interface RequestInterface
 {
     /**
      * @param string $name
-     * @param mixed   $default
+     * @param mixed  $default
      *
      * @return Cast
      */

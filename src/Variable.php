@@ -118,6 +118,66 @@ class Variable
     }
 
     /**
+     * @return string
+     */
+    public function getExceptionClass()
+    {
+        return $this->exceptionClass;
+    }
+
+    /**
+     * @param string $exceptionClass
+     *
+     * @return Variable
+     */
+    public function setExceptionClass($exceptionClass = self::EXCEPTION_CLASS)
+    {
+        if (!is_string($exceptionClass)) {
+            throw new \InvalidArgumentException('Param $exceptionClass must be string');
+        }
+
+        if (!is_subclass_of($exceptionClass, '\Exception')) {
+            throw new \InvalidArgumentException('Param $exceptionClass must be subclass of \Exception');
+        }
+
+        $this->exceptionClass = $exceptionClass;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSkipOnErrors()
+    {
+        return $this->skipOnErrors;
+    }
+
+    /**
+     * @param bool $skipOnErrors
+     *
+     * @return Variable
+     */
+    public function setSkipOnErrors($skipOnErrors)
+    {
+        if (!is_bool($skipOnErrors)) {
+            throw new \InvalidArgumentException('Param $skipOnErrors must be bool');
+        }
+
+        $this->skipOnErrors = $skipOnErrors;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getThrowException()
+    {
+        return $this->throwException;
+    }
+
+    /**
      * @return mixed
      */
     public function getValue()
@@ -306,7 +366,7 @@ class Variable
             return $this;
         }
 
-        if ((bool)json_decode($this->value)) {
+        if ((bool) json_decode($this->value)) {
             return $this;
         }
 
@@ -604,7 +664,7 @@ class Variable
             return $this;
         }
 
-        if (!((bool)json_decode($this->value))) {
+        if (!((bool) json_decode($this->value))) {
             return $this;
         }
 
@@ -691,42 +751,6 @@ class Variable
         }
 
         return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'string']);
-    }
-
-    /**
-     * @param string $exceptionClass
-     *
-     * @return Variable
-     */
-    public function setExceptionClass($exceptionClass = self::EXCEPTION_CLASS)
-    {
-        if (!is_string($exceptionClass)) {
-            throw new \InvalidArgumentException('Param $exceptionClass must be string');
-        }
-
-        if (!is_subclass_of($exceptionClass, '\Exception')) {
-            throw new \InvalidArgumentException('Param $exceptionClass must be subclass of \Exception');
-        }
-
-        $this->exceptionClass = $exceptionClass;
-
-        return $this;
-    }
-
-    /**
-     * @param bool $skipOnErrors
-     *
-     * @return Variable
-     */
-    public function setSkipOnErrors($skipOnErrors)
-    {
-        if (!is_bool($skipOnErrors)) {
-            throw new \InvalidArgumentException('Param $skipOnErrors must be bool');
-        }
-
-        $this->skipOnErrors = $skipOnErrors;
-
-        return $this;
     }
 
     /**

@@ -6,8 +6,7 @@
  */
 namespace index0h\validator\tests\unit;
 
-use AspectMock\Test as test;
-use index0h\validator\Variable;
+use AspectMock\Test as test;use index0h\validator\Variable;
 
 /**
  * Class VariableCest
@@ -38,6 +37,21 @@ class VariableCest
         }
 
         $I->assertTrue(is_object(Variable::assert('var', 'var', '\InvalidArgumentException')));
+    }
+    /**
+     * @param \UnitTester $I
+     */
+    public function getExceptionClass(\UnitTester $I)
+    {
+        $I->assertEquals(Variable::EXCEPTION_CLASS, Variable::assert('var', 'var')->getExceptionClass());
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function getSkipOnErrors(\UnitTester $I)
+    {
+        $I->assertEquals(true, Variable::validate('var', 'var')->getSkipOnErrors());
     }
 
     /**

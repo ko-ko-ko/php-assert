@@ -29,6 +29,10 @@ class Cast extends Variable
      */
     public function toBool($default = self::DEFAULT_CAST_BOOL)
     {
+        if (!is_bool($default)) {
+            throw new \InvalidArgumentException('Param $default must be bool');
+        }
+
         if (is_bool($this->value)) {
             return $this;
         }
@@ -63,7 +67,7 @@ class Cast extends Variable
         }
 
         if (is_numeric($this->value) || is_bool($this->value)) {
-            $this->value = (float)$this->value;
+            $this->value = (float) $this->value;
 
             return $this;
         }
@@ -92,7 +96,7 @@ class Cast extends Variable
         }
 
         if (is_numeric($this->value) || is_bool($this->value)) {
-            $this->value = (int)$this->value;
+            $this->value = (int) $this->value;
 
             return $this;
         }
@@ -121,13 +125,13 @@ class Cast extends Variable
         }
 
         if (is_numeric($this->value) || is_bool($this->value)) {
-            $this->value = (string)$this->value;
+            $this->value = (string) $this->value;
 
             return $this;
         }
 
         if (is_object($this->value) && method_exists($this->value, '__toString')) {
-            $this->value = (string)$this->value;
+            $this->value = (string) $this->value;
 
             return $this;
         }

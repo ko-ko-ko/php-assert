@@ -8,8 +8,10 @@ require_once __DIR__ . '/vendor/codeception/codeception/autoload.php';
 
 use Symfony\Component\Console\Application;
 use index0h\validator\tests\commands\VariableBenchmarkCommand;
+use index0h\validator\tests\commands\CastBenchmarkCommand;
 
 $app = new Application('Codeception', Codeception\Codecept::VERSION);
 $app->add(new Codeception\Command\Run('run'));
-$app->add(new VariableBenchmarkCommand('benchmark'));
+$app->add(new VariableBenchmarkCommand('benchmark:variable'));
+$app->add(new CastBenchmarkCommand('benchmark:cast'));
 $app->run();

@@ -17,10 +17,18 @@ abstract class AbstractRequest implements RequestInterface
     protected $exceptionClass = Cast::EXCEPTION_CLASS;
 
     /** @type bool */
-    protected $skipOnErrors;
+    protected $skipOnErrors = true;
 
     /** @type bool */
     protected $throwException = true;
+
+    /**
+     * @param string $name
+     * @param mixed  $default
+     *
+     * @return null
+     */
+    abstract protected function getParam($name, $default = null);
 
     /**
      * @param string $name
@@ -39,6 +47,30 @@ abstract class AbstractRequest implements RequestInterface
         }
 
         return Cast::validate($this->getParam($name, $default), $name, $this->skipOnErrors);
+    }
+
+    /**
+     * @return string
+     */
+    public function getExceptionClass()
+    {
+        return $this->exceptionClass;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSkipOnErrors()
+    {
+        return $this->skipOnErrors;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getThrowException()
+    {
+        return $this->throwException;
     }
 
     /**
@@ -166,12 +198,4 @@ abstract class AbstractRequest implements RequestInterface
 
         return Cast::validate($this->getParam($name, $default), $name, $this->skipOnErrors)->toString($default);
     }
-
-    /**
-     * @param string $name
-     * @param mixed  $default
-     *
-     * @return null
-     */
-    abstract protected function getParam($name, $default = null);
 }

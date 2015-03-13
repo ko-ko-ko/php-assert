@@ -4,5 +4,6 @@ test:
 
 benchmark:
 	php ./.test.php benchmark:variable
+	php ./.test.php benchmark:cast
 
 .PHONY: test benchmark

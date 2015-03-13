@@ -235,7 +235,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not empty');
             }
 
-            if (!(bool)json_decode($var)) {
+            if (!(bool) json_decode($var)) {
                 throw new \InvalidArgumentException('var must be json');
             }
         }
@@ -562,7 +562,7 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be not empty');
             }
 
-            if ((bool)json_decode($var)) {
+            if ((bool) json_decode($var)) {
                 throw new \InvalidArgumentException('var must be not json');
             }
         }

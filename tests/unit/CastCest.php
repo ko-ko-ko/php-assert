@@ -22,10 +22,10 @@ class CastCest extends VariableCest
         try {
             Cast::validate('var', 'var', false)->toBool('WRONG_TYPE');
             $I->fail('Wrong default value type');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
-        Cast::validate('var', 'var', false)->toBool(Cast::DEFAULT_CAST_BOOL);
+        Cast::validate(Cast::DEFAULT_CAST_BOOL, 'var', false)->toBool(Cast::DEFAULT_CAST_BOOL);
     }
 
     /**
@@ -36,10 +36,10 @@ class CastCest extends VariableCest
         try {
             Cast::validate('var', 'var', false)->toInt('WRONG_TYPE');
             $I->fail('Wrong default value type');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
-        Cast::validate('var', 'var', false)->toBool(Cast::DEFAULT_CAST_INT);
+        Cast::validate(Cast::DEFAULT_CAST_INT, 'var', false)->toInt(Cast::DEFAULT_CAST_INT);
     }
 
     /**
@@ -50,10 +50,10 @@ class CastCest extends VariableCest
         try {
             Cast::validate('var', 'var', false)->toFloat('WRONG_TYPE');
             $I->fail('Wrong default value type');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
-        Cast::validate('var', 'var', false)->toBool(Cast::DEFAULT_CAST_FLOAT);
+        Cast::validate(Cast::DEFAULT_CAST_FLOAT, 'var', false)->toFloat(Cast::DEFAULT_CAST_FLOAT);
     }
 
     /**
@@ -64,10 +64,10 @@ class CastCest extends VariableCest
         try {
             Cast::validate('var', 'var', false)->toString(false);
             $I->fail('Wrong default value type');
-        } catch (\Exception $error) {
+        } catch (\InvalidArgumentException $error) {
         }
 
-        Cast::validate('var', 'var', false)->toBool(Cast::DEFAULT_CAST_STRING);
+        Cast::validate(Cast::DEFAULT_CAST_STRING, 'var', false)->toString(Cast::DEFAULT_CAST_STRING);
     }
 
     /**
