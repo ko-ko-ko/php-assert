@@ -6,7 +6,8 @@
  */
 namespace index0h\validator\tests\unit;
 
-use AspectMock\Test as test;use index0h\validator\Variable;
+use AspectMock\Test as test;
+use index0h\validator\Variable;
 
 /**
  * Class VariableCest
@@ -38,21 +39,6 @@ class VariableCest
 
         $I->assertTrue(is_object(Variable::assert('var', 'var', '\InvalidArgumentException')));
     }
-    /**
-     * @param \UnitTester $I
-     */
-    public function getExceptionClass(\UnitTester $I)
-    {
-        $I->assertEquals(Variable::EXCEPTION_CLASS, Variable::assert('var', 'var')->getExceptionClass());
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function getSkipOnErrors(\UnitTester $I)
-    {
-        $I->assertEquals(true, Variable::validate('var', 'var')->getSkipOnErrors());
-    }
 
     /**
      * @param \UnitTester $I
@@ -83,6 +69,22 @@ class VariableCest
         $property->setValue($validator, $errors);
 
         $I->assertEquals($errors, $validator->getErrors());
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function getExceptionClass(\UnitTester $I)
+    {
+        $I->assertEquals(Variable::EXCEPTION_CLASS, Variable::assert('var', 'var')->getExceptionClass());
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function getSkipOnErrors(\UnitTester $I)
+    {
+        $I->assertEquals(true, Variable::validate('var', 'var')->getSkipOnErrors());
     }
 
     /**
@@ -128,6 +130,50 @@ class VariableCest
     {
         $this->check($I, __FUNCTION__);
         $this->checkSkipErrors($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isBetween(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isBetweenArguments(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->isBetween('a', 5);
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isBetween('a', 5.1);
+            $I->fail('First argument must be int or float');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isBetween(1.2, 'b');
+            $I->fail('Second argument must be  int or float');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isBetween(1.5, 2.7, 'c');
+            $I->fail('Third argument must be bool');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isBetween(100, 50, true);
+            $I->fail('First argument must be less than second');
+        } catch (\InvalidArgumentException $error) {
+        }
     }
 
     /**
@@ -214,10 +260,170 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
+    public function isLengthBetween(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isLengthBetweenArguments(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->isLengthBetween('a', 5);
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isLengthBetween(1, 'b');
+            $I->fail('Second argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isLengthBetween(1, 2, 'c');
+            $I->fail('Third argument must be bool');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isLengthBetween(5, 2, true);
+            $I->fail('First argument must be less than second');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isLengthBetween(-1, 2);
+            $I->fail('First argument must be more than 0');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isLengthLess(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isLengthLessArguments(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->isLengthLess('a');
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isLengthLess(1, 'c');
+            $I->fail('Second argument must be bool');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isLengthLess(-1, false);
+            $I->fail('First argument must be more than 0');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isLengthMore(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isLengthMoreArguments(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->isLengthMore('a');
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isLengthMore(1, 'c');
+            $I->fail('Second argument must be bool');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isLengthMore(-1, false);
+            $I->fail('First argument must be more than 0');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isLess(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isLessArguments(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->isLess('a');
+            $I->fail('First argument must be int or float');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isLess(1.5, 'c');
+            $I->fail('Second argument must be bool');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
     public function isMacAddress(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
         $this->checkSkipErrors($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isMore(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isMoreArguments(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->isMore('a');
+            $I->fail('First argument must be int or float');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->isMore(1.5, 'c');
+            $I->fail('Second argument must be bool');
+        } catch (\InvalidArgumentException $error) {
+        }
     }
 
     /**
@@ -281,6 +487,50 @@ class VariableCest
     {
         $this->check($I, __FUNCTION__);
         $this->checkSkipErrors($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function notBetween(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function notBetweenArguments(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->notBetween('a', 5);
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->notBetween('a', 5.1);
+            $I->fail('First argument must be int or float');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->notBetween(1.2, 'b');
+            $I->fail('Second argument must be  int or float');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->notBetween(1.5, 2.7, 'c');
+            $I->fail('Third argument must be bool');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->notBetween(100, 50, true);
+            $I->fail('First argument must be less than second');
+        } catch (\InvalidArgumentException $error) {
+        }
     }
 
     /**
@@ -371,6 +621,50 @@ class VariableCest
     {
         $this->check($I, __FUNCTION__);
         $this->checkSkipErrors($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function notLengthBetween(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function notLengthBetweenArguments(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->notLengthBetween('a', 5);
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->notLengthBetween(1, 'b');
+            $I->fail('Second argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->notLengthBetween(1, 2, 'c');
+            $I->fail('Third argument must be bool');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->notLengthBetween(5, 2, true);
+            $I->fail('First argument must be less than second');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::validate('var', 'var')->notLengthBetween(-1, 2);
+            $I->fail('First argument must be more than 0');
+        } catch (\InvalidArgumentException $error) {
+        }
     }
 
     /**

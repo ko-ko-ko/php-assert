@@ -14,6 +14,10 @@ class Variable
 {
     const EXCEPTION_CLASS = '\InvalidArgumentException';
 
+    const EXCEPTION_LENGTH_TEXT_NEGATIVE = '${{variable}} must have not length {{value}}';
+
+    const EXCEPTION_LENGTH_TEXT_POSITIVE = '${{variable}} must have length {{value}}';
+
     const EXCEPTION_TYPE_TEXT_NEGATIVE = 'Param ${{variable}} must be not {{type}}';
 
     const EXCEPTION_TYPE_TEXT_POSITIVE = 'Param ${{variable}} must be {{type}}';
@@ -158,7 +162,7 @@ class Variable
      *
      * @return Variable
      */
-    public function setSkipOnErrors($skipOnErrors)
+    public function setSkipOnErrors($skipOnErrors = true)
     {
         if (!is_bool($skipOnErrors)) {
             throw new \InvalidArgumentException('Param $skipOnErrors must be bool');
@@ -225,6 +229,51 @@ class Variable
         }
 
         return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'array']);
+    }
+
+    /**
+     * @param float|int $from
+     * @param float|int $to
+     * @param bool      $include
+     *
+     * @return Variable
+     */
+    public function isBetween($from, $to, $include = true)
+    {
+        if (!is_int($from) && !is_float($from)) {
+            throw new \InvalidArgumentException('Param $from must be int or float');
+        }
+
+        if (!is_int($to) && !is_float($to)) {
+            throw new \InvalidArgumentException('Param $to must be int or float');
+        }
+
+        if (!is_bool($include)) {
+            throw new \InvalidArgumentException('Param $include must be bool');
+        }
+
+        if ($from > $to) {
+            throw new \InvalidArgumentException('Param $from must be less than $to');
+        }
+
+        $this->isNumeric()->notString();
+
+        if (!empty($this->errors)) {
+            return $this;
+        }
+
+        if ($include) {
+            if ($this->value >= $from && $this->value <= $to) {
+                return $this;
+            }
+        } else {
+            if ($this->value > $from && $this->value < $to) {
+                return $this;
+            }
+        }
+
+        return $this
+            ->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
     }
 
     /**
@@ -374,6 +423,170 @@ class Variable
     }
 
     /**
+     * @param int  $from
+     * @param int  $to
+     * @param bool $include
+     *
+     * @return Variable
+     */
+    public function isLengthBetween($from, $to, $include = true)
+    {
+        if (!is_int($from)) {
+            throw new \InvalidArgumentException('Param $from must be int');
+        }
+
+        if (!is_int($to)) {
+            throw new \InvalidArgumentException('Param $to must be int');
+        }
+
+        if (!is_bool($include)) {
+            throw new \InvalidArgumentException('Param $include must be bool');
+        }
+
+        if ($from > $to) {
+            throw new \InvalidArgumentException('Param $from must be less than $to');
+        }
+
+        if ($from < 0) {
+            throw new \InvalidArgumentException('Param $from must be more than 0');
+        }
+
+        $this->isString();
+
+        if (!empty($this->errors)) {
+            return $this;
+        }
+
+        $length = mb_strlen($this->value);
+
+        if ($include) {
+            if ($length >= $from && $length <= $to) {
+                return $this;
+            }
+        } else {
+            if ($length > $from && $length < $to) {
+                return $this;
+            }
+        }
+
+        return $this
+            ->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
+    }
+
+    /**
+     * @param int  $value
+     * @param bool $include
+     *
+     * @return Variable
+     */
+    public function isLengthLess($value, $include = true)
+    {
+        if (!is_int($value)) {
+            throw new \InvalidArgumentException('Param $value must be int');
+        }
+
+        if (!is_bool($include)) {
+            throw new \InvalidArgumentException('Param $include must be bool');
+        }
+
+        if ($value < 0) {
+            throw new \InvalidArgumentException('Param $value must be more than 0');
+        }
+
+        $this->isString()->notEmpty();
+
+        if (!empty($this->errors)) {
+            return $this;
+        }
+
+        if ($include) {
+            if (mb_strlen($this->value) <= $value) {
+                return $this;
+            }
+        } else {
+            if (mb_strlen($this->value) < $value) {
+                return $this;
+            }
+        }
+
+        return $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $value]);
+    }
+
+    /**
+     * @param int  $value
+     * @param bool $include
+     *
+     * @return Variable
+     */
+    public function isLengthMore($value, $include = true)
+    {
+        if (!is_int($value)) {
+            throw new \InvalidArgumentException('Param $value must be int');
+        }
+
+        if (!is_bool($include)) {
+            throw new \InvalidArgumentException('Param $include must be bool');
+        }
+
+        if ($value < 0) {
+            throw new \InvalidArgumentException('Param $value must be more than 0');
+        }
+
+        $this->isString()->notEmpty();
+
+        if (!empty($this->errors)) {
+            return $this;
+        }
+
+        if ($include) {
+            if (mb_strlen($this->value) >= $value) {
+                return $this;
+            }
+        } else {
+            if (mb_strlen($this->value) > $value) {
+                return $this;
+            }
+        }
+
+        return $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $value]);
+    }
+
+    /**
+     * @param float|int $value
+     * @param bool      $include
+     *
+     * @return Variable
+     */
+    public function isLess($value, $include = true)
+    {
+        if (!is_int($value) && !is_float($value)) {
+            throw new \InvalidArgumentException('Param $value must be int or float');
+        }
+
+        if (!is_bool($include)) {
+            throw new \InvalidArgumentException('Param $include must be bool');
+        }
+
+        $this->isNumeric()->notString();
+
+        if (!empty($this->errors)) {
+            return $this;
+        }
+
+        if ($include) {
+            if ($this->value <= $value) {
+                return $this;
+            }
+        } else {
+            if ($this->value < $value) {
+                return $this;
+            }
+        }
+
+        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'less than ' . $value]);
+    }
+
+    /**
      * @return Variable
      */
     public function isMacAddress()
@@ -389,6 +602,41 @@ class Variable
         }
 
         return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'MAC Address']);
+    }
+
+    /**
+     * @param float|int $value
+     * @param bool      $include
+     *
+     * @return Variable
+     */
+    public function isMore($value, $include = true)
+    {
+        if (!is_int($value) && !is_float($value)) {
+            throw new \InvalidArgumentException('Param $value must be int or float');
+        }
+
+        if (!is_bool($include)) {
+            throw new \InvalidArgumentException('Param $include must be bool');
+        }
+
+        $this->isNumeric()->notString();
+
+        if (!empty($this->errors)) {
+            return $this;
+        }
+
+        if ($include) {
+            if ($this->value >= $value) {
+                return $this;
+            }
+        } else {
+            if ($this->value > $value) {
+                return $this;
+            }
+        }
+
+        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $value]);
     }
 
     /**
@@ -505,6 +753,51 @@ class Variable
         }
 
         return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'array']);
+    }
+
+    /**
+     * @param float|int $from
+     * @param float|int $to
+     * @param bool      $include
+     *
+     * @return Variable
+     */
+    public function notBetween($from, $to, $include = true)
+    {
+        if (!is_int($from) && !is_float($from)) {
+            throw new \InvalidArgumentException('Param $from must be int or float');
+        }
+
+        if (!is_int($to) && !is_float($to)) {
+            throw new \InvalidArgumentException('Param $to must be int or float');
+        }
+
+        if (!is_bool($include)) {
+            throw new \InvalidArgumentException('Param $include must be bool');
+        }
+
+        if ($from > $to) {
+            throw new \InvalidArgumentException('Param $from must be less than $to');
+        }
+
+        $this->isNumeric()->notString();
+
+        if (!empty($this->errors)) {
+            return $this;
+        }
+
+        if ($include) {
+            if ($this->value <= $from || $this->value >= $to) {
+                return $this;
+            }
+        } else {
+            if ($this->value < $from || $this->value > $to) {
+                return $this;
+            }
+        }
+
+        return $this
+            ->processError(self::EXCEPTION_VALUE_TEXT_NEGATIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
     }
 
     /**
@@ -669,6 +962,57 @@ class Variable
         }
 
         return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'json']);
+    }
+
+    /**
+     * @param int  $from
+     * @param int  $to
+     * @param bool $include
+     *
+     * @return Variable
+     */
+    public function notLengthBetween($from, $to, $include = true)
+    {
+        if (!is_int($from)) {
+            throw new \InvalidArgumentException('Param $from must be int');
+        }
+
+        if (!is_int($to)) {
+            throw new \InvalidArgumentException('Param $to must be int');
+        }
+
+        if (!is_bool($include)) {
+            throw new \InvalidArgumentException('Param $include must be bool');
+        }
+
+        if ($from > $to) {
+            throw new \InvalidArgumentException('Param $from must be less than $to');
+        }
+
+        if ($from < 0) {
+            throw new \InvalidArgumentException('Param $from must be more than 0');
+        }
+
+        $this->isString();
+
+        if (!empty($this->errors)) {
+            return $this;
+        }
+
+        $length = mb_strlen($this->value);
+
+        if ($include) {
+            if ($length <= $from || $length >= $to) {
+                return $this;
+            }
+        } else {
+            if ($length < $from || $length > $to) {
+                return $this;
+            }
+        }
+
+        return $this
+            ->processError(self::EXCEPTION_LENGTH_TEXT_NEGATIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
     }
 
     /**

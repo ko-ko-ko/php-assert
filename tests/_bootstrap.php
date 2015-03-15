@@ -5,6 +5,11 @@
  * @license   https://raw.github.com/index0h/php-validator/master/LICENSE
  */
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/yiisoft/yii/framework/base/interfaces.php';
+require_once __DIR__ . '/../vendor/yiisoft/yii/framework/base/CComponent.php';
+require_once __DIR__ . '/../vendor/yiisoft/yii/framework/collections/CMap.php';
+require_once __DIR__ . '/../vendor/yiisoft/yii/framework/base/CApplicationComponent.php';
+require_once __DIR__ . '/../vendor/yiisoft/yii/framework/web/CHttpRequest.php';
 
 $kernel = \AspectMock\Kernel::getInstance();
 $kernel->init(['debug' => true, 'includePaths' => [__DIR__ . '/../src']]);

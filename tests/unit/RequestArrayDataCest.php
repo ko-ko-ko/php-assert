@@ -7,14 +7,14 @@
 namespace index0h\validator\tests\unit;
 
 use AspectMock\Test as test;
-use index0h\validator\request\Yii1;
+use index0h\validator\request\ArrayData;
 
 /**
- * Class RequestYii1Cest
+ * Class RequestArrayDataCest
  */
-class RequestYii1Cest extends RequestAbstractRequest
+class RequestArrayDataCest extends RequestAbstractRequest
 {
-    const TEST_REQUEST_CLASS = '\index0h\validator\request\Yii1';
+    const TEST_REQUEST_CLASS = '\index0h\validator\request\ArrayData';
 
     /**
      * @param \UnitTester $I
@@ -22,9 +22,8 @@ class RequestYii1Cest extends RequestAbstractRequest
     public function getParam(\UnitTester $I)
     {
         $var = 'SOME_TEST_VAR';
-        $_GET[$var] = $var;
 
-        $req = new Yii1(new \CHttpRequest);
+        $req = new ArrayData([$var => $var]);
 
         $I->assertEquals($var, $req->get($var)->getValue());
 

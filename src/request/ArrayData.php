@@ -7,9 +7,9 @@
 namespace index0h\validator\request;
 
 /**
- * Class Simple
+ * Class ArrayData
  */
-class Simple extends AbstractRequest
+class ArrayData extends AbstractRequest
 {
     /** @type array */
     protected $data = [];
@@ -32,10 +32,6 @@ class Simple extends AbstractRequest
     {
         if (!is_string($name)) {
             throw new \InvalidArgumentException('Param $name must be string');
-        }
-
-        if (empty($this->data)) {
-            return isset($_GET[$name]) ? $_GET[$name] : (isset($_POST[$name]) ? $_POST[$name] : $default);
         }
 
         return isset($this->data[$name]) ? $this->data[$name] : $default;

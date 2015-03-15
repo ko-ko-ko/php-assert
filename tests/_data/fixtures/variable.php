@@ -1227,4 +1227,354 @@ return [
             'notInArray' => 0
         ]
     ],
+// 'abc' -> length(4)
+    [
+        'comment' => '"abc" -> length(4)',
+        'arguments' => [4],
+        'value' => 'abc',
+        'errors' => [
+            'isLengthMore' => 1,
+            'isLengthLess' => 0
+        ]
+    ],
+// 'abcd' -> length(4, false)
+    [
+        'comment' => '"abcd" -> length(4, false)',
+        'arguments' => [4, false],
+        'value' => 'abcd',
+        'errors' => [
+            'isLengthMore' => 1,
+            'isLengthLess' => 1
+        ]
+    ],
+// 'abcdef' -> length(3)
+    [
+        'comment' => '"abcdef" -> length(3)',
+        'arguments' => [3],
+        'value' => 'abcdef',
+        'errors' => [
+            'isLengthMore' => 0,
+            'isLengthLess' => 1
+        ]
+    ],
+// 'abcdef' -> length(3)
+    [
+        'comment' => '"abcdef" -> length(3, false)',
+        'arguments' => [3, false],
+        'value' => 'abcdef',
+        'errors' => [
+            'isLengthMore' => 0,
+            'isLengthLess' => 1
+        ]
+    ],
+// 'abcdef' -> length(7, false)
+    [
+        'comment' => '"abcdef" -> length(7, false)',
+        'arguments' => [7, false],
+        'value' => 'abcdef',
+        'errors' => [
+            'isLengthMore' => 1,
+            'isLengthLess' => 0
+        ]
+    ],
+// 'abc' -> length(2, 5)
+    [
+        'comment' => '"abc" -> length(2, 5)',
+        'arguments' => [2, 5],
+        'value' => 'abc',
+        'errors' => [
+            'isLengthBetween' => 0,
+            'notLengthBetween' => 1
+        ]
+    ],
+// 'abc' -> length(2, 5, false)
+    [
+        'comment' => '"abc" -> length(2, 5, false)',
+        'arguments' => [2, 5, false],
+        'value' => 'abc',
+        'errors' => [
+            'isLengthBetween' => 0,
+            'notLengthBetween' => 1
+        ]
+    ],
+// 'abc' -> length(3, 5, false)
+    [
+        'comment' => '"abc" -> length(3, 5, false)',
+        'arguments' => [3, 5, false],
+        'value' => 'abc',
+        'errors' => [
+            'isLengthBetween' => 1,
+            'notLengthBetween' => 1
+        ]
+    ],
+// 'abcdef' -> length(10, 20)
+    [
+        'comment' => '"abcdef" -> length(10, 20)',
+        'arguments' => [10, 20],
+        'value' => 'abcdef',
+        'errors' => [
+            'isLengthBetween' => 1,
+            'notLengthBetween' => 0
+        ]
+    ],
+// 'abcdef' -> length(10, 20, false)
+    [
+        'comment' => '"abcdef" -> length(10, 20, false)',
+        'arguments' => [10, 20, false],
+        'value' => 'abcdef',
+        'errors' => [
+            'isLengthBetween' => 1,
+            'notLengthBetween' => 0
+        ]
+    ],
+// 'abcdef' -> length(6, 20, false)
+    [
+        'comment' => '"abcdef" -> length(6, 20, false)',
+        'arguments' => [6, 20, false],
+        'value' => 'abcdef',
+        'errors' => [
+            'isLengthBetween' => 1,
+            'notLengthBetween' => 1
+        ]
+    ],
+// 5 ? (4)
+    [
+        'comment' => '5 ? (4)',
+        'arguments' => [4],
+        'value' => 5,
+        'errors' => [
+            'isMore' => 0,
+            'isLess' => 1
+        ]
+    ],
+// 5 ? (5, false)
+    [
+        'comment' => '5 ? (5, false)',
+        'arguments' => [5, false],
+        'value' => 5,
+        'errors' => [
+            'isMore' => 1,
+            'isLess' => 1
+        ]
+    ],
+// 2.5 ? (2.5)
+    [
+        'comment' => '2.5 ? (2.5)',
+        'arguments' => [2.5],
+        'value' => 2.5,
+        'errors' => [
+            'isMore' => 0,
+            'isLess' => 0
+        ]
+    ],
+// 3 ? (2)
+    [
+        'comment' => '3 ? (2)',
+        'arguments' => [2],
+        'value' => 3,
+        'errors' => [
+            'isMore' => 0,
+            'isLess' => 1
+        ]
+    ],
+// 1 ? (2)
+    [
+        'comment' => '1 ? (2)',
+        'arguments' => [2],
+        'value' => 1,
+        'errors' => [
+            'isMore' => 1,
+            'isLess' => 0
+        ]
+    ],
+// 3 ? (2, false)
+    [
+        'comment' => '3 ? (2, false)',
+        'arguments' => [2, false],
+        'value' => 3,
+        'errors' => [
+            'isMore' => 0,
+            'isLess' => 1
+        ]
+    ],
+// 1 ? (2, false)
+    [
+        'comment' => '1 ? (2, false)',
+        'arguments' => [2, false],
+        'value' => 1,
+        'errors' => [
+            'isMore' => 1,
+            'isLess' => 0
+        ]
+    ],
+// -3 ? (-5, false)
+    [
+        'comment' => '-3 ? (-5, false)',
+        'arguments' => [-5, false],
+        'value' => -3,
+        'errors' => [
+            'isMore' => 0,
+            'isLess' => 1
+        ]
+    ],
+// -3 ? (-5)
+    [
+        'comment' => '-3 ? (-5)',
+        'arguments' => [-5],
+        'value' => -3,
+        'errors' => [
+            'isMore' => 0,
+            'isLess' => 1
+        ]
+    ],
+// 10 ? (15, false)
+    [
+        'comment' => '10 ? (15, false)',
+        'arguments' => [15, false],
+        'value' => 10,
+        'errors' => [
+            'isMore' => 1,
+            'isLess' => 0
+        ]
+    ],
+// 15 ? (10)
+    [
+        'comment' => '15 ? (10)',
+        'arguments' => [10],
+        'value' => 15,
+        'errors' => [
+            'isMore' => 0,
+            'isLess' => 1
+        ]
+    ],
+// -3 ? (-5, 0, false)
+    [
+        'comment' => '-3 ? (-5, 0, false)',
+        'arguments' => [-5, 0, false],
+        'value' => -3,
+        'errors' => [
+            'isBetween' => 0,
+            'notBetween' => 1
+        ]
+    ],
+// 2 ? (0, 2)
+    [
+        'comment' => '2 ? (0, 2)',
+        'arguments' => [0, 2],
+        'value' => 2,
+        'errors' => [
+            'isBetween' => 0,
+            'notBetween' => 0
+        ]
+    ],
+// 1 ? (0, 2)
+    [
+        'comment' => '2 ? (0, 2)',
+        'arguments' => [0, 2],
+        'value' => 1,
+        'errors' => [
+            'isBetween' => 0,
+            'notBetween' => 1
+        ]
+    ],
+// 5 ? (10, 18, false)
+    [
+        'comment' => '5 ? (10, 18, false)',
+        'arguments' => [10, 18, false],
+        'value' => 5,
+        'errors' => [
+            'isBetween' => 1,
+            'notBetween' => 0
+        ]
+    ],
+// 5 ? (10, 18)
+    [
+        'comment' => '5 ? (10, 18)',
+        'arguments' => [10, 18],
+        'value' => 5,
+        'errors' => [
+            'isBetween' => 1,
+            'notBetween' => 0
+        ]
+    ],
+// 'string' ? (1, 2)
+    [
+        'comment' => '"string" ? (1, 2)',
+        'arguments' => [1, 2],
+        'value' => 'string',
+        'errors' => [
+            'isBetween' => 2,
+            'notBetween' => 2
+        ]
+    ],
+// '1.5' ? (1, 2)
+    [
+        'comment' => '"1.5" ? (1, 2)',
+        'arguments' => [1, 2],
+        'value' => '1.5',
+        'errors' => [
+            'isBetween' => 1,
+            'notBetween' => 1
+        ]
+    ],
+// 5 -> length(1, 2)
+    [
+        'comment' => '5 -> length(1, 2)',
+        'arguments' => [1, 2],
+        'value' => 5,
+        'errors' => [
+            'isLengthBetween' => 1,
+            'notLengthBetween' => 1
+        ]
+    ],
+// [] -> length(1, 2)
+    [
+        'comment' => '[] -> length(1, 2)',
+        'arguments' => [1, 2],
+        'value' => [],
+        'errors' => [
+            'isLengthBetween' => 1,
+            'notLengthBetween' => 1
+        ]
+    ],
+// 'string' ? (1)
+    [
+        'comment' => '"string" ? (1)',
+        'arguments' => [1],
+        'value' => 'string',
+        'errors' => [
+            'isMore' => 2,
+            'isLess' => 2
+        ]
+    ],
+// '1.5' ? (1)
+    [
+        'comment' => '"1.5" ? (1)',
+        'arguments' => [1],
+        'value' => '1.5',
+        'errors' => [
+            'isMore' => 1,
+            'isLess' => 1
+        ]
+    ],
+// 5 -> length(1)
+    [
+        'comment' => '5 -> length(1)',
+        'arguments' => [1],
+        'value' => 5,
+        'errors' => [
+            'isLengthMore' => 1,
+            'isLengthLess' => 1
+        ]
+    ],
+// [] -> length(1)
+    [
+        'comment' => '[] -> length(1)',
+        'arguments' => [1],
+        'value' => [],
+        'errors' => [
+            'isLengthMore' => 2,
+            'isLengthLess' => 2
+        ]
+    ],
 ];

@@ -84,12 +84,22 @@ Variable::validate('', 'var')->notEmpty()->hasErrors();
 
 #### Available validators
 
- * `inArray(array)`
- * `notInArray(array)`
+ * `inArray($range)`
+ * `notInArray($range)`
+    - array `$range`
 
 -- --
  * `isArray()`
  * `notArray()`
+
+-- --
+Both run only after internal check `isNumeric()` and `notString()`
+
+ * `isBetween($from, $to, $include)`
+ * `notBetween($from, $to, $include)`
+    - int|float `$from`
+    - int|float `$to`
+    - bool `$bool` (true) - strict or soft check
 
 -- --
  * `isBool()`
@@ -130,6 +140,23 @@ Both run only after internal check `notEmpty()` and `isString()`
  * `notJson()`
 
 -- --
+Both run only after internal check `isString()`
+
+ * `isLengthBetween($from, $to, $include)`
+ * `notLengthBetween($from, $to, $include)`
+    - int|float `$from`
+    - int|float `$to`
+    - bool `$bool` (true) - strict or soft check
+
+-- --
+Both run only after internal check `isString()`
+
+ * `isLengthMore($value, $include)`
+ * `notLengthLess($value, $include)`
+    - int `$from`
+    - bool `$bool` (true) - strict or soft check
+
+-- --
  * `isNumeric()`
  * `notNumeric()`
 
@@ -138,6 +165,14 @@ Both run only after internal check `notEmpty()` and `isString()`
 
  * `isMacAddress()`
  * `notMacAddress()`
+
+-- --
+Both run only after internal check `isNumeric()` and `notString()`
+
+ * `isMore($value, $include)`
+ * `isLess($value, $include)`
+    - int|float `$value`
+    - bool `$bool` (true) - strict or soft check
 
 -- --
  * `isObject()`
@@ -193,7 +228,8 @@ Interface declares methods to get and validate data from HTTP request
 
 * `index0h\validator\request\Symfony` for [`Symfony\Component\HttpFoundation\Request`][symfony-request]
 * `index0h\validator\request\Yii1` for [`CHttpRequest`][yii1-request]
-* `index0h\validator\request\Simple` for `$_POST`, `$_GET`, or any user arrays
+* `index0h\validator\request\Globals` for `$_POST`, `$_GET`
+* `index0h\validator\request\ArrayData` for user arrays
 
 ##### API
 
