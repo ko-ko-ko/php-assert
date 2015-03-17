@@ -95,11 +95,12 @@ Variable::validate('', 'var')->notEmpty()->hasErrors();
 -- --
 Both run only after internal check `isNumeric()` and `notString()`
 
- * `isBetween($from, $to, $include)`
- * `notBetween($from, $to, $include)`
+ * `isBetween($from, $to)`
+ * `isBetweenStrict($from, $to)`
+ * `notBetween($from, $to)`
+ * `notBetweenStrict($from, $to)`
     - int|float `$from`
     - int|float `$to`
-    - bool `$bool` (true) - strict or soft check
 
 -- --
  * `isBool()`
@@ -142,19 +143,19 @@ Both run only after internal check `notEmpty()` and `isString()`
 -- --
 Both run only after internal check `isString()`
 
- * `isLengthBetween($from, $to, $include)`
- * `notLengthBetween($from, $to, $include)`
+ * `isLengthBetween($from, $to)`
+ * `notLengthBetween($from, $to)`
     - int|float `$from`
     - int|float `$to`
-    - bool `$bool` (true) - strict or soft check
 
 -- --
 Both run only after internal check `isString()`
 
- * `isLengthMore($value, $include)`
- * `notLengthLess($value, $include)`
+ * `isLengthMore($value)`
+ * `isLengthMoreStrict($value)`
+ * `isLengthLess($value)`
+ * `isLengthLessStrict($value)`
     - int `$from`
-    - bool `$bool` (true) - strict or soft check
 
 -- --
  * `isNumeric()`
@@ -169,10 +170,11 @@ Both run only after internal check `notEmpty()` and `isString()`
 -- --
 Both run only after internal check `isNumeric()` and `notString()`
 
- * `isMore($value, $include)`
- * `isLess($value, $include)`
+ * `isMore($value)`
+ * `isMoreStrict($value)`
+ * `isLess($value)`
+ * `isLessStrict($value)`
     - int|float `$value`
-    - bool `$bool` (true) - strict or soft check
 
 -- --
  * `isObject()`

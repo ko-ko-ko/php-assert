@@ -1237,44 +1237,34 @@ return [
             'isLengthLess' => 0
         ]
     ],
-// 'abcd' -> length(4, false)
+// 'abcdef' -> length(6)
     [
-        'comment' => '"abcd" -> length(4, false)',
-        'arguments' => [4, false],
-        'value' => 'abcd',
-        'errors' => [
-            'isLengthMore' => 1,
-            'isLengthLess' => 1
-        ]
-    ],
-// 'abcdef' -> length(3)
-    [
-        'comment' => '"abcdef" -> length(3)',
-        'arguments' => [3],
+        'comment' => '"abcdef" -> length(6)',
+        'arguments' => [6],
         'value' => 'abcdef',
         'errors' => [
             'isLengthMore' => 0,
-            'isLengthLess' => 1
-        ]
-    ],
-// 'abcdef' -> length(3)
-    [
-        'comment' => '"abcdef" -> length(3, false)',
-        'arguments' => [3, false],
-        'value' => 'abcdef',
-        'errors' => [
-            'isLengthMore' => 0,
-            'isLengthLess' => 1
-        ]
-    ],
-// 'abcdef' -> length(7, false)
-    [
-        'comment' => '"abcdef" -> length(7, false)',
-        'arguments' => [7, false],
-        'value' => 'abcdef',
-        'errors' => [
-            'isLengthMore' => 1,
             'isLengthLess' => 0
+        ]
+    ],
+// 'abcdefg' -> length(3)
+    [
+        'comment' => '"abcdefg" -> length(3)',
+        'arguments' => [3],
+        'value' => 'abcdefg',
+        'errors' => [
+            'isLengthMore' => 0,
+            'isLengthLess' => 1
+        ]
+    ],
+// [] -> length(3)
+    [
+        'comment' => '[] -> length(3)',
+        'arguments' => [3],
+        'value' => [],
+        'errors' => [
+            'isLengthMore' => 2,
+            'isLengthLess' => 2
         ]
     ],
 // 'abc' -> length(2, 5)
@@ -1287,74 +1277,66 @@ return [
             'notLengthBetween' => 1
         ]
     ],
-// 'abc' -> length(2, 5, false)
+// 'abcdef' -> length(3, 4)
     [
-        'comment' => '"abc" -> length(2, 5, false)',
-        'arguments' => [2, 5, false],
-        'value' => 'abc',
+        'comment' => '"abcdef" -> length(3, 4)',
+        'arguments' => [3, 4],
+        'value' => 'abcdef',
+        'errors' => [
+            'isLengthBetween' => 1,
+            'notLengthBetween' => 0
+        ]
+    ],
+// 'abcdef' -> length(6, 8)
+    [
+        'comment' => '"abcdef" -> length(6, 8)',
+        'arguments' => [6, 8],
+        'value' => 'abcdef',
         'errors' => [
             'isLengthBetween' => 0,
-            'notLengthBetween' => 1
+            'notLengthBetween' => 0
         ]
     ],
-// 'abc' -> length(3, 5, false)
+// 'abcdef' -> length(1, 6)
     [
-        'comment' => '"abc" -> length(3, 5, false)',
-        'arguments' => [3, 5, false],
-        'value' => 'abc',
+        'comment' => '"abcdef" -> length(1, 6)',
+        'arguments' => [1, 6],
+        'value' => 'abcdef',
         'errors' => [
-            'isLengthBetween' => 1,
-            'notLengthBetween' => 1
+            'isLengthBetween' => 0,
+            'notLengthBetween' => 0
         ]
     ],
-// 'abcdef' -> length(10, 20)
+// 'abcdef' -> length(1, 2)
     [
-        'comment' => '"abcdef" -> length(10, 20)',
-        'arguments' => [10, 20],
+        'comment' => '"abcdef" -> length(1, 2)',
+        'arguments' => [1, 2],
         'value' => 'abcdef',
         'errors' => [
             'isLengthBetween' => 1,
             'notLengthBetween' => 0
         ]
     ],
-// 'abcdef' -> length(10, 20, false)
+// [] -> length(6, 8)
     [
-        'comment' => '"abcdef" -> length(10, 20, false)',
-        'arguments' => [10, 20, false],
-        'value' => 'abcdef',
-        'errors' => [
-            'isLengthBetween' => 1,
-            'notLengthBetween' => 0
-        ]
-    ],
-// 'abcdef' -> length(6, 20, false)
-    [
-        'comment' => '"abcdef" -> length(6, 20, false)',
-        'arguments' => [6, 20, false],
-        'value' => 'abcdef',
+        'comment' => '[] -> length(6, 8)',
+        'arguments' => [1, 2],
+        'value' => [],
         'errors' => [
             'isLengthBetween' => 1,
             'notLengthBetween' => 1
         ]
     ],
-// 5 ? (4)
+// 5 ? (3)
     [
-        'comment' => '5 ? (4)',
-        'arguments' => [4],
+        'comment' => '5 ? (3)',
+        'arguments' => [3],
         'value' => 5,
         'errors' => [
             'isMore' => 0,
-            'isLess' => 1
-        ]
-    ],
-// 5 ? (5, false)
-    [
-        'comment' => '5 ? (5, false)',
-        'arguments' => [5, false],
-        'value' => 5,
-        'errors' => [
-            'isMore' => 1,
-            'isLess' => 1
+            'isMoreStrict' => 0,
+            'isLess' => 1,
+            'isLessStrict' => 1
         ]
     ],
 // 2.5 ? (2.5)
@@ -1364,97 +1346,45 @@ return [
         'value' => 2.5,
         'errors' => [
             'isMore' => 0,
-            'isLess' => 0
+            'isMoreStrict' => 1,
+            'isLess' => 0,
+            'isLessStrict' => 1
         ]
     ],
-// 3 ? (2)
+// 1 ? (3)
     [
-        'comment' => '3 ? (2)',
-        'arguments' => [2],
-        'value' => 3,
-        'errors' => [
-            'isMore' => 0,
-            'isLess' => 1
-        ]
-    ],
-// 1 ? (2)
-    [
-        'comment' => '1 ? (2)',
-        'arguments' => [2],
+        'comment' => '1 ? (3)',
+        'arguments' => [3],
         'value' => 1,
         'errors' => [
             'isMore' => 1,
-            'isLess' => 0
+            'isMoreStrict' => 1,
+            'isLess' => 0,
+            'isLessStrict' => 0
         ]
     ],
-// 3 ? (2, false)
+// 'a' ? (3)
     [
-        'comment' => '3 ? (2, false)',
-        'arguments' => [2, false],
-        'value' => 3,
+        'comment' => '"a" ? (3)',
+        'arguments' => [3],
+        'value' => 'a',
         'errors' => [
-            'isMore' => 0,
-            'isLess' => 1
+            'isMore' => 2,
+            'isMoreStrict' => 2,
+            'isLess' => 2,
+            'isLessStrict' => 2
         ]
     ],
-// 1 ? (2, false)
+// -3 ? (-5, 0)
     [
-        'comment' => '1 ? (2, false)',
-        'arguments' => [2, false],
-        'value' => 1,
-        'errors' => [
-            'isMore' => 1,
-            'isLess' => 0
-        ]
-    ],
-// -3 ? (-5, false)
-    [
-        'comment' => '-3 ? (-5, false)',
-        'arguments' => [-5, false],
-        'value' => -3,
-        'errors' => [
-            'isMore' => 0,
-            'isLess' => 1
-        ]
-    ],
-// -3 ? (-5)
-    [
-        'comment' => '-3 ? (-5)',
-        'arguments' => [-5],
-        'value' => -3,
-        'errors' => [
-            'isMore' => 0,
-            'isLess' => 1
-        ]
-    ],
-// 10 ? (15, false)
-    [
-        'comment' => '10 ? (15, false)',
-        'arguments' => [15, false],
-        'value' => 10,
-        'errors' => [
-            'isMore' => 1,
-            'isLess' => 0
-        ]
-    ],
-// 15 ? (10)
-    [
-        'comment' => '15 ? (10)',
-        'arguments' => [10],
-        'value' => 15,
-        'errors' => [
-            'isMore' => 0,
-            'isLess' => 1
-        ]
-    ],
-// -3 ? (-5, 0, false)
-    [
-        'comment' => '-3 ? (-5, 0, false)',
-        'arguments' => [-5, 0, false],
+        'comment' => '-3 ? (-5, 0)',
+        'arguments' => [-5, 0],
         'value' => -3,
         'errors' => [
             'isBetween' => 0,
-            'notBetween' => 1
+            'isBetweenStrict' => 0,
+            'notBetween' => 1,
+            'notBetweenStrict' => 1
         ]
     ],
 // 2 ? (0, 2)
@@ -1464,27 +1394,21 @@ return [
         'value' => 2,
         'errors' => [
             'isBetween' => 0,
-            'notBetween' => 0
+            'isBetweenStrict' => 1,
+            'notBetween' => 0,
+            'notBetweenStrict' => 1
         ]
     ],
-// 1 ? (0, 2)
+// 1 ? (1, 7)
     [
-        'comment' => '2 ? (0, 2)',
-        'arguments' => [0, 2],
+        'comment' => '1 ? (1, 7)',
+        'arguments' => [1, 7],
         'value' => 1,
         'errors' => [
             'isBetween' => 0,
-            'notBetween' => 1
-        ]
-    ],
-// 5 ? (10, 18, false)
-    [
-        'comment' => '5 ? (10, 18, false)',
-        'arguments' => [10, 18, false],
-        'value' => 5,
-        'errors' => [
-            'isBetween' => 1,
-            'notBetween' => 0
+            'isBetweenStrict' => 1,
+            'notBetween' => 0,
+            'notBetweenStrict' => 1
         ]
     ],
 // 5 ? (10, 18)
@@ -1494,87 +1418,21 @@ return [
         'value' => 5,
         'errors' => [
             'isBetween' => 1,
-            'notBetween' => 0
+            'isBetweenStrict' => 1,
+            'notBetween' => 0,
+            'notBetweenStrict' => 0
         ]
     ],
-// 'string' ? (1, 2)
+// 'a' ? (10, 18)
     [
-        'comment' => '"string" ? (1, 2)',
-        'arguments' => [1, 2],
-        'value' => 'string',
+        'comment' => '"a" ? (10, 18)',
+        'arguments' => [10, 18],
+        'value' => 'a',
         'errors' => [
             'isBetween' => 2,
-            'notBetween' => 2
-        ]
-    ],
-// '1.5' ? (1, 2)
-    [
-        'comment' => '"1.5" ? (1, 2)',
-        'arguments' => [1, 2],
-        'value' => '1.5',
-        'errors' => [
-            'isBetween' => 1,
-            'notBetween' => 1
-        ]
-    ],
-// 5 -> length(1, 2)
-    [
-        'comment' => '5 -> length(1, 2)',
-        'arguments' => [1, 2],
-        'value' => 5,
-        'errors' => [
-            'isLengthBetween' => 1,
-            'notLengthBetween' => 1
-        ]
-    ],
-// [] -> length(1, 2)
-    [
-        'comment' => '[] -> length(1, 2)',
-        'arguments' => [1, 2],
-        'value' => [],
-        'errors' => [
-            'isLengthBetween' => 1,
-            'notLengthBetween' => 1
-        ]
-    ],
-// 'string' ? (1)
-    [
-        'comment' => '"string" ? (1)',
-        'arguments' => [1],
-        'value' => 'string',
-        'errors' => [
-            'isMore' => 2,
-            'isLess' => 2
-        ]
-    ],
-// '1.5' ? (1)
-    [
-        'comment' => '"1.5" ? (1)',
-        'arguments' => [1],
-        'value' => '1.5',
-        'errors' => [
-            'isMore' => 1,
-            'isLess' => 1
-        ]
-    ],
-// 5 -> length(1)
-    [
-        'comment' => '5 -> length(1)',
-        'arguments' => [1],
-        'value' => 5,
-        'errors' => [
-            'isLengthMore' => 1,
-            'isLengthLess' => 1
-        ]
-    ],
-// [] -> length(1)
-    [
-        'comment' => '[] -> length(1)',
-        'arguments' => [1],
-        'value' => [],
-        'errors' => [
-            'isLengthMore' => 2,
-            'isLengthLess' => 2
+            'isBetweenStrict' => 2,
+            'notBetween' => 2,
+            'notBetweenStrict' => 2
         ]
     ],
 ];
