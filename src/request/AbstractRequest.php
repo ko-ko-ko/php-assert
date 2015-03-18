@@ -97,7 +97,7 @@ abstract class AbstractRequest implements RequestInterface
      */
     public function setStrict($exceptionClass = Cast::EXCEPTION_CLASS)
     {
-        if (($exceptionClass !== Cast::EXCEPTION_CLASS) && (!is_subclass_of($exceptionClass, '\Exception'))) {
+        if (($exceptionClass !== Cast::EXCEPTION_CLASS) && (!is_a($exceptionClass, '\Exception', true))) {
             throw new \InvalidArgumentException('Param $exceptionClass must be subclass of \Exception');
         }
 
