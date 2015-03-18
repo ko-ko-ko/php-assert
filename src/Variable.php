@@ -30,14 +30,8 @@ class Variable
 
     const EXCEPTION_VALUE_TEXT_POSITIVE = 'Param ${{variable}} must be {{value}}';
 
-    /** @type Variable */
-    private static $assertor;
-
-    /** @type Variable */
-    private static $validator;
-
     /** @type string[] */
-    protected $errors;
+    protected $errors = [];
 
     /** @type string */
     protected $exceptionClass;
@@ -49,7 +43,7 @@ class Variable
     protected $skipOnErrors;
 
     /** @type bool */
-    protected $throwException;
+    protected $throwException = true;
 
     /** @type mixed */
     protected $value;
@@ -75,18 +69,8 @@ class Variable
             throw new \InvalidArgumentException('Param $exceptionClass must be subclass of \Exception');
         }
 
-        if (empty(self::$assertor)) {
-            self::$assertor = new static;
-            self::$assertor->exceptionClass = self::EXCEPTION_CLASS;
-            self::$assertor->throwException = true;
-        }
-
-        $validator = clone self::$assertor;
-
-        if ($exceptionClass !== static::EXCEPTION_CLASS) {
-            $validator->exceptionClass = $exceptionClass;
-        }
-
+        $validator = new static;
+        $validator->exceptionClass = $exceptionClass;
         $validator->name = $name;
         $validator->value = $value;
 
@@ -110,21 +94,12 @@ class Variable
             throw new \InvalidArgumentException('Param $skipOnError must be bool');
         }
 
-        if (empty(self::$validator)) {
-            self::$validator = new static;
-            self::$validator->throwException = false;
-            self::$validator->errors = [];
-            self::$validator->skipOnErrors = false;
-        }
-
-        $validator = clone self::$validator;
-
-        if (!$skipOnError) {
-            $validator->skipOnError = false;
-        }
+        $validator = new static;
+        $validator->skipOnErrors = $skipOnError;
 
         $validator->name = $name;
         $validator->value = $value;
+        $validator->throwException = false;
 
         return $validator;
     }
