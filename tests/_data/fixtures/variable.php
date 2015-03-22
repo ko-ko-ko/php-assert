@@ -1264,7 +1264,7 @@ return [
         'value' => [],
         'errors' => [
             'isLengthMore' => 2,
-            'isLengthLess' => 2
+            'isLengthLess' => 1
         ]
     ],
 // 'abc' -> length(2, 5)
@@ -1435,41 +1435,41 @@ return [
             'notBetweenStrict' => 2
         ]
     ],
-// new \InvalidArgumentException ('\Exception')
+// new \RecursiveArrayIterator ('\ArrayIterator')
     [
-        'comment' => 'new \InvalidArgumentException ("\\Exception")',
-        'arguments' => ['\Exception'],
-        'value' => new \InvalidArgumentException,
+        'comment' => 'new \RecursiveArrayIterator ("\\ArrayIterator")',
+        'arguments' => ['\ArrayIterator'],
+        'value' => new \RecursiveArrayIterator,
         'errors' => [
             'isSubClassOf' => 0,
             'notSubClassOf' => 1,
         ]
     ],
-// '\InvalidArgumentException' ('\Exception')
+// '\RecursiveArrayIterator' ('\ArrayIterator')
     [
-        'comment' => 'new \InvalidArgumentException ("\\Exception")',
-        'arguments' => ['\Exception'],
-        'value' => '\InvalidArgumentException',
+        'comment' => 'new \RecursiveArrayIterator ("\\ArrayIterator")',
+        'arguments' => ['\ArrayIterator'],
+        'value' => '\RecursiveArrayIterator',
         'errors' => [
             'isSubClassOf' => 0,
             'notSubClassOf' => 1,
         ]
     ],
-// new \Exception ('\InvalidArgumentException')
+// new \ArrayIterator ('\RecursiveArrayIterator')
     [
-        'comment' => 'new \Exception ("\\InvalidArgumentException")',
-        'arguments' => ['\InvalidArgumentException'],
-        'value' => new \Exception,
+        'comment' => 'new \ArrayIterator ("\\RecursiveArrayIterator")',
+        'arguments' => ['\RecursiveArrayIterator'],
+        'value' => new \ArrayIterator,
         'errors' => [
             'isSubClassOf' => 1,
             'notSubClassOf' => 0,
         ]
     ],
-// '\Exception' ('\InvalidArgumentException')
+// '\ArrayIterator' ('\InvalidArgumentException')
     [
-        'comment' => 'new \Exception ("\\InvalidArgumentException")',
-        'arguments' => ['\InvalidArgumentException'],
-        'value' => '\Exception',
+        'comment' => 'new \ArrayIterator ("\\RecursiveArrayIterator")',
+        'arguments' => ['\RecursiveArrayIterator'],
+        'value' => '\ArrayIterator',
         'errors' => [
             'isSubClassOf' => 1,
             'notSubClassOf' => 0,

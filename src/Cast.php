@@ -23,6 +23,8 @@ class Cast extends Variable
     const EXCEPTION_CAST_TEXT = 'Can not cast ${{variable}} to {{type}}';
 
     /**
+     * Cast value to boll. If it's not empty and not bool - result will be true
+     *
      * @param bool $default
      *
      * @return Cast
@@ -47,6 +49,8 @@ class Cast extends Variable
     }
 
     /**
+     * Cast value to float. If it's not numeric - there will be fail cast
+     *
      * @param float $default
      *
      * @return Cast
@@ -76,6 +80,8 @@ class Cast extends Variable
     }
 
     /**
+     * Cast value to int. If it's not numeric - there will be fail cast
+     *
      * @param int $default
      *
      * @return Cast
@@ -105,6 +111,8 @@ class Cast extends Variable
     }
 
     /**
+     * Cast value to string. If it's simple type or has no method __toString - there will be fail cast
+     *
      * @param string $default
      *
      * @return Cast

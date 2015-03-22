@@ -53,11 +53,14 @@ class Variable
     }
 
     /**
+     * Creates validator instance for variable, first fail check will throw an exception
+     *
      * @param mixed  $value
      * @param string $name
      * @param string $exceptionClass
      *
      * @return static
+     * @throws \InvalidArgumentException
      */
     public static function assert($value, $name, $exceptionClass = self::EXCEPTION_CLASS)
     {
@@ -78,11 +81,17 @@ class Variable
     }
 
     /**
+     * Creates validator instance for variable, without throwing an exception
+     *
+     * If $skipOnError = false - it'll run all of validations, else - skip them
+     * Found errors you can see by getErrors() method call
+     *
      * @param mixed  $value
      * @param string $name
      * @param bool   $skipOnError
      *
      * @return static
+     * @throws \InvalidArgumentException
      */
     public static function validate($value, $name, $skipOnError = true)
     {
@@ -105,6 +114,8 @@ class Variable
     }
 
     /**
+     * Clear of errors array
+     *
      * @return Variable
      */
     public function clearErrors()
@@ -115,6 +126,8 @@ class Variable
     }
 
     /**
+     * Return an array of found errors
+     *
      * @return string[]
      */
     public function getErrors()
@@ -123,6 +136,8 @@ class Variable
     }
 
     /**
+     * Return class of exception, which will be thrown on fail test
+     *
      * @return string
      */
     public function getExceptionClass()
@@ -131,9 +146,12 @@ class Variable
     }
 
     /**
+     * Update default exception class
+     *
      * @param string $exceptionClass
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function setExceptionClass($exceptionClass = self::EXCEPTION_CLASS)
     {
@@ -151,6 +169,8 @@ class Variable
     }
 
     /**
+     * Return option of skipping an error on fail validation
+     *
      * @return bool
      */
     public function getSkipOnErrors()
@@ -159,9 +179,12 @@ class Variable
     }
 
     /**
+     * Set of skipping an error on fail validation
+     *
      * @param bool $skipOnErrors
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function setSkipOnErrors($skipOnErrors = true)
     {
@@ -175,6 +198,8 @@ class Variable
     }
 
     /**
+     * Return an exception class
+     *
      * @return bool
      */
     public function getThrowException()
@@ -183,6 +208,8 @@ class Variable
     }
 
     /**
+     * Return current validation value
+     *
      * @return mixed
      */
     public function getValue()
@@ -191,6 +218,8 @@ class Variable
     }
 
     /**
+     * Does validation had errors
+     *
      * @return bool
      */
     public function hasErrors()
@@ -199,6 +228,8 @@ class Variable
     }
 
     /**
+     * Check if value is in array (in_array strict)
+     *
      * @param array $range
      *
      * @return Variable
@@ -217,6 +248,8 @@ class Variable
     }
 
     /**
+     * Check if value is array or implements array interfaces
+     *
      * @return Variable
      */
     public function isArray()
@@ -225,7 +258,13 @@ class Variable
             return $this;
         }
 
-        if ($this->validateArray()) {
+        if (
+            is_array($this->value) || (
+                $this->value instanceof \ArrayAccess &&
+                $this->value instanceof \Traversable &&
+                $this->value instanceof \Countable
+            )
+        ) {
             return $this;
         }
 
@@ -233,10 +272,13 @@ class Variable
     }
 
     /**
+     * Soft check that $from <= value <= $to
+     *
      * @param float|int $from
      * @param float|int $to
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isBetween($from, $to)
     {
@@ -267,10 +309,13 @@ class Variable
     }
 
     /**
+     * Strict check that $from < value < $to
+     *
      * @param float|int $from
      * @param float|int $to
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isBetweenStrict($from, $to)
     {
@@ -301,6 +346,8 @@ class Variable
     }
 
     /**
+     * Check if value is boolean (is_bool)
+     *
      * @return Variable
      */
     public function isBool()
@@ -317,6 +364,8 @@ class Variable
     }
 
     /**
+     * Check if value is callable (is_callable)
+     *
      * @return Variable
      */
     public function isCallable()
@@ -333,6 +382,8 @@ class Variable
     }
 
     /**
+     * Check if value is digit (ctype_digit)
+     *
      * @return Variable
      */
     public function isDigit()
@@ -349,6 +400,8 @@ class Variable
     }
 
     /**
+     * Check if value is email (filter_var)
+     *
      * @return Variable
      */
     public function isEmail()
@@ -365,6 +418,8 @@ class Variable
     }
 
     /**
+     * Check if value is empty (empty)
+     *
      * @return Variable
      */
     public function isEmpty()
@@ -381,6 +436,8 @@ class Variable
     }
 
     /**
+     * Check if value is float (is_float)
+     *
      * @return Variable
      */
     public function isFloat()
@@ -397,6 +454,8 @@ class Variable
     }
 
     /**
+     * Check if value is graph (ctype_graph)
+     *
      * @return Variable
      */
     public function isGraph()
@@ -413,6 +472,8 @@ class Variable
     }
 
     /**
+     * Check if value is integer (is_int)
+     *
      * @return Variable
      */
     public function isInt()
@@ -429,6 +490,8 @@ class Variable
     }
 
     /**
+     * Check if value is json. Run only after notEmpty and isString validators
+     *
      * @return Variable
      */
     public function isJson()
@@ -447,10 +510,13 @@ class Variable
     }
 
     /**
+     * Soft check if value has length $from <= $length <= to. Runs only after isString validation
+     *
      * @param int $from
      * @param int $to
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isLengthBetween($from, $to)
     {
@@ -487,18 +553,52 @@ class Variable
     }
 
     /**
-     * @param int $value
+     * Soft check if value has length less than $maxLength. Runs only after isString validation
+     *
+     * @param int $maxLength
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
-    public function isLengthLess($value)
+    public function isLengthLess($maxLength)
     {
-        if (!is_int($value)) {
-            throw new \InvalidArgumentException('Param $value must be int');
+        if (!is_int($maxLength)) {
+            throw new \InvalidArgumentException('Param $maxLength must be int');
         }
 
-        if ($value < 0) {
-            throw new \InvalidArgumentException('Param $value must be more than 0');
+        if ($maxLength < 0) {
+            throw new \InvalidArgumentException('Param $maxLength must be more than 0');
+        }
+
+        $this->isString();
+
+        if (!empty($this->errors)) {
+            return $this;
+        }
+
+        if (mb_strlen($this->value) <= $maxLength) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $maxLength]);
+    }
+
+    /**
+     * Soft check if value has length less than $minLength. Runs only after notEmpty and isString validations
+     *
+     * @param int $minLength
+     *
+     * @return Variable
+     * @throws \InvalidArgumentException
+     */
+    public function isLengthMore($minLength)
+    {
+        if (!is_int($minLength)) {
+            throw new \InvalidArgumentException('Param $minLength must be int');
+        }
+
+        if ($minLength < 0) {
+            throw new \InvalidArgumentException('Param $minLength must be more than 0');
         }
 
         $this->notEmpty()->isString();
@@ -507,50 +607,25 @@ class Variable
             return $this;
         }
 
-        if (mb_strlen($this->value) <= $value) {
+        if (mb_strlen($this->value) >= $minLength) {
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $value]);
+        return $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $minLength]);
     }
 
     /**
-     * @param int $value
+     * Soft check that value <= $max
+     *
+     * @param float|int $max
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
-    public function isLengthMore($value)
+    public function isLess($max)
     {
-        if (!is_int($value)) {
-            throw new \InvalidArgumentException('Param $value must be int');
-        }
-
-        if ($value < 0) {
-            throw new \InvalidArgumentException('Param $value must be more than 0');
-        }
-
-        $this->notEmpty()->isString();
-
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
-        if (mb_strlen($this->value) >= $value) {
-            return $this;
-        }
-
-        return $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $value]);
-    }
-
-    /**
-     * @param float|int $value
-     *
-     * @return Variable
-     */
-    public function isLess($value)
-    {
-        if (!is_int($value) && !is_float($value)) {
-            throw new \InvalidArgumentException('Param $value must be int or float');
+        if (!is_int($max) && !is_float($max)) {
+            throw new \InvalidArgumentException('Param $max must be int or float');
         }
 
         $this->isNumeric()->notString();
@@ -559,22 +634,25 @@ class Variable
             return $this;
         }
 
-        if ($this->value <= $value) {
+        if ($this->value <= $max) {
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'less than ' . $value]);
+        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'less than ' . $max]);
     }
 
     /**
-     * @param float|int $value
+     * Strict check that value < $max
+     *
+     * @param float|int $max
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
-    public function isLessStrict($value)
+    public function isLessStrict($max)
     {
-        if (!is_int($value) && !is_float($value)) {
-            throw new \InvalidArgumentException('Param $value must be int or float');
+        if (!is_int($max) && !is_float($max)) {
+            throw new \InvalidArgumentException('Param $max must be int or float');
         }
 
         $this->isNumeric()->notString();
@@ -583,14 +661,23 @@ class Variable
             return $this;
         }
 
-        if ($this->value < $value) {
+        if ($this->value < $max) {
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'less than ' . $value]);
+        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'less than ' . $max]);
     }
 
     /**
+     * Check if value is MAC address
+     *
+     * Allowed formats:
+     *
+     *  * ff:ff:ff:ff:ff:ff
+     *  * FF:FF:FF:FF:FF:FF
+     *  * ff-ff-ff-ff-ff-ff
+     *  * FF-FF-FF-FF-FF-FF
+     *
      * @return Variable
      */
     public function isMacAddress()
@@ -609,14 +696,17 @@ class Variable
     }
 
     /**
-     * @param float|int $value
+     * Soft check that value >= $min
+     *
+     * @param float|int $min
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
-    public function isMore($value)
+    public function isMore($min)
     {
-        if (!is_int($value) && !is_float($value)) {
-            throw new \InvalidArgumentException('Param $value must be int or float');
+        if (!is_int($min) && !is_float($min)) {
+            throw new \InvalidArgumentException('Param $min must be int or float');
         }
 
         $this->isNumeric()->notString();
@@ -625,22 +715,25 @@ class Variable
             return $this;
         }
 
-        if ($this->value >= $value) {
+        if ($this->value >= $min) {
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $value]);
+        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $min]);
     }
 
     /**
-     * @param float|int $value
+     * Strict check that value > $min
+     *
+     * @param float|int $min
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
-    public function isMoreStrict($value)
+    public function isMoreStrict($min)
     {
-        if (!is_int($value) && !is_float($value)) {
-            throw new \InvalidArgumentException('Param $value must be int or float');
+        if (!is_int($min) && !is_float($min)) {
+            throw new \InvalidArgumentException('Param $min must be int or float');
         }
 
         $this->isNumeric()->notString();
@@ -649,14 +742,16 @@ class Variable
             return $this;
         }
 
-        if ($this->value > $value) {
+        if ($this->value > $min) {
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $value]);
+        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $min]);
     }
 
     /**
+     * Check if value < 0
+     *
      * @return Variable
      */
     public function isNegative()
@@ -675,6 +770,8 @@ class Variable
     }
 
     /**
+     * Check if value is numeric (is_numeric)
+     *
      * @return Variable
      */
     public function isNumeric()
@@ -691,6 +788,8 @@ class Variable
     }
 
     /**
+     * Check if value is object (is_object)
+     *
      * @return Variable
      */
     public function isObject()
@@ -707,6 +806,8 @@ class Variable
     }
 
     /**
+     * Check if value > 0
+     *
      * @return Variable
      */
     public function isPositive()
@@ -725,6 +826,8 @@ class Variable
     }
 
     /**
+     * Check if value is resource (is_resource)
+     *
      * @return Variable
      */
     public function isResource()
@@ -741,6 +844,8 @@ class Variable
     }
 
     /**
+     * Check if value is string (is_string)
+     *
      * @return Variable
      */
     public function isString()
@@ -757,9 +862,12 @@ class Variable
     }
 
     /**
+     * Check if value is subclass of $className (is_subclass_of)
+     *
      * @param string $className
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isSubClassOf($className)
     {
@@ -782,6 +890,8 @@ class Variable
     }
 
     /**
+     * Check if value is not an array and not implements array interfaces
+     *
      * @return Variable
      */
     public function notArray()
@@ -790,7 +900,13 @@ class Variable
             return $this;
         }
 
-        if (!$this->validateArray()) {
+        if (!(
+            is_array($this->value) || (
+                $this->value instanceof \ArrayAccess &&
+                $this->value instanceof \Traversable &&
+                $this->value instanceof \Countable
+            )
+        )) {
             return $this;
         }
 
@@ -798,10 +914,13 @@ class Variable
     }
 
     /**
+     * Soft check that value $from >= or $to <= value
+     *
      * @param float|int $from
      * @param float|int $to
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notBetween($from, $to)
     {
@@ -832,10 +951,13 @@ class Variable
     }
 
     /**
+     * Soft check that value $from > or $to < value
+     *
      * @param float|int $from
      * @param float|int $to
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notBetweenStrict($from, $to)
     {
@@ -866,6 +988,8 @@ class Variable
     }
 
     /**
+     * Check if value is not boolean (is_bool)
+     *
      * @return Variable
      */
     public function notBool()
@@ -882,6 +1006,8 @@ class Variable
     }
 
     /**
+     * Check if value is not callable (is_callable)
+     *
      * @return Variable
      */
     public function notCallable()
@@ -898,6 +1024,8 @@ class Variable
     }
 
     /**
+     * Check if value is not digit (ctype_digit)
+     *
      * @return Variable
      */
     public function notDigit()
@@ -914,6 +1042,8 @@ class Variable
     }
 
     /**
+     * Check if value is not email (filter_var)
+     *
      * @return Variable
      */
     public function notEmail()
@@ -930,6 +1060,8 @@ class Variable
     }
 
     /**
+     * Check if value is not empty (empty)
+     *
      * @return Variable
      */
     public function notEmpty()
@@ -946,6 +1078,8 @@ class Variable
     }
 
     /**
+     * Check if value is not float (is_float)
+     *
      * @return Variable
      */
     public function notFloat()
@@ -962,6 +1096,8 @@ class Variable
     }
 
     /**
+     * Check if value is not graph (ctype_graph)
+     *
      * @return Variable
      */
     public function notGraph()
@@ -978,6 +1114,8 @@ class Variable
     }
 
     /**
+     * Check if value is not in array (in_array strict)
+     *
      * @param array $range
      *
      * @return Variable
@@ -988,7 +1126,7 @@ class Variable
             return $this;
         }
 
-        if (!in_array($this->value, $range)) {
+        if (!in_array($this->value, $range, true)) {
             return $this;
         }
 
@@ -996,6 +1134,8 @@ class Variable
     }
 
     /**
+     * Check if value is not integer (is_int)
+     *
      * @return Variable
      */
     public function notInt()
@@ -1012,6 +1152,8 @@ class Variable
     }
 
     /**
+     * Check if value is not json. Run only after notEmpty and isString validators
+     *
      * @return Variable
      */
     public function notJson()
@@ -1030,10 +1172,13 @@ class Variable
     }
 
     /**
+     * Soft check if value has length $length <= $from or $length >= to. Runs only after isString validation
+     *
      * @param int $from
      * @param int $to
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notLengthBetween($from, $to)
     {
@@ -1070,6 +1215,15 @@ class Variable
     }
 
     /**
+     * Check if value is MAC address
+     *
+     * Disallowed formats:
+     *
+     *  * ff:ff:ff:ff:ff:ff
+     *  * FF:FF:FF:FF:FF:FF
+     *  * ff-ff-ff-ff-ff-ff
+     *  * FF-FF-FF-FF-FF-FF
+     *
      * @return Variable
      */
     public function notMacAddress()
@@ -1088,6 +1242,8 @@ class Variable
     }
 
     /**
+     * Check if value is not numeric (is_numeric)
+     *
      * @return Variable
      */
     public function notNumeric()
@@ -1104,6 +1260,8 @@ class Variable
     }
 
     /**
+     * Check if value is not object (is_object)
+     *
      * @return Variable
      */
     public function notObject()
@@ -1120,6 +1278,8 @@ class Variable
     }
 
     /**
+     * Check if value is not resource (is_resource)
+     *
      * @return Variable
      */
     public function notResource()
@@ -1136,6 +1296,8 @@ class Variable
     }
 
     /**
+     * Check if value is not string (is_string)
+     *
      * @return Variable
      */
     public function notString()
@@ -1152,9 +1314,12 @@ class Variable
     }
 
     /**
+     * Check if value is not subclass of $className (is_subclass_of)
+     *
      * @param string $className
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notSubClassOf($className)
     {
@@ -1177,9 +1342,12 @@ class Variable
     }
 
     /**
+     * set option of throw exception on fail validation
+     *
      * @param bool $throwException
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function setThrowErrors($throwException)
     {
@@ -1193,10 +1361,13 @@ class Variable
     }
 
     /**
+     * Process fail validation
+     *
      * @param string $pattern
      * @param array  $placeholders
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     protected function processError($pattern, $placeholders = [])
     {
@@ -1210,19 +1381,5 @@ class Variable
         }
 
         return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function validateArray()
-    {
-        return (
-            is_array($this->value) || (
-                $this->value instanceof \ArrayAccess
-                && $this->value instanceof \Traversable
-                && $this->value instanceof \Countable
-            )
-        );
     }
 }

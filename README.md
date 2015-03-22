@@ -149,13 +149,18 @@ Both run only after internal check `isString()`
     - int|float `$to`
 
 -- --
+Both run only after internal check `notEmpty()` and `isString()`
+
+ * `isLengthLess($maxLength)`
+ * `isLengthLessStrict($maxLength)`
+    - int `$maxLength`
+
+-- --
 Both run only after internal check `isString()`
 
- * `isLengthMore($value)`
- * `isLengthMoreStrict($value)`
- * `isLengthLess($value)`
- * `isLengthLessStrict($value)`
-    - int `$from`
+ * `isLengthMore($minLength)`
+ * `isLengthMoreStrict($minLength)`
+    - int `$minLength`
 
 -- --
  * `isNumeric()`
@@ -170,11 +175,16 @@ Both run only after internal check `notEmpty()` and `isString()`
 -- --
 Both run only after internal check `isNumeric()` and `notString()`
 
- * `isMore($value)`
- * `isMoreStrict($value)`
- * `isLess($value)`
- * `isLessStrict($value)`
-    - int|float `$value`
+ * `isMore($min)`
+ * `isMoreStrict($min)`
+    - int|float `$min`
+
+-- --
+Both run only after internal check `isNumeric()` and `notString()`
+
+ * `isLess($max)`
+ * `isLessStrict($max)`
+    - int|float `$max`
 
 -- --
  * `isObject()`
@@ -193,6 +203,11 @@ Both run only after internal check `isNumeric()` and `notString()`
 -- --
  * `isString()`
  * `notString()`
+
+-- --
+ * `isSubClassOf($className)`
+ * `notSubClassOf($className)`
+    - string `$className`
 
 #### `index0h\validator\Cast`
 
