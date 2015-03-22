@@ -1,9 +1,9 @@
 
 test:
-	php ./.test.php run --xml --html --coverage-html --coverage-xml
+	php ./vendor/bin/codecept run --xml --html --coverage-html --coverage-xml
 
 benchmark:
-	php ./.test.php benchmark:variable
-	php ./.test.php benchmark:cast
+	php ./.benchmark.php benchmark:variable
+	php ./.benchmark.php benchmark:cast
 
 .PHONY: test benchmark

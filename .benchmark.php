@@ -11,7 +11,6 @@ use index0h\validator\tests\commands\VariableBenchmarkCommand;
 use index0h\validator\tests\commands\CastBenchmarkCommand;
 
 $app = new Application('Codeception', Codeception\Codecept::VERSION);
-$app->add(new Codeception\Command\Run('run'));
 $app->add(new VariableBenchmarkCommand('benchmark:variable'));
 $app->add(new CastBenchmarkCommand('benchmark:cast'));
 $app->run();
