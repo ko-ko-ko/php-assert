@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class AbstractBenchmarkCommand extends Command
 {
-    const COUNT_TEST = 10000;
+    const COUNT_TEST = 1000;
 
     const METRIC_COUNT_TEST = 'count';
 
@@ -181,12 +181,15 @@ abstract class AbstractBenchmarkCommand extends Command
 
             foreach ($results as $type => $values) {
                 $testName = $methodName . ' x' . $values[self::METRIC_COUNT_TEST];
-                $time = round($values[self::METRIC_TIME] / $values[self::METRIC_COUNT_TEST] * 1000000000);
+                $time = ($values[self::METRIC_COUNT_TEST] > 0)
+                    ? round($values[self::METRIC_TIME] / $values[self::METRIC_COUNT_TEST] * 1000000000)
+                    : '-';
                 $rateTime = ($minTime > 0) ? 'x' . round($values[self::METRIC_TIME] / $minTime, 2) : '-';
+
+                $memory = ($values[self::METRIC_MEMORY] > 0) ? $values[self::METRIC_MEMORY] : '-';
                 $rateMemory = ($minMemory > 0) ? 'x' . round($values[self::METRIC_MEMORY] / $minMemory, 2) : '-';
 
-                $this->resultTable
-                    ->addRow([$testName, $type, $time, $rateTime, $values[self::METRIC_MEMORY], $rateMemory]);
+                $this->resultTable->addRow([$testName, $type, $time, $rateTime, $memory, $rateMemory]);
             }
             if ($methodName !== self::TOTAL) {
                 $this->resultTable->addRows([new TableSeparator()]);
