@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class AbstractBenchmarkCommand extends Command
 {
-    const COUNT_TEST = 1000;
+    const COUNT_TEST = 10000;
 
     const METRIC_COUNT_TEST = 'count';
 
