@@ -7,53 +7,21 @@
 namespace index0h\validator\tests\commands;
 
 use index0h\validator\Cast;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\TableHelper;
-use Symfony\Component\Console\Helper\TableSeparator;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class CastBenchmarkCommand
  */
-class CastBenchmarkCommand extends Command
+class CastBenchmarkCommand extends AbstractBenchmarkCommand
 {
-    const COUNT_TEST = 100000;
+    const TYPE_CASTER = 'cast';
 
-    const METRIC_MEMORY = 'memory';
+    const TYPE_CASTER_LIGHT = 'cast_light';
 
-    const METRIC_TIME = 'time';
-
-    const TOTAL = 'TOTAL';
-
-    const TYPE_NATIVE = 'native';
-
-    const TYPE_VALIDATOR = 'cast';
-
-    const TYPE_VALIDATOR_LIGHT = 'cast_light';
-
-    /** @type array */
-    private $countTests = [self::TOTAL => 0];
-
-    /** @type array */
-    private $fixtures;
-
-    /** @type int */
-    private $memory = 0;
-
-    /** @type TableHelper */
-    private $resultTable;
-
-    /** @type array */
-    private $results = [];
-
-    /** @type float */
-    private $time = 0;
+    protected $typeList = [self::TYPE_NATIVE, self::TYPE_CASTER_LIGHT, self::TYPE_CASTER];
 
     /**
      * @param mixed $var
-     *
-     * @return array
      */
     public function toBool($var)
     {
@@ -70,8 +38,6 @@ class CastBenchmarkCommand extends Command
 
     /**
      * @param mixed $var
-     *
-     * @return array
      */
     public function toFloat($var)
     {
@@ -92,8 +58,6 @@ class CastBenchmarkCommand extends Command
 
     /**
      * @param mixed $var
-     *
-     * @return array
      */
     public function toInt($var)
     {
@@ -114,8 +78,6 @@ class CastBenchmarkCommand extends Command
 
     /**
      * @param mixed $var
-     *
-     * @return array
      */
     public function toString($var)
     {
@@ -138,102 +100,75 @@ class CastBenchmarkCommand extends Command
 
     protected function configure()
     {
+        // Cache object
+        Cast::assert('var', 'var');
+
         $this->setName('benchmark:cast')
             ->setDescription('Benchmark of Cast class');
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return int|null
+     * @param string $methodName
+     * @param mixed  $value
+     * @param array  $arguments
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function runBenchmarkForCaster($methodName, $value, $arguments)
     {
-        // Cache object
-        Cast::assert('var', 'var');
-
-        $this->resultTable = $this->getHelper('table');
-        $this->resultTable
-            ->setHeaders(
-                ['Test x{count}', 'Type', 'Time, ms', 'Time rate, curr/min', 'Memory, byte', 'Memory rate, curr/min']
-            );
-
-        $this->prepareResults();
-        $this->runBenchmarks($output);
-        $this->processTable();
-
-        $this->resultTable->render($output);
-    }
-
-    /**
-     * @return string[]
-     */
-    protected function getValidationMethods()
-    {
-        $result = [];
-
-        $class = new \ReflectionClass($this);
-        foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
-            if ($method->getDeclaringClass()->getName() === __CLASS__) {
-                $result[] = $method->getName();
+        if (count($arguments) === 0) {
+            $this->start();
+            for ($i = 0; $i < self::COUNT_TEST; $i++) {
+                Cast::assert($value, 'var')->{$methodName}()->getValue();
             }
-        }
-
-        sort($result);
-
-        return $result;
-    }
-
-    protected function prepareResults()
-    {
-        $this->results = [];
-
-        $methods = $this->getValidationMethods();
-        $methods[] = self::TOTAL;
-        foreach ($methods as $methodName) {
-            foreach ([self::TYPE_NATIVE, self::TYPE_VALIDATOR, self::TYPE_VALIDATOR_LIGHT] as $type) {
-                $this->results[$methodName][$type] = [self::METRIC_TIME => 0, self::METRIC_MEMORY => 0];
+            $this->stop($methodName, self::TYPE_CASTER);
+        } elseif (count($arguments) === 1) {
+            $this->start();
+            for ($i = 0; $i < self::COUNT_TEST; $i++) {
+                Cast::assert($value, 'var')->{$methodName}($arguments[0])->getValue();
             }
-        }
-    }
-
-    protected function processTable()
-    {
-        $this->countTests[self::TOTAL] = array_sum(array_values($this->countTests));
-
-        foreach ($this->results as $methodName => $results) {
-            $minTime = min(
-                $results[self::TYPE_NATIVE][self::METRIC_TIME],
-                $results[self::TYPE_VALIDATOR][self::METRIC_TIME],
-                $results[self::TYPE_VALIDATOR_LIGHT][self::METRIC_TIME]
-            );
-
-            $minMemory = min(
-                $results[self::TYPE_NATIVE][self::METRIC_MEMORY],
-                $results[self::TYPE_VALIDATOR][self::METRIC_MEMORY],
-                $results[self::TYPE_VALIDATOR_LIGHT][self::METRIC_MEMORY]
-            );
-
-            foreach ($results as $type => $values) {
-                $testName = $methodName . ' x' . (self::COUNT_TEST * $this->countTests[$methodName]);
-                $time = round($values[self::METRIC_TIME] * 1000);
-                $rateTime = ($minTime > 0) ? 'x' . round($values[self::METRIC_TIME] / $minTime, 2) : '-';
-                $rateMemory = ($minMemory > 0) ? 'x' . round($values[self::METRIC_MEMORY] / $minMemory, 2) : '-';
-
-                $this->resultTable
-                    ->addRow([$testName, $type, $time, $rateTime, $values[self::METRIC_MEMORY], $rateMemory]);
+            $this->stop($methodName, self::TYPE_CASTER);
+        } elseif (count($arguments) === 2) {
+            $this->start();
+            for ($i = 0; $i < self::COUNT_TEST; $i++) {
+                Cast::assert($value, 'var')->{$methodName}($arguments[0], $arguments[1])->getValue();
             }
-            if ($methodName !== self::TOTAL) {
-                $this->resultTable->addRows([new TableSeparator()]);
-            }
+            $this->stop($methodName, self::TYPE_CASTER);
         }
     }
 
     /**
      * @param string $methodName
-     * @param        $value
-     * @param        $arguments
+     * @param mixed  $value
+     * @param array  $arguments
+     */
+    protected function runBenchmarkForCasterLight($methodName, $value, $arguments)
+    {
+        $caster = Cast::assert($value, 'var');
+
+        if (count($arguments) === 0) {
+            $this->start();
+            for ($i = 0; $i < self::COUNT_TEST; $i++) {
+                $caster->{$methodName}()->getValue();
+            }
+            $this->stop($methodName, self::TYPE_CASTER_LIGHT);
+        } elseif (count($arguments) === 1) {
+            $this->start();
+            for ($i = 0; $i < self::COUNT_TEST; $i++) {
+                $caster->{$methodName}($arguments[0])->getValue();
+            }
+            $this->stop($methodName, self::TYPE_CASTER_LIGHT);
+        } elseif (count($arguments) === 2) {
+            $this->start();
+            for ($i = 0; $i < self::COUNT_TEST; $i++) {
+                $caster->{$methodName}($arguments[0], $arguments[1])->getValue();
+            }
+            $this->stop($methodName, self::TYPE_CASTER_LIGHT);
+        }
+    }
+
+    /**
+     * @param string $methodName
+     * @param mixed  $value
+     * @param array  $arguments
      */
     protected function runBenchmarkForNative($methodName, $value, $arguments)
     {
@@ -247,67 +182,9 @@ class CastBenchmarkCommand extends Command
     }
 
     /**
-     * @param string $methodName
-     * @param        $value
-     * @param        $arguments
-     */
-    protected function runBenchmarkForValidator($methodName, $value, $arguments)
-    {
-        if (count($arguments) === 0) {
-            $this->start();
-            for ($i = 0; $i < self::COUNT_TEST; $i++) {
-                Cast::assert($value, 'var')->{$methodName}()->getValue();
-            }
-            $this->stop($methodName, self::TYPE_VALIDATOR);
-        } elseif (count($arguments) === 1) {
-            $this->start();
-            for ($i = 0; $i < self::COUNT_TEST; $i++) {
-                Cast::assert($value, 'var')->{$methodName}($arguments[0])->getValue();
-            }
-            $this->stop($methodName, self::TYPE_VALIDATOR);
-        } elseif (count($arguments) === 2) {
-            $this->start();
-            for ($i = 0; $i < self::COUNT_TEST; $i++) {
-                Cast::assert($value, 'var')->{$methodName}($arguments[0], $arguments[1])->getValue();
-            }
-            $this->stop($methodName, self::TYPE_VALIDATOR);
-        }
-    }
-
-    /**
-     * @param string $methodName
-     * @param        $value
-     * @param        $arguments
-     */
-    protected function runBenchmarkForValidatorLight($methodName, $value, $arguments)
-    {
-        $validator = Cast::assert($value, 'var');
-
-        if (count($arguments) === 0) {
-            $this->start();
-            for ($i = 0; $i < self::COUNT_TEST; $i++) {
-                $validator->{$methodName}()->getValue();
-            }
-            $this->stop($methodName, self::TYPE_VALIDATOR_LIGHT);
-        } elseif (count($arguments) === 1) {
-            $this->start();
-            for ($i = 0; $i < self::COUNT_TEST; $i++) {
-                $validator->{$methodName}($arguments[0])->getValue();
-            }
-            $this->stop($methodName, self::TYPE_VALIDATOR_LIGHT);
-        } elseif (count($arguments) === 2) {
-            $this->start();
-            for ($i = 0; $i < self::COUNT_TEST; $i++) {
-                $validator->{$methodName}($arguments[0], $arguments[1])->getValue();
-            }
-            $this->stop($methodName, self::TYPE_VALIDATOR_LIGHT);
-        }
-    }
-
-    /**
      * @param OutputInterface $output
      */
-    protected function runBenchmarks($output)
+    protected function runBenchmarks(OutputInterface $output)
     {
         $methods = $this->getValidationMethods();
 
@@ -318,76 +195,10 @@ class CastBenchmarkCommand extends Command
                 // Native
                 $this->runBenchmarkForNative($method, $fixture['value'], $fixture['arguments']);
                 // Cast light
-                $this->runBenchmarkForValidatorLight($method, $fixture['value'], $fixture['arguments']);
+                $this->runBenchmarkForCasterLight($method, $fixture['value'], $fixture['arguments']);
                 // Cast
-                $this->runBenchmarkForValidator($method, $fixture['value'], $fixture['arguments']);
+                $this->runBenchmarkForCaster($method, $fixture['value'], $fixture['arguments']);
             }
         }
-    }
-
-    protected function start()
-    {
-        $this->time = microtime(true);
-        $this->memory = memory_get_usage();
-    }
-
-    protected function stop($methodName, $type)
-    {
-        $time = microtime(true) - $this->time;
-        $memory = memory_get_usage() - $this->memory;
-
-        $this->results[$methodName][$type][self::METRIC_TIME] += $time;
-        $this->results[$methodName][$type][self::METRIC_MEMORY] += $memory;
-
-        $this->results[self::TOTAL][$type][self::METRIC_TIME] += $time;
-        $this->results[self::TOTAL][$type][self::METRIC_MEMORY] += $memory;
-
-        $this->time = 0;
-        $this->memory = 0;
-    }
-
-    /**
-     * @return array
-     */
-    private function getFixtures()
-    {
-        if (!is_null($this->fixtures)) {
-            return $this->fixtures;
-        }
-
-        $this->fixtures = require_once __DIR__ . '/../_data/fixtures/variable.php';
-
-        return $this->fixtures;
-    }
-
-    /**
-     * @param string $methodName
-     *
-     * @return array
-     */
-    private function getFixturesForMethod($methodName)
-    {
-        $result = [];
-        foreach ($this->getFixtures() as $fixture) {
-            if (!isset($fixture['errors'][$methodName])) {
-                continue;
-            }
-
-            if ($fixture['errors'][$methodName] > 0) {
-                continue;
-            }
-
-            if (!isset($fixture['arguments'])) {
-                $fixture['arguments'] = [];
-            }
-
-            $fixture['errors'] = $fixture['errors'][$methodName];
-
-            $result[] = $fixture;
-        }
-
-        $this->countTests[$methodName] = count($result);
-
-        return $result;
     }
 }

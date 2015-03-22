@@ -7,53 +7,26 @@
 namespace index0h\validator\tests\commands;
 
 use index0h\validator\Variable;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\TableHelper;
-use Symfony\Component\Console\Helper\TableSeparator;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class VariableBenchmarkCommand
  */
-class VariableBenchmarkCommand extends Command
+class VariableBenchmarkCommand extends AbstractBenchmarkCommand
 {
-    const COUNT_TEST = 100000;
+    const TYPE_NATIVE_ARGUMENTS = 'native_arguments';
 
-    const METRIC_MEMORY = 'memory';
-
-    const METRIC_TIME = 'time';
-
-    const TOTAL = 'TOTAL';
-
-    const TYPE_NATIVE = 'native';
-
-    const TYPE_VALIDATOR = 'validator';
-
-    const TYPE_VALIDATOR_LIGHT = 'validator_light';
-
-    /** @type array */
-    private $countTests = [self::TOTAL => 0];
-
-    /** @type array */
-    private $fixtures;
-
-    /** @type int */
-    private $memory = 0;
-
-    /** @type TableHelper */
-    private $resultTable;
-
-    /** @type array */
-    private $results = [];
-
-    /** @type float */
-    private $time = 0;
+    /** @type string[] */
+    protected $typeList = [
+        self::TYPE_NATIVE,
+        self::TYPE_NATIVE_ARGUMENTS,
+        self::TYPE_VALIDATOR_LIGHT,
+        self::TYPE_VALIDATOR
+    ];
 
     /**
      * @param string $var
-     *
-     * @return array
+     * @param array  $array
      */
     public function inArray($var, $array)
     {
@@ -67,13 +40,19 @@ class VariableBenchmarkCommand extends Command
                 throw new \InvalidArgumentException('var must be in array');
             }
         }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!in_array($var, $array)) {
+                throw new \InvalidArgumentException('var must be in array');
+            }
+        }
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
     /**
      * @param array $var
-     *
-     * @return array
      */
     public function isArray($var)
     {
@@ -91,9 +70,111 @@ class VariableBenchmarkCommand extends Command
     }
 
     /**
+     * @param string    $var
+     * @param int|float $from
+     * @param int|float $to
+     */
+    public function isBetween($var, $from, $to)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_int($from) && !is_float($from)) {
+                throw new \InvalidArgumentException('Param $from must be int or float');
+            }
+
+            if (!is_int($to) && !is_float($to)) {
+                throw new \InvalidArgumentException('Param $to must be int or float');
+            }
+
+            if ($from > $to) {
+                throw new \InvalidArgumentException('Param $from must be less than $to');
+            }
+
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var < $from || $var > $to) {
+                throw new \InvalidArgumentException('var must be between ' . $from . ' and ' . $to);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var < $from || $var > $to) {
+                throw new \InvalidArgumentException('var must be between ' . $from . ' and ' . $to);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
+     * @param string    $var
+     * @param int|float $from
+     * @param int|float $to
+     */
+    public function isBetweenStrict($var, $from, $to)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_int($from) && !is_float($from)) {
+                throw new \InvalidArgumentException('Param $from must be int or float');
+            }
+
+            if (!is_int($to) && !is_float($to)) {
+                throw new \InvalidArgumentException('Param $to must be int or float');
+            }
+
+            if ($from > $to) {
+                throw new \InvalidArgumentException('Param $from must be less than $to');
+            }
+
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var <= $from || $var >= $to) {
+                throw new \InvalidArgumentException('var must be between ' . $from . ' and ' . $to);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var <= $from || $var >= $to) {
+                throw new \InvalidArgumentException('var must be between ' . $from . ' and ' . $to);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
      * @param bool $var
-     *
-     * @return array
      */
     public function isBool($var)
     {
@@ -108,8 +189,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param callable $var
-     *
-     * @return array
      */
     public function isCallable($var)
     {
@@ -124,8 +203,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function isDigit($var)
     {
@@ -140,8 +217,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function isEmail($var)
     {
@@ -156,8 +231,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param array $var
-     *
-     * @return array
      */
     public function isEmpty($var)
     {
@@ -172,8 +245,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param float $var
-     *
-     * @return array
      */
     public function isFloat($var)
     {
@@ -188,8 +259,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function isGraph($var)
     {
@@ -204,8 +273,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param int $var
-     *
-     * @return array
      */
     public function isInt($var)
     {
@@ -220,8 +287,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function isJson($var)
     {
@@ -244,8 +309,240 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
+     * @param int    $from
+     * @param int    $to
      *
      * @return array
+     */
+    public function isLengthBetween($var, $from, $to)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_int($from)) {
+                throw new \InvalidArgumentException('Param $from must be int');
+            }
+
+            if (!is_int($to)) {
+                throw new \InvalidArgumentException('Param $to must be int');
+            }
+
+            if ($from > $to) {
+                throw new \InvalidArgumentException('Param $from must be less than $to');
+            }
+
+            if ($from < 0) {
+                throw new \InvalidArgumentException('Param $from must be more than 0');
+            }
+
+            if (!is_string($var)) {
+                throw new \InvalidArgumentException('var must be string');
+            }
+
+            $length = mb_strlen($var);
+
+            if ($length < $from || $length > $to) {
+                throw new \InvalidArgumentException('var length must be between ' . $from . ' and ' . $to);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!is_string($var)) {
+                throw new \InvalidArgumentException('var must be string');
+            }
+
+            $length = mb_strlen($var);
+
+            if ($length < $from || $length > $to) {
+                throw new \InvalidArgumentException('var length must be between ' . $from . ' and ' . $to);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
+     * @param string $var
+     * @param int    $value
+     */
+    public function isLengthLess($var, $value)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_int($value)) {
+                throw new \InvalidArgumentException('Param $value must be int');
+            }
+
+            if ($value < 0) {
+                throw new \InvalidArgumentException('Param $value must be more than 0');
+            }
+
+            if (empty($var)) {
+                throw new \InvalidArgumentException('var must be not empty');
+            }
+
+            if (!is_string($var)) {
+                throw new \InvalidArgumentException('var must be string');
+            }
+
+            if (mb_strlen($var) > $value) {
+                throw new \InvalidArgumentException('var length must be less than ' . $value);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (empty($var)) {
+                throw new \InvalidArgumentException('var must be not empty');
+            }
+
+            if (!is_string($var)) {
+                throw new \InvalidArgumentException('var must be string');
+            }
+
+            if (mb_strlen($var) > $value) {
+                throw new \InvalidArgumentException('var length must be less than ' . $value);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
+     * @param string $var
+     * @param int    $value
+     */
+    public function isLengthMore($var, $value)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_int($value)) {
+                throw new \InvalidArgumentException('Param $value must be int');
+            }
+
+            if ($value < 0) {
+                throw new \InvalidArgumentException('Param $value must be more than 0');
+            }
+
+            if (empty($var)) {
+                throw new \InvalidArgumentException('var must be not empty');
+            }
+
+            if (!is_string($var)) {
+                throw new \InvalidArgumentException('var must be string');
+            }
+
+            if (mb_strlen($var) < $value) {
+                throw new \InvalidArgumentException('var length must be more than ' . $value);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (empty($var)) {
+                throw new \InvalidArgumentException('var must be not empty');
+            }
+
+            if (!is_string($var)) {
+                throw new \InvalidArgumentException('var must be string');
+            }
+
+            if (mb_strlen($var) < $value) {
+                throw new \InvalidArgumentException('var length must be more than ' . $value);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
+     * @param string    $var
+     * @param int|float $value
+     */
+    public function isLess($var, $value)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_int($value) && !is_float($value)) {
+                throw new \InvalidArgumentException('Param $value must be int or float');
+            }
+
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var > $value) {
+                throw new \InvalidArgumentException('var must be less than ' . $value);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var > $value) {
+                throw new \InvalidArgumentException('var must be less than ' . $value);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
+     * @param string    $var
+     * @param int|float $value
+     */
+    public function isLessStrict($var, $value)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_int($value) && !is_float($value)) {
+                throw new \InvalidArgumentException('Param $value must be int or float');
+            }
+
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var >= $value) {
+                throw new \InvalidArgumentException('var must be less than ' . $value);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var >= $value) {
+                throw new \InvalidArgumentException('var must be less than ' . $value);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
+     * @param string $var
      */
     public function isMacAddress($var)
     {
@@ -267,9 +564,93 @@ class VariableBenchmarkCommand extends Command
     }
 
     /**
+     * @param string    $var
+     * @param int|float $value
+     */
+    public function isMore($var, $value)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_int($value) && !is_float($value)) {
+                throw new \InvalidArgumentException('Param $value must be int or float');
+            }
+
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var < $value) {
+                throw new \InvalidArgumentException('var must be more than ' . $value);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var < $value) {
+                throw new \InvalidArgumentException('var must be more than ' . $value);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
+     * @param string    $var
+     * @param int|float $value
+     */
+    public function isMoreStrict($var, $value)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_int($value) && !is_float($value)) {
+                throw new \InvalidArgumentException('Param $value must be int or float');
+            }
+
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var < $value) {
+                throw new \InvalidArgumentException('var must be more than ' . $value);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var < $value) {
+                throw new \InvalidArgumentException('var must be more than ' . $value);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
      * @param string $var
-     *
-     * @return array
      */
     public function isNegative($var)
     {
@@ -292,8 +673,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function isNumeric($var)
     {
@@ -308,8 +687,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param object $var
-     *
-     * @return array
      */
     public function isObject($var)
     {
@@ -324,8 +701,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function isPositive($var)
     {
@@ -348,8 +723,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param resource $var
-     *
-     * @return array
      */
     public function isResource($var)
     {
@@ -364,8 +737,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function isString($var)
     {
@@ -398,9 +769,111 @@ class VariableBenchmarkCommand extends Command
     }
 
     /**
+     * @param string    $var
+     * @param int|float $from
+     * @param int|float $to
+     */
+    public function notBetween($var, $from, $to)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_int($from) && !is_float($from)) {
+                throw new \InvalidArgumentException('Param $from must be int or float');
+            }
+
+            if (!is_int($to) && !is_float($to)) {
+                throw new \InvalidArgumentException('Param $to must be int or float');
+            }
+
+            if ($from > $to) {
+                throw new \InvalidArgumentException('Param $from must be less than $to');
+            }
+
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var > $from && $var < $to) {
+                throw new \InvalidArgumentException('var must be between ' . $from . ' and ' . $to);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var > $from && $var < $to) {
+                throw new \InvalidArgumentException('var must be between ' . $from . ' and ' . $to);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
+     * @param string    $var
+     * @param int|float $from
+     * @param int|float $to
+     */
+    public function notBetweenStrict($var, $from, $to)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_int($from) && !is_float($from)) {
+                throw new \InvalidArgumentException('Param $from must be int or float');
+            }
+
+            if (!is_int($to) && !is_float($to)) {
+                throw new \InvalidArgumentException('Param $to must be int or float');
+            }
+
+            if ($from > $to) {
+                throw new \InvalidArgumentException('Param $from must be less than $to');
+            }
+
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var >= $from && $var <= $to) {
+                throw new \InvalidArgumentException('var must be between ' . $from . ' and ' . $to);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!is_numeric($var)) {
+                throw new \InvalidArgumentException('var must be numeric');
+            }
+
+            if (is_string($var)) {
+                throw new \InvalidArgumentException('var must be not string');
+            }
+
+            if ($var >= $from && $var <= $to) {
+                throw new \InvalidArgumentException('var must be between ' . $from . ' and ' . $to);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
      * @param array $var
-     *
-     * @return array
      */
     public function notBool($var)
     {
@@ -415,8 +888,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function notCallable($var)
     {
@@ -431,8 +902,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param array $var
-     *
-     * @return array
      */
     public function notDigit($var)
     {
@@ -447,8 +916,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function notEmail($var)
     {
@@ -463,8 +930,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function notEmpty($var)
     {
@@ -479,8 +944,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function notFloat($var)
     {
@@ -495,8 +958,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function notGraph($var)
     {
@@ -511,8 +972,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function notInArray($var, $array)
     {
@@ -531,8 +990,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function notInt($var)
     {
@@ -547,8 +1004,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function notJson($var)
     {
@@ -571,8 +1026,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function notMacAddress($var)
     {
@@ -595,8 +1048,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function notNumeric($var)
     {
@@ -611,8 +1062,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function notObject($var)
     {
@@ -627,8 +1076,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param string $var
-     *
-     * @return array
      */
     public function notResource($var)
     {
@@ -643,8 +1090,6 @@ class VariableBenchmarkCommand extends Command
 
     /**
      * @param array $var
-     *
-     * @return array
      */
     public function notString($var)
     {
@@ -661,94 +1106,22 @@ class VariableBenchmarkCommand extends Command
     {
         $this->setName('benchmark:variable')
             ->setDescription('Benchmark of Variable validator');
-    }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return int|null
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
         // Cache object
         Variable::assert('var', 'var');
-
-        $this->resultTable = $this->getHelper('table');
-        $this->resultTable
-            ->setHeaders(
-                ['Test x{count}', 'Type', 'Time, ms', 'Time rate, curr/min', 'Memory, byte', 'Memory rate, curr/min']
-            );
-
-        $this->prepareResults();
-        $this->runBenchmarks($output);
-        $this->processTable();
-
-        $this->resultTable->render($output);
     }
 
-    /**
-     * @return string[]
-     */
-    protected function getValidationMethods()
+    protected function processResults()
     {
-        $result = [];
-
-        $class = new \ReflectionClass($this);
-        foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
-            if ($method->getDeclaringClass()->getName() === __CLASS__) {
-                $result[] = $method->getName();
-            }
-        }
-
-        sort($result);
-
-        return $result;
-    }
-
-    protected function prepareResults()
-    {
-        $this->results = [];
-
-        $methods = $this->getValidationMethods();
-        $methods[] = self::TOTAL;
-        foreach ($methods as $methodName) {
-            foreach ([self::TYPE_NATIVE, self::TYPE_VALIDATOR, self::TYPE_VALIDATOR_LIGHT] as $type) {
-                $this->results[$methodName][$type] = [self::METRIC_TIME => 0, self::METRIC_MEMORY => 0];
-            }
-        }
-    }
-
-    protected function processTable()
-    {
-        $this->countTests[self::TOTAL] = array_sum(array_values($this->countTests));
-
         foreach ($this->results as $methodName => $results) {
-            $minTime = min(
-                $results[self::TYPE_NATIVE][self::METRIC_TIME],
-                $results[self::TYPE_VALIDATOR][self::METRIC_TIME],
-                $results[self::TYPE_VALIDATOR_LIGHT][self::METRIC_TIME]
-            );
-
-            $minMemory = min(
-                $results[self::TYPE_NATIVE][self::METRIC_MEMORY],
-                $results[self::TYPE_VALIDATOR][self::METRIC_MEMORY],
-                $results[self::TYPE_VALIDATOR_LIGHT][self::METRIC_MEMORY]
-            );
-
-            foreach ($results as $type => $values) {
-                $testName = $methodName . ' x' . (self::COUNT_TEST * $this->countTests[$methodName]);
-                $time = round($values[self::METRIC_TIME] * 1000);
-                $rateTime = ($minTime > 0) ? 'x' . round($values[self::METRIC_TIME] / $minTime, 2) : '-';
-                $rateMemory = ($minMemory > 0) ? 'x' . round($values[self::METRIC_MEMORY] / $minMemory, 2) : '-';
-
-                $this->resultTable
-                    ->addRow([$testName, $type, $time, $rateTime, $values[self::METRIC_MEMORY], $rateMemory]);
+            if (($results[self::TYPE_NATIVE_ARGUMENTS][self::METRIC_COUNT_TEST] > 0)) {
+                continue;
             }
-            if ($methodName !== self::TOTAL) {
-                $this->resultTable->addRows([new TableSeparator()]);
-            }
+
+            $this->results[$methodName][self::TYPE_NATIVE_ARGUMENTS] = $this->results[$methodName][self::TYPE_NATIVE];
         }
+
+        parent::processResults();
     }
 
     /**
@@ -828,7 +1201,7 @@ class VariableBenchmarkCommand extends Command
     /**
      * @param OutputInterface $output
      */
-    protected function runBenchmarks($output)
+    protected function runBenchmarks(OutputInterface $output)
     {
         $methods = $this->getValidationMethods();
 
@@ -844,71 +1217,5 @@ class VariableBenchmarkCommand extends Command
                 $this->runBenchmarkForValidator($method, $fixture['value'], $fixture['arguments']);
             }
         }
-    }
-
-    protected function start()
-    {
-        $this->time = microtime(true);
-        $this->memory = memory_get_usage();
-    }
-
-    protected function stop($methodName, $type)
-    {
-        $time = microtime(true) - $this->time;
-        $memory = memory_get_usage() - $this->memory;
-
-        $this->results[$methodName][$type][self::METRIC_TIME] += $time;
-        $this->results[$methodName][$type][self::METRIC_MEMORY] += $memory;
-
-        $this->results[self::TOTAL][$type][self::METRIC_TIME] += $time;
-        $this->results[self::TOTAL][$type][self::METRIC_MEMORY] += $memory;
-
-        $this->time = 0;
-        $this->memory = 0;
-    }
-
-    /**
-     * @return array
-     */
-    private function getFixtures()
-    {
-        if (!is_null($this->fixtures)) {
-            return $this->fixtures;
-        }
-
-        $this->fixtures = require_once __DIR__ . '/../_data/fixtures/variable.php';
-
-        return $this->fixtures;
-    }
-
-    /**
-     * @param string $methodName
-     *
-     * @return array
-     */
-    private function getFixturesForMethod($methodName)
-    {
-        $result = [];
-        foreach ($this->getFixtures() as $fixture) {
-            if (!isset($fixture['errors'][$methodName])) {
-                continue;
-            }
-
-            if ($fixture['errors'][$methodName] > 0) {
-                continue;
-            }
-
-            if (!isset($fixture['arguments'])) {
-                $fixture['arguments'] = [];
-            }
-
-            $fixture['errors'] = $fixture['errors'][$methodName];
-
-            $result[] = $fixture;
-        }
-
-        $this->countTests[$methodName] = count($result);
-
-        return $result;
     }
 }
