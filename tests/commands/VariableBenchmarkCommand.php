@@ -749,6 +749,35 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
+    public function isSubClassOf($var, $className)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!(
+                (is_object($var) && is_subclass_of($var, $className)) ||
+                (is_string($var) && is_subclass_of($var, $className, true))
+            )) {
+                throw new \Exception('var must be sub class of ' . $className);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!is_string($className)) {
+                throw new \InvalidArgumentException('Param $className must be string');
+            }
+
+            if (!(
+                (is_object($var) && is_subclass_of($var, $className)) ||
+                (is_string($var) && is_subclass_of($var, $className, true))
+            )) {
+                throw new \Exception('var must be sub class of ' . $className);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+    }
+
     /**
      * @param bool $var
      *
@@ -1100,6 +1129,35 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
             }
         }
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    public function notSubClassOf($var, $className)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!(
+                (is_object($var) && !is_subclass_of($var, $className)) ||
+                (is_string($var) && !is_subclass_of($var, $className, true))
+            )) {
+                throw new \Exception('var must be sub class of ' . $className);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!is_string($className)) {
+                throw new \InvalidArgumentException('Param $className must be string');
+            }
+
+            if (!(
+                (is_object($var) && !is_subclass_of($var, $className)) ||
+                (is_string($var) && !is_subclass_of($var, $className, true))
+            )) {
+                throw new \Exception('var must be sub class of ' . $className);
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
     }
 
     protected function configure()

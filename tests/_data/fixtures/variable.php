@@ -1435,4 +1435,44 @@ return [
             'notBetweenStrict' => 2
         ]
     ],
+// new \InvalidArgumentException ('\Exception')
+    [
+        'comment' => 'new \InvalidArgumentException ("\\Exception")',
+        'arguments' => ['\Exception'],
+        'value' => new \InvalidArgumentException,
+        'errors' => [
+            'isSubClassOf' => 0,
+            'notSubClassOf' => 1,
+        ]
+    ],
+// '\InvalidArgumentException' ('\Exception')
+    [
+        'comment' => 'new \InvalidArgumentException ("\\Exception")',
+        'arguments' => ['\Exception'],
+        'value' => '\InvalidArgumentException',
+        'errors' => [
+            'isSubClassOf' => 0,
+            'notSubClassOf' => 1,
+        ]
+    ],
+// new \Exception ('\InvalidArgumentException')
+    [
+        'comment' => 'new \Exception ("\\InvalidArgumentException")',
+        'arguments' => ['\InvalidArgumentException'],
+        'value' => new \Exception,
+        'errors' => [
+            'isSubClassOf' => 1,
+            'notSubClassOf' => 0,
+        ]
+    ],
+// '\Exception' ('\InvalidArgumentException')
+    [
+        'comment' => 'new \Exception ("\\InvalidArgumentException")',
+        'arguments' => ['\InvalidArgumentException'],
+        'value' => '\Exception',
+        'errors' => [
+            'isSubClassOf' => 1,
+            'notSubClassOf' => 0,
+        ]
+    ],
 ];

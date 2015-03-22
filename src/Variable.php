@@ -757,6 +757,31 @@ class Variable
     }
 
     /**
+     * @param string $className
+     *
+     * @return Variable
+     */
+    public function isSubClassOf($className)
+    {
+        if (!is_string($className)) {
+            throw new \InvalidArgumentException('Param $className must be string');
+        }
+
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (
+            (is_object($this->value) && is_subclass_of($this->value, $className)) ||
+            (is_string($this->value) && is_subclass_of($this->value, $className, true))
+        ) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'subclass of ' . $className]);
+    }
+
+    /**
      * @return Variable
      */
     public function notArray()
@@ -1127,6 +1152,31 @@ class Variable
     }
 
     /**
+     * @param string $className
+     *
+     * @return Variable
+     */
+    public function notSubClassOf($className)
+    {
+        if (!is_string($className)) {
+            throw new \InvalidArgumentException('Param $className must be string');
+        }
+
+        if (!empty($this->errors) && $this->skipOnErrors) {
+            return $this;
+        }
+
+        if (
+            (is_object($this->value) && !is_subclass_of($this->value, $className)) ||
+            (is_string($this->value) && !is_subclass_of($this->value, $className, true))
+        ) {
+            return $this;
+        }
+
+        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'subclass of ' . $className]);
+    }
+
+    /**
      * @param bool $throwException
      *
      * @return Variable
@@ -1151,7 +1201,7 @@ class Variable
     protected function processError($pattern, $placeholders = [])
     {
         $placeholders['{{variable}}'] = $this->name;
-        $placeholders['{{value}}'] = var_export($this->value, true);
+        $placeholders['{{value}}'] = print_r($this->value, true);
 
         $this->errors[] = strtr($pattern, $placeholders);
 

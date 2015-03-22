@@ -525,6 +525,27 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
+    public function isSubClassOf(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__, ['A']);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isSubClassOfArguments(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->isSubClassOf(5);
+            $I->fail('Argument must be string');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
     public function notArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -778,6 +799,27 @@ class VariableCest
     {
         $this->check($I, __FUNCTION__);
         $this->checkSkipErrors($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function notSubClassOf(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+        $this->checkSkipErrors($I, __FUNCTION__, ['A']);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function notSubClassOfArguments(\UnitTester $I)
+    {
+        try {
+            Variable::validate('var', 'var')->notSubClassOf(5);
+            $I->fail('Argument must be string');
+        } catch (\InvalidArgumentException $error) {
+        }
     }
 
     /**
