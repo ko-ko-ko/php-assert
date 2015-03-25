@@ -15,13 +15,13 @@ This validator gives you very simple and fast API. You can see benchmark results
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 ```sh
-php composer.phar require --prefer-dist index0h/validator 0.1.x
+php composer.phar require --prefer-dist index0h/validator "0.1.x"
 ```
 
 or add line to require section of `composer.json`
 
 ```json
-"index0h/validator": 0.1.x
+"index0h/validator": "0.1.x"
 ```
 
 ## Usage
@@ -295,7 +295,7 @@ $req = Request::createFromGlobals();
 $userId = $req->get('uid', -1);
 
 if (!is_int($userId)) {
-    if (is_numeric($this->value) && is_bool($this->value)) {
+    if (is_numeric($this->value) || is_bool($this->value)) {
         $userId = (int)$userId;
     } else {
         throw new \InvalidArgumentException('Can not cast $userId to int');
