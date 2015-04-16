@@ -11,7 +11,7 @@ namespace index0h\validator\request;
  */
 class ArrayData extends AbstractRequest
 {
-    /** @type array */
+    /** @var array */
     protected $data = [];
 
     /**
@@ -27,6 +27,7 @@ class ArrayData extends AbstractRequest
      * @param mixed  $default
      *
      * @return mixed
+     * @throws \InvalidArgumentException
      */
     protected function getParam($name, $default = null)
     {

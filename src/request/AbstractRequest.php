@@ -6,15 +6,15 @@
  */
 namespace index0h\validator\request;
 
-use index0h\validator\Cast;
+use index0h\validator\Variable;
 
 /**
  * Class AbstractRequest
  */
 abstract class AbstractRequest implements RequestInterface
 {
-    /** @type string */
-    protected $exceptionClass = Cast::EXCEPTION_CLASS;
+    /** @var string */
+    protected $exceptionClass = Variable::EXCEPTION_CLASS;
 
     /**
      * @param string $name
@@ -28,7 +28,8 @@ abstract class AbstractRequest implements RequestInterface
      * @param string $name
      * @param mixed  $default
      *
-     * @return Cast
+     * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function get($name, $default = null)
     {
@@ -36,7 +37,7 @@ abstract class AbstractRequest implements RequestInterface
             throw new \InvalidArgumentException('Param $name must be string');
         }
 
-        return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass);
+        return Variable::assert($this->getParam($name, $default), $name, $this->exceptionClass);
     }
 
     /**
@@ -51,7 +52,8 @@ abstract class AbstractRequest implements RequestInterface
      * @param string $name
      * @param bool   $default
      *
-     * @return Cast
+     * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function toBool($name, $default = false)
     {
@@ -63,14 +65,15 @@ abstract class AbstractRequest implements RequestInterface
             throw new \InvalidArgumentException('Param $default must be bool');
         }
 
-        return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toBool($default);
+        return Variable::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toBool();
     }
 
     /**
      * @param string $name
      * @param float  $default
      *
-     * @return Cast
+     * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function toFloat($name, $default = 0.0)
     {
@@ -82,14 +85,15 @@ abstract class AbstractRequest implements RequestInterface
             throw new \InvalidArgumentException('Param $default must be bool');
         }
 
-        return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toFloat($default);
+        return Variable::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toFloat();
     }
 
     /**
      * @param string $name
      * @param int    $default
      *
-     * @return Cast
+     * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function toInt($name, $default = 0)
     {
@@ -101,14 +105,15 @@ abstract class AbstractRequest implements RequestInterface
             throw new \InvalidArgumentException('Param $default must be int');
         }
 
-        return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toInt($default);
+        return Variable::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toInt();
     }
 
     /**
      * @param string $name
      * @param string $default
      *
-     * @return Cast
+     * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function toString($name, $default = '')
     {
@@ -120,6 +125,6 @@ abstract class AbstractRequest implements RequestInterface
             throw new \InvalidArgumentException('Param $default must be string');
         }
 
-        return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toString($default);
+        return Variable::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toString();
     }
 }

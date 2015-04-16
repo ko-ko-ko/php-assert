@@ -6,12 +6,14 @@
  */
 namespace Codeception\Module;
 
+use Codeception\Module;
+
 /**
  * Class UnitHelper
  */
-class UnitHelper extends \Codeception\Module
+class UnitHelper extends Module
 {
-    /** @type array */
+    /** @var array */
     private static $fixtures;
 
     /**

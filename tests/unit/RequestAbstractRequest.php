@@ -7,7 +7,7 @@
 namespace index0h\validator\tests\unit;
 
 use AspectMock\Test as test;
-use index0h\validator\Cast;
+use index0h\validator\Variable;
 use index0h\validator\request\AbstractRequest;
 
 /**
@@ -15,24 +15,22 @@ use index0h\validator\request\AbstractRequest;
  */
 abstract class RequestAbstractRequest
 {
-    const CAST_CLASS_NAME = 'index0h\validator\Cast';
-
     const TEST_REQUEST_CLASS = '';
 
     /**
      * @param \UnitTester $I
      */
-    public function getWithStrict(\UnitTester $I)
+    public function getValue(\UnitTester $I)
     {
         $var = 'var';
         $aspect = test::double(static::TEST_REQUEST_CLASS, ['getParam' => $var]);
 
-        /** @type AbstractRequest $req */
+        /** @var AbstractRequest $req */
         $req = $aspect->make();
 
         $validator = $req->get('var');
 
-        $I->assertEquals('index0h\validator\Cast', get_class($validator));
+        $I->assertEquals('index0h\validator\Variable', get_class($validator));
         $I->assertEquals($validator->getValue(), $var);
 
         test::clean();
@@ -55,14 +53,14 @@ abstract class RequestAbstractRequest
     /**
      * @param \UnitTester $I
      */
-    public function toBoolStrict(\UnitTester $I)
+    public function toBool(\UnitTester $I)
     {
         $expected = true;
 
-        $aspectCast = test::double(self::CAST_CLASS_NAME);
-        $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => null]);
+        $aspectCast = test::double('index0h\validator\Variable');
+        $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => $expected]);
 
-        /** @type AbstractRequest $req */
+        /** @var AbstractRequest $req */
         $req = $aspectRequest->make();
 
         $actual = $req->toBool('var', $expected, $req->getExceptionClass())->getValue();
@@ -105,14 +103,14 @@ abstract class RequestAbstractRequest
     /**
      * @param \UnitTester $I
      */
-    public function toFloatStrict(\UnitTester $I)
+    public function toFloat(\UnitTester $I)
     {
         $expected = 100.5;
 
-        $aspectCast = test::double(self::CAST_CLASS_NAME);
-        $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => null]);
+        $aspectCast = test::double('index0h\validator\Variable');
+        $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => $expected]);
 
-        /** @type AbstractRequest $req */
+        /** @var AbstractRequest $req */
         $req = $aspectRequest->make();
 
         $actual = $req->toFloat('var', $expected, $req->getExceptionClass())->getValue();
@@ -155,14 +153,14 @@ abstract class RequestAbstractRequest
     /**
      * @param \UnitTester $I
      */
-    public function toIntStrict(\UnitTester $I)
+    public function toInt(\UnitTester $I)
     {
         $expected = 100;
 
-        $aspectCast = test::double(self::CAST_CLASS_NAME);
-        $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => null]);
+        $aspectCast = test::double('index0h\validator\Variable');
+        $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => $expected]);
 
-        /** @type AbstractRequest $req */
+        /** @var AbstractRequest $req */
         $req = $aspectRequest->make();
 
         $actual = $req->toInt('var', $expected, $req->getExceptionClass())->getValue();
@@ -205,14 +203,14 @@ abstract class RequestAbstractRequest
     /**
      * @param \UnitTester $I
      */
-    public function toStringStrict(\UnitTester $I)
+    public function toString(\UnitTester $I)
     {
         $expected = 'var';
 
-        $aspectCast = test::double(self::CAST_CLASS_NAME);
-        $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => null]);
+        $aspectCast = test::double('index0h\validator\Variable');
+        $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => $expected]);
 
-        /** @type AbstractRequest $req */
+        /** @var AbstractRequest $req */
         $req = $aspectRequest->make();
 
         $actual = $req->toString('var', $expected, $req->getExceptionClass())->getValue();

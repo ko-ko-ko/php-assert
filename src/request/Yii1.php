@@ -13,7 +13,7 @@ use CHttpRequest;
  */
 class Yii1 extends AbstractRequest
 {
-    /** @type CHttpRequest */
+    /** @var CHttpRequest */
     protected $request;
 
     /**
@@ -29,6 +29,7 @@ class Yii1 extends AbstractRequest
      * @param mixed  $default
      *
      * @return mixed
+     * @throws \InvalidArgumentException
      */
     protected function getParam($name, $default = null)
     {

@@ -33,25 +33,25 @@ abstract class AbstractBenchmarkCommand extends Command
 
     const TYPE_VALIDATOR_LIGHT = 'validator_light';
 
-    /** @type array */
+    /** @var array */
     protected $fixtures;
 
-    /** @type int */
+    /** @var int */
     protected $memory = 0;
 
-    /** @type string[] */
+    /** @var string[] */
     protected $metricList = [self::METRIC_TIME, self::METRIC_MEMORY, self::METRIC_COUNT_TEST];
 
-    /** @type TableHelper */
+    /** @var TableHelper */
     protected $resultTable;
 
-    /** @type array */
+    /** @var array */
     protected $results = [];
 
-    /** @type float */
+    /** @var float */
     protected $time = 0;
 
-    /** @type string[] */
+    /** @var string[] */
     protected $typeList = [];
 
     /**

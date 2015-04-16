@@ -6,7 +6,7 @@
  */
 namespace index0h\validator\request;
 
-use index0h\validator\Cast;
+use index0h\validator\Variable;
 
 /**
  * Interface RequestInterface
@@ -17,7 +17,7 @@ interface RequestInterface
      * @param string $name
      * @param mixed  $default
      *
-     * @return Cast
+     * @return Variable
      */
     public function get($name, $default = null);
 
@@ -25,7 +25,8 @@ interface RequestInterface
      * @param string $name
      * @param bool   $default
      *
-     * @return Cast
+     * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function toBool($name, $default = false);
 
@@ -33,7 +34,8 @@ interface RequestInterface
      * @param string $name
      * @param float  $default
      *
-     * @return Cast
+     * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function toFloat($name, $default = 0.0);
 
@@ -41,7 +43,8 @@ interface RequestInterface
      * @param string $name
      * @param int    $default
      *
-     * @return Cast
+     * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function toInt($name, $default = 0);
 
@@ -49,7 +52,8 @@ interface RequestInterface
      * @param string $name
      * @param string $default
      *
-     * @return Cast
+     * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function toString($name, $default = '');
 }

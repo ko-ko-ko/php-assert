@@ -12,6 +12,16 @@ namespace index0h\validator;
  */
 class Variable
 {
+    const DEFAULT_CAST_BOOL = false;
+
+    const DEFAULT_CAST_FLOAT = 0.0;
+
+    const DEFAULT_CAST_INT = 0;
+
+    const DEFAULT_CAST_STRING = '';
+
+    const EXCEPTION_CAST_TEXT = 'Can not cast ${{variable}} to {{type}}';
+
     const EXCEPTION_CLASS = '\InvalidArgumentException';
 
     const EXCEPTION_LENGTH_TEXT_NEGATIVE = '${{variable}} must have not length {{value}}';
@@ -30,13 +40,16 @@ class Variable
 
     const EXCEPTION_VALUE_TEXT_POSITIVE = 'Param ${{variable}} must be {{value}}';
 
-    /** @type string */
+    /** @var */
+    protected static $validator;
+
+    /** @var string */
     protected $exceptionClass;
 
-    /** @type string */
+    /** @var string */
     protected $name;
 
-    /** @type mixed */
+    /** @var mixed */
     protected $value;
 
     protected function __construct()
@@ -59,12 +72,17 @@ class Variable
             throw new \InvalidArgumentException('Param $name must be string');
         }
 
-        if (($exceptionClass !== static::EXCEPTION_CLASS) && (!is_a($exceptionClass, '\Exception', true))) {
-            throw new \InvalidArgumentException('Param $exceptionClass must be subclass of \Exception');
+        if (empty(self::$validator)) {
+            self::$validator = new static;
+            self::$validator->exceptionClass = self::EXCEPTION_CLASS;
         }
 
-        $validator = new static;
-        $validator->exceptionClass = $exceptionClass;
+        $validator = clone self::$validator;
+
+        if ($exceptionClass !== static::EXCEPTION_CLASS) {
+            $validator->setExceptionClass($exceptionClass);
+        }
+
         $validator->name = $name;
         $validator->value = $value;
 
@@ -120,20 +138,22 @@ class Variable
      * @param array $range
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function inArray(array $range)
     {
-        if (in_array($this->value, $range, true)) {
-            return $this;
+        if (!in_array($this->value, $range, true)) {
+            $this->processError(self::EXCEPTION_VALUE_IN_ARRAY_POSITIVE, ['{{type}}' => 'array']);
         }
 
-        return $this->processError(self::EXCEPTION_VALUE_IN_ARRAY_POSITIVE, ['{{type}}' => 'array']);
+        return $this;
     }
 
     /**
      * Check if value is array or implements array interfaces
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isArray()
     {
@@ -147,7 +167,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'array']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'array']);
     }
 
     /**
@@ -179,8 +199,7 @@ class Variable
             return $this;
         }
 
-        return $this
-            ->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
+        $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
     }
 
     /**
@@ -212,14 +231,14 @@ class Variable
             return $this;
         }
 
-        return $this
-            ->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
+        $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
     }
 
     /**
      * Check if value is boolean (is_bool)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isBool()
     {
@@ -227,13 +246,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'bool']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'bool']);
     }
 
     /**
      * Check if value is callable (is_callable)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isCallable()
     {
@@ -241,13 +261,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'callable']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'callable']);
     }
 
     /**
      * Check if value is digit (ctype_digit)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isDigit()
     {
@@ -255,13 +276,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'digit']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'digit']);
     }
 
     /**
      * Check if value is email (filter_var)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isEmail()
     {
@@ -269,13 +291,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'email']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'email']);
     }
 
     /**
      * Check if value is empty (empty)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isEmpty()
     {
@@ -283,13 +306,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'empty']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'empty']);
     }
 
     /**
      * Check if value is float (is_float)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isFloat()
     {
@@ -297,13 +321,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'float']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'float']);
     }
 
     /**
      * Check if value is graph (ctype_graph)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isGraph()
     {
@@ -311,13 +336,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'graph']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'graph']);
     }
 
     /**
      * Check if value is integer (is_int)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isInt()
     {
@@ -325,13 +351,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int']);
     }
 
     /**
      * Check if value is json. Run only after notEmpty and isString validators
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isJson()
     {
@@ -341,7 +368,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'json']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'json']);
     }
 
     /**
@@ -379,8 +406,7 @@ class Variable
             return $this;
         }
 
-        return $this
-            ->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
+        $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
     }
 
     /**
@@ -407,7 +433,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $maxLength]);
+        $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $maxLength]);
     }
 
     /**
@@ -434,7 +460,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $minLength]);
+        $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $minLength]);
     }
 
     /**
@@ -457,7 +483,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'less than ' . $max]);
+        $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'less than ' . $max]);
     }
 
     /**
@@ -480,20 +506,19 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'less than ' . $max]);
+        $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'less than ' . $max]);
     }
 
     /**
      * Check if value is MAC address
-     *
      * Allowed formats:
-     *
      *  * ff:ff:ff:ff:ff:ff
      *  * FF:FF:FF:FF:FF:FF
      *  * ff-ff-ff-ff-ff-ff
      *  * FF-FF-FF-FF-FF-FF
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isMacAddress()
     {
@@ -503,7 +528,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'MAC Address']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'MAC Address']);
     }
 
     /**
@@ -526,7 +551,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $min]);
+        $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $min]);
     }
 
     /**
@@ -549,13 +574,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $min]);
+        $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $min]);
     }
 
     /**
      * Check if value < 0
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isNegative()
     {
@@ -565,13 +591,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'negative']);
+        $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'negative']);
     }
 
     /**
      * Check if value is numeric (is_numeric)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isNumeric()
     {
@@ -579,13 +606,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'numeric']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'numeric']);
     }
 
     /**
      * Check if value is object (is_object)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isObject()
     {
@@ -593,13 +621,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'object']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'object']);
     }
 
     /**
      * Check if value > 0
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isPositive()
     {
@@ -609,13 +638,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'positive']);
+        $this->processError(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'positive']);
     }
 
     /**
      * Check if value is resource (is_resource)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isResource()
     {
@@ -623,13 +653,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'resource']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'resource']);
     }
 
     /**
      * Check if value is string (is_string)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function isString()
     {
@@ -637,7 +668,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'string']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'string']);
     }
 
     /**
@@ -661,13 +692,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'subclass of ' . $className]);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'subclass of ' . $className]);
     }
 
     /**
      * Check if value is not an array and not implements array interfaces
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notArray()
     {
@@ -681,7 +713,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'array']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'array']);
     }
 
     /**
@@ -713,8 +745,7 @@ class Variable
             return $this;
         }
 
-        return $this
-            ->processError(self::EXCEPTION_VALUE_TEXT_NEGATIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
+        $this->processError(self::EXCEPTION_VALUE_TEXT_NEGATIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
     }
 
     /**
@@ -746,14 +777,14 @@ class Variable
             return $this;
         }
 
-        return $this
-            ->processError(self::EXCEPTION_VALUE_TEXT_NEGATIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
+        $this->processError(self::EXCEPTION_VALUE_TEXT_NEGATIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
     }
 
     /**
      * Check if value is not boolean (is_bool)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notBool()
     {
@@ -761,13 +792,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'bool']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'bool']);
     }
 
     /**
      * Check if value is not callable (is_callable)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notCallable()
     {
@@ -775,13 +807,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'callable']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'callable']);
     }
 
     /**
      * Check if value is not digit (ctype_digit)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notDigit()
     {
@@ -789,13 +822,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'digit']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'digit']);
     }
 
     /**
      * Check if value is not email (filter_var)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notEmail()
     {
@@ -803,13 +837,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'email']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'email']);
     }
 
     /**
      * Check if value is not empty (empty)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notEmpty()
     {
@@ -817,13 +852,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'empty']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'empty']);
     }
 
     /**
      * Check if value is not float (is_float)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notFloat()
     {
@@ -831,13 +867,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'float']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'float']);
     }
 
     /**
      * Check if value is not graph (ctype_graph)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notGraph()
     {
@@ -845,7 +882,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'graph']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'graph']);
     }
 
     /**
@@ -854,6 +891,7 @@ class Variable
      * @param array $range
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notInArray(array $range)
     {
@@ -861,13 +899,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_VALUE_IN_ARRAY_NEGATIVE, ['{{type}}' => 'array']);
+        $this->processError(self::EXCEPTION_VALUE_IN_ARRAY_NEGATIVE, ['{{type}}' => 'array']);
     }
 
     /**
      * Check if value is not integer (is_int)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notInt()
     {
@@ -875,13 +914,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
     }
 
     /**
      * Check if value is not json. Run only after notEmpty and isString validators
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notJson()
     {
@@ -891,7 +931,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'json']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'json']);
     }
 
     /**
@@ -929,21 +969,19 @@ class Variable
             return $this;
         }
 
-        return $this
-            ->processError(self::EXCEPTION_LENGTH_TEXT_NEGATIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
+        $this->processError(self::EXCEPTION_LENGTH_TEXT_NEGATIVE, ['{{value}}' => 'between ' . $from . ' and ' . $to]);
     }
 
     /**
      * Check if value is MAC address
-     *
      * Disallowed formats:
-     *
      *  * ff:ff:ff:ff:ff:ff
      *  * FF:FF:FF:FF:FF:FF
      *  * ff-ff-ff-ff-ff-ff
      *  * FF-FF-FF-FF-FF-FF
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notMacAddress()
     {
@@ -953,13 +991,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'MAC Address']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'MAC Address']);
     }
 
     /**
      * Check if value is not numeric (is_numeric)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notNumeric()
     {
@@ -967,13 +1006,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'numeric']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'numeric']);
     }
 
     /**
      * Check if value is not object (is_object)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notObject()
     {
@@ -981,13 +1021,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'object']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'object']);
     }
 
     /**
      * Check if value is not resource (is_resource)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notResource()
     {
@@ -995,13 +1036,14 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'resource']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'resource']);
     }
 
     /**
      * Check if value is not string (is_string)
      *
      * @return Variable
+     * @throws \InvalidArgumentException
      */
     public function notString()
     {
@@ -1009,7 +1051,7 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'string']);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'string']);
     }
 
     /**
@@ -1033,7 +1075,112 @@ class Variable
             return $this;
         }
 
-        return $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'subclass of ' . $className]);
+        $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'subclass of ' . $className]);
+    }
+
+    /**
+     * Cast value to boll
+     *
+     * @return Variable
+     * @throws \InvalidArgumentException
+     */
+    public function toBool()
+    {
+        if (is_bool($this->value)) {
+            return $this;
+        }
+
+        if (empty($this->value)) {
+            $this->value = self::DEFAULT_CAST_BOOL;
+        }
+
+        $this->value = true;
+
+        return $this;
+    }
+
+    /**
+     * Cast value to float. If it's not numeric - there will be fail cast
+     *
+     * @return Variable
+     * @throws \InvalidArgumentException
+     */
+    public function toFloat()
+    {
+        if (is_float($this->value)) {
+            return $this;
+        }
+
+        if (empty($this->value)) {
+            $this->value = self::DEFAULT_CAST_FLOAT;
+            return $this;
+        }
+
+        if (is_numeric($this->value) || is_bool($this->value)) {
+            $this->value = (float) $this->value;
+
+            return $this;
+        }
+
+        $this->processError(self::EXCEPTION_CAST_TEXT, ['{{type}}' => 'float']);
+    }
+
+    /**
+     * Cast value to int. If it's not numeric - there will be fail cast
+     *
+     * @return Variable
+     * @throws \InvalidArgumentException
+     */
+    public function toInt()
+    {
+        if (is_int($this->value)) {
+            return $this;
+        }
+
+        if (empty($this->value)) {
+            $this->value = self::DEFAULT_CAST_INT;
+            return $this;
+        }
+
+        if (is_numeric($this->value) || is_bool($this->value)) {
+            $this->value = (int) $this->value;
+
+            return $this;
+        }
+
+        $this->processError(self::EXCEPTION_CAST_TEXT, ['{{type}}' => 'int']);
+    }
+
+    /**
+     * Cast value to string. If it's simple type or has no method __toString - there will be fail cast
+     *
+     * @return Variable
+     * @throws \InvalidArgumentException
+     */
+    public function toString()
+    {
+        if (is_string($this->value)) {
+            return $this;
+        }
+
+        if (empty($this->value)) {
+            $this->value = self::DEFAULT_CAST_STRING;
+            return $this;
+        }
+
+        if (is_numeric($this->value) || is_bool($this->value)) {
+            $this->value = (string) $this->value;
+
+            return $this;
+        }
+
+        if (is_object($this->value) && method_exists($this->value, '__toString')) {
+            $this->value = (string) $this->value;
+
+            return $this;
+        }
+
+        $this->processError(self::EXCEPTION_CAST_TEXT, ['{{type}}' => 'string']);
     }
 
     /**
@@ -1041,6 +1188,7 @@ class Variable
      *
      * @param string $pattern
      * @param array  $placeholders
+     *
      * @throws \InvalidArgumentException
      */
     protected function processError($pattern, $placeholders = [])
@@ -1049,6 +1197,5 @@ class Variable
         $placeholders['{{value}}'] = print_r($this->value, true);
 
         throw new $this->exceptionClass(strtr($pattern, $placeholders));
-
     }
 }

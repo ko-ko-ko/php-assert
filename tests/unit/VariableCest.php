@@ -61,6 +61,38 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
+    public function toBool(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function toFloat(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function toInt(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function toString(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
     public function inArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);

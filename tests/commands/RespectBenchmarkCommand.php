@@ -17,7 +17,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 {
     const TYPE_RESPECT = 'respect';
 
-    /** @type string[] */
+    /** @var string[] */
     protected $typeList = [
         self::TYPE_VALIDATOR,
         self::TYPE_RESPECT,
@@ -26,6 +26,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     /**
      * @param string $var
      * @param array  $array
+     *
+     * @throws \InvalidArgumentException
      */
     public function inArray($var, $array)
     {
@@ -38,6 +40,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param array $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isArray($var)
     {
@@ -52,6 +56,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      * @param string    $var
      * @param int|float $from
      * @param int|float $to
+     *
+     * @throws \InvalidArgumentException
      */
     public function isBetween($var, $from, $to)
     {
@@ -66,6 +72,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      * @param string    $var
      * @param int|float $from
      * @param int|float $to
+     *
+     * @throws \InvalidArgumentException
      */
     public function isBetweenStrict($var, $from, $to)
     {
@@ -78,6 +86,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param bool $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isBool($var)
     {
@@ -90,6 +100,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param callable $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isCallable($var)
     {
@@ -102,6 +114,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isDigit($var)
     {
@@ -114,6 +128,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isEmail($var)
     {
@@ -126,6 +142,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param float $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isFloat($var)
     {
@@ -138,6 +156,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isGraph($var)
     {
@@ -150,6 +170,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param int $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isInt($var)
     {
@@ -162,6 +184,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isJson($var)
     {
@@ -177,7 +201,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      * @param int    $from
      * @param int    $to
      *
-     * @return array
+     * @throws \InvalidArgumentException
      */
     public function isLengthBetween($var, $from, $to)
     {
@@ -191,6 +215,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     /**
      * @param string $var
      * @param int    $value
+     *
+     * @throws \InvalidArgumentException
      */
     public function isLengthLess($var, $value)
     {
@@ -204,6 +230,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     /**
      * @param string $var
      * @param int    $value
+     *
+     * @throws \InvalidArgumentException
      */
     public function isLengthMore($var, $value)
     {
@@ -217,6 +245,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     /**
      * @param string    $var
      * @param int|float $value
+     *
+     * @throws \InvalidArgumentException
      */
     public function isLess($var, $value)
     {
@@ -230,6 +260,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     /**
      * @param string    $var
      * @param int|float $value
+     *
+     * @throws \InvalidArgumentException
      */
     public function isLessStrict($var, $value)
     {
@@ -242,6 +274,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isMacAddress($var)
     {
@@ -255,6 +289,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     /**
      * @param string    $var
      * @param int|float $value
+     *
+     * @throws \InvalidArgumentException
      */
     public function isMore($var, $value)
     {
@@ -268,6 +304,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     /**
      * @param string    $var
      * @param int|float $value
+     *
+     * @throws \InvalidArgumentException
      */
     public function isMoreStrict($var, $value)
     {
@@ -280,6 +318,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isNegative($var)
     {
@@ -292,6 +332,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isNumeric($var)
     {
@@ -304,6 +346,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param object $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isObject($var)
     {
@@ -316,6 +360,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isPositive($var)
     {
@@ -328,6 +374,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param resource $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isResource($var)
     {
@@ -340,6 +388,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function isString($var)
     {
@@ -354,6 +404,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      * @param string    $var
      * @param int|float $from
      * @param int|float $to
+     *
+     * @throws \InvalidArgumentException
      */
     public function notBetween($var, $from, $to)
     {
@@ -368,6 +420,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      * @param string    $var
      * @param int|float $from
      * @param int|float $to
+     *
+     * @throws \InvalidArgumentException
      */
     public function notBetweenStrict($var, $from, $to)
     {
@@ -380,6 +434,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param array $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function notBool($var)
     {
@@ -392,6 +448,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function notCallable($var)
     {
@@ -404,6 +462,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param array $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function notDigit($var)
     {
@@ -416,6 +476,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function notEmail($var)
     {
@@ -428,6 +490,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function notEmpty($var)
     {
@@ -440,6 +504,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function notFloat($var)
     {
@@ -452,6 +518,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function notGraph($var)
     {
@@ -464,6 +532,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     * @param        $array
      */
     public function notInArray($var, $array)
     {
@@ -512,6 +581,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function notNumeric($var)
     {
@@ -524,6 +595,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function notObject($var)
     {
@@ -536,6 +609,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function notResource($var)
     {
@@ -548,6 +623,8 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param array $var
+     *
+     * @throws \InvalidArgumentException
      */
     public function notString($var)
     {
@@ -569,8 +646,10 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $methodName
-     * @param        $value
-     * @param        $arguments
+     * @param mixed  $value
+     * @param mixed  $arguments
+     *
+     * @throws \InvalidArgumentException
      */
     protected function runBenchmarkForRespect($methodName, $value, $arguments)
     {
@@ -585,8 +664,10 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $methodName
-     * @param        $value
-     * @param        $arguments
+     * @param mixed  $value
+     * @param mixed  $arguments
+     *
+     * @throws \InvalidArgumentException
      */
     protected function runBenchmarkForValidator($methodName, $value, $arguments)
     {

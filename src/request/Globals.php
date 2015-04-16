@@ -16,6 +16,7 @@ class Globals extends AbstractRequest
      * @param mixed  $default
      *
      * @return mixed
+     * @throws \InvalidArgumentException
      */
     protected function getParam($name, $default = null)
     {

@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Symfony extends AbstractRequest
 {
-    /** @type \Symfony\Component\HttpFoundation\ParameterBag */
+    /** @var \Symfony\Component\HttpFoundation\ParameterBag */
     protected $request;
 
     /**
@@ -29,6 +29,7 @@ class Symfony extends AbstractRequest
      * @param mixed  $default
      *
      * @return mixed
+     * @throws \InvalidArgumentException
      */
     protected function getParam($name, $default = null)
     {

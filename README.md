@@ -196,31 +196,30 @@ Both run only after internal check `isNumeric()` and `notString()`
  * `notSubClassOf($className)`
     - string `$className`
 
-#### `index0h\validator\Cast`
+#### Cast API
 
-Class for type conversion, extends Variable. By design these methods `MAY` be called already after `assert`,
-after that you can call any validations.
+By design these methods `MAY` be called already after `assert`, after that you can call any validations.
 
-* `Cast::toBool` - converts value to `bool` type or processing an error
+* `Variable::toBool` - converts value to `bool` type or processing an error
     - float `$default` (false)
-* `Cast::toFloat` - converts value to `float` type or processing an error
+* `Variable::toFloat` - converts value to `float` type or processing an error
     - float `$default` (0.0)
-* `Cast::toInt` - converts value to `int` type or processing an error
+* `Variable::toInt` - converts value to `int` type or processing an error
     - int `$default` (0)
-* `Cast::toString` - converts value to `string` type or processing an error
+* `Variable::toString` - converts value to `string` type or processing an error
     - string `$default` ('')
 
 #### Example
 
 ```php
 // Return: '5'
-Cast::assert(5, 'var')->toString()->getValue();
+Variable::assert(5, 'var')->toString()->getValue();
 
 // Return: -15
-Cast::assert('-15.12', 'var')->toInt()->getValue();
+Variable::assert('-15.12', 'var')->toInt()->getValue();
 
 // Throws exception: Param $var must be positive
-Cast::assert('-15.12', 'var')->toInt()->isPositive();
+Variable::assert('-15.12', 'var')->toInt()->isPositive();
 ```
 
 #### `index0h\validator\request\RequestInterface`
