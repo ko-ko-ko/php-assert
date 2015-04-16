@@ -1096,7 +1096,7 @@ class Variable
      */
     public function toBool()
     {
-        $this->value = (bool)$this->value;
+        $this->value = (bool) $this->value;
 
         return $this;
     }
