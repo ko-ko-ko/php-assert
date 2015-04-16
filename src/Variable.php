@@ -233,7 +233,7 @@ class Variable
 
         $this->isNumeric()->notString();
 
-        if (!($this->value >= $from && $this->value <= $to)) {
+        if ($this->value < $from || $this->value > $to) {
             $this->processError(
                 self::EXCEPTION_VALUE_TEXT_POSITIVE,
                 ['{{value}}' => 'between ' . $from . ' and ' . $to]
@@ -268,7 +268,7 @@ class Variable
 
         $this->isNumeric()->notString();
 
-        if (!($this->value <= $from || $this->value >= $to)) {
+        if ($this->value > $from && $this->value < $to) {
             $this->processError(
                 self::EXCEPTION_VALUE_TEXT_NEGATIVE,
                 ['{{value}}' => 'between ' . $from . ' and ' . $to]
@@ -303,7 +303,7 @@ class Variable
 
         $this->isNumeric()->notString();
 
-        if (!($this->value > $from && $this->value < $to)) {
+        if ($this->value <= $from || $this->value >= $to) {
             $this->processError(
                 self::EXCEPTION_VALUE_TEXT_POSITIVE,
                 ['{{value}}' => 'between ' . $from . ' and ' . $to]
@@ -339,7 +339,7 @@ class Variable
 
         $this->isNumeric()->notString();
 
-        if (!($this->value < $from || $this->value > $to)) {
+        if ($this->value >= $from && $this->value <= $to) {
             $this->processError(
                 self::EXCEPTION_VALUE_TEXT_NEGATIVE,
                 ['{{value}}' => 'between ' . $from . ' and ' . $to]
@@ -654,7 +654,7 @@ class Variable
 
         $length = mb_strlen($this->value);
 
-        if (!($length >= $from && $length <= $to)) {
+        if ($length < $from || $length > $to) {
             $this->processError(
                 self::EXCEPTION_LENGTH_TEXT_POSITIVE,
                 ['{{value}}' => 'between ' . $from . ' and ' . $to]
@@ -695,7 +695,7 @@ class Variable
 
         $length = mb_strlen($this->value);
 
-        if (!($length <= $from || $length >= $to)) {
+        if ($length > $from && $length < $to) {
             $this->processError(
                 self::EXCEPTION_LENGTH_TEXT_NEGATIVE,
                 ['{{value}}' => 'between ' . $from . ' and ' . $to]
@@ -725,7 +725,7 @@ class Variable
 
         $this->isString();
 
-        if (!(mb_strlen($this->value) <= $maxLength)) {
+        if (mb_strlen($this->value) > $maxLength) {
             $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $maxLength]);
         }
 
@@ -752,7 +752,7 @@ class Variable
 
         $this->notEmpty()->isString();
 
-        if (!(mb_strlen($this->value) >= $minLength)) {
+        if (mb_strlen($this->value) < $minLength) {
             $this->processError(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $minLength]);
         }
 
@@ -1063,10 +1063,10 @@ class Variable
             throw new \InvalidArgumentException('Param $className must be string');
         }
 
-        if (!(
-            (is_object($this->value) && is_subclass_of($this->value, $className)) ||
-            (is_string($this->value) && is_subclass_of($this->value, $className, true))
-        )) {
+        if (
+            (is_object($this->value) && !is_subclass_of($this->value, $className)) ||
+            (is_string($this->value) && !is_subclass_of($this->value, $className, true))
+        ) {
             $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'subclass of ' . $className]);
         }
 
@@ -1087,10 +1087,10 @@ class Variable
             throw new \InvalidArgumentException('Param $className must be string');
         }
 
-        if (!(
-            (is_object($this->value) && !is_subclass_of($this->value, $className)) ||
-            (is_string($this->value) && !is_subclass_of($this->value, $className, true))
-        )) {
+        if (
+            (is_object($this->value) && is_subclass_of($this->value, $className)) ||
+            (is_string($this->value) && is_subclass_of($this->value, $className, true))
+        ) {
             $this->processError(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'subclass of ' . $className]);
         }
 
