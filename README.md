@@ -48,17 +48,10 @@ if (!ctype_graph($var)) {
 
 #### `index0h\validator\Variable`
 
-There are two ways of using:
-
 * `Variable::assert` - It'll throw exception on first validation fail
     - mixed `$value` - checking variable
     - string `$name` - name of checking variable
     - string `$exceptionClass` (\InvalidArgumentException) - user specific exception class name
-* `Variable::validate` - It'll check run of validations
-    - mixed `$value` - checking variable
-    - string `$name` - name of checking variable
-    - bool `$skipOnError` (true) - by default - all validations after fail will be skiped, if false - it'll run all
-        validations
 
 #### Example
 
@@ -74,12 +67,6 @@ Variable::assert(-15, 'var')->isInt()->isNegative()->getValue();
 
 // It's ok :)
 Variable::assert([], 'var')->isEmpty()->isArray();
-
-// Return: ['Param $var must be graph']
-Variable::validate("\nvar\t", 'var')->notEmpty()->isString()->isGraph()->getErrors();
-
-// Return: true, param $var must be not empty
-Variable::validate('', 'var')->notEmpty()->hasErrors();
 ```
 
 #### Available validators
@@ -211,8 +198,8 @@ Both run only after internal check `isNumeric()` and `notString()`
 
 #### `index0h\validator\Cast`
 
-Class for type conversion, extends Variable. By design these methods `MAY` be called already after `assert`, or
-`validate` methods, after them you can call any validations.
+Class for type conversion, extends Variable. By design these methods `MAY` be called already after `assert`,
+after that you can call any validations.
 
 * `Cast::toBool` - converts value to `bool` type or processing an error
     - float `$default` (false)
@@ -234,9 +221,6 @@ Cast::assert('-15.12', 'var')->toInt()->getValue();
 
 // Throws exception: Param $var must be positive
 Cast::assert('-15.12', 'var')->toInt()->isPositive();
-
-// Return: ['Can not cast $var to string']
-Cast::validate(['a', 'b', 'c'], 'var')->toString()->getErrors();
 ```
 
 #### `index0h\validator\request\RequestInterface`
@@ -250,10 +234,6 @@ Interface declares methods to get and validate data from HTTP request
 
 ##### API
 
-* `setSoft` - next checks will be by `validate` scenario
-    - bool `$skipOnError` (true)
-* `setStrict` - next checks will be by `assert` scenario
-    - string `$exceptionClass` (`Cast::EXCEPTION_CLASS`)
 * `get` - return validator without value casting
     - string `$name` - name of param
     - mixed `$default` (null)

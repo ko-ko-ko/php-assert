@@ -22,20 +22,6 @@ interface RequestInterface
     public function get($name, $default = null);
 
     /**
-     * @param bool $skipOnError
-     *
-     * @return $this
-     */
-    public function setSoft($skipOnError = true);
-
-    /**
-     * @param string $exceptionClass
-     *
-     * @return $this
-     */
-    public function setStrict($exceptionClass = Cast::EXCEPTION_CLASS);
-
-    /**
      * @param string $name
      * @param bool   $default
      *

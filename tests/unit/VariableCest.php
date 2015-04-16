@@ -6,7 +6,6 @@
  */
 namespace index0h\validator\tests\unit;
 
-use AspectMock\Test as test;
 use index0h\validator\Variable;
 
 /**
@@ -43,48 +42,9 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function clearErrors(\UnitTester $I)
-    {
-        $validator = Variable::validate('var', 'var');
-
-        $property = new \ReflectionProperty($validator, 'errors');
-        $property->setAccessible(true);
-        $property->setValue($validator, ['some-error']);
-
-        $I->assertEquals(get_class($validator), get_class($validator->clearErrors()));
-        $I->assertEquals([], $validator->getErrors());
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function getErrors(\UnitTester $I)
-    {
-        $errors = ['some-error'];
-
-        $validator = Variable::validate('var', 'var');
-
-        $property = new \ReflectionProperty($validator, 'errors');
-        $property->setAccessible(true);
-        $property->setValue($validator, $errors);
-
-        $I->assertEquals($errors, $validator->getErrors());
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function getExceptionClass(\UnitTester $I)
     {
         $I->assertEquals(Variable::EXCEPTION_CLASS, Variable::assert('var', 'var')->getExceptionClass());
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function getSkipOnErrors(\UnitTester $I)
-    {
-        $I->assertEquals(true, Variable::validate('var', 'var')->getSkipOnErrors());
     }
 
     /**
@@ -101,26 +61,9 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function hasErrors(\UnitTester $I)
-    {
-        $validator = Variable::validate('var', 'var');
-
-        $I->assertFalse($validator->hasErrors());
-
-        $property = new \ReflectionProperty($validator, 'errors');
-        $property->setAccessible(true);
-        $property->setValue($validator, ['some-error']);
-
-        $I->assertTrue($validator->hasErrors());
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function inArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__, [[1]]);
     }
 
     /**
@@ -129,7 +72,6 @@ class VariableCest
     public function isArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -146,25 +88,25 @@ class VariableCest
     public function isBetweenArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->isBetween('a', 5);
+            Variable::assert('var', 'var')->isBetween('a', 5);
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->isBetween('a', 5.1);
+            Variable::assert('var', 'var')->isBetween('a', 5.1);
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->isBetween(1.2, 'b');
+            Variable::assert('var', 'var')->isBetween(1.2, 'b');
             $I->fail('Second argument must be  int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->isBetween(100, 50);
+            Variable::assert('var', 'var')->isBetween(100, 50);
             $I->fail('First argument must be less than second');
         } catch (\InvalidArgumentException $error) {
         }
@@ -184,25 +126,25 @@ class VariableCest
     public function isBetweenStrictArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->isBetweenStrict('a', 5);
+            Variable::assert('var', 'var')->isBetweenStrict('a', 5);
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->isBetweenStrict('a', 5.1);
+            Variable::assert('var', 'var')->isBetweenStrict('a', 5.1);
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->isBetweenStrict(1.2, 'b');
+            Variable::assert('var', 'var')->isBetweenStrict(1.2, 'b');
             $I->fail('Second argument must be  int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->isBetweenStrict(100, 50);
+            Variable::assert('var', 'var')->isBetweenStrict(100, 50);
             $I->fail('First argument must be less than second');
         } catch (\InvalidArgumentException $error) {
         }
@@ -214,7 +156,6 @@ class VariableCest
     public function isBool(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -223,7 +164,6 @@ class VariableCest
     public function isCallable(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -232,7 +172,6 @@ class VariableCest
     public function isDigit(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -241,7 +180,6 @@ class VariableCest
     public function isEmail(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -250,7 +188,6 @@ class VariableCest
     public function isEmpty(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -259,7 +196,6 @@ class VariableCest
     public function isFloat(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -268,7 +204,6 @@ class VariableCest
     public function isGraph(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -277,7 +212,6 @@ class VariableCest
     public function isInt(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -286,7 +220,6 @@ class VariableCest
     public function isJson(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -303,25 +236,25 @@ class VariableCest
     public function isLengthBetweenArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->isLengthBetween('a', 5);
+            Variable::assert('var', 'var')->isLengthBetween('a', 5);
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->isLengthBetween(1, 'b');
+            Variable::assert('var', 'var')->isLengthBetween(1, 'b');
             $I->fail('Second argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->isLengthBetween(5, 2);
+            Variable::assert('var', 'var')->isLengthBetween(5, 2);
             $I->fail('First argument must be less than second');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->isLengthBetween(-1, 2);
+            Variable::assert('var', 'var')->isLengthBetween(-1, 2);
             $I->fail('First argument must be more than 0');
         } catch (\InvalidArgumentException $error) {
         }
@@ -341,13 +274,13 @@ class VariableCest
     public function isLengthLessArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->isLengthLess('a');
+            Variable::assert('var', 'var')->isLengthLess('a');
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->isLengthLess(-1);
+            Variable::assert('var', 'var')->isLengthLess(-1);
             $I->fail('First argument must be more than 0');
         } catch (\InvalidArgumentException $error) {
         }
@@ -367,13 +300,13 @@ class VariableCest
     public function isLengthMoreArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->isLengthMore('a');
+            Variable::assert('var', 'var')->isLengthMore('a');
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->isLengthMore(-1);
+            Variable::assert('var', 'var')->isLengthMore(-1);
             $I->fail('First argument must be more than 0');
         } catch (\InvalidArgumentException $error) {
         }
@@ -393,7 +326,7 @@ class VariableCest
     public function isLessArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->isLess('a');
+            Variable::assert('var', 'var')->isLess('a');
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
@@ -413,7 +346,7 @@ class VariableCest
     public function isLessStrictArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->isLessStrict('a');
+            Variable::assert('var', 'var')->isLessStrict('a');
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
@@ -425,7 +358,6 @@ class VariableCest
     public function isMacAddress(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -442,7 +374,7 @@ class VariableCest
     public function isMoreArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->isMore('a');
+            Variable::assert('var', 'var')->isMore('a');
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
@@ -462,7 +394,7 @@ class VariableCest
     public function isMoreStrictArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->isMoreStrict('a');
+            Variable::assert('var', 'var')->isMoreStrict('a');
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
@@ -474,7 +406,6 @@ class VariableCest
     public function isNegative(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -483,7 +414,6 @@ class VariableCest
     public function isNumeric(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -492,7 +422,6 @@ class VariableCest
     public function isObject(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -501,7 +430,6 @@ class VariableCest
     public function isPositive(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -510,7 +438,6 @@ class VariableCest
     public function isResource(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -519,7 +446,6 @@ class VariableCest
     public function isString(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -528,7 +454,6 @@ class VariableCest
     public function isSubClassOf(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__, ['A']);
     }
 
     /**
@@ -537,7 +462,7 @@ class VariableCest
     public function isSubClassOfArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->isSubClassOf(5);
+            Variable::assert('var', 'var')->isSubClassOf(5);
             $I->fail('Argument must be string');
         } catch (\InvalidArgumentException $error) {
         }
@@ -549,7 +474,6 @@ class VariableCest
     public function notArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -566,25 +490,25 @@ class VariableCest
     public function notBetweenArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->notBetween('a', 5);
+            Variable::assert('var', 'var')->notBetween('a', 5);
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->notBetween('a', 5.1);
+            Variable::assert('var', 'var')->notBetween('a', 5.1);
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->notBetween(1.2, 'b');
+            Variable::assert('var', 'var')->notBetween(1.2, 'b');
             $I->fail('Second argument must be  int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->notBetween(100, 50);
+            Variable::assert('var', 'var')->notBetween(100, 50);
             $I->fail('First argument must be less than second');
         } catch (\InvalidArgumentException $error) {
         }
@@ -604,25 +528,25 @@ class VariableCest
     public function notBetweenStrictArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->notBetweenStrict('a', 5);
+            Variable::assert('var', 'var')->notBetweenStrict('a', 5);
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->notBetweenStrict('a', 5.1);
+            Variable::assert('var', 'var')->notBetweenStrict('a', 5.1);
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->notBetweenStrict(1.2, 'b');
+            Variable::assert('var', 'var')->notBetweenStrict(1.2, 'b');
             $I->fail('Second argument must be  int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->notBetweenStrict(100, 50);
+            Variable::assert('var', 'var')->notBetweenStrict(100, 50);
             $I->fail('First argument must be less than second');
         } catch (\InvalidArgumentException $error) {
         }
@@ -634,7 +558,6 @@ class VariableCest
     public function notBool(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -643,7 +566,6 @@ class VariableCest
     public function notCallable(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -652,7 +574,6 @@ class VariableCest
     public function notDigit(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -661,7 +582,6 @@ class VariableCest
     public function notEmail(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -670,7 +590,6 @@ class VariableCest
     public function notEmpty(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -679,7 +598,6 @@ class VariableCest
     public function notFloat(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -688,7 +606,6 @@ class VariableCest
     public function notGraph(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -697,7 +614,6 @@ class VariableCest
     public function notInArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__, [[1]]);
     }
 
     /**
@@ -706,7 +622,6 @@ class VariableCest
     public function notInt(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -715,7 +630,6 @@ class VariableCest
     public function notJson(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -732,25 +646,25 @@ class VariableCest
     public function notLengthBetweenArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->notLengthBetween('a', 5);
+            Variable::assert('var', 'var')->notLengthBetween('a', 5);
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->notLengthBetween(1, 'b');
+            Variable::assert('var', 'var')->notLengthBetween(1, 'b');
             $I->fail('Second argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->notLengthBetween(5, 2);
+            Variable::assert('var', 'var')->notLengthBetween(5, 2);
             $I->fail('First argument must be less than second');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->notLengthBetween(-1, 2);
+            Variable::assert('var', 'var')->notLengthBetween(-1, 2);
             $I->fail('First argument must be more than 0');
         } catch (\InvalidArgumentException $error) {
         }
@@ -762,7 +676,6 @@ class VariableCest
     public function notMacAddress(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -771,7 +684,6 @@ class VariableCest
     public function notNumeric(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -780,7 +692,6 @@ class VariableCest
     public function notObject(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -789,7 +700,6 @@ class VariableCest
     public function notResource(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -798,7 +708,6 @@ class VariableCest
     public function notString(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__);
     }
 
     /**
@@ -807,7 +716,6 @@ class VariableCest
     public function notSubClassOf(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-        $this->checkSkipErrors($I, __FUNCTION__, ['A']);
     }
 
     /**
@@ -816,7 +724,7 @@ class VariableCest
     public function notSubClassOfArguments(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->notSubClassOf(5);
+            Variable::assert('var', 'var')->notSubClassOf(5);
             $I->fail('Argument must be string');
         } catch (\InvalidArgumentException $error) {
         }
@@ -828,66 +736,18 @@ class VariableCest
     public function setExceptionClass(\UnitTester $I)
     {
         try {
-            Variable::validate('var', 'var')->setExceptionClass(false);
+            Variable::assert('var', 'var')->setExceptionClass(false);
             $I->fail('Argument must be string');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::validate('var', 'var')->setExceptionClass('\ArrayIterator');
+            Variable::assert('var', 'var')->setExceptionClass('\ArrayIterator');
             $I->fail('Argument must be sub class of \Exception');
         } catch (\InvalidArgumentException $error) {
         }
 
-        Variable::validate('var', 'var')->setExceptionClass('\InvalidArgumentException');
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function setSkipOnError(\UnitTester $I)
-    {
-        try {
-            Variable::validate('var', 'var')->setSkipOnErrors('notBool');
-            $I->fail('Argument must be bool');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        Variable::validate('var', 'var')->setSkipOnErrors(true);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function setThrowErrors(\UnitTester $I)
-    {
-        try {
-            Variable::validate('var', 'var')->setThrowErrors('notBool');
-            $I->fail('Argument must be bool');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        Variable::validate('var', 'var')->setThrowErrors(true);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function validate(\UnitTester $I)
-    {
-        try {
-            Variable::validate('var', false);
-            $I->fail('Second argument must be string');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::validate('var', 'var', 'notBool');
-            $I->fail('Third argument must be bool');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        $I->assertTrue(is_object(Variable::validate('var', 'var')));
+        Variable::assert('var', 'var')->setExceptionClass('\InvalidArgumentException');
     }
 
     /**
@@ -902,16 +762,6 @@ class VariableCest
         foreach ($fixtures as $fixture) {
             $I->amGoingTo('check with fixture: ' . $fixture['comment']);
 
-            $validator = Variable::validate($fixture['value'], 'var', false);
-
-            $aspect = test::double($validator);
-
-            call_user_func_array([$validator, $methodName], $fixture['arguments']);
-
-            $aspect->verifyInvokedMultipleTimes('processError', $fixture['errors']);
-
-            test::clean();
-
             $validator = Variable::assert($fixture['value'], 'var');
 
             if ($fixture['errors'] === 0) {
@@ -924,29 +774,5 @@ class VariableCest
                 }
             }
         }
-    }
-
-    /**
-     * @param \UnitTester $I
-     * @param string      $methodName
-     * @param array       $arguments
-     */
-    protected function checkSkipErrors(\UnitTester $I, $methodName, $arguments = [])
-    {
-        $I->amGoingTo('check with skipErrors');
-
-        $validator = Variable::validate('var', 'var', true);
-
-        $property = new \ReflectionProperty($validator, 'errors');
-        $property->setAccessible(true);
-        $property->setValue($validator, ['some-error']);
-
-        $aspect = test::double($validator);
-
-        call_user_func_array([$validator, $methodName], $arguments);
-
-        $aspect->verifyNeverInvoked('processError');
-
-        test::clean();
     }
 }

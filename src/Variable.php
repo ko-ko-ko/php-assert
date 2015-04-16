@@ -30,20 +30,11 @@ class Variable
 
     const EXCEPTION_VALUE_TEXT_POSITIVE = 'Param ${{variable}} must be {{value}}';
 
-    /** @type string[] */
-    protected $errors = [];
-
     /** @type string */
     protected $exceptionClass;
 
     /** @type string */
     protected $name;
-
-    /** @type bool */
-    protected $skipOnErrors;
-
-    /** @type bool */
-    protected $throwException = true;
 
     /** @type mixed */
     protected $value;
@@ -81,61 +72,6 @@ class Variable
     }
 
     /**
-     * Creates validator instance for variable, without throwing an exception
-     *
-     * If $skipOnError = false - it'll run all of validations, else - skip them
-     * Found errors you can see by getErrors() method call
-     *
-     * @param mixed  $value
-     * @param string $name
-     * @param bool   $skipOnError
-     *
-     * @return static
-     * @throws \InvalidArgumentException
-     */
-    public static function validate($value, $name, $skipOnError = true)
-    {
-        if (!is_string($name)) {
-            throw new \InvalidArgumentException('Param $name must be string');
-        }
-
-        if (!is_bool($skipOnError)) {
-            throw new \InvalidArgumentException('Param $skipOnError must be bool');
-        }
-
-        $validator = new static;
-        $validator->skipOnErrors = $skipOnError;
-
-        $validator->name = $name;
-        $validator->value = $value;
-        $validator->throwException = false;
-
-        return $validator;
-    }
-
-    /**
-     * Clear of errors array
-     *
-     * @return Variable
-     */
-    public function clearErrors()
-    {
-        $this->errors = [];
-
-        return $this;
-    }
-
-    /**
-     * Return an array of found errors
-     *
-     * @return string[]
-     */
-    public function getErrors()
-    {
-        return $this->errors;
-    }
-
-    /**
      * Return class of exception, which will be thrown on fail test
      *
      * @return string
@@ -169,45 +105,6 @@ class Variable
     }
 
     /**
-     * Return option of skipping an error on fail validation
-     *
-     * @return bool
-     */
-    public function getSkipOnErrors()
-    {
-        return $this->skipOnErrors;
-    }
-
-    /**
-     * Set of skipping an error on fail validation
-     *
-     * @param bool $skipOnErrors
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function setSkipOnErrors($skipOnErrors = true)
-    {
-        if (!is_bool($skipOnErrors)) {
-            throw new \InvalidArgumentException('Param $skipOnErrors must be bool');
-        }
-
-        $this->skipOnErrors = $skipOnErrors;
-
-        return $this;
-    }
-
-    /**
-     * Return an exception class
-     *
-     * @return bool
-     */
-    public function getThrowException()
-    {
-        return $this->throwException;
-    }
-
-    /**
      * Return current validation value
      *
      * @return mixed
@@ -215,16 +112,6 @@ class Variable
     public function getValue()
     {
         return $this->value;
-    }
-
-    /**
-     * Does validation had errors
-     *
-     * @return bool
-     */
-    public function hasErrors()
-    {
-        return !empty($this->errors);
     }
 
     /**
@@ -236,10 +123,6 @@ class Variable
      */
     public function inArray(array $range)
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (in_array($this->value, $range, true)) {
             return $this;
         }
@@ -254,10 +137,6 @@ class Variable
      */
     public function isArray()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (
             is_array($this->value) || (
                 $this->value instanceof \ArrayAccess &&
@@ -296,10 +175,6 @@ class Variable
 
         $this->isNumeric()->notString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         if ($this->value >= $from && $this->value <= $to) {
             return $this;
         }
@@ -333,10 +208,6 @@ class Variable
 
         $this->isNumeric()->notString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         if ($this->value > $from && $this->value < $to) {
             return $this;
         }
@@ -352,10 +223,6 @@ class Variable
      */
     public function isBool()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (is_bool($this->value)) {
             return $this;
         }
@@ -370,10 +237,6 @@ class Variable
      */
     public function isCallable()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (is_callable($this->value, false)) {
             return $this;
         }
@@ -388,10 +251,6 @@ class Variable
      */
     public function isDigit()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (ctype_digit($this->value)) {
             return $this;
         }
@@ -406,10 +265,6 @@ class Variable
      */
     public function isEmail()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (filter_var($this->value, FILTER_VALIDATE_EMAIL)) {
             return $this;
         }
@@ -424,10 +279,6 @@ class Variable
      */
     public function isEmpty()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (empty($this->value)) {
             return $this;
         }
@@ -442,10 +293,6 @@ class Variable
      */
     public function isFloat()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (is_float($this->value)) {
             return $this;
         }
@@ -460,10 +307,6 @@ class Variable
      */
     public function isGraph()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (ctype_graph($this->value)) {
             return $this;
         }
@@ -478,10 +321,6 @@ class Variable
      */
     public function isInt()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (is_int($this->value)) {
             return $this;
         }
@@ -497,10 +336,6 @@ class Variable
     public function isJson()
     {
         $this->notEmpty()->isString();
-
-        if (!empty($this->errors)) {
-            return $this;
-        }
 
         if ((bool) json_decode($this->value)) {
             return $this;
@@ -538,10 +373,6 @@ class Variable
 
         $this->isString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         $length = mb_strlen($this->value);
 
         if ($length >= $from && $length <= $to) {
@@ -572,10 +403,6 @@ class Variable
 
         $this->isString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         if (mb_strlen($this->value) <= $maxLength) {
             return $this;
         }
@@ -603,10 +430,6 @@ class Variable
 
         $this->notEmpty()->isString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         if (mb_strlen($this->value) >= $minLength) {
             return $this;
         }
@@ -629,10 +452,6 @@ class Variable
         }
 
         $this->isNumeric()->notString();
-
-        if (!empty($this->errors)) {
-            return $this;
-        }
 
         if ($this->value <= $max) {
             return $this;
@@ -657,10 +476,6 @@ class Variable
 
         $this->isNumeric()->notString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         if ($this->value < $max) {
             return $this;
         }
@@ -683,10 +498,6 @@ class Variable
     public function isMacAddress()
     {
         $this->notEmpty()->isString();
-
-        if (!empty($this->errors)) {
-            return $this;
-        }
 
         if (preg_match('/^(([0-9a-fA-F]{2}-){5}|([0-9a-fA-F]{2}:){5})[0-9a-fA-F]{2}$/', $this->value)) {
             return $this;
@@ -711,10 +522,6 @@ class Variable
 
         $this->isNumeric()->notString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         if ($this->value >= $min) {
             return $this;
         }
@@ -738,10 +545,6 @@ class Variable
 
         $this->isNumeric()->notString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         if ($this->value > $min) {
             return $this;
         }
@@ -758,10 +561,6 @@ class Variable
     {
         $this->isNumeric()->notString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         if ($this->value < 0) {
             return $this;
         }
@@ -776,10 +575,6 @@ class Variable
      */
     public function isNumeric()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (is_numeric($this->value)) {
             return $this;
         }
@@ -794,10 +589,6 @@ class Variable
      */
     public function isObject()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (is_object($this->value)) {
             return $this;
         }
@@ -814,10 +605,6 @@ class Variable
     {
         $this->isNumeric()->notString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         if ($this->value > 0) {
             return $this;
         }
@@ -832,10 +619,6 @@ class Variable
      */
     public function isResource()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (is_resource($this->value)) {
             return $this;
         }
@@ -850,10 +633,6 @@ class Variable
      */
     public function isString()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (is_string($this->value)) {
             return $this;
         }
@@ -875,10 +654,6 @@ class Variable
             throw new \InvalidArgumentException('Param $className must be string');
         }
 
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (
             (is_object($this->value) && is_subclass_of($this->value, $className)) ||
             (is_string($this->value) && is_subclass_of($this->value, $className, true))
@@ -896,10 +671,6 @@ class Variable
      */
     public function notArray()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!(
             is_array($this->value) || (
                 $this->value instanceof \ArrayAccess &&
@@ -938,10 +709,6 @@ class Variable
 
         $this->isNumeric()->notString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         if ($this->value <= $from || $this->value >= $to) {
             return $this;
         }
@@ -975,10 +742,6 @@ class Variable
 
         $this->isNumeric()->notString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         if ($this->value < $from || $this->value > $to) {
             return $this;
         }
@@ -994,10 +757,6 @@ class Variable
      */
     public function notBool()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!is_bool($this->value)) {
             return $this;
         }
@@ -1012,10 +771,6 @@ class Variable
      */
     public function notCallable()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!is_callable($this->value)) {
             return $this;
         }
@@ -1030,10 +785,6 @@ class Variable
      */
     public function notDigit()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!ctype_digit($this->value)) {
             return $this;
         }
@@ -1048,10 +799,6 @@ class Variable
      */
     public function notEmail()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!filter_var($this->value, FILTER_VALIDATE_EMAIL)) {
             return $this;
         }
@@ -1066,10 +813,6 @@ class Variable
      */
     public function notEmpty()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!empty($this->value)) {
             return $this;
         }
@@ -1084,10 +827,6 @@ class Variable
      */
     public function notFloat()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!is_float($this->value)) {
             return $this;
         }
@@ -1102,10 +841,6 @@ class Variable
      */
     public function notGraph()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!ctype_graph($this->value)) {
             return $this;
         }
@@ -1122,10 +857,6 @@ class Variable
      */
     public function notInArray(array $range)
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!in_array($this->value, $range, true)) {
             return $this;
         }
@@ -1140,10 +871,6 @@ class Variable
      */
     public function notInt()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!is_int($this->value)) {
             return $this;
         }
@@ -1159,10 +886,6 @@ class Variable
     public function notJson()
     {
         $this->notEmpty()->isString();
-
-        if (!empty($this->errors)) {
-            return $this;
-        }
 
         if (!((bool) json_decode($this->value))) {
             return $this;
@@ -1200,10 +923,6 @@ class Variable
 
         $this->isString();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         $length = mb_strlen($this->value);
 
         if ($length <= $from || $length >= $to) {
@@ -1230,10 +949,6 @@ class Variable
     {
         $this->isString()->notEmpty();
 
-        if (!empty($this->errors)) {
-            return $this;
-        }
-
         if (!preg_match('/^(([0-9a-fA-F]{2}-){5}|([0-9a-fA-F]{2}:){5})[0-9a-fA-F]{2}$/', $this->value)) {
             return $this;
         }
@@ -1248,10 +963,6 @@ class Variable
      */
     public function notNumeric()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!is_numeric($this->value)) {
             return $this;
         }
@@ -1266,10 +977,6 @@ class Variable
      */
     public function notObject()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!is_object($this->value)) {
             return $this;
         }
@@ -1284,10 +991,6 @@ class Variable
      */
     public function notResource()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!is_resource($this->value)) {
             return $this;
         }
@@ -1302,10 +1005,6 @@ class Variable
      */
     public function notString()
     {
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (!is_string($this->value)) {
             return $this;
         }
@@ -1327,10 +1026,6 @@ class Variable
             throw new \InvalidArgumentException('Param $className must be string');
         }
 
-        if (!empty($this->errors) && $this->skipOnErrors) {
-            return $this;
-        }
-
         if (
             (is_object($this->value) && !is_subclass_of($this->value, $className)) ||
             (is_string($this->value) && !is_subclass_of($this->value, $className, true))
@@ -1342,31 +1037,10 @@ class Variable
     }
 
     /**
-     * set option of throw exception on fail validation
-     *
-     * @param bool $throwException
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function setThrowErrors($throwException)
-    {
-        if (!is_bool($throwException)) {
-            throw new \InvalidArgumentException('Param $throwException must be bool');
-        }
-
-        $this->throwException = $throwException;
-
-        return $this;
-    }
-
-    /**
      * Process fail validation
      *
      * @param string $pattern
      * @param array  $placeholders
-     *
-     * @return Variable
      * @throws \InvalidArgumentException
      */
     protected function processError($pattern, $placeholders = [])
@@ -1374,12 +1048,7 @@ class Variable
         $placeholders['{{variable}}'] = $this->name;
         $placeholders['{{value}}'] = print_r($this->value, true);
 
-        $this->errors[] = strtr($pattern, $placeholders);
+        throw new $this->exceptionClass(strtr($pattern, $placeholders));
 
-        if ($this->throwException) {
-            throw new $this->exceptionClass(implode("\n", $this->errors));
-        }
-
-        return $this;
     }
 }

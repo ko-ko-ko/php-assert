@@ -22,39 +22,18 @@ abstract class RequestAbstractRequest
     /**
      * @param \UnitTester $I
      */
-    public function getWithSoft(\UnitTester $I)
-    {
-        $var = 'var';
-        $aspect = test::double(static::TEST_REQUEST_CLASS, ['getParam' => $var]);
-
-        /** @type AbstractRequest $req */
-        $req = $aspect->make()->setSoft();
-
-        $validator = $req->get('var');
-
-        $I->assertEquals('index0h\validator\Cast', get_class($validator));
-        $I->assertEquals($validator->getValue(), $var);
-        $I->assertFalse($validator->getThrowException());
-
-        test::clean();
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function getWithStrict(\UnitTester $I)
     {
         $var = 'var';
         $aspect = test::double(static::TEST_REQUEST_CLASS, ['getParam' => $var]);
 
         /** @type AbstractRequest $req */
-        $req = $aspect->make()->setStrict();
+        $req = $aspect->make();
 
         $validator = $req->get('var');
 
         $I->assertEquals('index0h\validator\Cast', get_class($validator));
         $I->assertEquals($validator->getValue(), $var);
-        $I->assertTrue($validator->getThrowException());
 
         test::clean();
     }
@@ -76,84 +55,6 @@ abstract class RequestAbstractRequest
     /**
      * @param \UnitTester $I
      */
-    public function setSoft(\UnitTester $I)
-    {
-        /** @type AbstractRequest $req */
-        $req = test::double(static::TEST_REQUEST_CLASS)->make();
-
-        try {
-            $req->setSoft('var');
-            $I->fail('Wrong variable type');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        $req->setStrict();
-
-        $req->setSoft(false);
-        $I->assertFalse($req->getSkipOnErrors());
-        $I->assertFalse($req->getThrowException());
-
-        $req->setSoft();
-        $I->assertFalse($req->getThrowException());
-        $I->assertTrue($req->getSkipOnErrors());
-
-        test::clean();
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function setStrict(\UnitTester $I)
-    {
-        /** @type AbstractRequest $req */
-        $req = test::double(static::TEST_REQUEST_CLASS)->make();
-
-        try {
-            $req->setStrict('var');
-            $I->fail('Wrong variable type');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        $req->setSoft();
-
-        $req->setStrict('\DomainException');
-        $I->assertEquals('\DomainException', $req->getExceptionClass());
-        $I->assertTrue($req->getThrowException());
-
-        $req->setSoft();
-
-        $req->setStrict();
-        $I->assertEquals(Cast::EXCEPTION_CLASS, $req->getExceptionClass());
-        $I->assertTrue($req->getThrowException());
-
-        test::clean();
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function toBoolSoft(\UnitTester $I)
-    {
-        $expected = true;
-
-        $aspectCast = test::double(self::CAST_CLASS_NAME);
-        $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => null]);
-
-        /** @type AbstractRequest $req */
-        $req = $aspectRequest->make()->setSoft();
-
-        $actual = $req->toBool('var', $expected)->getValue();
-
-        $aspectCast->verifyInvokedOnce('validate');
-        $aspectCast->verifyInvokedOnce('toBool');
-        $I->assertEquals($expected, $actual);
-
-        test::clean();
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function toBoolStrict(\UnitTester $I)
     {
         $expected = true;
@@ -162,9 +63,9 @@ abstract class RequestAbstractRequest
         $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => null]);
 
         /** @type AbstractRequest $req */
-        $req = $aspectRequest->make()->setStrict();
+        $req = $aspectRequest->make();
 
-        $actual = $req->toBool('var', $expected)->getValue();
+        $actual = $req->toBool('var', $expected, $req->getExceptionClass())->getValue();
 
         $aspectCast->verifyInvokedOnce('assert');
         $aspectCast->verifyInvokedOnce('toBool');
@@ -204,28 +105,6 @@ abstract class RequestAbstractRequest
     /**
      * @param \UnitTester $I
      */
-    public function toFloatSoft(\UnitTester $I)
-    {
-        $expected = 100.5;
-
-        $aspectCast = test::double(self::CAST_CLASS_NAME);
-        $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => null]);
-
-        /** @type AbstractRequest $req */
-        $req = $aspectRequest->make()->setSoft();
-
-        $actual = $req->toFloat('var', $expected)->getValue();
-
-        $aspectCast->verifyInvokedOnce('validate');
-        $aspectCast->verifyInvokedOnce('toFloat');
-        $I->assertEquals($expected, $actual);
-
-        test::clean();
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function toFloatStrict(\UnitTester $I)
     {
         $expected = 100.5;
@@ -234,9 +113,9 @@ abstract class RequestAbstractRequest
         $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => null]);
 
         /** @type AbstractRequest $req */
-        $req = $aspectRequest->make()->setStrict();
+        $req = $aspectRequest->make();
 
-        $actual = $req->toFloat('var', $expected)->getValue();
+        $actual = $req->toFloat('var', $expected, $req->getExceptionClass())->getValue();
 
         $aspectCast->verifyInvokedOnce('assert');
         $aspectCast->verifyInvokedOnce('toFloat');
@@ -276,28 +155,6 @@ abstract class RequestAbstractRequest
     /**
      * @param \UnitTester $I
      */
-    public function toIntSoft(\UnitTester $I)
-    {
-        $expected = 100;
-
-        $aspectCast = test::double(self::CAST_CLASS_NAME);
-        $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => null]);
-
-        /** @type AbstractRequest $req */
-        $req = $aspectRequest->make()->setSoft();
-
-        $actual = $req->toInt('var', $expected)->getValue();
-
-        $aspectCast->verifyInvokedOnce('validate');
-        $aspectCast->verifyInvokedOnce('toInt');
-        $I->assertEquals($expected, $actual);
-
-        test::clean();
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function toIntStrict(\UnitTester $I)
     {
         $expected = 100;
@@ -306,9 +163,9 @@ abstract class RequestAbstractRequest
         $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => null]);
 
         /** @type AbstractRequest $req */
-        $req = $aspectRequest->make()->setStrict();
+        $req = $aspectRequest->make();
 
-        $actual = $req->toInt('var', $expected)->getValue();
+        $actual = $req->toInt('var', $expected, $req->getExceptionClass())->getValue();
 
         $aspectCast->verifyInvokedOnce('assert');
         $aspectCast->verifyInvokedOnce('toInt');
@@ -348,28 +205,6 @@ abstract class RequestAbstractRequest
     /**
      * @param \UnitTester $I
      */
-    public function toStringSoft(\UnitTester $I)
-    {
-        $expected = 'var';
-
-        $aspectCast = test::double(self::CAST_CLASS_NAME);
-        $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => null]);
-
-        /** @type AbstractRequest $req */
-        $req = $aspectRequest->make()->setSoft();
-
-        $actual = $req->toString('var', $expected)->getValue();
-
-        $aspectCast->verifyInvokedOnce('validate');
-        $aspectCast->verifyInvokedOnce('toString');
-        $I->assertEquals($expected, $actual);
-
-        test::clean();
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function toStringStrict(\UnitTester $I)
     {
         $expected = 'var';
@@ -378,9 +213,9 @@ abstract class RequestAbstractRequest
         $aspectRequest = test::double(static::TEST_REQUEST_CLASS, ['getParam' => null]);
 
         /** @type AbstractRequest $req */
-        $req = $aspectRequest->make()->setStrict();
+        $req = $aspectRequest->make();
 
-        $actual = $req->toString('var', $expected)->getValue();
+        $actual = $req->toString('var', $expected, $req->getExceptionClass())->getValue();
 
         $aspectCast->verifyInvokedOnce('assert');
         $aspectCast->verifyInvokedOnce('toString');

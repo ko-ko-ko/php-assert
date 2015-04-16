@@ -16,12 +16,6 @@ abstract class AbstractRequest implements RequestInterface
     /** @type string */
     protected $exceptionClass = Cast::EXCEPTION_CLASS;
 
-    /** @type bool */
-    protected $skipOnErrors = true;
-
-    /** @type bool */
-    protected $throwException = true;
-
     /**
      * @param string $name
      * @param mixed  $default
@@ -42,11 +36,7 @@ abstract class AbstractRequest implements RequestInterface
             throw new \InvalidArgumentException('Param $name must be string');
         }
 
-        if ($this->throwException) {
-            return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass);
-        }
-
-        return Cast::validate($this->getParam($name, $default), $name, $this->skipOnErrors);
+        return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass);
     }
 
     /**
@@ -55,56 +45,6 @@ abstract class AbstractRequest implements RequestInterface
     public function getExceptionClass()
     {
         return $this->exceptionClass;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getSkipOnErrors()
-    {
-        return $this->skipOnErrors;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getThrowException()
-    {
-        return $this->throwException;
-    }
-
-    /**
-     * @param bool $skipOnError
-     *
-     * @return $this
-     */
-    public function setSoft($skipOnError = true)
-    {
-        if (!is_bool($skipOnError)) {
-            throw new \InvalidArgumentException('Param $skipOnError must be bool');
-        }
-
-        $this->throwException = false;
-        $this->skipOnErrors = $skipOnError;
-
-        return $this;
-    }
-
-    /**
-     * @param string $exceptionClass
-     *
-     * @return $this
-     */
-    public function setStrict($exceptionClass = Cast::EXCEPTION_CLASS)
-    {
-        if (($exceptionClass !== Cast::EXCEPTION_CLASS) && (!is_a($exceptionClass, '\Exception', true))) {
-            throw new \InvalidArgumentException('Param $exceptionClass must be subclass of \Exception');
-        }
-
-        $this->throwException = true;
-        $this->exceptionClass = $exceptionClass;
-
-        return $this;
     }
 
     /**
@@ -123,11 +63,7 @@ abstract class AbstractRequest implements RequestInterface
             throw new \InvalidArgumentException('Param $default must be bool');
         }
 
-        if ($this->throwException) {
-            return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toBool($default);
-        }
-
-        return Cast::validate($this->getParam($name, $default), $name, $this->skipOnErrors)->toBool($default);
+        return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toBool($default);
     }
 
     /**
@@ -146,11 +82,7 @@ abstract class AbstractRequest implements RequestInterface
             throw new \InvalidArgumentException('Param $default must be bool');
         }
 
-        if ($this->throwException) {
-            return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toFloat($default);
-        }
-
-        return Cast::validate($this->getParam($name, $default), $name, $this->skipOnErrors)->toFloat($default);
+        return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toFloat($default);
     }
 
     /**
@@ -169,11 +101,7 @@ abstract class AbstractRequest implements RequestInterface
             throw new \InvalidArgumentException('Param $default must be int');
         }
 
-        if ($this->throwException) {
-            return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toInt($default);
-        }
-
-        return Cast::validate($this->getParam($name, $default), $name, $this->skipOnErrors)->toInt($default);
+        return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toInt($default);
     }
 
     /**
@@ -192,10 +120,6 @@ abstract class AbstractRequest implements RequestInterface
             throw new \InvalidArgumentException('Param $default must be string');
         }
 
-        if ($this->throwException) {
-            return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toString($default);
-        }
-
-        return Cast::validate($this->getParam($name, $default), $name, $this->skipOnErrors)->toString($default);
+        return Cast::assert($this->getParam($name, $default), $name, $this->exceptionClass)->toString($default);
     }
 }

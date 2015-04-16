@@ -6,7 +6,6 @@
  */
 namespace index0h\validator\tests\unit;
 
-use AspectMock\Test as test;
 use index0h\validator\Cast;
 
 /**
@@ -20,12 +19,12 @@ class CastCest extends VariableCest
     public function toBoolDefault(\UnitTester $I)
     {
         try {
-            Cast::validate('var', 'var', false)->toBool('WRONG_TYPE');
+            Cast::assert('var', 'var')->toBool('WRONG_TYPE');
             $I->fail('Wrong default value type');
         } catch (\InvalidArgumentException $error) {
         }
 
-        Cast::validate(Cast::DEFAULT_CAST_BOOL, 'var', false)->toBool(Cast::DEFAULT_CAST_BOOL);
+        Cast::assert(Cast::DEFAULT_CAST_BOOL, 'var')->toBool(Cast::DEFAULT_CAST_BOOL);
     }
 
     /**
@@ -34,12 +33,12 @@ class CastCest extends VariableCest
     public function toIntDefault(\UnitTester $I)
     {
         try {
-            Cast::validate('var', 'var', false)->toInt('WRONG_TYPE');
+            Cast::assert('var', 'var')->toInt('WRONG_TYPE');
             $I->fail('Wrong default value type');
         } catch (\InvalidArgumentException $error) {
         }
 
-        Cast::validate(Cast::DEFAULT_CAST_INT, 'var', false)->toInt(Cast::DEFAULT_CAST_INT);
+        Cast::assert(Cast::DEFAULT_CAST_INT, 'var')->toInt(Cast::DEFAULT_CAST_INT);
     }
 
     /**
@@ -48,12 +47,12 @@ class CastCest extends VariableCest
     public function toFloatDefault(\UnitTester $I)
     {
         try {
-            Cast::validate('var', 'var', false)->toFloat('WRONG_TYPE');
+            Cast::assert('var', 'var')->toFloat('WRONG_TYPE');
             $I->fail('Wrong default value type');
         } catch (\InvalidArgumentException $error) {
         }
 
-        Cast::validate(Cast::DEFAULT_CAST_FLOAT, 'var', false)->toFloat(Cast::DEFAULT_CAST_FLOAT);
+        Cast::assert(Cast::DEFAULT_CAST_FLOAT, 'var')->toFloat(Cast::DEFAULT_CAST_FLOAT);
     }
 
     /**
@@ -62,12 +61,12 @@ class CastCest extends VariableCest
     public function toStringDefault(\UnitTester $I)
     {
         try {
-            Cast::validate('var', 'var', false)->toString(false);
+            Cast::assert('var', 'var')->toString(false);
             $I->fail('Wrong default value type');
         } catch (\InvalidArgumentException $error) {
         }
 
-        Cast::validate(Cast::DEFAULT_CAST_STRING, 'var', false)->toString(Cast::DEFAULT_CAST_STRING);
+        Cast::assert(Cast::DEFAULT_CAST_STRING, 'var')->toString(Cast::DEFAULT_CAST_STRING);
     }
 
     /**
@@ -113,16 +112,6 @@ class CastCest extends VariableCest
 
         foreach ($fixtures as $fixture) {
             $I->amGoingTo('check with fixture: ' . $fixture['comment']);
-
-            $validator = Cast::validate($fixture['value'], 'var', false);
-
-            $aspect = test::double($validator);
-
-            call_user_func_array([$validator, $methodName], $fixture['arguments']);
-
-            $aspect->verifyInvokedMultipleTimes('processError', $fixture['errors']);
-
-            test::clean();
 
             $validator = Cast::assert($fixture['value'], 'var');
 
