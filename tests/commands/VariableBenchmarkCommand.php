@@ -1282,7 +1282,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
         for ($i = 0, $tmpVar = $var; $i < self::COUNT_TEST; $i++, $tmpVar = $var) {
             if (!is_float($tmpVar)) {
                 if (empty($tmpVar)) {
-                    $tmpVar = Variable::DEFAULT_CAST_FLOAT;
+                    $tmpVar = 0.0;
                 } elseif (is_numeric($tmpVar) || is_bool($tmpVar) || is_resource($tmpVar)) {
                     $tmpVar = (float) $tmpVar;
                 } else {
@@ -1304,7 +1304,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
         for ($i = 0, $tmpVar = $var; $i < self::COUNT_TEST; $i++, $tmpVar = $var) {
             if (!is_int($tmpVar)) {
                 if (empty($tmpVar)) {
-                    $tmpVar = Variable::DEFAULT_CAST_INT;
+                    $tmpVar = 0;
                 } elseif (is_numeric($tmpVar) || is_bool($tmpVar) || is_resource($tmpVar)) {
                     $tmpVar = (int) $tmpVar;
                 } else {
@@ -1326,7 +1326,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
         for ($i = 0, $tmpVar = $var; $i < self::COUNT_TEST; $i++, $tmpVar = $var) {
             if (!is_string($tmpVar)) {
                 if (empty($tmpVar)) {
-                    $tmpVar = Variable::DEFAULT_CAST_STRING;
+                    $tmpVar = '';
                 } elseif (
                     is_numeric($tmpVar) ||
                     is_bool($tmpVar) ||

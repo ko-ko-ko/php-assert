@@ -12,14 +12,6 @@ namespace index0h\validator;
  */
 class Variable
 {
-    const DEFAULT_CAST_BOOL = false;
-
-    const DEFAULT_CAST_FLOAT = 0.0;
-
-    const DEFAULT_CAST_INT = 0;
-
-    const DEFAULT_CAST_STRING = '';
-
     const EXCEPTION_CAST_TEXT = 'Can not cast ${{variable}} to {{type}}';
 
     const EXCEPTION_CLASS = '\InvalidArgumentException';
@@ -1122,7 +1114,8 @@ class Variable
         }
 
         if (empty($this->value)) {
-            $this->value = self::DEFAULT_CAST_FLOAT;
+            $this->value = 0.0;
+
             return $this;
         }
 
@@ -1148,7 +1141,8 @@ class Variable
         }
 
         if (empty($this->value)) {
-            $this->value = self::DEFAULT_CAST_INT;
+            $this->value = 0;
+
             return $this;
         }
 
@@ -1174,7 +1168,7 @@ class Variable
         }
 
         if (empty($this->value)) {
-            $this->value = self::DEFAULT_CAST_STRING;
+            $this->value = '';
 
             return $this;
         }
