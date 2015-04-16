@@ -25,7 +25,7 @@ class RequestArrayDataCest extends RequestAbstractRequest
 
         $req = new ArrayData([$var => $var]);
 
-        $I->assertEquals($var, $req->get($var)->getValue());
+        $I->assertEquals($var, $req->get($var)->get());
 
         try {
             $class = new \ReflectionClass($req);

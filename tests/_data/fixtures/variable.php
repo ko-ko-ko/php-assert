@@ -480,10 +480,10 @@ return [
             'isString' => 1,
             'notString' => 0,
             //
-            'toFloat' => 1,
-            'toInt' => 1,
+            'toFloat' => 0,
+            'toInt' => 0,
             'toBool' => 0,
-            'toString' => 1,
+            'toString' => 0,
         ]
     ],
 // 'some_string'

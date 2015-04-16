@@ -63,7 +63,7 @@ Variable::assert("\nvar\t", 'var')->notEmpty()->isString()->isGraph();
 Variable::assert('notEmpty', 'var')->isEmpty();
 
 // Return: -15
-Variable::assert(-15, 'var')->isInt()->isNegative()->getValue();
+Variable::assert(-15, 'var')->isInt()->isNegative()->get();
 
 // It's ok :)
 Variable::assert([], 'var')->isEmpty()->isArray();
@@ -213,10 +213,10 @@ By design these methods `MAY` be called already after `assert`, after that you c
 
 ```php
 // Return: '5'
-Variable::assert(5, 'var')->toString()->getValue();
+Variable::assert(5, 'var')->toString()->get();
 
 // Return: -15
-Variable::assert('-15.12', 'var')->toInt()->getValue();
+Variable::assert('-15.12', 'var')->toInt()->get();
 
 // Throws exception: Param $var must be positive
 Variable::assert('-15.12', 'var')->toInt()->isPositive();
@@ -259,9 +259,9 @@ use index0h\validator\request\Symfony as Req;
 
 $req = new Req(Request::createFromGlobals());
 
-$userId = $req->toInt('uid', -1)->isPositive()->getValue();
-$encoding = $req->toString('ie', 'UTF-8')->inArray(mb_list_encodings())->getValue();
-$query = $req->toString('q')->getValue();
+$userId = $req->toInt('uid', -1)->isPositive()->get();
+$encoding = $req->toString('ie', 'UTF-8')->inArray(mb_list_encodings())->get();
+$query = $req->toString('q')->get();
 
 // -------------------------------------------------------------------
 // This is the same as (many extra-checks dropped for current example)

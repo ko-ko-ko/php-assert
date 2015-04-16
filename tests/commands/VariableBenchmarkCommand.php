@@ -1287,7 +1287,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
             if (!is_float($tmpVar)) {
                 if (empty($tmpVar)) {
                     $tmpVar = Variable::DEFAULT_CAST_FLOAT;
-                } elseif (is_numeric($tmpVar) || is_bool($tmpVar)) {
+                } elseif (is_numeric($tmpVar) || is_bool($tmpVar) || is_resource($tmpVar)) {
                     $tmpVar = (float) $tmpVar;
                 } else {
                     throw new \InvalidArgumentException('Can not cast $var to float');
@@ -1309,7 +1309,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
             if (!is_int($tmpVar)) {
                 if (empty($tmpVar)) {
                     $tmpVar = Variable::DEFAULT_CAST_INT;
-                } elseif (is_numeric($tmpVar) || is_bool($tmpVar)) {
+                } elseif (is_numeric($tmpVar) || is_bool($tmpVar) || is_resource($tmpVar)) {
                     $tmpVar = (int) $tmpVar;
                 } else {
                     throw new \InvalidArgumentException('Can not cast $var to int');
@@ -1331,9 +1331,12 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
             if (!is_string($tmpVar)) {
                 if (empty($tmpVar)) {
                     $tmpVar = Variable::DEFAULT_CAST_STRING;
-                } elseif (is_numeric($tmpVar) || is_bool($tmpVar)) {
-                    $tmpVar = (string) $tmpVar;
-                } elseif (is_object($tmpVar) && method_exists($tmpVar, '__toString')) {
+                } elseif (
+                    is_numeric($tmpVar) ||
+                    is_bool($tmpVar) ||
+                    is_resource($tmpVar) ||
+                    (is_object($tmpVar) && method_exists($tmpVar, '__toString'))
+                ) {
                     $tmpVar = (string) $tmpVar;
                 } else {
                     throw new \InvalidArgumentException('Can not cast $var to string');

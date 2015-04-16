@@ -127,7 +127,7 @@ class Variable
      *
      * @return mixed
      */
-    public function getValue()
+    public function get()
     {
         return $this->value;
     }
@@ -1135,7 +1135,7 @@ class Variable
             return $this;
         }
 
-        if (is_numeric($this->value) || is_bool($this->value)) {
+        if (is_numeric($this->value) || is_bool($this->value) || is_resource($this->value)) {
             $this->value = (float) $this->value;
 
             return $this;
@@ -1161,7 +1161,7 @@ class Variable
             return $this;
         }
 
-        if (is_numeric($this->value) || is_bool($this->value)) {
+        if (is_numeric($this->value) || is_bool($this->value) || is_resource($this->value)) {
             $this->value = (int) $this->value;
 
             return $this;
@@ -1184,16 +1184,16 @@ class Variable
 
         if (empty($this->value)) {
             $this->value = self::DEFAULT_CAST_STRING;
-            return $this;
-        }
-
-        if (is_numeric($this->value) || is_bool($this->value)) {
-            $this->value = (string) $this->value;
 
             return $this;
         }
 
-        if (is_object($this->value) && method_exists($this->value, '__toString')) {
+        if (
+            is_numeric($this->value) ||
+            is_bool($this->value) ||
+            is_resource($this->value) ||
+            (is_object($this->value) && method_exists($this->value, '__toString'))
+        ) {
             $this->value = (string) $this->value;
 
             return $this;

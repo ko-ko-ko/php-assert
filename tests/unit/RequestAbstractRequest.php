@@ -20,7 +20,7 @@ abstract class RequestAbstractRequest
     /**
      * @param \UnitTester $I
      */
-    public function getValue(\UnitTester $I)
+    public function get(\UnitTester $I)
     {
         $var = 'var';
         $aspect = test::double(static::TEST_REQUEST_CLASS, ['getParam' => $var]);
@@ -31,7 +31,7 @@ abstract class RequestAbstractRequest
         $validator = $req->get('var');
 
         $I->assertEquals('index0h\validator\Variable', get_class($validator));
-        $I->assertEquals($validator->getValue(), $var);
+        $I->assertEquals($validator->get(), $var);
 
         test::clean();
     }
@@ -63,7 +63,7 @@ abstract class RequestAbstractRequest
         /** @var AbstractRequest $req */
         $req = $aspectRequest->make();
 
-        $actual = $req->toBool('var', $expected, $req->getExceptionClass())->getValue();
+        $actual = $req->toBool('var', $expected, $req->getExceptionClass())->get();
 
         $aspectCast->verifyInvokedOnce('assert');
         $aspectCast->verifyInvokedOnce('toBool');
@@ -113,7 +113,7 @@ abstract class RequestAbstractRequest
         /** @var AbstractRequest $req */
         $req = $aspectRequest->make();
 
-        $actual = $req->toFloat('var', $expected, $req->getExceptionClass())->getValue();
+        $actual = $req->toFloat('var', $expected, $req->getExceptionClass())->get();
 
         $aspectCast->verifyInvokedOnce('assert');
         $aspectCast->verifyInvokedOnce('toFloat');
@@ -163,7 +163,7 @@ abstract class RequestAbstractRequest
         /** @var AbstractRequest $req */
         $req = $aspectRequest->make();
 
-        $actual = $req->toInt('var', $expected, $req->getExceptionClass())->getValue();
+        $actual = $req->toInt('var', $expected, $req->getExceptionClass())->get();
 
         $aspectCast->verifyInvokedOnce('assert');
         $aspectCast->verifyInvokedOnce('toInt');
@@ -213,7 +213,7 @@ abstract class RequestAbstractRequest
         /** @var AbstractRequest $req */
         $req = $aspectRequest->make();
 
-        $actual = $req->toString('var', $expected, $req->getExceptionClass())->getValue();
+        $actual = $req->toString('var', $expected, $req->getExceptionClass())->get();
 
         $aspectCast->verifyInvokedOnce('assert');
         $aspectCast->verifyInvokedOnce('toString');

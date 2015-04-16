@@ -25,7 +25,7 @@ class RequestSymfonyCest extends RequestAbstractRequest
         $var = 'SOME_TEST_VAR';
         $req = new Req(new Request([$var => $var], [$var => $var]));
 
-        $I->assertEquals($var, $req->get($var)->getValue());
+        $I->assertEquals($var, $req->get($var)->get());
 
         try {
             $class = new \ReflectionClass($req);

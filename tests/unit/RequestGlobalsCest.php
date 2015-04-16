@@ -26,7 +26,7 @@ class RequestGlobalsCest extends RequestAbstractRequest
 
         $req = new Globals;
 
-        $I->assertEquals($var, $req->get($var)->getValue());
+        $I->assertEquals($var, $req->get($var)->get());
 
         try {
             $class = new \ReflectionClass($req);

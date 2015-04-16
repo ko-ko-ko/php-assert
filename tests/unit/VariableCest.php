@@ -50,10 +50,10 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function getValue(\UnitTester $I)
+    public function get(\UnitTester $I)
     {
         $expected = 'SOME_DATA_HERE';
-        $actual = Variable::assert($expected, 'var')->getValue();
+        $actual = Variable::assert($expected, 'var')->get();
 
         $I->assertEquals($expected, $actual);
     }

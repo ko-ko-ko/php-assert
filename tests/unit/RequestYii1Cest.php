@@ -26,7 +26,7 @@ class RequestYii1Cest extends RequestAbstractRequest
 
         $req = new Yii1(new \CHttpRequest);
 
-        $I->assertEquals($var, $req->get($var)->getValue());
+        $I->assertEquals($var, $req->get($var)->get());
 
         try {
             $class = new \ReflectionClass($req);
