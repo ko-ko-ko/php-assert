@@ -1098,22 +1098,13 @@ class Variable
     }
 
     /**
-     * Cast value to boll
+     * Cast value to bool
      *
      * @return Variable
-     * @throws \InvalidArgumentException
      */
     public function toBool()
     {
-        if (is_bool($this->value)) {
-            return $this;
-        }
-
-        if (empty($this->value)) {
-            $this->value = self::DEFAULT_CAST_BOOL;
-        }
-
-        $this->value = true;
+        $this->value = (bool)$this->value;
 
         return $this;
     }

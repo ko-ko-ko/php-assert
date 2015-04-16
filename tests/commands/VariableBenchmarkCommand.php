@@ -1266,11 +1266,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     {
         $this->start();
         for ($i = 0, $tmpVar = $var; $i < self::COUNT_TEST; $i++, $tmpVar = $var) {
-            if (!is_bool($tmpVar)) {
-                if (empty($tmpVar)) {
-                    $tmpVar = Variable::DEFAULT_CAST_BOOL;
-                }
-            }
+            $tmpVar = (bool) $tmpVar;
         }
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
