@@ -30,7 +30,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function inArray($var, $array)
+    public function isInArray($var, $array)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -198,22 +198,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param callable $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isCallable($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!is_callable($var)) {
-                throw new \InvalidArgumentException('var must be callable');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
      * @param string $var
      *
      * @throws \InvalidArgumentException
@@ -224,22 +208,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (!ctype_digit($var)) {
                 throw new \InvalidArgumentException('var must be digit');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isEmail($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!filter_var($var, FILTER_VALIDATE_EMAIL)) {
-                throw new \InvalidArgumentException('var must be email');
             }
         }
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);
@@ -272,22 +240,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (!is_float($var)) {
                 throw new \InvalidArgumentException('var must be float');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isGraph($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!ctype_graph($var)) {
-                throw new \InvalidArgumentException('var must be graph');
             }
         }
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);
@@ -577,30 +529,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isMacAddress($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!is_string($var)) {
-                throw new \InvalidArgumentException('var must be string');
-            }
-
-            if (empty($var)) {
-                throw new \InvalidArgumentException('var must be not empty');
-            }
-
-            if (!preg_match('/^(([0-9a-fA-F]{2}-){5}|([0-9a-fA-F]{2}:){5})[0-9a-fA-F]{2}$/', $var)) {
-                throw new \InvalidArgumentException('var must be MAC address');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
      * @param string    $var
      * @param int|float $value
      *
@@ -731,22 +659,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param object $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isObject($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!is_object($var)) {
-                throw new \InvalidArgumentException('var must be object');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
      * @param string $var
      *
      * @throws \InvalidArgumentException
@@ -803,50 +715,12 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param mixed  $var
-     * @param string $className
-     *
-     * @throws \Exception
-     * @throws \InvalidArgumentException
-     */
-    public function isSubClassOf($var, $className)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!(
-                (is_object($var) && is_subclass_of($var, $className)) ||
-                (is_string($var) && is_subclass_of($var, $className, true))
-            )
-            ) {
-                throw new \Exception('var must be sub class of ' . $className);
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            if (!is_string($className)) {
-                throw new \InvalidArgumentException('Param $className must be string');
-            }
-
-            if (!(
-                (is_object($var) && is_subclass_of($var, $className)) ||
-                (is_string($var) && is_subclass_of($var, $className, true))
-            )
-            ) {
-                throw new \Exception('var must be sub class of ' . $className);
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
-    }
-
-    /**
      * @param bool $var
      *
      * @return array
      * @throws \InvalidArgumentException
      */
-    public function notArray($var)
+    public function isNotArray($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -867,7 +741,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notBetween($var, $from, $to)
+    public function isNotBetween($var, $from, $to)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -921,7 +795,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notBetweenStrict($var, $from, $to)
+    public function isNotBetweenStrict($var, $from, $to)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -973,7 +847,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notBool($var)
+    public function isNotBool($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -985,27 +859,11 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notCallable($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (is_callable($var)) {
-                throw new \InvalidArgumentException('var must be not callable');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
      * @param array $var
      *
      * @throws \InvalidArgumentException
      */
-    public function notDigit($var)
+    public function isNotDigit($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -1021,23 +879,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notEmail($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (filter_var($var, FILTER_VALIDATE_EMAIL)) {
-                throw new \InvalidArgumentException('var must be not email');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notEmpty($var)
+    public function isNotEmpty($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -1053,7 +895,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notFloat($var)
+    public function isNotFloat($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -1066,27 +908,11 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notGraph($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (ctype_graph($var)) {
-                throw new \InvalidArgumentException('var must be not graph');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
      * @param array  $array
      *
      * @throws \InvalidArgumentException
      */
-    public function notInArray($var, $array)
+    public function isNotInArray($var, $array)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -1106,7 +932,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notInt($var)
+    public function isNotInt($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -1122,7 +948,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notJson($var)
+    public function isNotJson($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -1146,31 +972,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notMacAddress($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!is_string($var)) {
-                throw new \InvalidArgumentException('var must be string');
-            }
-
-            if (empty($var)) {
-                throw new \InvalidArgumentException('var must be not empty');
-            }
-
-            if (preg_match('/^(([0-9a-fA-F]{2}-){5}|([0-9a-fA-F]{2}:){5})[0-9a-fA-F]{2}$/', $var)) {
-                throw new \InvalidArgumentException('var must be not MAC address');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notNumeric($var)
+    public function isNotNumeric($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -1186,23 +988,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notObject($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (is_object($var)) {
-                throw new \InvalidArgumentException('var must be not object');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notResource($var)
+    public function isNotResource($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -1218,7 +1004,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notString($var)
+    public function isNotString($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -1229,38 +1015,8 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);
     }
 
-    public function notSubClassOf($var, $className)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!(
-                (is_object($var) && !is_subclass_of($var, $className)) ||
-                (is_string($var) && !is_subclass_of($var, $className, true))
-            )) {
-                throw new \Exception('var must be sub class of ' . $className);
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            if (!is_string($className)) {
-                throw new \InvalidArgumentException('Param $className must be string');
-            }
-
-            if (!(
-                (is_object($var) && !is_subclass_of($var, $className)) ||
-                (is_string($var) && !is_subclass_of($var, $className, true))
-            )
-            ) {
-                throw new \Exception('var must be sub class of ' . $className);
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
-    }
-
     /**
-     * @param mixed $var
+     * @param int|float|string|resource|array|null $var
      */
     public function toBool($var)
     {
@@ -1272,7 +1028,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param mixed $var
+     * @param int|float|string|resource|array|null $var
      *
      * @throws \InvalidArgumentException
      */
@@ -1294,7 +1050,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param mixed $var
+     * @param int|float|string|resource|array|null $var
      *
      * @throws \InvalidArgumentException
      */
@@ -1316,7 +1072,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param mixed $var
+     * @param int|float|string|resource|array|null $var
      *
      * @throws \InvalidArgumentException
      */
@@ -1365,9 +1121,9 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string $methodName
-     * @param        $value
-     * @param        $arguments
+     * @param string                               $methodName
+     * @param int|float|string|resource|array|null $value
+     * @param array                                $arguments
      */
     protected function runBenchmarkForNative($methodName, $value, $arguments)
     {
@@ -1381,9 +1137,9 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string $methodName
-     * @param        $value
-     * @param        $arguments
+     * @param string                               $methodName
+     * @param int|float|string|resource|array|null $value
+     * @param array                                $arguments
      */
     protected function runBenchmarkForValidator($methodName, $value, $arguments)
     {
@@ -1409,9 +1165,9 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string $methodName
-     * @param        $value
-     * @param        $arguments
+     * @param string                               $methodName
+     * @param int|float|string|resource|array|null $value
+     * @param array                                $arguments
      */
     protected function runBenchmarkForValidatorLight($methodName, $value, $arguments)
     {

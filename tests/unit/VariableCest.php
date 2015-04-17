@@ -93,7 +93,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function inArray(\UnitTester $I)
+    public function isInArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -193,23 +193,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isCallable(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function isDigit(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isEmail(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -226,14 +210,6 @@ class VariableCest
      * @param \UnitTester $I
      */
     public function isFloat(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isGraph(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -387,14 +363,6 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isMacAddress(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function isMore(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -451,14 +419,6 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isObject(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function isPositive(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -483,7 +443,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isSubClassOf(\UnitTester $I)
+    public function isNotArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -491,56 +451,36 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isSubClassOfArguments(\UnitTester $I)
+    public function isNotBetween(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isNotBetweenArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->isSubClassOf(5);
-            $I->fail('Argument must be string');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notArray(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notBetween(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notBetweenArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->notBetween('a', 5);
+            Variable::assert('var', 'var')->isNotBetween('a', 5);
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->notBetween('a', 5.1);
+            Variable::assert('var', 'var')->isNotBetween('a', 5.1);
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->notBetween(1.2, 'b');
+            Variable::assert('var', 'var')->isNotBetween(1.2, 'b');
             $I->fail('Second argument must be  int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->notBetween(100, 50);
+            Variable::assert('var', 'var')->isNotBetween(100, 50);
             $I->fail('First argument must be less than second');
         } catch (\InvalidArgumentException $error) {
         }
@@ -549,7 +489,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notBetweenStrict(\UnitTester $I)
+    public function isNotBetweenStrict(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -557,28 +497,28 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notBetweenStrictArguments(\UnitTester $I)
+    public function isNotBetweenStrictArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->notBetweenStrict('a', 5);
+            Variable::assert('var', 'var')->isNotBetweenStrict('a', 5);
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->notBetweenStrict('a', 5.1);
+            Variable::assert('var', 'var')->isNotBetweenStrict('a', 5.1);
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->notBetweenStrict(1.2, 'b');
+            Variable::assert('var', 'var')->isNotBetweenStrict(1.2, 'b');
             $I->fail('Second argument must be  int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->notBetweenStrict(100, 50);
+            Variable::assert('var', 'var')->isNotBetweenStrict(100, 50);
             $I->fail('First argument must be less than second');
         } catch (\InvalidArgumentException $error) {
         }
@@ -587,7 +527,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notBool(\UnitTester $I)
+    public function isNotBool(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -595,7 +535,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notCallable(\UnitTester $I)
+    public function isNotDigit(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -603,7 +543,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notDigit(\UnitTester $I)
+    public function isNotEmpty(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -611,7 +551,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notEmail(\UnitTester $I)
+    public function isNotFloat(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -619,7 +559,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notEmpty(\UnitTester $I)
+    public function isNotInArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -627,7 +567,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notFloat(\UnitTester $I)
+    public function isNotInt(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -635,7 +575,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notGraph(\UnitTester $I)
+    public function isNotJson(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -643,7 +583,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notInArray(\UnitTester $I)
+    public function isLengthNotBetween(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -651,52 +591,28 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notInt(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notJson(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notLengthBetween(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notLengthBetweenArguments(\UnitTester $I)
+    public function isLengthNotBetweenArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->notLengthBetween('a', 5);
+            Variable::assert('var', 'var')->isLengthNotBetween('a', 5);
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->notLengthBetween(1, 'b');
+            Variable::assert('var', 'var')->isLengthNotBetween(1, 'b');
             $I->fail('Second argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->notLengthBetween(5, 2);
+            Variable::assert('var', 'var')->isLengthNotBetween(5, 2);
             $I->fail('First argument must be less than second');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->notLengthBetween(-1, 2);
+            Variable::assert('var', 'var')->isLengthNotBetween(-1, 2);
             $I->fail('First argument must be more than 0');
         } catch (\InvalidArgumentException $error) {
         }
@@ -705,7 +621,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notMacAddress(\UnitTester $I)
+    public function isNotNumeric(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -713,7 +629,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notNumeric(\UnitTester $I)
+    public function isNotResource(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -721,45 +637,9 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notObject(\UnitTester $I)
+    public function isNotString(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notResource(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notString(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notSubClassOf(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notSubClassOfArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->notSubClassOf(5);
-            $I->fail('Argument must be string');
-        } catch (\InvalidArgumentException $error) {
-        }
     }
 
     /**

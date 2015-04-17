@@ -15,13 +15,13 @@ This validator gives you very simple and fast API. You can see benchmark results
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 ```sh
-php composer.phar require --prefer-dist index0h/validator "0.1.x"
+php composer.phar require --prefer-dist index0h/validator "0.2.x"
 ```
 
 or add line to require section of `composer.json`
 
 ```json
-"index0h/validator": "0.1.x"
+"index0h/validator": "0.2.x"
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ or add line to require section of `composer.json`
 ```php
 use index0h\validator\Variable as v;
 
-v::assert($var, 'var')->notEmpty()->isString()->isGraph();
+v::assert($var, 'var')->isNotEmpty()->isString();
 
 // It's the same as
 
@@ -39,10 +39,6 @@ if (empty($var)) {
 
 if (!is_string($var)) {
     throw new \InvalidArgumentException('Param $var must be string');
-}
-
-if (!ctype_graph($var)) {
-    throw new \InvalidArgumentException('Param $var must be graph');
 }
 ```
 
@@ -56,9 +52,6 @@ if (!ctype_graph($var)) {
 #### Example
 
 ```php
-// Throws exception: Param $var must be graph
-Variable::assert("\nvar\t", 'var')->notEmpty()->isString()->isGraph();
-
 // Throws exception: Param $var must be empty
 Variable::assert('notEmpty', 'var')->isEmpty();
 
@@ -84,59 +77,47 @@ Both run only after internal check `isNumeric()` and `notString()`
 
  * `isBetween($from, $to)`
  * `isBetweenStrict($from, $to)`
- * `notBetween($from, $to)`
- * `notBetweenStrict($from, $to)`
+ * `isNotBetween($from, $to)`
+ * `isNotBetweenStrict($from, $to)`
     - int|float `$from`
     - int|float `$to`
 
 -- --
  * `isBool()`
- * `notBool()`
-
--- --
- * `isCallable()`
- * `notCallable()`
+ * `isNotBool()`
 
 -- --
  * `isDigit()`
- * `notDigit()`
+ * `isNotDigit()`
 
 -- --
  * `isFloat()`
- * `notFloat()`
-
--- --
- * `isEmail()`
- * `notEmail()`
+ * `isNotFloat()`
 
 -- --
  * `isEmpty()`
- * `notEmpty()`
-
--- --
- * `isGraph()`
- * `notGraph()`
+ * `isNotEmpty()`
 
 -- --
  * `isInt()`
- * `notInt()`
+ * `isNotInt()`
 
 -- --
-Both run only after internal check `notEmpty()` and `isString()`
+Both run only after internal check `isNotEmpty()` and `isString()`
 
  * `isJson()`
- * `notJson()`
+ * `isNotJson()`
 
 -- --
 Both run only after internal check `isString()`
 
  * `isLengthBetween($from, $to)`
- * `notLengthBetween($from, $to)`
+ * `isLengthNotBetween($from, $to)`
     - int|float `$from`
     - int|float `$to`
 
 -- --
-Both run only after internal check `notEmpty()` and `isString()`
+Both run only after internal check `isNotEmpty()` and `isString()`
 
  * `isLengthLess($maxLength)`
  * `isLengthLessStrict($maxLength)`
@@ -151,50 +132,35 @@ Both run only after internal check `isString()`
 
 -- --
  * `isNumeric()`
- * `notNumeric()`
+ * `isNotNumeric()`
 
 -- --
-Both run only after internal check `notEmpty()` and `isString()`
-
- * `isMacAddress()`
- * `notMacAddress()`
-
--- --
-Both run only after internal check `isNumeric()` and `notString()`
+Both run only after internal check `isNumeric()` and `isNotString()`
 
  * `isMore($min)`
  * `isMoreStrict($min)`
     - int|float `$min`
 
 -- --
-Both run only after internal check `isNumeric()` and `notString()`
+Both run only after internal check `isNumeric()` and `isNotString()`
 
  * `isLess($max)`
  * `isLessStrict($max)`
     - int|float `$max`
 
 -- --
- * `isObject()`
- * `notObject()`
-
--- --
-Both run only after internal check `isNumeric()` and `notString()`
+Both run only after internal check `isNumeric()` and `isNotString()`
 
  * `isPositive()`
  * `isNegative()`
 
 -- --
  * `isResource()`
- * `notResource()`
+ * `isNotResource()`
 
 -- --
  * `isString()`
- * `notString()`
-
--- --
- * `isSubClassOf($className)`
- * `notSubClassOf($className)`
-    - string `$className`
+ * `isNotString()`
 
 #### Cast API
 
@@ -220,87 +186,6 @@ Variable::assert('-15.12', 'var')->toInt()->get();
 
 // Throws exception: Param $var must be positive
 Variable::assert('-15.12', 'var')->toInt()->isPositive();
-```
-
-#### `index0h\validator\request\RequestInterface`
-
-Interface declares methods to get and validate data from HTTP request
-
-* `index0h\validator\request\Symfony` for [`Symfony\Component\HttpFoundation\Request`][symfony-request]
-* `index0h\validator\request\Yii1` for [`CHttpRequest`][yii1-request]
-* `index0h\validator\request\Globals` for `$_POST`, `$_GET`
-* `index0h\validator\request\ArrayData` for user arrays
-
-##### API
-
-* `get` - return validator without value casting
-    - string `$name` - name of param
-    - mixed `$default` (null)
-* `toBool` - proxy for `Cast::toBool`
-    - string `$name` - name of param
-    - bool `$default` (false)
-* `toFloat` - proxy for `Cast::toFloat`
-    - string `$name` - name of param
-    - float `$default` (0.0)
-* `toInt` - proxy for `Cast::toInt`
-    - string `$name` - name of param
-    - int `$default` (0)
-* toString - proxy for `Cast::toString`
-    - string `$name` - name of param
-    - string `$default` ('')
-
-#### Example
-
-```php
-// Url is `https://localhost/?uid=100&ie=UTF-8&q=some+data+here`
-
-use Symfony\Component\HttpFoundation\Request;
-use index0h\validator\request\Symfony as Req;
-
-$req = new Req(Request::createFromGlobals());
-
-$userId = $req->toInt('uid', -1)->isPositive()->get();
-$encoding = $req->toString('ie', 'UTF-8')->inArray(mb_list_encodings())->get();
-$query = $req->toString('q')->get();
-
-// -------------------------------------------------------------------
-// This is the same as (many extra-checks dropped for current example)
-// -------------------------------------------------------------------
-
-use Symfony\Component\HttpFoundation\Request;
-
-$req = Request::createFromGlobals();
-
-$userId = $req->get('uid', -1);
-
-if (!is_int($userId)) {
-    if (is_numeric($this->value) || is_bool($this->value)) {
-        $userId = (int)$userId;
-    } else {
-        throw new \InvalidArgumentException('Can not cast $userId to int');
-    }
-}
-
-if ($userId < 0) {
-    throw new \InvalidArgumentException('Param $userId must be positive');
-}
-
-$encoding = $req->get('ie', 'UTF-8');
-
-if (!is_string($encoding)) {
-    throw new \InvalidArgumentException('Param $encoding must be string');
-}
-
-if (!in_array($encoding, mb_list_encodings())) {
-    throw new \InvalidArgumentException('Param $encoding out of range');
-}
-
-$query = $req->get('q', false);
-
-if (empty($query)) {
-    $query = '';
-}
-
 ```
 
 ## Testing

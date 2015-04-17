@@ -14,7 +14,9 @@ use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
+/**
+ * Class AbstractBenchmarkCommand
+ */
 abstract class AbstractBenchmarkCommand extends Command
 {
     const COUNT_TEST = 1000;
@@ -81,6 +83,11 @@ abstract class AbstractBenchmarkCommand extends Command
         $this->resultTable->render($output);
     }
 
+    /**
+     * @param string $methodName
+     *
+     * @return array
+     */
     protected function getFixturesForMethod($methodName)
     {
         $result = [];
@@ -203,6 +210,10 @@ abstract class AbstractBenchmarkCommand extends Command
         $this->memory = memory_get_usage();
     }
 
+    /**
+     * @param string $methodName
+     * @param string $type
+     */
     protected function stop($methodName, $type)
     {
         $time = microtime(true) - $this->time;

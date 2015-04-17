@@ -13,177 +13,42 @@ return [
         'errors' => [
             //
             'isArray' => 0,
-            'notArray' => 1,
+            'isNotArray' => 1,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 0,
-            'notEmpty' => 1,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
+            'isNotEmpty' => 1,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 2,
-            'notJson' => 2,
+            'isNotJson' => 2,
             //
             'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 2,
-            'notMacAddress' => 2,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 0,
             //
             'isPositive' => 1,
             'isNegative' => 1,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 1,
-            'notString' => 0,
+            'isNotString' => 0,
             //
             'toFloat' => 0,
             'toInt' => 0,
             'toBool' => 0,
             'toString' => 0,
-        ]
-    ],
-// new \ArrayIterator
-    [
-        'comment' => 'ArrayIterator',
-        'value' => new \ArrayIterator,
-        'errors' => [
-            //
-            'isArray' => 0,
-            'notArray' => 1,
-            //
-            'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
-            //
-            'isDigit' => 1,
-            'notDigit' => 0,
-            //
-            'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
-            //
-            'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
-            //
-            'isInt' => 1,
-            'notInt' => 0,
-            //
-            'isJson' => 1,
-            'notJson' => 1,
-            //
-            'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 1,
-            //
-            'isObject' => 0,
-            'notObject' => 1,
-            //
-            'isPositive' => 1,
-            'isNegative' => 1,
-            //
-            'isResource' => 1,
-            'notResource' => 0,
-            //
-            'isString' => 1,
-            'notString' => 0,
-            //
-            'toFloat' => 1,
-            'toInt' => 1,
-            'toBool' => 0,
-            'toString' => 1,
-        ]
-    ],
-// new \SplMinHeap
-    [
-        'comment' => 'SplMinHeap',
-        'value' => new \SplMinHeap,
-        'errors' => [
-            //
-            'isArray' => 1,
-            'notArray' => 0,
-            //
-            'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
-            //
-            'isDigit' => 1,
-            'notDigit' => 0,
-            //
-            'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
-            //
-            'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
-            //
-            'isInt' => 1,
-            'notInt' => 0,
-            //
-            'isJson' => 1,
-            'notJson' => 1,
-            //
-            'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 1,
-            //
-            'isObject' => 0,
-            'notObject' => 1,
-            //
-            'isPositive' => 1,
-            'isNegative' => 1,
-            //
-            'isResource' => 1,
-            'notResource' => 0,
-            //
-            'isString' => 1,
-            'notString' => 0,
-            //
-            'toFloat' => 1,
-            'toInt' => 1,
-            'toBool' => 0,
-            'toString' => 1,
         ]
     ],
 // true
@@ -193,52 +58,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 0,
-            'notBool' => 1,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 1,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
+            'isNotEmpty' => 0,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 1,
-            'notJson' => 1,
+            'isNotJson' => 1,
             //
             'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 1,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 0,
             //
             'isPositive' => 1,
             'isNegative' => 1,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 1,
-            'notString' => 0,
+            'isNotString' => 0,
             //
             'toFloat' => 0,
             'toInt' => 0,
@@ -253,52 +103,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
+            'isNotEmpty' => 0,
             //
             'isInt' => 0,
-            'notInt' => 1,
+            'isNotInt' => 1,
             //
             'isJson' => 1,
-            'notJson' => 1,
+            'isNotJson' => 1,
             //
             'isNumeric' => 0,
-            'notNumeric' => 1,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 1,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 1,
             //
             'isPositive' => 0,
             'isNegative' => 1,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 1,
-            'notString' => 0,
+            'isNotString' => 0,
             //
             'toFloat' => 0,
             'toInt' => 0,
@@ -313,52 +148,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 0,
-            'notDigit' => 1,
+            'isNotDigit' => 1,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 0,
-            'notGraph' => 1,
+            'isNotEmpty' => 0,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 0,
-            'notJson' => 1,
+            'isNotJson' => 1,
             //
             'isNumeric' => 0,
-            'notNumeric' => 1,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 0,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 1,
             //
             'isPositive' => 1,
             'isNegative' => 1,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 0,
-            'notString' => 1,
+            'isNotString' => 1,
             //
             'toFloat' => 0,
             'toInt' => 0,
@@ -373,52 +193,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 0,
-            'notGraph' => 1,
+            'isNotEmpty' => 0,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 0,
-            'notJson' => 1,
+            'isNotJson' => 1,
             //
             'isNumeric' => 0,
-            'notNumeric' => 1,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 0,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 1,
             //
             'isPositive' => 1,
             'isNegative' => 1,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 0,
-            'notString' => 1,
+            'isNotString' => 1,
             //
             'toFloat' => 0,
             'toInt' => 0,
@@ -433,52 +238,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
+            'isNotEmpty' => 0,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 1,
-            'notJson' => 1,
+            'isNotJson' => 1,
             //
             'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 1,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 0,
             //
             'isPositive' => 1,
             'isNegative' => 1,
             //
             'isResource' => 0,
-            'notResource' => 1,
+            'isNotResource' => 1,
             //
             'isString' => 1,
-            'notString' => 0,
+            'isNotString' => 0,
             //
             'toFloat' => 0,
             'toInt' => 0,
@@ -493,52 +283,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 0,
-            'notGraph' => 1,
+            'isNotEmpty' => 0,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 1,
-            'notJson' => 0,
+            'isNotJson' => 0,
             //
             'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 0,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 0,
             //
             'isPositive' => 2,
             'isNegative' => 2,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 0,
-            'notString' => 1,
+            'isNotString' => 1,
             //
             'toFloat' => 1,
             'toInt' => 1,
@@ -553,52 +328,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 0,
-            'notEmail' => 1,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 0,
-            'notGraph' => 1,
+            'isNotEmpty' => 0,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 1,
-            'notJson' => 0,
+            'isNotJson' => 0,
             //
             'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 0,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 0,
             //
             'isPositive' => 2,
             'isNegative' => 2,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 0,
-            'notString' => 1,
+            'isNotString' => 1,
             //
             'toFloat' => 1,
             'toInt' => 1,
@@ -613,52 +373,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
+            'isNotEmpty' => 0,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 1,
-            'notJson' => 0,
+            'isNotJson' => 0,
             //
             'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 0,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 0,
             //
             'isPositive' => 2,
             'isNegative' => 2,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 0,
-            'notString' => 1,
+            'isNotString' => 1,
             //
             'toFloat' => 1,
             'toInt' => 1,
@@ -673,52 +418,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
+            'isNotEmpty' => 0,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 0,
-            'notJson' => 1,
+            'isNotJson' => 1,
             //
             'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 0,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 0,
             //
             'isPositive' => 2,
             'isNegative' => 2,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 0,
-            'notString' => 1,
+            'isNotString' => 1,
             //
             'toFloat' => 1,
             'toInt' => 1,
@@ -733,52 +463,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 0,
-            'notGraph' => 1,
+            'isNotEmpty' => 0,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 0,
-            'notJson' => 1,
+            'isNotJson' => 1,
             //
             'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 0,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 0,
             //
             'isPositive' => 2,
             'isNegative' => 2,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 0,
-            'notString' => 1,
+            'isNotString' => 1,
             //
             'toFloat' => 1,
             'toInt' => 1,
@@ -793,52 +508,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 0,
-            'notEmpty' => 1,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
+            'isNotEmpty' => 1,
             //
             'isInt' => 0,
-            'notInt' => 1,
+            'isNotInt' => 1,
             //
             'isJson' => 2,
-            'notJson' => 2,
+            'isNotJson' => 2,
             //
             'isNumeric' => 0,
-            'notNumeric' => 1,
-            //
-            'isMacAddress' => 2,
-            'notMacAddress' => 2,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 1,
             //
             'isPositive' => 1,
             'isNegative' => 1,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 1,
-            'notString' => 0,
+            'isNotString' => 0,
             //
             'toFloat' => 0,
             'toInt' => 0,
@@ -853,52 +553,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 0,
-            'notEmpty' => 1,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
+            'isNotEmpty' => 1,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 1,
-            'notJson' => 1,
+            'isNotJson' => 1,
             //
             'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 1,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 0,
             //
             'isPositive' => 2,
             'isNegative' => 2,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 0,
-            'notString' => 1,
+            'isNotString' => 1,
             //
             'toFloat' => 0,
             'toInt' => 0,
@@ -913,52 +598,37 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 0,
-            'notGraph' => 1,
+            'isNotEmpty' => 0,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 1,
-            'notJson' => 0,
+            'isNotJson' => 0,
             //
             'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 0,
-            'notMacAddress' => 1,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 0,
             //
             'isPositive' => 2,
             'isNegative' => 2,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 0,
-            'notString' => 1,
+            'isNotString' => 1,
             //
             'toFloat' => 1,
             'toInt' => 1,
@@ -973,118 +643,42 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 0,
-            'notFloat' => 1,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 1,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
+            'isNotEmpty' => 0,
             //
             'isInt' => 1,
-            'notInt' => 0,
+            'isNotInt' => 0,
             //
             'isJson' => 1,
-            'notJson' => 1,
+            'isNotJson' => 1,
             //
             'isNumeric' => 0,
-            'notNumeric' => 1,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 1,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 1,
             //
             'isPositive' => 0,
             'isNegative' => 1,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 1,
-            'notString' => 0,
+            'isNotString' => 0,
             //
             'toFloat' => 0,
             'toInt' => 0,
             'toBool' => 0,
             'toString' => 0,
-        ]
-    ],
-// function () {}
-    [
-        'comment' => 'function () {}',
-        'value' => function () {
-        },
-        'errors' => [
-            //
-            'isArray' => 1,
-            'notArray' => 0,
-            //
-            'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 0,
-            'notCallable' => 1,
-            //
-            'isDigit' => 1,
-            'notDigit' => 0,
-            //
-            'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
-            //
-            'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
-            //
-            'isInt' => 1,
-            'notInt' => 0,
-            //
-            'isJson' => 1,
-            'notJson' => 1,
-            //
-            'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 1,
-            //
-            'isObject' => 0,
-            'notObject' => 1,
-            //
-            'isPositive' => 1,
-            'isNegative' => 1,
-            //
-            'isResource' => 1,
-            'notResource' => 0,
-            //
-            'isString' => 1,
-            'notString' => 0,
-            //
-            'toFloat' => 1,
-            'toInt' => 1,
-            'toBool' => 0,
-            'toString' => 1,
         ]
     ],
 // -8
@@ -1094,115 +688,40 @@ return [
         'errors' => [
             //
             'isArray' => 1,
-            'notArray' => 0,
+            'isNotArray' => 0,
             //
             'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
+            'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'notDigit' => 0,
+            'isNotDigit' => 0,
             //
             'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
+            'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
+            'isNotEmpty' => 0,
             //
             'isInt' => 0,
-            'notInt' => 1,
+            'isNotInt' => 1,
             //
             'isJson' => 1,
-            'notJson' => 1,
+            'isNotJson' => 1,
             //
             'isNumeric' => 0,
-            'notNumeric' => 1,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 1,
-            //
-            'isObject' => 1,
-            'notObject' => 0,
+            'isNotNumeric' => 1,
             //
             'isPositive' => 1,
             'isNegative' => 0,
             //
             'isResource' => 1,
-            'notResource' => 0,
+            'isNotResource' => 0,
             //
             'isString' => 1,
-            'notString' => 0,
+            'isNotString' => 0,
             //
             'toFloat' => 0,
             'toInt' => 0,
-            'toBool' => 0,
-            'toString' => 0,
-        ]
-    ],
-// new ToString
-    [
-        'comment' => 'new ToString',
-        'value' => new \index0h\validator\tests\_data\ToString,
-        'errors' => [
-            //
-            'isArray' => 1,
-            'notArray' => 0,
-            //
-            'isBool' => 1,
-            'notBool' => 0,
-            //
-            'isCallable' => 1,
-            'notCallable' => 0,
-            //
-            'isDigit' => 1,
-            'notDigit' => 0,
-            //
-            'isFloat' => 1,
-            'notFloat' => 0,
-            //
-            'isEmail' => 1,
-            'notEmail' => 0,
-            //
-            'isEmpty' => 1,
-            'notEmpty' => 0,
-            //
-            'isGraph' => 1,
-            'notGraph' => 0,
-            //
-            'isInt' => 1,
-            'notInt' => 0,
-            //
-            'isJson' => 1,
-            'notJson' => 1,
-            //
-            'isNumeric' => 1,
-            'notNumeric' => 0,
-            //
-            'isMacAddress' => 1,
-            'notMacAddress' => 1,
-            //
-            'isObject' => 0,
-            'notObject' => 1,
-            //
-            'isPositive' => 1,
-            'isNegative' => 1,
-            //
-            'isResource' => 1,
-            'notResource' => 0,
-            //
-            'isString' => 1,
-            'notString' => 0,
-            //
-            'toFloat' => 1,
-            'toInt' => 1,
             'toBool' => 0,
             'toString' => 0,
         ]
@@ -1213,8 +732,8 @@ return [
         'arguments' => [[1, 2]],
         'value' => 1,
         'errors' => [
-            'inArray' => 0,
-            'notInArray' => 1
+            'isInArray' => 0,
+            'isNotInArray' => 1
         ]
     ],
 // [1, 2] -> 5
@@ -1223,8 +742,8 @@ return [
         'arguments' => [[1, 2]],
         'value' => 5,
         'errors' => [
-            'inArray' => 1,
-            'notInArray' => 0
+            'isInArray' => 1,
+            'isNotInArray' => 0
         ]
     ],
 // 'abc' -> length(4)
@@ -1274,7 +793,7 @@ return [
         'value' => 'abc',
         'errors' => [
             'isLengthBetween' => 0,
-            'notLengthBetween' => 1
+            'isLengthNotBetween' => 1
         ]
     ],
 // 'abcdef' -> length(3, 4)
@@ -1284,7 +803,7 @@ return [
         'value' => 'abcdef',
         'errors' => [
             'isLengthBetween' => 1,
-            'notLengthBetween' => 0
+            'isLengthNotBetween' => 0
         ]
     ],
 // 'abcdef' -> length(6, 8)
@@ -1294,7 +813,7 @@ return [
         'value' => 'abcdef',
         'errors' => [
             'isLengthBetween' => 0,
-            'notLengthBetween' => 0
+            'isLengthNotBetween' => 0
         ]
     ],
 // 'abcdef' -> length(1, 6)
@@ -1304,7 +823,7 @@ return [
         'value' => 'abcdef',
         'errors' => [
             'isLengthBetween' => 0,
-            'notLengthBetween' => 0
+            'isLengthNotBetween' => 0
         ]
     ],
 // 'abcdef' -> length(1, 2)
@@ -1314,7 +833,7 @@ return [
         'value' => 'abcdef',
         'errors' => [
             'isLengthBetween' => 1,
-            'notLengthBetween' => 0
+            'isLengthNotBetween' => 0
         ]
     ],
 // [] -> length(6, 8)
@@ -1324,7 +843,7 @@ return [
         'value' => [],
         'errors' => [
             'isLengthBetween' => 1,
-            'notLengthBetween' => 1
+            'isLengthNotBetween' => 1
         ]
     ],
 // 5 ? (3)
@@ -1383,8 +902,8 @@ return [
         'errors' => [
             'isBetween' => 0,
             'isBetweenStrict' => 0,
-            'notBetween' => 1,
-            'notBetweenStrict' => 1
+            'isNotBetween' => 1,
+            'isNotBetweenStrict' => 1
         ]
     ],
 // 2 ? (0, 2)
@@ -1395,8 +914,8 @@ return [
         'errors' => [
             'isBetween' => 0,
             'isBetweenStrict' => 1,
-            'notBetween' => 0,
-            'notBetweenStrict' => 1
+            'isNotBetween' => 0,
+            'isNotBetweenStrict' => 1
         ]
     ],
 // 1 ? (1, 7)
@@ -1407,8 +926,8 @@ return [
         'errors' => [
             'isBetween' => 0,
             'isBetweenStrict' => 1,
-            'notBetween' => 0,
-            'notBetweenStrict' => 1
+            'isNotBetween' => 0,
+            'isNotBetweenStrict' => 1
         ]
     ],
 // 5 ? (10, 18)
@@ -1419,8 +938,8 @@ return [
         'errors' => [
             'isBetween' => 1,
             'isBetweenStrict' => 1,
-            'notBetween' => 0,
-            'notBetweenStrict' => 0
+            'isNotBetween' => 0,
+            'isNotBetweenStrict' => 0
         ]
     ],
 // 'a' ? (10, 18)
@@ -1431,48 +950,8 @@ return [
         'errors' => [
             'isBetween' => 2,
             'isBetweenStrict' => 2,
-            'notBetween' => 2,
-            'notBetweenStrict' => 2
-        ]
-    ],
-// new \RecursiveArrayIterator ('\ArrayIterator')
-    [
-        'comment' => 'new \RecursiveArrayIterator ("\\ArrayIterator")',
-        'arguments' => ['\ArrayIterator'],
-        'value' => new \RecursiveArrayIterator,
-        'errors' => [
-            'isSubClassOf' => 0,
-            'notSubClassOf' => 1,
-        ]
-    ],
-// '\RecursiveArrayIterator' ('\ArrayIterator')
-    [
-        'comment' => 'new \RecursiveArrayIterator ("\\ArrayIterator")',
-        'arguments' => ['\ArrayIterator'],
-        'value' => '\RecursiveArrayIterator',
-        'errors' => [
-            'isSubClassOf' => 0,
-            'notSubClassOf' => 1,
-        ]
-    ],
-// new \ArrayIterator ('\RecursiveArrayIterator')
-    [
-        'comment' => 'new \ArrayIterator ("\\RecursiveArrayIterator")',
-        'arguments' => ['\RecursiveArrayIterator'],
-        'value' => new \ArrayIterator,
-        'errors' => [
-            'isSubClassOf' => 1,
-            'notSubClassOf' => 0,
-        ]
-    ],
-// '\ArrayIterator' ('\InvalidArgumentException')
-    [
-        'comment' => 'new \ArrayIterator ("\\RecursiveArrayIterator")',
-        'arguments' => ['\RecursiveArrayIterator'],
-        'value' => '\ArrayIterator',
-        'errors' => [
-            'isSubClassOf' => 1,
-            'notSubClassOf' => 0,
+            'isNotBetween' => 2,
+            'isNotBetweenStrict' => 2
         ]
     ],
 ];

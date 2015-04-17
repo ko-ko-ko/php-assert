@@ -29,7 +29,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function inArray($var, $array)
+    public function isInArray($var, $array)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -99,20 +99,6 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param callable $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isCallable($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::type('callable')->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
      * @param string $var
      *
      * @throws \InvalidArgumentException
@@ -127,20 +113,6 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isEmail($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::email()->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
      * @param float $var
      *
      * @throws \InvalidArgumentException
@@ -150,20 +122,6 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             respect::float()->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isGraph($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::graph()->assert($var);
         }
         $this->stop(__FUNCTION__, self::TYPE_RESPECT);
     }
@@ -273,20 +231,6 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isMacAddress($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::macAddress()->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
      * @param string    $var
      * @param int|float $value
      *
@@ -345,20 +289,6 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param object $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isObject($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::object()->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
      * @param string $var
      *
      * @throws \InvalidArgumentException
@@ -407,7 +337,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notBetween($var, $from, $to)
+    public function isNotBetween($var, $from, $to)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {
@@ -423,7 +353,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notBetweenStrict($var, $from, $to)
+    public function isNotBetweenStrict($var, $from, $to)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {
@@ -437,7 +367,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notBool($var)
+    public function isNotBool($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -447,25 +377,11 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notCallable($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::not(respect::type('callable'))->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
      * @param array $var
      *
      * @throws \InvalidArgumentException
      */
-    public function notDigit($var)
+    public function isNotDigit($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -479,21 +395,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notEmail($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::not(respect::email())->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notEmpty($var)
+    public function isNotEmpty($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -507,7 +409,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notFloat($var)
+    public function isNotFloat($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -518,23 +420,11 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     * @param array  $array
      *
      * @throws \InvalidArgumentException
      */
-    public function notGraph($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::not(respect::graph())->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     * @param        $array
-     */
-    public function notInArray($var, $array)
+    public function isNotInArray($var, $array)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -545,8 +435,10 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
-    public function notInt($var)
+    public function isNotInt($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -557,8 +449,10 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     *
+     * @throws \InvalidArgumentException
      */
-    public function notJson($var)
+    public function isNotJson($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -569,22 +463,10 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
-     */
-    public function notMacAddress($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::not(respect::macAddress())->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
      *
      * @throws \InvalidArgumentException
      */
-    public function notNumeric($var)
+    public function isNotNumeric($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -598,21 +480,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notObject($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::not(respect::object())->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notResource($var)
+    public function isNotResource($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -626,7 +494,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notString($var)
+    public function isNotString($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -645,9 +513,9 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string $methodName
-     * @param mixed  $value
-     * @param mixed  $arguments
+     * @param string                               $methodName
+     * @param int|float|string|resource|array|null $value
+     * @param array                                $arguments
      *
      * @throws \InvalidArgumentException
      */
@@ -663,9 +531,9 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string $methodName
-     * @param mixed  $value
-     * @param mixed  $arguments
+     * @param string                               $methodName
+     * @param int|float|string|resource|array|null $value
+     * @param array                                $arguments
      *
      * @throws \InvalidArgumentException
      */
@@ -692,7 +560,6 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
         }
     }
 
-
     /**
      * @param OutputInterface $output
      */
@@ -703,31 +570,54 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
         foreach ($methods as $method) {
             $output->writeln('<info>process tests for: ' . $method . '</info>');
             $fixtures = $this->getFixturesForMethod($method);
+
+            $respectOk = true;
+            $validatorOk = true;
+
             foreach ($fixtures as $fixture) {
-                try {
-                    // Respect
-                    $this->runBenchmarkForRespect($method, $fixture['value'], $fixture['arguments']);
-                } catch (\Exception $error) {
-                    $output->writeln(
-                        sprintf(
-                            '<error>RESPECT: error in method: %s with fixture: %s</error>',
-                            $method,
-                            $fixture ['comment']
-                        )
-                    );
+                if ($respectOk) {
+                    try {
+                        // Respect
+                        $this->runBenchmarkForRespect($method, $fixture['value'], $fixture['arguments']);
+                    } catch (\Exception $error) {
+                        $respectOk = false;
+                        $output->writeln(
+                            sprintf(
+                                '<error>RESPECT: error in method: %s with fixture: %s</error>',
+                                $method,
+                                $fixture ['comment']
+                            )
+                        );
+                    }
                 }
-                try {
-                    // Validator
-                    $this->runBenchmarkForValidator($method, $fixture['value'], $fixture['arguments']);
-                } catch (\Exception $error) {
-                    $output->writeln(
-                        sprintf(
-                            '<error>VALIDATOR: error in method: %s with fixture: %s</error>',
-                            $method,
-                            $fixture ['comment']
-                        )
-                    );
+
+                if ($validatorOk) {
+                    try {
+                        // Validator
+                        $this->runBenchmarkForValidator($method, $fixture['value'], $fixture['arguments']);
+                    } catch (\Exception $error) {
+                        $validatorOk = false;
+                        $output->writeln(
+                            sprintf(
+                                '<error>VALIDATOR: error in method: %s with fixture: %s</error>',
+                                $method,
+                                $fixture ['comment']
+                            )
+                        );
+                    }
                 }
+            }
+
+            if (!$respectOk) {
+                $this->results[$method][self::TYPE_RESPECT][self::METRIC_TIME] = 0;
+                $this->results[$method][self::TYPE_RESPECT][self::METRIC_MEMORY] = 0;
+                $this->results[$method][self::TYPE_RESPECT][self::METRIC_COUNT_TEST] = 0;
+            }
+
+            if (!$validatorOk) {
+                $this->results[$method][self::TYPE_VALIDATOR][self::METRIC_TIME] = 0;
+                $this->results[$method][self::TYPE_VALIDATOR][self::METRIC_MEMORY] = 0;
+                $this->results[$method][self::TYPE_VALIDATOR][self::METRIC_COUNT_TEST] = 0;
             }
         }
     }
