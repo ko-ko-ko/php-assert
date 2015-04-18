@@ -618,6 +618,39 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
+    public function isMatchGlob($var, $value)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (empty($value)) {
+                throw new \InvalidArgumentException('Param $value must be not empty');
+            }
+
+            if (!is_string($value)) {
+                throw new \InvalidArgumentException('Param $value must be string');
+            }
+
+            if (!fnmatch($value, $var)) {
+                throw new \InvalidArgumentException('var must apply glob pattern');
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
+
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            if (!fnmatch($value, $var)) {
+                throw new \InvalidArgumentException('var must apply glob pattern');
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
+     * @param string $var
+     * @param string $value
+     *
+     * @throws \InvalidArgumentException
+     */
     public function isMatchRegExp($var, $value)
     {
         $this->start();
@@ -1038,39 +1071,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isMatchGlob($var, $value)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (empty($value)) {
-                throw new \InvalidArgumentException('Param $value must be not empty');
-            }
-
-            if (!is_string($value)) {
-                throw new \InvalidArgumentException('Param $value must be string');
-            }
-
-            if (!fnmatch($value, $var)) {
-                throw new \InvalidArgumentException('var must apply glob pattern');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
-
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            if (!fnmatch($value, $var)) {
-                throw new \InvalidArgumentException('var must apply glob pattern');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     * @param string $value
-     *
-     * @throws \InvalidArgumentException
-     */
     public function isNotMatchGlob($var, $value)
     {
         $this->start();
@@ -1150,6 +1150,22 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
+    public function isNotNull($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (is_null($var)) {
+                throw new \InvalidArgumentException('var must be not null');
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
+     * @param string $var
+     *
+     * @throws \InvalidArgumentException
+     */
     public function isNotNumeric($var)
     {
         $this->start();
@@ -1188,6 +1204,22 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (is_string($var)) {
                 throw new \InvalidArgumentException('var must be not string');
+            }
+        }
+        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
+    }
+
+    /**
+     * @param string $var
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function isNull($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            if (!is_null($var)) {
+                throw new \InvalidArgumentException('var must be null');
             }
         }
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);

@@ -6,6 +6,49 @@
  */
 
 return [
+// null
+    [
+        'comment' => 'null',
+        'value' => null,
+        'errors' => [
+            //
+            'isArray' => 1,
+            'isNotArray' => 0,
+            //
+            'isBool' => 1,
+            'isNotBool' => 0,
+            //
+            'isDigit' => 1,
+            'isNotDigit' => 1,
+            //
+            'isFloat' => 1,
+            'isNotFloat' => 0,
+            //
+            'isEmpty' => 0,
+            'isNotEmpty' => 1,
+            //
+            'isInt' => 1,
+            'isNotInt' => 0,
+            //
+            'isJson' => 2,
+            'isNotJson' => 2,
+            //
+            'isNumeric' => 1,
+            'isNotNumeric' => 0,
+            //
+            'isNull' => 0,
+            'isNotNull' => 1,
+            //
+            'isPositive' => 1,
+            'isNegative' => 1,
+            //
+            'isResource' => 1,
+            'isNotResource' => 0,
+            //
+            'isString' => 1,
+            'isNotString' => 0,
+        ]
+    ],
 // []
     [
         'comment' => '[]',
@@ -35,6 +78,9 @@ return [
             //
             'isNumeric' => 1,
             'isNotNumeric' => 0,
+            //
+            'isNull' => 1,
+            'isNotNull' => 0,
             //
             'isPositive' => 1,
             'isNegative' => 1,
@@ -76,6 +122,9 @@ return [
             'isNumeric' => 1,
             'isNotNumeric' => 0,
             //
+            'isNull' => 1,
+            'isNotNull' => 0,
+            //
             'isPositive' => 1,
             'isNegative' => 1,
             //
@@ -115,6 +164,9 @@ return [
             //
             'isNumeric' => 0,
             'isNotNumeric' => 1,
+            //
+            'isNull' => 1,
+            'isNotNull' => 0,
             //
             'isPositive' => 0,
             'isNegative' => 1,
@@ -156,6 +208,9 @@ return [
             'isNumeric' => 0,
             'isNotNumeric' => 1,
             //
+            'isNull' => 1,
+            'isNotNull' => 0,
+            //
             'isPositive' => 1,
             'isNegative' => 1,
             //
@@ -195,6 +250,9 @@ return [
             //
             'isNumeric' => 0,
             'isNotNumeric' => 1,
+            //
+            'isNull' => 1,
+            'isNotNull' => 0,
             //
             'isPositive' => 1,
             'isNegative' => 1,
@@ -236,6 +294,9 @@ return [
             'isNumeric' => 1,
             'isNotNumeric' => 0,
             //
+            'isNull' => 1,
+            'isNotNull' => 0,
+            //
             'isPositive' => 1,
             'isNegative' => 1,
             //
@@ -275,6 +336,9 @@ return [
             //
             'isNumeric' => 1,
             'isNotNumeric' => 0,
+            //
+            'isNull' => 1,
+            'isNotNull' => 0,
             //
             'isPositive' => 2,
             'isNegative' => 2,
@@ -316,6 +380,9 @@ return [
             'isNumeric' => 1,
             'isNotNumeric' => 0,
             //
+            'isNull' => 1,
+            'isNotNull' => 0,
+            //
             'isPositive' => 2,
             'isNegative' => 2,
             //
@@ -355,6 +422,9 @@ return [
             //
             'isNumeric' => 1,
             'isNotNumeric' => 0,
+            //
+            'isNull' => 1,
+            'isNotNull' => 0,
             //
             'isPositive' => 2,
             'isNegative' => 2,
@@ -396,6 +466,9 @@ return [
             'isNumeric' => 1,
             'isNotNumeric' => 0,
             //
+            'isNull' => 1,
+            'isNotNull' => 0,
+            //
             'isPositive' => 2,
             'isNegative' => 2,
             //
@@ -435,6 +508,9 @@ return [
             //
             'isNumeric' => 1,
             'isNotNumeric' => 0,
+            //
+            'isNull' => 1,
+            'isNotNull' => 0,
             //
             'isPositive' => 2,
             'isNegative' => 2,
@@ -476,6 +552,9 @@ return [
             'isNumeric' => 0,
             'isNotNumeric' => 1,
             //
+            'isNull' => 1,
+            'isNotNull' => 0,
+            //
             'isPositive' => 1,
             'isNegative' => 1,
             //
@@ -515,6 +594,9 @@ return [
             //
             'isNumeric' => 1,
             'isNotNumeric' => 0,
+            //
+            'isNull' => 1,
+            'isNotNull' => 0,
             //
             'isPositive' => 2,
             'isNegative' => 2,
@@ -556,6 +638,9 @@ return [
             'isNumeric' => 1,
             'isNotNumeric' => 0,
             //
+            'isNull' => 1,
+            'isNotNull' => 0,
+            //
             'isPositive' => 2,
             'isNegative' => 2,
             //
@@ -596,6 +681,9 @@ return [
             'isNumeric' => 0,
             'isNotNumeric' => 1,
             //
+            'isNull' => 1,
+            'isNotNull' => 0,
+            //
             'isPositive' => 0,
             'isNegative' => 1,
             //
@@ -635,6 +723,9 @@ return [
             //
             'isNumeric' => 0,
             'isNotNumeric' => 1,
+            //
+            'isNull' => 1,
+            'isNotNull' => 0,
             //
             'isPositive' => 1,
             'isNegative' => 0,

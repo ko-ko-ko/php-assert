@@ -25,15 +25,92 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
-     * @param array  $array
+     * @param int    $length
      *
      * @throws \InvalidArgumentException
      */
-    public function isInArray($var, $array)
+    public function hasLength($var, $length)
     {
         $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::in($array)->assert($var);
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            respect::length($length, $length)->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
+     * @param int    $from
+     * @param int    $to
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function hasLengthBetween($var, $from, $to)
+    {
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            respect::length($from, $to)->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
+     * @param int    $value
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function hasLengthLess($var, $value)
+    {
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            respect::length(null, $value)->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
+     * @param int    $value
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function hasLengthMore($var, $value)
+    {
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            respect::length($value, null)->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
+     * @param int    $length
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function hasLengthNot($var, $length)
+    {
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            respect::not(respect::length($length, $length))->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
+     * @param int    $from
+     * @param int    $to
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function hasLengthNotBetween($var, $from, $to)
+    {
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            respect::not(respect::length($from, $to))->assert($var);
         }
         $this->stop(__FUNCTION__, self::TYPE_RESPECT);
     }
@@ -127,6 +204,21 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
+     * @param string $var
+     * @param array  $array
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function isInArray($var, $array)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            respect::in($array)->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
      * @param int $var
      *
      * @throws \InvalidArgumentException
@@ -150,98 +242,6 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             respect::json()->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     * @param int    $length
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function hasLength($var, $length)
-    {
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            respect::length($length, $length)->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     * @param int    $length
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function hasLengthNot($var, $length)
-    {
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            respect::not(respect::length($length, $length))->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     * @param int    $from
-     * @param int    $to
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function hasLengthBetween($var, $from, $to)
-    {
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            respect::length($from, $to)->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     * @param int    $from
-     * @param int    $to
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function hasLengthNotBetween($var, $from, $to)
-    {
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            respect::not(respect::length($from, $to))->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     * @param int    $value
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function hasLengthLess($var, $value)
-    {
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            respect::length(null, $value)->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     * @param int    $value
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function hasLengthMore($var, $value)
-    {
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            respect::length($value, null)->assert($var);
         }
         $this->stop(__FUNCTION__, self::TYPE_RESPECT);
     }
@@ -316,62 +316,6 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             respect::negative()->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isNumeric($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::numeric()->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isPositive($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::positive()->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param resource $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isResource($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::type('resource')->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isString($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::string()->assert($var);
         }
         $this->stop(__FUNCTION__, self::TYPE_RESPECT);
     }
@@ -512,6 +456,20 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
+    public function isNotNull($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            respect::not(respect::nullValue())->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
+     *
+     * @throws \InvalidArgumentException
+     */
     public function isNotNumeric($var)
     {
         $this->start();
@@ -545,6 +503,76 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             respect::not(respect::string())->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function isNull($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            respect::nullValue()->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function isNumeric($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            respect::numeric()->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function isPositive($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            respect::positive()->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param resource $var
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function isResource($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            respect::type('resource')->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function isString($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            respect::string()->assert($var);
         }
         $this->stop(__FUNCTION__, self::TYPE_RESPECT);
     }

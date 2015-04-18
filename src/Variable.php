@@ -957,6 +957,36 @@ class Variable
     }
 
     /**
+     * Check if value is null
+     *
+     * @return $this
+     * @throws \InvalidArgumentException
+     */
+    public function isNull()
+    {
+        if (!is_null($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'null']);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check if value is not null
+     *
+     * @return $this
+     * @throws \InvalidArgumentException
+     */
+    public function isNotNull()
+    {
+        if (is_null($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'null']);
+        }
+
+        return $this;
+    }
+
+    /**
      * Check if value is numeric (is_numeric)
      *
      * @return Variable

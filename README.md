@@ -174,6 +174,20 @@ v::assert([], 'var')->isNumeric();
 v::assert('-5', 'var')->isNotNumeric();
 ```
 
+#### isNull `Check if value is null`
+
+* Antipode: **isNotNull**
+
+```php
+// OK
+v::assert(null, 'var')->isNull();
+v::assert('a', 'var')->isNotNull();
+
+// EXCEPTION
+v::assert('a', 'var')->isNull();
+v::assert(null, 'var')->isNotNull();
+```
+
 #### isString `Check if value is string`
 
 * Antipode: **isNotString**

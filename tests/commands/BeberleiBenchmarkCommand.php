@@ -6,8 +6,8 @@
  */
 namespace index0h\validator\tests\commands;
 
-use index0h\validator\Variable;
 use Assert as beberlei;
+use index0h\validator\Variable;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -25,15 +25,61 @@ class BeberleiBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
-     * @param array  $array
+     * @param int    $length
      *
      * @throws \InvalidArgumentException
      */
-    public function isInArray($var, $array)
+    public function hasLength($var, $length)
     {
         $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            beberlei\that($var)->inArray($array);
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            beberlei\that($var)->length($length);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
+    }
+
+    /**
+     * @param string $var
+     * @param int    $from
+     * @param int    $to
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function hasLengthBetween($var, $from, $to)
+    {
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            beberlei\that($var)->betweenLength($from, $to);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
+    }
+
+    /**
+     * @param string $var
+     * @param int    $value
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function hasLengthLess($var, $value)
+    {
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            beberlei\that($var)->maxLength($value);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
+    }
+
+    /**
+     * @param string $var
+     * @param int    $value
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function hasLengthMore($var, $value)
+    {
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            beberlei\that($var)->minLength($value);
         }
         $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
     }
@@ -111,6 +157,21 @@ class BeberleiBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
+     * @param string $var
+     * @param array  $array
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function isInArray($var, $array)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            beberlei\that($var)->inArray($array);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
+    }
+
+    /**
      * @param int $var
      *
      * @throws \InvalidArgumentException
@@ -134,67 +195,6 @@ class BeberleiBenchmarkCommand extends AbstractBenchmarkCommand
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             beberlei\that($var)->isJsonString();
-        }
-        $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
-    }
-
-    /**
-     * @param string $var
-     * @param int    $length
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function hasLength($var, $length)
-    {
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            beberlei\that($var)->length($length);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
-    }
-
-    /**
-     * @param string $var
-     * @param int    $from
-     * @param int    $to
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function hasLengthBetween($var, $from, $to)
-    {
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            beberlei\that($var)->betweenLength($from, $to);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
-    }
-
-    /**
-     * @param string $var
-     * @param int    $value
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function hasLengthLess($var, $value)
-    {
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            beberlei\that($var)->maxLength($value);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
-    }
-
-    /**
-     * @param string $var
-     * @param int    $value
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function hasLengthMore($var, $value)
-    {
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            beberlei\that($var)->minLength($value);
         }
         $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
     }
@@ -239,6 +239,20 @@ class BeberleiBenchmarkCommand extends AbstractBenchmarkCommand
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             beberlei\that($var)->max(0);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
+    }
+
+    /**
+     * @param mixed $var
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function isNotNull($var)
+    {
+        $this->start();
+        for ($i = 0; $i < self::COUNT_TEST; $i++) {
+            beberlei\that($var)->notNull();
         }
         $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
     }

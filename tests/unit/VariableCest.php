@@ -93,32 +93,6 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function hasLengthNot(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function hasLengthNotArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->hasLengthNot('a');
-            $I->fail('First argument must be int');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->hasLengthNot(-1);
-            $I->fail('First argument must be >= 0');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function hasLengthBetween(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -202,6 +176,32 @@ class VariableCest
         try {
             Variable::assert('var', 'var')->hasLengthMore(-1);
             $I->fail('First argument must be more than 0');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function hasLengthNot(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function hasLengthNotArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->hasLengthNot('a');
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->hasLengthNot(-1);
+            $I->fail('First argument must be >= 0');
         } catch (\InvalidArgumentException $error) {
         }
     }
@@ -427,70 +427,6 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isMatchRegExp(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isMatchRegExpArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->isMatchRegExp('');
-            $I->fail('First argument must be not empty');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isMatchRegExp(5);
-            $I->fail('First argument must be string');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isMatchRegExp('a');
-            $I->fail('First argument must be correct RegExp');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isNotMatchRegExp(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isNotMatchRegExpArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->isNotMatchRegExp('');
-            $I->fail('First argument must be not empty');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isNotMatchRegExp(5);
-            $I->fail('First argument must be string');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isNotMatchRegExp('a');
-            $I->fail('First argument must be correct RegExp');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function isMatchGlob(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -517,7 +453,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isNotMatchGlob(\UnitTester $I)
+    public function isMatchRegExp(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -525,17 +461,23 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isNotMatchGlobArguments(\UnitTester $I)
+    public function isMatchRegExpArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->isNotMatchGlob('');
+            Variable::assert('var', 'var')->isMatchRegExp('');
             $I->fail('First argument must be not empty');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->isNotMatchGlob(5);
+            Variable::assert('var', 'var')->isMatchRegExp(5);
             $I->fail('First argument must be string');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->isMatchRegExp('a');
+            $I->fail('First argument must be correct RegExp');
         } catch (\InvalidArgumentException $error) {
         }
     }
@@ -731,6 +673,72 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
+    public function isNotMatchGlob(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isNotMatchGlobArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->isNotMatchGlob('');
+            $I->fail('First argument must be not empty');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->isNotMatchGlob(5);
+            $I->fail('First argument must be string');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isNotMatchRegExp(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isNotMatchRegExpArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->isNotMatchRegExp('');
+            $I->fail('First argument must be not empty');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->isNotMatchRegExp(5);
+            $I->fail('First argument must be string');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->isNotMatchRegExp('a');
+            $I->fail('First argument must be correct RegExp');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isNotNull(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
     public function isNotNumeric(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -748,6 +756,14 @@ class VariableCest
      * @param \UnitTester $I
      */
     public function isNotString(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isNull(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
