@@ -19,6 +19,12 @@ class VariableCest
     public function assert(\UnitTester $I)
     {
         try {
+            Variable::assert(new \stdClass(), 'var');
+            $I->fail('First argument must not object');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
             Variable::assert('var', false);
             $I->fail('Second argument must be string');
         } catch (\InvalidArgumentException $error) {
@@ -36,15 +42,7 @@ class VariableCest
         } catch (\InvalidArgumentException $error) {
         }
 
-        $I->assertTrue(is_object(Variable::assert('var', 'var', '\InvalidArgumentException')));
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function getExceptionClass(\UnitTester $I)
-    {
-        $I->assertEquals(Variable::EXCEPTION_CLASS, Variable::assert('var', 'var')->getExceptionClass());
+        $I->assertTrue(is_object(Variable::assert('var', 'var', '\Exception')));
     }
 
     /**
@@ -61,7 +59,15 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function toBool(\UnitTester $I)
+    public function getExceptionClass(\UnitTester $I)
+    {
+        $I->assertEquals(Variable::EXCEPTION_CLASS, Variable::assert('var', 'var')->getExceptionClass());
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function hasLength(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -69,7 +75,25 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function toFloat(\UnitTester $I)
+    public function hasLengthArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->hasLength('a');
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->hasLength(-1);
+            $I->fail('First argument must be >= 0');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function hasLengthNot(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -77,7 +101,25 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function toInt(\UnitTester $I)
+    public function hasLengthNotArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->hasLengthNot('a');
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->hasLengthNot(-1);
+            $I->fail('First argument must be >= 0');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function hasLengthBetween(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -85,7 +127,37 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function toString(\UnitTester $I)
+    public function hasLengthBetweenArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->hasLengthBetween('a', 5);
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->hasLengthBetween(1, 'b');
+            $I->fail('Second argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->hasLengthBetween(5, 2);
+            $I->fail('First argument must be less than second');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->hasLengthBetween(-1, 2);
+            $I->fail('First argument must be more than 0');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function hasLengthLess(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -93,9 +165,83 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isInArray(\UnitTester $I)
+    public function hasLengthLessArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->hasLengthLess('a');
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->hasLengthLess(-1);
+            $I->fail('First argument must be more than 0');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function hasLengthMore(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function hasLengthMoreArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->hasLengthMore('a');
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->hasLengthMore(-1);
+            $I->fail('First argument must be more than 0');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function hasLengthNotBetween(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function hasLengthNotBetweenArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->hasLengthNotBetween('a', 5);
+            $I->fail('First argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->hasLengthNotBetween(1, 'b');
+            $I->fail('Second argument must be int');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->hasLengthNotBetween(5, 2);
+            $I->fail('First argument must be less than second');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->hasLengthNotBetween(-1, 2);
+            $I->fail('First argument must be more than 0');
+        } catch (\InvalidArgumentException $error) {
+        }
     }
 
     /**
@@ -217,6 +363,14 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
+    public function isInArray(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
     public function isInt(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -228,96 +382,6 @@ class VariableCest
     public function isJson(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isLengthBetween(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isLengthBetweenArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->isLengthBetween('a', 5);
-            $I->fail('First argument must be int');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isLengthBetween(1, 'b');
-            $I->fail('Second argument must be int');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isLengthBetween(5, 2);
-            $I->fail('First argument must be less than second');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isLengthBetween(-1, 2);
-            $I->fail('First argument must be more than 0');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isLengthLess(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isLengthLessArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->isLengthLess('a');
-            $I->fail('First argument must be int');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isLengthLess(-1);
-            $I->fail('First argument must be more than 0');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isLengthMore(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isLengthMoreArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->isLengthMore('a');
-            $I->fail('First argument must be int');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isLengthMore(-1);
-            $I->fail('First argument must be more than 0');
-        } catch (\InvalidArgumentException $error) {
-        }
     }
 
     /**
@@ -356,6 +420,122 @@ class VariableCest
         try {
             Variable::assert('var', 'var')->isLessStrict('a');
             $I->fail('First argument must be int or float');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isMatchRegExp(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isMatchRegExpArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->isMatchRegExp('');
+            $I->fail('First argument must be not empty');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->isMatchRegExp(5);
+            $I->fail('First argument must be string');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->isMatchRegExp('a');
+            $I->fail('First argument must be correct RegExp');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isNotMatchRegExp(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isNotMatchRegExpArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->isNotMatchRegExp('');
+            $I->fail('First argument must be not empty');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->isNotMatchRegExp(5);
+            $I->fail('First argument must be string');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->isNotMatchRegExp('a');
+            $I->fail('First argument must be correct RegExp');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isMatchGlob(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isMatchGlobArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->isMatchGlob('');
+            $I->fail('First argument must be not empty');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->isMatchGlob(5);
+            $I->fail('First argument must be string');
+        } catch (\InvalidArgumentException $error) {
+        }
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isNotMatchGlob(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isNotMatchGlobArguments(\UnitTester $I)
+    {
+        try {
+            Variable::assert('var', 'var')->isNotMatchGlob('');
+            $I->fail('First argument must be not empty');
+        } catch (\InvalidArgumentException $error) {
+        }
+
+        try {
+            Variable::assert('var', 'var')->isNotMatchGlob(5);
+            $I->fail('First argument must be string');
         } catch (\InvalidArgumentException $error) {
         }
     }
@@ -404,38 +584,6 @@ class VariableCest
      * @param \UnitTester $I
      */
     public function isNegative(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isNumeric(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isPositive(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isResource(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isString(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -583,44 +731,6 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isLengthNotBetween(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isLengthNotBetweenArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->isLengthNotBetween('a', 5);
-            $I->fail('First argument must be int');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isLengthNotBetween(1, 'b');
-            $I->fail('Second argument must be int');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isLengthNotBetween(5, 2);
-            $I->fail('First argument must be less than second');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isLengthNotBetween(-1, 2);
-            $I->fail('First argument must be more than 0');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function isNotNumeric(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -645,6 +755,38 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
+    public function isNumeric(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isPositive(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isResource(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function isString(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
     public function setExceptionClass(\UnitTester $I)
     {
         try {
@@ -660,6 +802,56 @@ class VariableCest
         }
 
         Variable::assert('var', 'var')->setExceptionClass('\InvalidArgumentException');
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function toBool(\UnitTester $I)
+    {
+        $I->assertTrue(Variable::assert('var', 'var')->toBool()->get());
+        $I->assertTrue(Variable::assert(5, 'var')->toBool()->get());
+        $I->assertFalse(Variable::assert('', 'var')->toBool()->get());
+        $I->assertFalse(Variable::assert(null, 'var')->toBool()->get());
+        $I->assertFalse(Variable::assert(false, 'var')->toBool()->get());
+        $I->assertFalse(Variable::assert([], 'var')->toBool()->get());
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function toFloat(\UnitTester $I)
+    {
+        $I->assertEquals(0.0, Variable::assert('var', 'var')->toFloat()->get());
+        $I->assertEquals(0.0, Variable::assert('', 'var')->toFloat()->get());
+        $I->assertEquals(0.0, Variable::assert(null, 'var')->toFloat()->get());
+        $I->assertEquals(0.0, Variable::assert(false, 'var')->toFloat()->get());
+        $I->assertEquals(15.2, Variable::assert('15.2', 'var')->toFloat()->get());
+        $I->assertEquals(2.0, Variable::assert(2, 'var')->toFloat()->get());
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function toInt(\UnitTester $I)
+    {
+        $I->assertEquals(0, Variable::assert('var', 'var')->toInt()->get());
+        $I->assertEquals(0, Variable::assert('', 'var')->toInt()->get());
+        $I->assertEquals(0, Variable::assert(null, 'var')->toInt()->get());
+        $I->assertEquals(0, Variable::assert(false, 'var')->toInt()->get());
+        $I->assertEquals(15, Variable::assert('15.2', 'var')->toInt()->get());
+        $I->assertEquals(2, Variable::assert(2.1, 'var')->toInt()->get());
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function toString(\UnitTester $I)
+    {
+        $I->assertEquals('17', Variable::assert(17, 'var')->toString()->get());
+        $I->assertEquals('2.1', Variable::assert(2.1, 'var')->toString()->get());
+        $I->assertEquals('', Variable::assert(null, 'var')->toString()->get());
+        $I->assertEquals('', Variable::assert(false, 'var')->toString()->get());
     }
 
     /**

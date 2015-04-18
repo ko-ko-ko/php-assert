@@ -156,12 +156,42 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     * @param int    $length
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function hasLength($var, $length)
+    {
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            respect::length($length, $length)->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
+     * @param int    $length
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function hasLengthNot($var, $length)
+    {
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            respect::not(respect::length($length, $length))->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
      * @param int    $from
      * @param int    $to
      *
      * @throws \InvalidArgumentException
      */
-    public function isLengthBetween($var, $from, $to)
+    public function hasLengthBetween($var, $from, $to)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {
@@ -172,11 +202,27 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
+     * @param int    $from
+     * @param int    $to
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function hasLengthNotBetween($var, $from, $to)
+    {
+        $this->start();
+        for ($j = 0; $j < self::COUNT_TEST; $j++) {
+            respect::not(respect::length($from, $to))->assert($var);
+        }
+        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
+    }
+
+    /**
+     * @param string $var
      * @param int    $value
      *
      * @throws \InvalidArgumentException
      */
-    public function isLengthLess($var, $value)
+    public function hasLengthLess($var, $value)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {
@@ -191,7 +237,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isLengthMore($var, $value)
+    public function hasLengthMore($var, $value)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {

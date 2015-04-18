@@ -19,7 +19,7 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
+            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -59,7 +59,7 @@ return [
             'isNotBool' => 1,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
+            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -99,7 +99,7 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
+            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -219,7 +219,7 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
+            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -459,7 +459,7 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
+            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -579,7 +579,7 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
+            'isNotDigit' => 1,
             //
             'isFloat' => 0,
             'isNotFloat' => 1,
@@ -619,7 +619,7 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
+            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -652,6 +652,10 @@ return [
         'arguments' => [[1, 2]],
         'value' => 1,
         'errors' => [
+            'hasLength' => 1,
+            'hasLengthNot' => 1,
+            'hasLengthMore' => 1,
+            'hasLengthLess' => 1,
             'isInArray' => 0,
             'isNotInArray' => 1
         ]
@@ -662,6 +666,10 @@ return [
         'arguments' => [[1, 2]],
         'value' => 5,
         'errors' => [
+            'hasLength' => 1,
+            'hasLengthNot' => 1,
+            'hasLengthMore' => 1,
+            'hasLengthLess' => 1,
             'isInArray' => 1,
             'isNotInArray' => 0
         ]
@@ -672,8 +680,10 @@ return [
         'arguments' => [4],
         'value' => 'abc',
         'errors' => [
-            'isLengthMore' => 1,
-            'isLengthLess' => 0
+            'hasLength' => 1,
+            'hasLengthNot' => 0,
+            'hasLengthMore' => 1,
+            'hasLengthLess' => 0
         ]
     ],
 // 'abcdef' -> length(6)
@@ -682,8 +692,10 @@ return [
         'arguments' => [6],
         'value' => 'abcdef',
         'errors' => [
-            'isLengthMore' => 0,
-            'isLengthLess' => 0
+            'hasLength' => 0,
+            'hasLengthNot' => 1,
+            'hasLengthMore' => 0,
+            'hasLengthLess' => 0
         ]
     ],
 // 'abcdefg' -> length(3)
@@ -692,8 +704,10 @@ return [
         'arguments' => [3],
         'value' => 'abcdefg',
         'errors' => [
-            'isLengthMore' => 0,
-            'isLengthLess' => 1
+            'hasLength' => 1,
+            'hasLengthNot' => 0,
+            'hasLengthMore' => 0,
+            'hasLengthLess' => 1
         ]
     ],
 // [] -> length(3)
@@ -702,8 +716,10 @@ return [
         'arguments' => [3],
         'value' => [],
         'errors' => [
-            'isLengthMore' => 2,
-            'isLengthLess' => 1
+            'hasLength' => 2,
+            'hasLengthNot' => 1,
+            'hasLengthMore' => 2,
+            'hasLengthLess' => 1
         ]
     ],
 // 'abc' -> length(2, 5)
@@ -712,8 +728,8 @@ return [
         'arguments' => [2, 5],
         'value' => 'abc',
         'errors' => [
-            'isLengthBetween' => 0,
-            'isLengthNotBetween' => 1
+            'hasLengthBetween' => 0,
+            'hasLengthNotBetween' => 1
         ]
     ],
 // 'abcdef' -> length(3, 4)
@@ -722,8 +738,8 @@ return [
         'arguments' => [3, 4],
         'value' => 'abcdef',
         'errors' => [
-            'isLengthBetween' => 1,
-            'isLengthNotBetween' => 0
+            'hasLengthBetween' => 1,
+            'hasLengthNotBetween' => 0
         ]
     ],
 // 'abcdef' -> length(6, 8)
@@ -732,8 +748,8 @@ return [
         'arguments' => [6, 8],
         'value' => 'abcdef',
         'errors' => [
-            'isLengthBetween' => 0,
-            'isLengthNotBetween' => 0
+            'hasLengthBetween' => 0,
+            'hasLengthNotBetween' => 0
         ]
     ],
 // 'abcdef' -> length(1, 6)
@@ -742,8 +758,8 @@ return [
         'arguments' => [1, 6],
         'value' => 'abcdef',
         'errors' => [
-            'isLengthBetween' => 0,
-            'isLengthNotBetween' => 0
+            'hasLengthBetween' => 0,
+            'hasLengthNotBetween' => 0
         ]
     ],
 // 'abcdef' -> length(1, 2)
@@ -752,8 +768,8 @@ return [
         'arguments' => [1, 2],
         'value' => 'abcdef',
         'errors' => [
-            'isLengthBetween' => 1,
-            'isLengthNotBetween' => 0
+            'hasLengthBetween' => 1,
+            'hasLengthNotBetween' => 0
         ]
     ],
 // [] -> length(6, 8)
@@ -762,8 +778,8 @@ return [
         'arguments' => [1, 2],
         'value' => [],
         'errors' => [
-            'isLengthBetween' => 1,
-            'isLengthNotBetween' => 1
+            'hasLengthBetween' => 1,
+            'hasLengthNotBetween' => 1
         ]
     ],
 // 5 ? (3)
@@ -872,6 +888,54 @@ return [
             'isBetweenStrict' => 2,
             'isNotBetween' => 2,
             'isNotBetweenStrict' => 2
+        ]
+    ],
+// 'some string' -> regexp '/some/'
+    [
+        'comment' => '"some string" -> regexp "/some/"',
+        'arguments' => ['/some/'],
+        'value' => 'some string',
+        'errors' => [
+            'isMatchRegExp' => 0,
+            'isNotMatchRegExp' => 1,
+            'isMatchGlob' => 1,
+            'isNotMatchGlob' => 0
+        ]
+    ],
+// 'some string' -> regexp '/^\d$/'
+    [
+        'comment' => '"some string" -> regexp "/^\d$/"',
+        'arguments' => ['/^\d$/'],
+        'value' => 'some string',
+        'errors' => [
+            'isMatchRegExp' => 1,
+            'isNotMatchRegExp' => 0,
+            'isMatchGlob' => 1,
+            'isNotMatchGlob' => 0
+        ]
+    ],
+// 'some string' -> glob 'some*'
+    [
+        'comment' => '"some string" -> glob "some*"',
+        'arguments' => ['some*'],
+        'value' => 'some string',
+        'errors' => [
+            'isMatchRegExp' => 1,
+            'isNotMatchRegExp' => 1,
+            'isMatchGlob' => 0,
+            'isNotMatchGlob' => 1
+        ]
+    ],
+// 'not string' -> glob 'some*'
+    [
+        'comment' => '"not string" -> glob "some*"',
+        'arguments' => ['some*'],
+        'value' => 'not string',
+        'errors' => [
+            'isMatchRegExp' => 1,
+            'isNotMatchRegExp' => 1,
+            'isMatchGlob' => 1,
+            'isNotMatchGlob' => 0
         ]
     ],
 ];
