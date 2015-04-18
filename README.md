@@ -5,7 +5,7 @@ php-validator
 
 ## Yet another validator, WHY??
 
-**Inside it's really ugly, but it's very fast**
+**It's really fast, ugly inside, but fast**
 
 There are many other cool validators, but for their user-friendly you must pay by time & memory of execution.
 This validator gives you very simple and fast API. You can see benchmark results at bottom of [build logs](https://travis-ci.org/index0h/php-validator).
@@ -86,7 +86,7 @@ General validators
 
 #### isEmpty `Check if value empty`
 
-Antipode: **isNotEmpty**
+* Antipode: **isNotEmpty**
 
 ```php
 // OK
@@ -100,7 +100,7 @@ v::assert('5', 'var')->isNotEmpty();
 
 #### isArray `Check if value is array`
 
-Antipode: **isNotArray**
+* Antipode: **isNotArray**
 
 ```php
 // OK
@@ -114,7 +114,7 @@ v::assert([], 'var')->isNotArray();
 
 #### isBool `Check if value is bool`
 
-Antipode: **isNotBool**
+* Antipode: **isNotBool**
 
 ```php
 // OK
@@ -128,7 +128,7 @@ v::assert(true, 'var')->isNotBool();
 
 #### isFloat `Check if value is float`
 
-Antipode: **isNotFloat**
+* Antipode: **isNotFloat**
 
 ```php
 // OK
@@ -144,7 +144,7 @@ v::assert(15.2, 'var')->isNotFloat();
 
 #### isInt `Check if value is int`
 
-Antipode: **isNotInt**
+* Antipode: **isNotInt**
 
 ```php
 // OK
@@ -160,7 +160,7 @@ v::assert(5, 'var')->isNotInt();
 
 #### isNumeric `Check if value is numeric`
 
-Antipode: **isNotNumeric**
+* Antipode: **isNotNumeric**
 
 ```php
 // OK
@@ -176,7 +176,7 @@ v::assert('-5', 'var')->isNotNumeric();
 
 #### isString `Check if value is string`
 
-Antipode: **isNotString**
+* Antipode: **isNotString**
 
 ```php
 // OK
@@ -190,7 +190,7 @@ v::assert('-5', 'var')->isNotNumeric();
 
 #### isResource `Check if value is resource`
 
-Antipode: **isNotResource**
+* Antipode: **isNotResource**
 
 ```php
 // OK
@@ -213,7 +213,7 @@ All array validators run previously:
 
 #### inArray($range) `Check if value is in array $range`
 
-Antipode: **notInArray**
+* Antipode: **notInArray**
 
 * `$range` MUST be array
 
@@ -247,7 +247,7 @@ All string validators run previously:
 
 #### isDigit `Check if value contains only digits`
 
-Antipode: **isNotDigit**
+* Antipode: **isNotDigit**
 
 ```php
 // OK
@@ -265,7 +265,7 @@ v::assert([], 'var')->isNotDigit();
 
 #### isJson `Check if value is json string`
 
-Antipode: **isNotJson**
+* Antipode: **isNotJson**
 
 ```php
 // OK
@@ -283,7 +283,7 @@ v::assert([], 'var')->isNotJson();
 
 #### isMatchRegExp($pattern) `Check if value match RegExp pattern`
 
-Antipode: **isNotMatchRegExp**
+* Antipode: **isNotMatchRegExp**
 
 * `$pattern` MUST be correct RegExp pattern
 
@@ -311,7 +311,7 @@ v::assert('a', 'var')->isNotMatchRegExp('/a');
 
 #### isMatchGlob($pattern) `Check if value match glob pattern`
 
-Antipode: **isNotMatchGlob**
+* Antipode: **isNotMatchGlob**
 
 ```php
 // OK
@@ -337,7 +337,7 @@ v::assert([], 'var')->isNotMatchGlob('/a/');
 
 #### hasLength($length) `Check if value has length exactly $length`
 
-Antipode: **hasLengthNot**
+* Antipode: **hasLengthNot**
 
 * `$length` MUST be integer >= 0
 
@@ -365,7 +365,7 @@ v::assert([], 'var')->hasLengthNot(1);
 
 #### hasLengthLess($maxLength) `Check if value has length less than $maxLength`
 
-Antipode: **hasLengthMore**
+* Antipode: **hasLengthMore**
 
 * `$length` MUST be integer > 0
 
@@ -395,7 +395,7 @@ v::assert([], 'var')->hasLengthMore(1);
 
 #### hasLengthBetween($from, $to) `Check that value length is $from <= $value <= $to`
 
-Antipode: **hasLengthNotBetween** `$from > $value > $to`
+* Antipode: **hasLengthNotBetween** `$from > $value > $to`
 
 * `$from` MUST be integer >= 0
 * `$to` MUST be integer >= 0
@@ -445,7 +445,7 @@ All number validators run previously:
 
 #### isPositive `Check if value is positive (not 0)`
 
-Antipode: **isNegative** `Check if value is negative (not 0)`
+* Antipode: **isNegative** `Check if value is negative (not 0)`
 
 ```php
 // OK
@@ -465,9 +465,9 @@ v::assert([], 'var')->isNegative();
 
 #### isLess($number) `Check if value is $value <= $number`
 
-Similar: **isLessStrict** Check that value is `$value < $number`
-Antipode: **isMore** Check that value is `$value >= $number`
-Antipode: **isMoreStrict** Check that value is `$value > $number`
+* Similar: **isLessStrict** Check that value is `$value < $number`
+* Antipode: **isMore** Check that value is `$value >= $number`
+* Antipode: **isMoreStrict** Check that value is `$value > $number`
 
 * `$number` MUST be integer or float
 
@@ -491,9 +491,9 @@ v::assert([], 'var')->isMore(1);
 
 #### isBetween($from, $to) `Check that value is $from <= $value <= $to`
 
-Similar: **isBetweenStrict** Check that value is `$from < $value < $to`
-Antipode: **isNotBetween** Check that value is `$from > $value > $to`
-Antipode: **isNotBetweenStrict** Check that value is `$from >= $value >= $to`
+* Similar: **isBetweenStrict** Check that value is `$from < $value < $to`
+* Antipode: **isNotBetween** Check that value is `$from > $value > $to`
+* Antipode: **isNotBetweenStrict** Check that value is `$from >= $value >= $to`
 
 * `$from` MUST be int or float
 * `$to` MUST be int or float
@@ -532,50 +532,63 @@ v::assert([], 'var')->isNotBetween(1);
 CAST API
 ========
 
-#### get
-
-Returns value as is
-
-#### toBool
-
-Converts any type to bool
-
-#### toFloat
-
-Run previously:
-
-* **isNotArray**
-
-Converts any type (except array) to float
-
-#### toInt
-
-Run previously:
-
-* **isNotArray**
-
-Converts any type (except array) to int
-
-#### toString
-
-Run previously:
-
-* **isNotArray**
-
-Converts any type (except array) to string
-
-Examples
---------
+#### get `Returns value as is`
 
 ```php
-// Return: '5'
-Variable::assert(5, 'var')->toString()->get();
+// RETURN 'a'
+v::assert('a', 'var')->get();
+```
 
-// Return: -15
-Variable::assert('-15.12', 'var')->toInt()->get();
+#### toBool `Converts any type to bool`
 
-// Throws exception: Param $var must be positive
-Variable::assert('-15.12', 'var')->toInt()->isPositive();
+```php
+// RETURN true
+v::assert('a', 'var')->toBool()->get();
+```
+
+#### toFloat `Converts any type (except array) to float`
+
+Run previously: **isNotArray**
+
+```php
+// RETURN 0.0
+v::assert('a', 'var')->toFloat()->get();
+
+// RETURN -15.2
+v::assert('-15.2', 'var')->toFloat()->get();
+
+// EXCEPTION: var MUST NOT be array
+v::assert([], 'var')->toFloat()->get();
+```
+
+#### toInt `Converts any type (except array) to int`
+
+Run previously: **isNotArray**
+
+```php
+// RETURN 0
+v::assert('a', 'var')->toInt()->get();
+
+// RETURN -15
+v::assert('-15.2', 'var')->toInt()->get();
+
+// EXCEPTION: var MUST NOT be array
+v::assert([], 'var')->toInt()->get();
+```
+
+#### toString `Converts any type (except array) to string`
+
+Run previously: **isNotArray**
+
+```php
+// RETURN ''
+v::assert(false, 'var')->toString()->get();
+
+// RETURN '-15'
+v::assert(-15, 'var')->toString()->get();
+
+// EXCEPTION: var MUST NOT be array
+v::assert([], 'var')->toString()->get();
 ```
 
 ## Testing

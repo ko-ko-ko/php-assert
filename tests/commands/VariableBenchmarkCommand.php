@@ -618,23 +618,23 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isMatchRegexp($var, $value)
+    public function isMatchRegExp($var, $value)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (empty($pattern)) {
-                throw new \InvalidArgumentException('Param $pattern must be not empty');
+            if (empty($value)) {
+                throw new \InvalidArgumentException('Param $value must be not empty');
             }
 
-            if (!is_string($pattern)) {
-                throw new \InvalidArgumentException('Param $pattern must be string');
+            if (!is_string($value)) {
+                throw new \InvalidArgumentException('Param $value must be string');
             }
 
             // God please sorry for this @
             $checkResult = @preg_match($value, $var);
 
             if ((preg_last_error() !== PREG_NO_ERROR) || ($checkResult === false)) {
-                throw new \InvalidArgumentException('Param $pattern must be correct RegExp');
+                throw new \InvalidArgumentException('Param $value must be correct RegExp');
             }
 
             if ($checkResult === 0) {
@@ -649,7 +649,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
             $checkResult = @preg_match($value, $var);
 
             if ((preg_last_error() !== PREG_NO_ERROR) || ($checkResult === false)) {
-                throw new \InvalidArgumentException('Param $pattern must be correct RegExp');
+                throw new \InvalidArgumentException('Param $value must be correct RegExp');
             }
 
             if ($checkResult === 0) {
@@ -1038,16 +1038,16 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isNotMatch($var, $value)
+    public function isMatchGlob($var, $value)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (empty($value)) {
-                throw new \InvalidArgumentException('Param $pattern must be not empty');
+                throw new \InvalidArgumentException('Param $value must be not empty');
             }
 
             if (!is_string($value)) {
-                throw new \InvalidArgumentException('Param $pattern must be string');
+                throw new \InvalidArgumentException('Param $value must be string');
             }
 
             if (!fnmatch($value, $var)) {
@@ -1076,11 +1076,11 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (empty($value)) {
-                throw new \InvalidArgumentException('Param $pattern must be not empty');
+                throw new \InvalidArgumentException('Param $value must be not empty');
             }
 
             if (!is_string($value)) {
-                throw new \InvalidArgumentException('Param $pattern must be string');
+                throw new \InvalidArgumentException('Param $value must be string');
             }
 
             if (fnmatch($value, $var)) {
@@ -1104,23 +1104,23 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isNotMatchRegexp($var, $value)
+    public function isNotMatchRegExp($var, $value)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (empty($pattern)) {
-                throw new \InvalidArgumentException('Param $pattern must be not empty');
+            if (empty($value)) {
+                throw new \InvalidArgumentException('Param $value must be not empty');
             }
 
-            if (!is_string($pattern)) {
-                throw new \InvalidArgumentException('Param $pattern must be string');
+            if (!is_string($value)) {
+                throw new \InvalidArgumentException('Param $value must be string');
             }
 
             // God please sorry for this @
             $checkResult = @preg_match($value, $var);
 
             if ((preg_last_error() !== PREG_NO_ERROR) || ($checkResult === false)) {
-                throw new \InvalidArgumentException('Param $pattern must be correct RegExp');
+                throw new \InvalidArgumentException('Param $value must be correct RegExp');
             }
 
             if ($checkResult > 0) {
@@ -1135,7 +1135,7 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
             $checkResult = @preg_match($value, $var);
 
             if ((preg_last_error() !== PREG_NO_ERROR) || ($checkResult === false)) {
-                throw new \InvalidArgumentException('Param $pattern must be correct RegExp');
+                throw new \InvalidArgumentException('Param $value must be correct RegExp');
             }
 
             if ($checkResult > 0) {
