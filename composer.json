@@ -3,7 +3,8 @@
     "description": "Fast flexible php validator",
     "require-dev": {
         "codeception/codeception": "2.0.x",
-        "respect/validation": "0.8.x"
+        "respect/validation": "0.8.x",
+        "beberlei/assert": "v2.3"
     },
     "license": "MIT",
     "authors": [

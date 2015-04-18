@@ -9,8 +9,10 @@ require_once __DIR__ . '/vendor/codeception/codeception/autoload.php';
 use Symfony\Component\Console\Application;
 use index0h\validator\tests\commands\VariableBenchmarkCommand;
 use index0h\validator\tests\commands\RespectBenchmarkCommand;
+use index0h\validator\tests\commands\BeberleiBenchmarkCommand;
 
 $app = new Application('Codeception', Codeception\Codecept::VERSION);
 $app->add(new VariableBenchmarkCommand('benchmark:variable'));
 $app->add(new RespectBenchmarkCommand('benchmark:respect'));
+$app->add(new BeberleiBenchmarkCommand('benchmark:beberlei'));
 $app->run();
