@@ -215,6 +215,8 @@ All array validators run previously:
 
 * Antipode: **notInArray**
 
+Arguments:
+
 * `$range` MUST be array
 
 ```php
@@ -285,6 +287,8 @@ v::assert([], 'var')->isNotJson();
 
 * Antipode: **isNotMatchRegExp**
 
+Arguments:
+
 * `$pattern` MUST be correct RegExp pattern
 
 ```php
@@ -339,6 +343,8 @@ v::assert([], 'var')->isNotMatchGlob('/a/');
 
 * Antipode: **hasLengthNot**
 
+Arguments:
+
 * `$length` MUST be integer >= 0
 
 ```php
@@ -366,6 +372,8 @@ v::assert([], 'var')->hasLengthNot(1);
 #### hasLengthLess($length) `Check if value has length less than $length`
 
 * Antipode: **hasLengthMore**
+
+Arguments:
 
 * `$length` MUST be integer > 0
 
@@ -396,6 +404,8 @@ v::assert([], 'var')->hasLengthMore(1);
 #### hasLengthBetween($from, $to) `Check that value length is $from <= $value <= $to`
 
 * Antipode: **hasLengthNotBetween** `$from > $value > $to`
+
+Arguments:
 
 * `$from` MUST be integer >= 0
 * `$to` MUST be integer >= 0
@@ -469,6 +479,8 @@ v::assert([], 'var')->isNegative();
 * Antipode: **isMore** Check that value is `$value >= $number`
 * Antipode: **isMoreStrict** Check that value is `$value > $number`
 
+Arguments:
+
 * `$number` MUST be integer or float
 
 ```php
@@ -494,6 +506,8 @@ v::assert([], 'var')->isMore(1);
 * Similar: **isBetweenStrict** Check that value is `$from < $value < $to`
 * Antipode: **isNotBetween** Check that value is `$from > $value > $to`
 * Antipode: **isNotBetweenStrict** Check that value is `$from >= $value >= $to`
+
+Arguments:
 
 * `$from` MUST be int or float
 * `$to` MUST be int or float
