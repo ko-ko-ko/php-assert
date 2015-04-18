@@ -363,7 +363,7 @@ v::assert(5, 'var')->hasLength(1);
 v::assert([], 'var')->hasLengthNot(1);
 ```
 
-#### hasLengthLess($maxLength) `Check if value has length less than $maxLength`
+#### hasLengthLess($length) `Check if value has length less than $length`
 
 * Antipode: **hasLengthMore**
 
