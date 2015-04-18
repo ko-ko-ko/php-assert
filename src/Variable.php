@@ -491,9 +491,11 @@ class Variable
      */
     public function isJson()
     {
-        $this->isNotEmpty()->isString();
+        $this->isString();
 
-        if (!json_decode($this->value)) {
+        json_decode($this->value);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
             $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'json']);
         }
 
@@ -510,7 +512,9 @@ class Variable
     {
         $this->isNotEmpty()->isString();
 
-        if (json_decode($this->value)) {
+        json_decode($this->value);
+
+        if (json_last_error() === JSON_ERROR_NONE) {
             $this->processError(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'json']);
         }
 
@@ -876,7 +880,7 @@ class Variable
      */
     public function toBool()
     {
-        $this->value = (bool) $this->value;
+        $this->value = boolval($this->value);
 
         return $this;
     }
@@ -889,23 +893,9 @@ class Variable
      */
     public function toFloat()
     {
-        if (is_float($this->value)) {
-            return $this;
-        }
+        $this->value = floatval($this->value);
 
-        if (empty($this->value)) {
-            $this->value = 0.0;
-
-            return $this;
-        }
-
-        if (is_numeric($this->value) || is_bool($this->value) || is_resource($this->value)) {
-            $this->value = (float) $this->value;
-
-            return $this;
-        }
-
-        $this->processError(self::EXCEPTION_CAST_TEXT, ['{{type}}' => 'float']);
+        return $this;
     }
 
     /**
@@ -916,23 +906,9 @@ class Variable
      */
     public function toInt()
     {
-        if (is_int($this->value)) {
-            return $this;
-        }
+        $this->value = intval($this->value);
 
-        if (empty($this->value)) {
-            $this->value = 0;
-
-            return $this;
-        }
-
-        if (is_numeric($this->value) || is_bool($this->value) || is_resource($this->value)) {
-            $this->value = (int) $this->value;
-
-            return $this;
-        }
-
-        $this->processError(self::EXCEPTION_CAST_TEXT, ['{{type}}' => 'int']);
+        return $this;
     }
 
     /**
@@ -943,28 +919,9 @@ class Variable
      */
     public function toString()
     {
-        if (is_string($this->value)) {
-            return $this;
-        }
+        $this->value = strval($this->value);
 
-        if (empty($this->value)) {
-            $this->value = '';
-
-            return $this;
-        }
-
-        if (
-            is_numeric($this->value) ||
-            is_bool($this->value) ||
-            is_resource($this->value) ||
-            (is_object($this->value) && method_exists($this->value, '__toString'))
-        ) {
-            $this->value = (string) $this->value;
-
-            return $this;
-        }
-
-        $this->processError(self::EXCEPTION_CAST_TEXT, ['{{type}}' => 'string']);
+        return $this;
     }
 
     /**

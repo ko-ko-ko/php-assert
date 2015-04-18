@@ -274,11 +274,9 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
                 throw new \InvalidArgumentException('var must be string');
             }
 
-            if (empty($var)) {
-                throw new \InvalidArgumentException('var must be not empty');
-            }
+            json_decode($var);
 
-            if (!(bool) json_decode($var)) {
+            if (json_last_error() !== JSON_ERROR_NONE) {
                 throw new \InvalidArgumentException('var must be json');
             }
         }
@@ -952,15 +950,17 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!is_string($var)) {
-                throw new \InvalidArgumentException('var must be string');
-            }
-
             if (empty($var)) {
                 throw new \InvalidArgumentException('var must be not empty');
             }
 
-            if ((bool) json_decode($var)) {
+            if (!is_string($var)) {
+                throw new \InvalidArgumentException('var must be string');
+            }
+
+            json_decode($var);
+
+            if (json_last_error() === JSON_ERROR_NONE) {
                 throw new \InvalidArgumentException('var must be not json');
             }
         }
@@ -1010,89 +1010,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (is_string($var)) {
                 throw new \InvalidArgumentException('var must be not string');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param int|float|string|resource|array|null $var
-     */
-    public function toBool($var)
-    {
-        $this->start();
-        for ($i = 0, $tmpVar = $var; $i < self::COUNT_TEST; $i++, $tmpVar = $var) {
-            $tmpVar = (bool) $tmpVar;
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param int|float|string|resource|array|null $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function toFloat($var)
-    {
-        $this->start();
-        for ($i = 0, $tmpVar = $var; $i < self::COUNT_TEST; $i++, $tmpVar = $var) {
-            if (!is_float($tmpVar)) {
-                if (empty($tmpVar)) {
-                    $tmpVar = 0.0;
-                } elseif (is_numeric($tmpVar) || is_bool($tmpVar) || is_resource($tmpVar)) {
-                    $tmpVar = (float) $tmpVar;
-                } else {
-                    throw new \InvalidArgumentException('Can not cast $var to float');
-                }
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param int|float|string|resource|array|null $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function toInt($var)
-    {
-        $this->start();
-        for ($i = 0, $tmpVar = $var; $i < self::COUNT_TEST; $i++, $tmpVar = $var) {
-            if (!is_int($tmpVar)) {
-                if (empty($tmpVar)) {
-                    $tmpVar = 0;
-                } elseif (is_numeric($tmpVar) || is_bool($tmpVar) || is_resource($tmpVar)) {
-                    $tmpVar = (int) $tmpVar;
-                } else {
-                    throw new \InvalidArgumentException('Can not cast $var to int');
-                }
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param int|float|string|resource|array|null $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function toString($var)
-    {
-        $this->start();
-        for ($i = 0, $tmpVar = $var; $i < self::COUNT_TEST; $i++, $tmpVar = $var) {
-            if (!is_string($tmpVar)) {
-                if (empty($tmpVar)) {
-                    $tmpVar = '';
-                } elseif (
-                    is_numeric($tmpVar) ||
-                    is_bool($tmpVar) ||
-                    is_resource($tmpVar) ||
-                    (is_object($tmpVar) && method_exists($tmpVar, '__toString'))
-                ) {
-                    $tmpVar = (string) $tmpVar;
-                } else {
-                    throw new \InvalidArgumentException('Can not cast $var to string');
-                }
             }
         }
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);

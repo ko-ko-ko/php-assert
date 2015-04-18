@@ -44,11 +44,6 @@ return [
             //
             'isString' => 1,
             'isNotString' => 0,
-            //
-            'toFloat' => 0,
-            'toInt' => 0,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // true
@@ -89,11 +84,6 @@ return [
             //
             'isString' => 1,
             'isNotString' => 0,
-            //
-            'toFloat' => 0,
-            'toInt' => 0,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // 10
@@ -134,11 +124,6 @@ return [
             //
             'isString' => 1,
             'isNotString' => 0,
-            //
-            'toFloat' => 0,
-            'toInt' => 0,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // '10'
@@ -179,11 +164,6 @@ return [
             //
             'isString' => 0,
             'isNotString' => 1,
-            //
-            'toFloat' => 0,
-            'toInt' => 0,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // '10.25'
@@ -224,11 +204,6 @@ return [
             //
             'isString' => 0,
             'isNotString' => 1,
-            //
-            'toFloat' => 0,
-            'toInt' => 0,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // tmpfile()
@@ -269,11 +244,6 @@ return [
             //
             'isString' => 1,
             'isNotString' => 0,
-            //
-            'toFloat' => 0,
-            'toInt' => 0,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // 'some_string'
@@ -314,11 +284,6 @@ return [
             //
             'isString' => 0,
             'isNotString' => 1,
-            //
-            'toFloat' => 1,
-            'toInt' => 1,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // 'email@example.com'
@@ -359,11 +324,6 @@ return [
             //
             'isString' => 0,
             'isNotString' => 1,
-            //
-            'toFloat' => 1,
-            'toInt' => 1,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // "a\t\r\n"
@@ -404,11 +364,6 @@ return [
             //
             'isString' => 0,
             'isNotString' => 1,
-            //
-            'toFloat' => 1,
-            'toInt' => 1,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // '{"a" : "b"}'
@@ -449,11 +404,6 @@ return [
             //
             'isString' => 0,
             'isNotString' => 1,
-            //
-            'toFloat' => 1,
-            'toInt' => 1,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // '{"a":"b"}'
@@ -494,11 +444,6 @@ return [
             //
             'isString' => 0,
             'isNotString' => 1,
-            //
-            'toFloat' => 1,
-            'toInt' => 1,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // 0
@@ -539,11 +484,6 @@ return [
             //
             'isString' => 1,
             'isNotString' => 0,
-            //
-            'toFloat' => 0,
-            'toInt' => 0,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // ''
@@ -570,7 +510,7 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 1,
+            'isJson' => 0,
             'isNotJson' => 1,
             //
             'isNumeric' => 1,
@@ -584,11 +524,6 @@ return [
             //
             'isString' => 0,
             'isNotString' => 1,
-            //
-            'toFloat' => 0,
-            'toInt' => 0,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // '01:02:03:a1:a2:a3'
@@ -629,11 +564,6 @@ return [
             //
             'isString' => 0,
             'isNotString' => 1,
-            //
-            'toFloat' => 1,
-            'toInt' => 1,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // 15.25
@@ -674,11 +604,6 @@ return [
             //
             'isString' => 1,
             'isNotString' => 0,
-            //
-            'toFloat' => 0,
-            'toInt' => 0,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // -8
@@ -719,11 +644,6 @@ return [
             //
             'isString' => 1,
             'isNotString' => 0,
-            //
-            'toFloat' => 0,
-            'toInt' => 0,
-            'toBool' => 0,
-            'toString' => 0,
         ]
     ],
 // [1, 2] -> 1
