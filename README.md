@@ -100,62 +100,44 @@ v::assert([], 'var')->notEmpty();
 
 #### isArray `Check if value is array`
 
-* Antipode: **notArray**
-
 ```php
 // OK
 v::assert([], 'var')->isArray();
-v::assert('5', 'var')->notArray();
 
 // EXCEPTION
 v::assert('5', 'var')->isArray();
-v::assert([], 'var')->notArray();
 ```
 
 #### bool `Check if value is bool`
 
-* Antipode: **notBool**
-
 ```php
 // OK
 v::assert(false, 'var')->bool();
-v::assert('5', 'var')->notBool();
 
 // EXCEPTION
 v::assert('5', 'var')->bool();
-v::assert(true, 'var')->notBool();
 ```
 
 #### float `Check if value is float`
 
-* Antipode: **notFloat**
-
 ```php
 // OK
 v::assert(15.2, 'var')->float();
-v::assert('15.2', 'var')->notFloat();
-v::assert([], 'var')->notFloat();
 
 // EXCEPTION
 v::assert('15.2', 'var')->float();
 v::assert([], 'var')->float();
-v::assert(15.2, 'var')->notFloat();
 ```
 
 #### int `Check if value is int`
 
-* Antipode: **notInt**
-
 ```php
 // OK
 v::assert(15, 'var')->int();
-v::assert(15.2, 'var')->notInt();
-v::assert([], 'var')->notInt();
 
 // EXCEPTION
 v::assert(15.2, 'var')->int();
 v::assert([], 'var')->int();
-v::assert(5, 'var')->notInt();
 ```
 
 #### numeric `Check if value is numeric`
@@ -184,30 +166,22 @@ v::assert(null, 'var')->notNull();
 
 #### string `Check if value is string`
 
-* Antipode: **notString**
-
 ```php
 // OK
 v::assert('5', 'var')->string();
-v::assert([], 'var')->notString();
 
 // EXCEPTION
 v::assert([], 'var')->string();
-v::assert('-5', 'var')->notString();
 ```
 
 #### resource `Check if value is resource`
 
-* Antipode: **notResource**
-
 ```php
 // OK
 v::assert(tmpfile(), 'var')->resource();
-v::assert(5, 'var')->notResource();
 
 // EXCEPTION
 v::assert(5, 'var')->resource();
-v::assert(tmpfile(), 'var')->notResource();
 ```
 
 -- --
@@ -231,6 +205,8 @@ v::assert(['a'], 'var')->inArray(['a', 'b']);
 
 // EXCEPTION
 v::assert(['c'], 'var')->inArray(['a', 'b']);
+
+// ----------
 
 // EXCEPTION: var MUST be array
 v::assert('a', 'var')->inArray(['a', 'b']);
@@ -258,6 +234,8 @@ v::assert('5', 'var')->digit();
 // EXCEPTION
 v::assert('c', 'var')->digit();
 
+// ----------
+
 // EXCEPTION: var MUST be string
 v::assert(5, 'var')->digit();
 ```
@@ -274,6 +252,8 @@ v::assert('a', 'var')->match('/a/');
 
 // EXCEPTION
 v::assert('b', 'var')->match('/a/');
+
+// ----------
 
 // EXCEPTION: pattern MUST be not empty
 v::assert('a', 'var')->match('');
@@ -293,6 +273,8 @@ v::assert('aa', 'var')->glob('a*');
 
 // EXCEPTION
 v::assert('bb', 'var')->glob('a*');
+
+// ----------
 
 // EXCEPTION: pattern MUST be not empty
 v::assert('a', 'var')->glob('');
@@ -316,6 +298,8 @@ v::assert('aa', 'var')->length(2);
 
 // EXCEPTION
 v::assert('bb', 'var')->length(5);
+
+// ----------
 
 // EXCEPTION: length MUST be int
 v::assert('a', 'var')->length(null);
@@ -397,10 +381,7 @@ v::assert(5, 'var')->lengthBetween(1);
 Number validators (int or float)
 --------------------------------
 
-All number validators run previously:
-
-* **numeric**
-* **notString**
+**All number MUST be int or float** 
 
 #### positive `Check if value is positive (not 0)`
 
@@ -416,6 +397,8 @@ v::assert(-1, 'var')->positive();
 v::assert(10, 'var')->positive();
 v::assert(0, 'var')->negative();
 v::assert(0, 'var')->negative();
+
+// ----------
 
 // EXCEPTION: var MUST be int or float
 v::assert('A', 'var')->positive();
@@ -440,6 +423,8 @@ v::assert(10, 'var')->more(5);
 // EXCEPTION
 v::assert(10, 'var')->less(5);
 v::assert(1, 'var')->more(2);
+
+// ----------
 
 // EXCEPTION: length MUST be int or float
 v::assert(1, 'var')->less(null);
@@ -503,7 +488,7 @@ v::assert('a', 'var')->toBool()->get();
 
 #### toFloat `Converts any type (except array) to float`
 
-Run previously: **notArray**
+**Value MUST NOT be array**
 
 ```php
 // RETURN 0.0
@@ -512,13 +497,15 @@ v::assert('a', 'var')->toFloat()->get();
 // RETURN -15.2
 v::assert('-15.2', 'var')->toFloat()->get();
 
+// ----------
+
 // EXCEPTION: var MUST NOT be array
 v::assert([], 'var')->toFloat()->get();
 ```
 
 #### toInt `Converts any type (except array) to int`
 
-Run previously: **notArray**
+**Value MUST NOT be array**
 
 ```php
 // RETURN 0
@@ -527,13 +514,15 @@ v::assert('a', 'var')->toInt()->get();
 // RETURN -15
 v::assert('-15.2', 'var')->toInt()->get();
 
+// ----------
+
 // EXCEPTION: var MUST NOT be array
 v::assert([], 'var')->toInt()->get();
 ```
 
 #### toString `Converts any type (except array) to string`
 
-Run previously: **notArray**
+**Value MUST NOT be array**
 
 ```php
 // RETURN ''
@@ -541,6 +530,8 @@ v::assert(false, 'var')->toString()->get();
 
 // RETURN '-15'
 v::assert(-15, 'var')->toString()->get();
+
+// ----------
 
 // EXCEPTION: var MUST NOT be array
 v::assert([], 'var')->toString()->get();
@@ -559,6 +550,3 @@ make test
 ```sh
 make benchmark
 ```
-
-[yii1-request]: https://github.com/yiisoft/yii/blob/master/framework/web/CHttpRequest.php
-[symfony-request]: https://github.com/symfony/HttpFoundation/blob/master/Request.php

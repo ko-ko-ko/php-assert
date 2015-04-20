@@ -293,21 +293,6 @@ class Variable
     }
 
     /**
-     * Check if value is not an array
-     *
-     * @return Variable
-     * @throws \Exception
-     */
-    public function notArray()
-    {
-        if (is_array($this->value)) {
-            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'array']);
-        }
-
-        return $this;
-    }
-
-    /**
      * Soft check that $from <= value <= $to
      *
      * @param float|int $from
@@ -397,21 +382,6 @@ class Variable
     }
 
     /**
-     * Check if value is not boolean (is_bool)
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function notBool()
-    {
-        if (is_bool($this->value)) {
-            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'bool']);
-        }
-
-        return $this;
-    }
-
-    /**
      * Check if value is digit (ctype_digit)
      *
      * @return Variable
@@ -476,21 +446,6 @@ class Variable
     }
 
     /**
-     * Check if value is not float (is_float)
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function notFloat()
-    {
-        if (is_float($this->value)) {
-            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'float']);
-        }
-
-        return $this;
-    }
-
-    /**
      * Check if value is integer (is_int)
      *
      * @return Variable
@@ -500,21 +455,6 @@ class Variable
     {
         if (!is_int($this->value)) {
             throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int']);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Check if value is not integer (is_int)
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function notInt()
-    {
-        if (is_int($this->value)) {
-            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
         }
 
         return $this;
@@ -777,21 +717,6 @@ class Variable
     }
 
     /**
-     * Check if value is not resource (is_resource)
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function notResource()
-    {
-        if (is_resource($this->value)) {
-            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'resource']);
-        }
-
-        return $this;
-    }
-
-    /**
      * Check if value is string (is_string)
      *
      * @return Variable
@@ -801,21 +726,6 @@ class Variable
     {
         if (!is_string($this->value)) {
             throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'string']);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Check if value is not string (is_string)
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function notString()
-    {
-        if (is_string($this->value)) {
-            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'string']);
         }
 
         return $this;
@@ -841,7 +751,9 @@ class Variable
      */
     public function toFloat()
     {
-        $this->notArray();
+        if (is_array($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'array']);
+        }
 
         $this->value = (float) $this->value;
 
@@ -856,7 +768,9 @@ class Variable
      */
     public function toInt()
     {
-        $this->notArray();
+        if (is_array($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'array']);
+        }
 
         $this->value = (int) $this->value;
 
@@ -871,7 +785,9 @@ class Variable
      */
     public function toString()
     {
-        $this->notArray();
+        if (is_array($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'array']);
+        }
 
         $this->value = (string) $this->value;
 

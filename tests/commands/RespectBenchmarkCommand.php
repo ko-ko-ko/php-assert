@@ -276,20 +276,6 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param array $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notBool($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::not(respect::bool())->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
      * @param string $var
      *
      * @throws \InvalidArgumentException
@@ -308,67 +294,11 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notFloat($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::not(respect::float())->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notInt($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::not(respect::int())->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
     public function notNull($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             respect::not(respect::nullValue())->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notResource($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::not(respect::type('resource'))->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param array $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notString($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::not(respect::string())->assert($var);
         }
         $this->stop(__FUNCTION__, self::TYPE_RESPECT);
     }

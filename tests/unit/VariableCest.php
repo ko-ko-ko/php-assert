@@ -467,22 +467,6 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notArray(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notBool(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function notEmpty(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -491,39 +475,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function notFloat(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notInt(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function notNull(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notResource(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function notString(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -618,6 +570,12 @@ class VariableCest
         $I->assertEquals(0.0, Variable::assert(false, 'var')->toFloat()->get());
         $I->assertEquals(15.2, Variable::assert('15.2', 'var')->toFloat()->get());
         $I->assertEquals(2.0, Variable::assert(2, 'var')->toFloat()->get());
+
+        try {
+            Variable::assert([], 'var')->toFloat();
+            $I->fail('Value must be not array');
+        } catch (\InvalidArgumentException $error) {
+        }
     }
 
     /**
@@ -633,6 +591,12 @@ class VariableCest
         $I->assertEquals(0, Variable::assert(false, 'var')->toInt()->get());
         $I->assertEquals(15, Variable::assert('15.2', 'var')->toInt()->get());
         $I->assertEquals(2, Variable::assert(2.1, 'var')->toInt()->get());
+
+        try {
+            Variable::assert([], 'var')->toInt();
+            $I->fail('Value must be not array');
+        } catch (\InvalidArgumentException $error) {
+        }
     }
 
     /**
@@ -646,6 +610,12 @@ class VariableCest
         $I->assertEquals('2.1', Variable::assert(2.1, 'var')->toString()->get());
         $I->assertEquals('', Variable::assert(null, 'var')->toString()->get());
         $I->assertEquals('', Variable::assert(false, 'var')->toString()->get());
+
+        try {
+            Variable::assert([], 'var')->toString();
+            $I->fail('Value must be not array');
+        } catch (\InvalidArgumentException $error) {
+        }
     }
 
     /**

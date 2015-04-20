@@ -744,42 +744,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param bool $var
-     *
-     * @return array
-     * @throws \InvalidArgumentException
-     */
-    public function notArray($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (
-                is_array($var) ||
-                ($var instanceof \ArrayAccess && $var instanceof \Traversable && $var instanceof \Countable)
-            ) {
-                throw new \InvalidArgumentException('var must be not array');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param array $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notBool($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (is_bool($var)) {
-                throw new \InvalidArgumentException('var must be not bool');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
      * @param string $var
      *
      * @throws \InvalidArgumentException
@@ -800,76 +764,12 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function notFloat($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (is_float($var)) {
-                throw new \InvalidArgumentException('var must be not float');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notInt($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (is_int($var)) {
-                throw new \InvalidArgumentException('var must be not int');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
     public function notNull($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (is_null($var)) {
                 throw new \InvalidArgumentException('var must be not null');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notResource($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (is_resource($var)) {
-                throw new \InvalidArgumentException('var must be not resource');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param array $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function notString($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (is_string($var)) {
-                throw new \InvalidArgumentException('var must be not string');
             }
         }
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);
