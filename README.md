@@ -95,7 +95,7 @@ v::assert('5', 'var')->isNotEmpty();
 
 // EXCEPTION
 v::assert('5', 'var')->isEmpty();
-v::assert('5', 'var')->isNotEmpty();
+v::assert([], 'var')->isNotEmpty();
 ```
 
 #### isArray `Check if value is array`
