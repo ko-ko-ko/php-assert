@@ -15,33 +15,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 0,
-            'isNotEmpty' => 1,
+            'notEmpty' => 1,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 1,
+            'numeric' => 1,
             //
             'isNull' => 0,
-            'isNotNull' => 1,
+            'notNull' => 1,
             //
-            'isPositive' => 1,
-            'isNegative' => 1,
+            'positive' => 1,
+            'negative' => 1,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 1,
+            'string' => 1,
             'isNotString' => 0,
         ]
     ],
@@ -54,33 +54,33 @@ return [
             'isArray' => 0,
             'isNotArray' => 1,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 0,
-            'isNotEmpty' => 1,
+            'notEmpty' => 1,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 1,
+            'numeric' => 1,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 1,
-            'isNegative' => 1,
+            'positive' => 1,
+            'negative' => 1,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 1,
+            'string' => 1,
             'isNotString' => 0,
         ]
     ],
@@ -93,33 +93,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 0,
+            'bool' => 0,
             'isNotBool' => 1,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 1,
+            'numeric' => 1,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 1,
-            'isNegative' => 1,
+            'positive' => 1,
+            'negative' => 1,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 1,
+            'string' => 1,
             'isNotString' => 0,
         ]
     ],
@@ -132,33 +132,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 0,
+            'int' => 0,
             'isNotInt' => 1,
             //
             //
-            'isNumeric' => 0,
+            'numeric' => 0,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 0,
-            'isNegative' => 1,
+            'positive' => 0,
+            'negative' => 1,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 1,
+            'string' => 1,
             'isNotString' => 0,
         ]
     ],
@@ -171,33 +171,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 0,
+            'digit' => 0,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 0,
+            'numeric' => 0,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 1,
-            'isNegative' => 1,
+            'positive' => 1,
+            'negative' => 1,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 0,
+            'string' => 0,
             'isNotString' => 1,
         ]
     ],
@@ -210,33 +210,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 0,
+            'numeric' => 0,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 1,
-            'isNegative' => 1,
+            'positive' => 1,
+            'negative' => 1,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 0,
+            'string' => 0,
             'isNotString' => 1,
         ]
     ],
@@ -249,33 +249,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 1,
+            'numeric' => 1,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 1,
-            'isNegative' => 1,
+            'positive' => 1,
+            'negative' => 1,
             //
-            'isResource' => 0,
+            'resource' => 0,
             'isNotResource' => 1,
             //
-            'isString' => 1,
+            'string' => 1,
             'isNotString' => 0,
         ]
     ],
@@ -288,33 +288,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 1,
+            'numeric' => 1,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 2,
-            'isNegative' => 2,
+            'positive' => 2,
+            'negative' => 2,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 0,
+            'string' => 0,
             'isNotString' => 1,
         ]
     ],
@@ -327,33 +327,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 1,
+            'numeric' => 1,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 2,
-            'isNegative' => 2,
+            'positive' => 2,
+            'negative' => 2,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 0,
+            'string' => 0,
             'isNotString' => 1,
         ]
     ],
@@ -366,33 +366,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 1,
+            'numeric' => 1,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 2,
-            'isNegative' => 2,
+            'positive' => 2,
+            'negative' => 2,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 0,
+            'string' => 0,
             'isNotString' => 1,
         ]
     ],
@@ -405,33 +405,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 1,
+            'numeric' => 1,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 2,
-            'isNegative' => 2,
+            'positive' => 2,
+            'negative' => 2,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 0,
+            'string' => 0,
             'isNotString' => 1,
         ]
     ],
@@ -444,33 +444,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 1,
+            'numeric' => 1,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 2,
-            'isNegative' => 2,
+            'positive' => 2,
+            'negative' => 2,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 0,
+            'string' => 0,
             'isNotString' => 1,
         ]
     ],
@@ -483,33 +483,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 0,
-            'isNotEmpty' => 1,
+            'notEmpty' => 1,
             //
-            'isInt' => 0,
+            'int' => 0,
             'isNotInt' => 1,
             //
             //
-            'isNumeric' => 0,
+            'numeric' => 0,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 1,
-            'isNegative' => 1,
+            'positive' => 1,
+            'negative' => 1,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 1,
+            'string' => 1,
             'isNotString' => 0,
         ]
     ],
@@ -522,33 +522,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 0,
-            'isNotEmpty' => 1,
+            'notEmpty' => 1,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 1,
+            'numeric' => 1,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 2,
-            'isNegative' => 2,
+            'positive' => 2,
+            'negative' => 2,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 0,
+            'string' => 0,
             'isNotString' => 1,
         ]
     ],
@@ -561,33 +561,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 1,
+            'numeric' => 1,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 2,
-            'isNegative' => 2,
+            'positive' => 2,
+            'negative' => 2,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 0,
+            'string' => 0,
             'isNotString' => 1,
         ]
     ],
@@ -600,33 +600,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 0,
+            'float' => 0,
             'isNotFloat' => 1,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 1,
+            'int' => 1,
             'isNotInt' => 0,
             //
             //
-            'isNumeric' => 0,
+            'numeric' => 0,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 0,
-            'isNegative' => 1,
+            'positive' => 0,
+            'negative' => 1,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 1,
+            'string' => 1,
             'isNotString' => 0,
         ]
     ],
@@ -639,33 +639,33 @@ return [
             'isArray' => 1,
             'isNotArray' => 0,
             //
-            'isBool' => 1,
+            'bool' => 1,
             'isNotBool' => 0,
             //
-            'isDigit' => 1,
+            'digit' => 1,
             //
-            'isFloat' => 1,
+            'float' => 1,
             'isNotFloat' => 0,
             //
             'isEmpty' => 1,
-            'isNotEmpty' => 0,
+            'notEmpty' => 0,
             //
-            'isInt' => 0,
+            'int' => 0,
             'isNotInt' => 1,
             //
             //
-            'isNumeric' => 0,
+            'numeric' => 0,
             //
             'isNull' => 1,
-            'isNotNull' => 0,
+            'notNull' => 0,
             //
-            'isPositive' => 1,
-            'isNegative' => 0,
+            'positive' => 1,
+            'negative' => 0,
             //
-            'isResource' => 1,
+            'resource' => 1,
             'isNotResource' => 0,
             //
-            'isString' => 1,
+            'string' => 1,
             'isNotString' => 0,
         ]
     ],
@@ -675,10 +675,10 @@ return [
         'arguments' => [[1, 2]],
         'value' => 1,
         'errors' => [
-            'hasLength' => 1,
-            'hasLengthMore' => 1,
-            'hasLengthLess' => 1,
-            'isInArray' => 0,
+            'length' => 1,
+            'lengthMore' => 1,
+            'lengthLess' => 1,
+            'inArray' => 0,
             'isNotInArray' => 1
         ]
     ],
@@ -688,10 +688,10 @@ return [
         'arguments' => [[1, 2]],
         'value' => 5,
         'errors' => [
-            'hasLength' => 1,
-            'hasLengthMore' => 1,
-            'hasLengthLess' => 1,
-            'isInArray' => 1,
+            'length' => 1,
+            'lengthMore' => 1,
+            'lengthLess' => 1,
+            'inArray' => 1,
             'isNotInArray' => 0
         ]
     ],
@@ -701,9 +701,9 @@ return [
         'arguments' => [4],
         'value' => 'abc',
         'errors' => [
-            'hasLength' => 1,
-            'hasLengthMore' => 1,
-            'hasLengthLess' => 0
+            'length' => 1,
+            'lengthMore' => 1,
+            'lengthLess' => 0
         ]
     ],
 // 'abcdef' -> length(6)
@@ -712,9 +712,9 @@ return [
         'arguments' => [6],
         'value' => 'abcdef',
         'errors' => [
-            'hasLength' => 0,
-            'hasLengthMore' => 0,
-            'hasLengthLess' => 0
+            'length' => 0,
+            'lengthMore' => 0,
+            'lengthLess' => 0
         ]
     ],
 // 'abcdefg' -> length(3)
@@ -723,9 +723,9 @@ return [
         'arguments' => [3],
         'value' => 'abcdefg',
         'errors' => [
-            'hasLength' => 1,
-            'hasLengthMore' => 0,
-            'hasLengthLess' => 1
+            'length' => 1,
+            'lengthMore' => 0,
+            'lengthLess' => 1
         ]
     ],
 // [] -> length(3)
@@ -734,9 +734,9 @@ return [
         'arguments' => [3],
         'value' => [],
         'errors' => [
-            'hasLength' => 2,
-            'hasLengthMore' => 2,
-            'hasLengthLess' => 1
+            'length' => 2,
+            'lengthMore' => 2,
+            'lengthLess' => 1
         ]
     ],
 // 'abc' -> length(2, 5)
@@ -745,7 +745,7 @@ return [
         'arguments' => [2, 5],
         'value' => 'abc',
         'errors' => [
-            'hasLengthBetween' => 0,
+            'lengthBetween' => 0,
         ]
     ],
 // 'abcdef' -> length(3, 4)
@@ -754,7 +754,7 @@ return [
         'arguments' => [3, 4],
         'value' => 'abcdef',
         'errors' => [
-            'hasLengthBetween' => 1,
+            'lengthBetween' => 1,
         ]
     ],
 // 'abcdef' -> length(6, 8)
@@ -763,7 +763,7 @@ return [
         'arguments' => [6, 8],
         'value' => 'abcdef',
         'errors' => [
-            'hasLengthBetween' => 0,
+            'lengthBetween' => 0,
         ]
     ],
 // 'abcdef' -> length(1, 6)
@@ -772,7 +772,7 @@ return [
         'arguments' => [1, 6],
         'value' => 'abcdef',
         'errors' => [
-            'hasLengthBetween' => 0,
+            'lengthBetween' => 0,
         ]
     ],
 // 'abcdef' -> length(1, 2)
@@ -781,7 +781,7 @@ return [
         'arguments' => [1, 2],
         'value' => 'abcdef',
         'errors' => [
-            'hasLengthBetween' => 1,
+            'lengthBetween' => 1,
         ]
     ],
 // [] -> length(6, 8)
@@ -790,7 +790,7 @@ return [
         'arguments' => [1, 2],
         'value' => [],
         'errors' => [
-            'hasLengthBetween' => 1,
+            'lengthBetween' => 1,
         ]
     ],
 // 5 ? (3)
@@ -799,10 +799,10 @@ return [
         'arguments' => [3],
         'value' => 5,
         'errors' => [
-            'isMore' => 0,
-            'isMoreStrict' => 0,
-            'isLess' => 1,
-            'isLessStrict' => 1
+            'more' => 0,
+            'moreStrict' => 0,
+            'less' => 1,
+            'lessStrict' => 1
         ]
     ],
 // 2.5 ? (2.5)
@@ -811,10 +811,10 @@ return [
         'arguments' => [2.5],
         'value' => 2.5,
         'errors' => [
-            'isMore' => 0,
-            'isMoreStrict' => 1,
-            'isLess' => 0,
-            'isLessStrict' => 1
+            'more' => 0,
+            'moreStrict' => 1,
+            'less' => 0,
+            'lessStrict' => 1
         ]
     ],
 // 1 ? (3)
@@ -823,10 +823,10 @@ return [
         'arguments' => [3],
         'value' => 1,
         'errors' => [
-            'isMore' => 1,
-            'isMoreStrict' => 1,
-            'isLess' => 0,
-            'isLessStrict' => 0
+            'more' => 1,
+            'moreStrict' => 1,
+            'less' => 0,
+            'lessStrict' => 0
         ]
     ],
 // 'a' ? (3)
@@ -835,10 +835,10 @@ return [
         'arguments' => [3],
         'value' => 'a',
         'errors' => [
-            'isMore' => 2,
-            'isMoreStrict' => 2,
-            'isLess' => 2,
-            'isLessStrict' => 2
+            'more' => 2,
+            'moreStrict' => 2,
+            'less' => 2,
+            'lessStrict' => 2
         ]
     ],
 // -3 ? (-5, 0)
@@ -847,8 +847,8 @@ return [
         'arguments' => [-5, 0],
         'value' => -3,
         'errors' => [
-            'isBetween' => 0,
-            'isBetweenStrict' => 0,
+            'between' => 0,
+            'betweenStrict' => 0,
         ]
     ],
 // 2 ? (0, 2)
@@ -857,8 +857,8 @@ return [
         'arguments' => [0, 2],
         'value' => 2,
         'errors' => [
-            'isBetween' => 0,
-            'isBetweenStrict' => 1,
+            'between' => 0,
+            'betweenStrict' => 1,
         ]
     ],
 // 1 ? (1, 7)
@@ -867,8 +867,8 @@ return [
         'arguments' => [1, 7],
         'value' => 1,
         'errors' => [
-            'isBetween' => 0,
-            'isBetweenStrict' => 1,
+            'between' => 0,
+            'betweenStrict' => 1,
         ]
     ],
 // 5 ? (10, 18)
@@ -877,8 +877,8 @@ return [
         'arguments' => [10, 18],
         'value' => 5,
         'errors' => [
-            'isBetween' => 1,
-            'isBetweenStrict' => 1,
+            'between' => 1,
+            'betweenStrict' => 1,
         ]
     ],
 // 'a' ? (10, 18)
@@ -887,8 +887,8 @@ return [
         'arguments' => [10, 18],
         'value' => 'a',
         'errors' => [
-            'isBetween' => 2,
-            'isBetweenStrict' => 2,
+            'between' => 2,
+            'betweenStrict' => 2,
         ]
     ],
 // 'some string' -> regexp '/some/'
@@ -897,8 +897,8 @@ return [
         'arguments' => ['/some/'],
         'value' => 'some string',
         'errors' => [
-            'isMatchRegExp' => 0,
-            'isMatchGlob' => 1,
+            'match' => 0,
+            'glob' => 1,
         ]
     ],
 // 'some string' -> regexp '/^\d$/'
@@ -907,8 +907,8 @@ return [
         'arguments' => ['/^\d$/'],
         'value' => 'some string',
         'errors' => [
-            'isMatchRegExp' => 1,
-            'isMatchGlob' => 1,
+            'match' => 1,
+            'glob' => 1,
         ]
     ],
 // 'some string' -> glob 'some*'
@@ -917,8 +917,8 @@ return [
         'arguments' => ['some*'],
         'value' => 'some string',
         'errors' => [
-            'isMatchRegExp' => 1,
-            'isMatchGlob' => 0,
+            'match' => 1,
+            'glob' => 0,
         ]
     ],
 // 'not string' -> glob 'some*'
@@ -927,8 +927,8 @@ return [
         'arguments' => ['some*'],
         'value' => 'not string',
         'errors' => [
-            'isMatchRegExp' => 1,
-            'isMatchGlob' => 1,
+            'match' => 1,
+            'glob' => 1,
         ]
     ],
 ];

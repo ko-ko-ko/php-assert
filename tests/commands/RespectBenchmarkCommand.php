@@ -29,7 +29,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function hasLength($var, $length)
+    public function length($var, $length)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {
@@ -45,7 +45,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function hasLengthBetween($var, $from, $to)
+    public function lengthBetween($var, $from, $to)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {
@@ -60,7 +60,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function hasLengthLess($var, $value)
+    public function lengthLess($var, $value)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {
@@ -75,7 +75,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function hasLengthMore($var, $value)
+    public function lengthMore($var, $value)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {
@@ -105,7 +105,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isBetween($var, $from, $to)
+    public function between($var, $from, $to)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -121,7 +121,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isBetweenStrict($var, $from, $to)
+    public function betweenStrict($var, $from, $to)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -135,7 +135,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isBool($var)
+    public function bool($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -149,7 +149,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isDigit($var)
+    public function digit($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -163,7 +163,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isFloat($var)
+    public function float($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -178,7 +178,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isInArray($var, $array)
+    public function inArray($var, $array)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -192,7 +192,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isInt($var)
+    public function int($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -207,7 +207,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isLess($var, $value)
+    public function less($var, $value)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {
@@ -222,7 +222,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isLessStrict($var, $value)
+    public function lessStrict($var, $value)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {
@@ -237,7 +237,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isMore($var, $value)
+    public function more($var, $value)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {
@@ -252,7 +252,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isMoreStrict($var, $value)
+    public function moreStrict($var, $value)
     {
         $this->start();
         for ($j = 0; $j < self::COUNT_TEST; $j++) {
@@ -266,7 +266,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isNegative($var)
+    public function negative($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -294,7 +294,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isNotEmpty($var)
+    public function notEmpty($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -351,7 +351,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isNotNull($var)
+    public function notNull($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -407,7 +407,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isNumeric($var)
+    public function numeric($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -421,7 +421,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isPositive($var)
+    public function positive($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -435,7 +435,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isResource($var)
+    public function resource($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -449,7 +449,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isString($var)
+    public function string($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
