@@ -12,11 +12,7 @@ namespace index0h\validator;
  */
 class Variable
 {
-    const EXCEPTION_CAST_TEXT = 'Can not cast ${{variable}} to {{type}}';
-
     const EXCEPTION_CLASS = '\InvalidArgumentException';
-
-    const EXCEPTION_LENGTH_TEXT_NEGATIVE = '${{variable}} must have not length {{value}}';
 
     const EXCEPTION_LENGTH_TEXT_POSITIVE = '${{variable}} must have length {{value}}';
 
@@ -24,17 +20,13 @@ class Variable
 
     const EXCEPTION_TYPE_TEXT_POSITIVE = 'Param ${{variable}} must be {{type}}';
 
-    const EXCEPTION_VALUE_IN_ARRAY_NEGATIVE = '${{variable}} must be not in range {{value}}';
-
     const EXCEPTION_VALUE_IN_ARRAY_POSITIVE = '${{variable}} out of range {{value}}';
 
     const EXCEPTION_VALUE_TEXT_NEGATIVE = 'Param ${{variable}} must be not {{value}}';
 
     const EXCEPTION_VALUE_TEXT_POSITIVE = 'Param ${{variable}} must be {{value}}';
 
-    const EXCEPTION_VALUE_REG_EXP_NEGATIVE = 'Param ${{variable}} must apply pattern {{pattern}}';
-
-    const EXCEPTION_VALUE_REG_EXP_POSITIVE = 'Param ${{variable}} must not apply pattern {{pattern}}';
+    const EXCEPTION_VALUE_PATTERN_POSITIVE = 'Param ${{variable}} must apply pattern {{pattern}}';
 
     /** @var Variable */
     protected static $validator;
@@ -424,7 +416,7 @@ class Variable
     public function notEmpty()
     {
         if (empty($this->value)) {
-            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'empty']);
+            throw $this->buildException(self::EXCEPTION_VALUE_TEXT_NEGATIVE, ['{{type}}' => 'empty']);
         }
 
         return $this;
@@ -587,7 +579,7 @@ class Variable
         }
 
         if ($checkResult === 0) {
-            throw $this->buildException(self::EXCEPTION_VALUE_REG_EXP_POSITIVE, ['{{pattern}}' => $pattern]);
+            throw $this->buildException(self::EXCEPTION_VALUE_PATTERN_POSITIVE, ['{{pattern}}' => $pattern]);
         }
 
         return $this;
@@ -612,7 +604,7 @@ class Variable
         }
 
         if (!fnmatch($pattern, $this->value)) {
-            throw $this->buildException(self::EXCEPTION_VALUE_REG_EXP_NEGATIVE, ['{{pattern}}' => $pattern]);
+            throw $this->buildException(self::EXCEPTION_VALUE_PATTERN_POSITIVE, ['{{pattern}}' => $pattern]);
         }
 
         return $this;
