@@ -100,62 +100,62 @@ v::assert([], 'var')->notEmpty();
 
 #### isArray `Check if value is array`
 
-* Antipode: **isNotArray**
+* Antipode: **notArray**
 
 ```php
 // OK
 v::assert([], 'var')->isArray();
-v::assert('5', 'var')->isNotArray();
+v::assert('5', 'var')->notArray();
 
 // EXCEPTION
 v::assert('5', 'var')->isArray();
-v::assert([], 'var')->isNotArray();
+v::assert([], 'var')->notArray();
 ```
 
 #### bool `Check if value is bool`
 
-* Antipode: **isNotBool**
+* Antipode: **notBool**
 
 ```php
 // OK
 v::assert(false, 'var')->bool();
-v::assert('5', 'var')->isNotBool();
+v::assert('5', 'var')->notBool();
 
 // EXCEPTION
 v::assert('5', 'var')->bool();
-v::assert(true, 'var')->isNotBool();
+v::assert(true, 'var')->notBool();
 ```
 
 #### float `Check if value is float`
 
-* Antipode: **isNotFloat**
+* Antipode: **notFloat**
 
 ```php
 // OK
 v::assert(15.2, 'var')->float();
-v::assert('15.2', 'var')->isNotFloat();
-v::assert([], 'var')->isNotFloat();
+v::assert('15.2', 'var')->notFloat();
+v::assert([], 'var')->notFloat();
 
 // EXCEPTION
 v::assert('15.2', 'var')->float();
 v::assert([], 'var')->float();
-v::assert(15.2, 'var')->isNotFloat();
+v::assert(15.2, 'var')->notFloat();
 ```
 
 #### int `Check if value is int`
 
-* Antipode: **isNotInt**
+* Antipode: **notInt**
 
 ```php
 // OK
 v::assert(15, 'var')->int();
-v::assert(15.2, 'var')->isNotInt();
-v::assert([], 'var')->isNotInt();
+v::assert(15.2, 'var')->notInt();
+v::assert([], 'var')->notInt();
 
 // EXCEPTION
 v::assert(15.2, 'var')->int();
 v::assert([], 'var')->int();
-v::assert(5, 'var')->isNotInt();
+v::assert(5, 'var')->notInt();
 ```
 
 #### numeric `Check if value is numeric`
@@ -184,30 +184,30 @@ v::assert(null, 'var')->notNull();
 
 #### string `Check if value is string`
 
-* Antipode: **isNotString**
+* Antipode: **notString**
 
 ```php
 // OK
 v::assert('5', 'var')->string();
-v::assert([], 'var')->isNotString();
+v::assert([], 'var')->notString();
 
 // EXCEPTION
 v::assert([], 'var')->string();
-v::assert('-5', 'var')->isNotString();
+v::assert('-5', 'var')->notString();
 ```
 
 #### resource `Check if value is resource`
 
-* Antipode: **isNotResource**
+* Antipode: **notResource**
 
 ```php
 // OK
 v::assert(tmpfile(), 'var')->resource();
-v::assert(5, 'var')->isNotResource();
+v::assert(5, 'var')->notResource();
 
 // EXCEPTION
 v::assert(5, 'var')->resource();
-v::assert(tmpfile(), 'var')->isNotResource();
+v::assert(tmpfile(), 'var')->notResource();
 ```
 
 -- --
@@ -509,7 +509,7 @@ v::assert('a', 'var')->toBool()->get();
 
 #### toFloat `Converts any type (except array) to float`
 
-Run previously: **isNotArray**
+Run previously: **notArray**
 
 ```php
 // RETURN 0.0
@@ -524,7 +524,7 @@ v::assert([], 'var')->toFloat()->get();
 
 #### toInt `Converts any type (except array) to int`
 
-Run previously: **isNotArray**
+Run previously: **notArray**
 
 ```php
 // RETURN 0
@@ -539,7 +539,7 @@ v::assert([], 'var')->toInt()->get();
 
 #### toString `Converts any type (except array) to string`
 
-Run previously: **isNotArray**
+Run previously: **notArray**
 
 ```php
 // RETURN ''

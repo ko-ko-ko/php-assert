@@ -467,7 +467,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isNotArray(\UnitTester $I)
+    public function notArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -475,7 +475,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isNotBool(\UnitTester $I)
+    public function notBool(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -491,7 +491,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isNotFloat(\UnitTester $I)
+    public function notFloat(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -507,7 +507,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isNotInt(\UnitTester $I)
+    public function notInt(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -523,7 +523,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isNotResource(\UnitTester $I)
+    public function notResource(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -531,7 +531,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isNotString(\UnitTester $I)
+    public function notString(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -664,7 +664,9 @@ class VariableCest
      */
     protected function check(\UnitTester $I, $methodName)
     {
-        $I->wantToTest($methodName);
+        $methodNameSplit = implode(' ', preg_split('/(?=[A-Z])/', $methodName));
+
+        $I->wantToTest($methodNameSplit);
         $fixtures = $I->getFixturesForMethod($methodName);
 
         foreach ($fixtures as $fixture) {

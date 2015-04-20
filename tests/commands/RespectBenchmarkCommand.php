@@ -280,7 +280,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isNotBool($var)
+    public function notBool($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -308,7 +308,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isNotFloat($var)
+    public function notFloat($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -337,7 +337,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isNotInt($var)
+    public function notInt($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -365,7 +365,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isNotResource($var)
+    public function notResource($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
@@ -379,7 +379,7 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isNotString($var)
+    public function notString($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
