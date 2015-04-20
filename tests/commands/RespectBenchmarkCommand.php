@@ -319,21 +319,6 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
-     * @param array  $array
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isNotInArray($var, $array)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            respect::not(respect::in($array))->assert($var);
-        }
-        $this->stop(__FUNCTION__, self::TYPE_RESPECT);
-    }
-
-    /**
-     * @param string $var
      *
      * @throws \InvalidArgumentException
      */

@@ -679,7 +679,6 @@ return [
             'lengthMore' => 1,
             'lengthLess' => 1,
             'inArray' => 0,
-            'isNotInArray' => 1
         ]
     ],
 // [1, 2] -> 5
@@ -692,7 +691,6 @@ return [
             'lengthMore' => 1,
             'lengthLess' => 1,
             'inArray' => 1,
-            'isNotInArray' => 0
         ]
     ],
 // 'abc' -> length(4)

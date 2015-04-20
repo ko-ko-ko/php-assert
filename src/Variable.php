@@ -148,7 +148,9 @@ class Variable
             throw new \InvalidArgumentException('Param $length must be more than 0');
         }
 
-        $this->string();
+        if (!is_string($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'string']);
+        }
 
         if (mb_strlen($this->value) !== $length) {
             throw $this->buildException(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => $length]);
@@ -184,7 +186,9 @@ class Variable
             throw new \InvalidArgumentException('Param $from must be more than 0');
         }
 
-        $this->string();
+        if (!is_string($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'string']);
+        }
 
         $length = mb_strlen($this->value);
 
@@ -216,7 +220,9 @@ class Variable
             throw new \InvalidArgumentException('Param $length must be more than 0');
         }
 
-        $this->string();
+        if (!is_string($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'string']);
+        }
 
         if (mb_strlen($this->value) > $length) {
             throw $this->buildException(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $length]);
@@ -243,7 +249,9 @@ class Variable
             throw new \InvalidArgumentException('Param $length must be more than 0');
         }
 
-        $this->notEmpty()->string();
+        if (!is_string($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'string']);
+        }
 
         if (mb_strlen($this->value) < $length) {
             throw $this->buildException(self::EXCEPTION_LENGTH_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $length]);
@@ -264,23 +272,6 @@ class Variable
     {
         if (!in_array($this->value, $range, true)) {
             throw $this->buildException(self::EXCEPTION_VALUE_IN_ARRAY_POSITIVE, ['{{type}}' => 'array']);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Check if value is not in array (in_array strict)
-     *
-     * @param array $range
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function isNotInArray(array $range)
-    {
-        if (in_array($this->value, $range, true)) {
-            throw $this->buildException(self::EXCEPTION_VALUE_IN_ARRAY_NEGATIVE, ['{{type}}' => 'array']);
         }
 
         return $this;
@@ -339,7 +330,9 @@ class Variable
             throw new \InvalidArgumentException('Param $from must be less than $to');
         }
 
-        $this->numeric()->notString();
+        if (!is_int($this->value) && !is_float($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int or float']);
+        }
 
         if ($this->value < $from || $this->value > $to) {
             throw $this->buildException(
@@ -374,7 +367,9 @@ class Variable
             throw new \InvalidArgumentException('Param $from must be less than $to');
         }
 
-        $this->numeric()->notString();
+        if (!is_int($this->value) && !is_float($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int or float']);
+        }
 
         if ($this->value <= $from || $this->value >= $to) {
             throw $this->buildException(
@@ -424,7 +419,9 @@ class Variable
      */
     public function digit()
     {
-        $this->string();
+        if (!is_string($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'string']);
+        }
 
         if (!ctype_digit($this->value)) {
             throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'digit']);
@@ -538,7 +535,9 @@ class Variable
             throw new \InvalidArgumentException('Param $number must be int or float');
         }
 
-        $this->numeric()->notString();
+        if (!is_int($this->value) && !is_float($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int or float']);
+        }
 
         if ($this->value > $number) {
             throw $this->buildException(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'less than ' . $number]);
@@ -561,7 +560,9 @@ class Variable
             throw new \InvalidArgumentException('Param $number must be int or float');
         }
 
-        $this->numeric()->notString();
+        if (!is_int($this->value) && !is_float($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int or float']);
+        }
 
         if ($this->value < $number) {
             throw $this->buildException(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $number]);
@@ -584,7 +585,9 @@ class Variable
             throw new \InvalidArgumentException('Param $number must be int or float');
         }
 
-        $this->numeric()->notString();
+        if (!is_int($this->value) && !is_float($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int or float']);
+        }
 
         if ($this->value >= $number) {
             throw $this->buildException(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'less than ' . $number]);
@@ -607,7 +610,9 @@ class Variable
             throw new \InvalidArgumentException('Param $number must be int or float');
         }
 
-        $this->numeric()->notString();
+        if (!is_int($this->value) && !is_float($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int or float']);
+        }
 
         if ($this->value <= $number) {
             throw $this->buildException(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'more than ' . $number]);
@@ -681,7 +686,9 @@ class Variable
      */
     public function negative()
     {
-        $this->numeric()->notString();
+        if (!is_int($this->value) && !is_float($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int or float']);
+        }
 
         if ($this->value >= 0) {
             throw $this->buildException(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'negative']);
@@ -698,7 +705,9 @@ class Variable
      */
     public function positive()
     {
-        $this->numeric()->notString();
+        if (!is_int($this->value) && !is_float($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int or float']);
+        }
 
         if ($this->value <= 0) {
             throw $this->buildException(self::EXCEPTION_VALUE_TEXT_POSITIVE, ['{{value}}' => 'positive']);

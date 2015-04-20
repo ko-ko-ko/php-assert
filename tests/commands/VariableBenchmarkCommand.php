@@ -813,27 +813,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
 
     /**
      * @param string $var
-     * @param array  $array
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isNotInArray($var, $array)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!is_array($array)) {
-                throw new \InvalidArgumentException('argument must be an array');
-            }
-
-            if (in_array($var, $array)) {
-                throw new \InvalidArgumentException('var must be in not array');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
      *
      * @throws \InvalidArgumentException
      */

@@ -221,8 +221,6 @@ All array validators run previously:
 
 #### inArray($range) `Check if value is in array $range`
 
-* Antipode: **notInArray**
-
 Arguments:
 
 * `$range` MUST be array
@@ -230,19 +228,15 @@ Arguments:
 ```php
 // OK
 v::assert(['a'], 'var')->inArray(['a', 'b']);
-v::assert(5, 'var')->notInArray();
 
 // EXCEPTION
 v::assert(['c'], 'var')->inArray(['a', 'b']);
-v::assert(['a'], 'var')->notInArray(['a', 'b']);
 
 // EXCEPTION: var MUST be array
 v::assert('a', 'var')->inArray(['a', 'b']);
-v::assert('a', 'var')->notInArray(['a', 'b']);
 
 // EXCEPTION: $range MUST be array
 v::assert(['a'], 'var')->inArray('a');
-v::assert(['a'], 'var')->notInArray('a');
 ```
 
 -- --

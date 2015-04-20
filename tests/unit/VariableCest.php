@@ -499,14 +499,6 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isNotInArray(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function notInt(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
