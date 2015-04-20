@@ -192,7 +192,7 @@ v::assert('5', 'var')->string();
 v::assert([], 'var')->isNotString();
 
 // EXCEPTION
-v::assert([]', 'var')->string();
+v::assert([], 'var')->string();
 v::assert('-5', 'var')->isNotString();
 ```
 
