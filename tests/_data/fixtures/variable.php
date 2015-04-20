@@ -19,7 +19,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -30,11 +29,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 2,
-            'isNotJson' => 2,
             //
             'isNumeric' => 1,
-            'isNotNumeric' => 0,
             //
             'isNull' => 0,
             'isNotNull' => 1,
@@ -62,7 +58,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -73,11 +68,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 2,
-            'isNotJson' => 2,
             //
             'isNumeric' => 1,
-            'isNotNumeric' => 0,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -105,7 +97,6 @@ return [
             'isNotBool' => 1,
             //
             'isDigit' => 1,
-            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -116,11 +107,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 1,
-            'isNotJson' => 1,
             //
             'isNumeric' => 1,
-            'isNotNumeric' => 0,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -148,7 +136,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -159,11 +146,8 @@ return [
             'isInt' => 0,
             'isNotInt' => 1,
             //
-            'isJson' => 1,
-            'isNotJson' => 1,
             //
             'isNumeric' => 0,
-            'isNotNumeric' => 1,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -191,7 +175,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 0,
-            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -202,11 +185,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 0,
-            'isNotJson' => 1,
             //
             'isNumeric' => 0,
-            'isNotNumeric' => 1,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -234,7 +214,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -245,11 +224,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 0,
-            'isNotJson' => 1,
             //
             'isNumeric' => 0,
-            'isNotNumeric' => 1,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -277,7 +253,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -288,11 +263,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 1,
-            'isNotJson' => 1,
             //
             'isNumeric' => 1,
-            'isNotNumeric' => 0,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -320,7 +292,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -331,11 +302,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 1,
-            'isNotJson' => 0,
             //
             'isNumeric' => 1,
-            'isNotNumeric' => 0,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -363,7 +331,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -374,11 +341,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 1,
-            'isNotJson' => 0,
             //
             'isNumeric' => 1,
-            'isNotNumeric' => 0,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -406,7 +370,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -417,11 +380,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 1,
-            'isNotJson' => 0,
             //
             'isNumeric' => 1,
-            'isNotNumeric' => 0,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -449,7 +409,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -460,11 +419,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 0,
-            'isNotJson' => 1,
             //
             'isNumeric' => 1,
-            'isNotNumeric' => 0,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -492,7 +448,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -503,11 +458,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 0,
-            'isNotJson' => 1,
             //
             'isNumeric' => 1,
-            'isNotNumeric' => 0,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -535,7 +487,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -546,11 +497,8 @@ return [
             'isInt' => 0,
             'isNotInt' => 1,
             //
-            'isJson' => 2,
-            'isNotJson' => 2,
             //
             'isNumeric' => 0,
-            'isNotNumeric' => 1,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -578,7 +526,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -589,11 +536,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 0,
-            'isNotJson' => 1,
             //
             'isNumeric' => 1,
-            'isNotNumeric' => 0,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -621,7 +565,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 0,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -632,11 +575,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 1,
-            'isNotJson' => 0,
             //
             'isNumeric' => 1,
-            'isNotNumeric' => 0,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -664,7 +604,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 1,
             //
             'isFloat' => 0,
             'isNotFloat' => 1,
@@ -675,11 +614,8 @@ return [
             'isInt' => 1,
             'isNotInt' => 0,
             //
-            'isJson' => 1,
-            'isNotJson' => 1,
             //
             'isNumeric' => 0,
-            'isNotNumeric' => 1,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -707,7 +643,6 @@ return [
             'isNotBool' => 0,
             //
             'isDigit' => 1,
-            'isNotDigit' => 1,
             //
             'isFloat' => 1,
             'isNotFloat' => 0,
@@ -718,11 +653,8 @@ return [
             'isInt' => 0,
             'isNotInt' => 1,
             //
-            'isJson' => 1,
-            'isNotJson' => 1,
             //
             'isNumeric' => 0,
-            'isNotNumeric' => 1,
             //
             'isNull' => 1,
             'isNotNull' => 0,
@@ -744,7 +676,6 @@ return [
         'value' => 1,
         'errors' => [
             'hasLength' => 1,
-            'hasLengthNot' => 1,
             'hasLengthMore' => 1,
             'hasLengthLess' => 1,
             'isInArray' => 0,
@@ -758,7 +689,6 @@ return [
         'value' => 5,
         'errors' => [
             'hasLength' => 1,
-            'hasLengthNot' => 1,
             'hasLengthMore' => 1,
             'hasLengthLess' => 1,
             'isInArray' => 1,
@@ -772,7 +702,6 @@ return [
         'value' => 'abc',
         'errors' => [
             'hasLength' => 1,
-            'hasLengthNot' => 0,
             'hasLengthMore' => 1,
             'hasLengthLess' => 0
         ]
@@ -784,7 +713,6 @@ return [
         'value' => 'abcdef',
         'errors' => [
             'hasLength' => 0,
-            'hasLengthNot' => 1,
             'hasLengthMore' => 0,
             'hasLengthLess' => 0
         ]
@@ -796,7 +724,6 @@ return [
         'value' => 'abcdefg',
         'errors' => [
             'hasLength' => 1,
-            'hasLengthNot' => 0,
             'hasLengthMore' => 0,
             'hasLengthLess' => 1
         ]
@@ -808,7 +735,6 @@ return [
         'value' => [],
         'errors' => [
             'hasLength' => 2,
-            'hasLengthNot' => 1,
             'hasLengthMore' => 2,
             'hasLengthLess' => 1
         ]
@@ -820,7 +746,6 @@ return [
         'value' => 'abc',
         'errors' => [
             'hasLengthBetween' => 0,
-            'hasLengthNotBetween' => 1
         ]
     ],
 // 'abcdef' -> length(3, 4)
@@ -830,7 +755,6 @@ return [
         'value' => 'abcdef',
         'errors' => [
             'hasLengthBetween' => 1,
-            'hasLengthNotBetween' => 0
         ]
     ],
 // 'abcdef' -> length(6, 8)
@@ -840,7 +764,6 @@ return [
         'value' => 'abcdef',
         'errors' => [
             'hasLengthBetween' => 0,
-            'hasLengthNotBetween' => 0
         ]
     ],
 // 'abcdef' -> length(1, 6)
@@ -850,7 +773,6 @@ return [
         'value' => 'abcdef',
         'errors' => [
             'hasLengthBetween' => 0,
-            'hasLengthNotBetween' => 0
         ]
     ],
 // 'abcdef' -> length(1, 2)
@@ -860,7 +782,6 @@ return [
         'value' => 'abcdef',
         'errors' => [
             'hasLengthBetween' => 1,
-            'hasLengthNotBetween' => 0
         ]
     ],
 // [] -> length(6, 8)
@@ -870,7 +791,6 @@ return [
         'value' => [],
         'errors' => [
             'hasLengthBetween' => 1,
-            'hasLengthNotBetween' => 1
         ]
     ],
 // 5 ? (3)
@@ -929,8 +849,6 @@ return [
         'errors' => [
             'isBetween' => 0,
             'isBetweenStrict' => 0,
-            'isNotBetween' => 1,
-            'isNotBetweenStrict' => 1
         ]
     ],
 // 2 ? (0, 2)
@@ -941,8 +859,6 @@ return [
         'errors' => [
             'isBetween' => 0,
             'isBetweenStrict' => 1,
-            'isNotBetween' => 0,
-            'isNotBetweenStrict' => 1
         ]
     ],
 // 1 ? (1, 7)
@@ -953,8 +869,6 @@ return [
         'errors' => [
             'isBetween' => 0,
             'isBetweenStrict' => 1,
-            'isNotBetween' => 0,
-            'isNotBetweenStrict' => 1
         ]
     ],
 // 5 ? (10, 18)
@@ -965,8 +879,6 @@ return [
         'errors' => [
             'isBetween' => 1,
             'isBetweenStrict' => 1,
-            'isNotBetween' => 0,
-            'isNotBetweenStrict' => 0
         ]
     ],
 // 'a' ? (10, 18)
@@ -977,8 +889,6 @@ return [
         'errors' => [
             'isBetween' => 2,
             'isBetweenStrict' => 2,
-            'isNotBetween' => 2,
-            'isNotBetweenStrict' => 2
         ]
     ],
 // 'some string' -> regexp '/some/'
@@ -988,9 +898,7 @@ return [
         'value' => 'some string',
         'errors' => [
             'isMatchRegExp' => 0,
-            'isNotMatchRegExp' => 1,
             'isMatchGlob' => 1,
-            'isNotMatchGlob' => 0
         ]
     ],
 // 'some string' -> regexp '/^\d$/'
@@ -1000,9 +908,7 @@ return [
         'value' => 'some string',
         'errors' => [
             'isMatchRegExp' => 1,
-            'isNotMatchRegExp' => 0,
             'isMatchGlob' => 1,
-            'isNotMatchGlob' => 0
         ]
     ],
 // 'some string' -> glob 'some*'
@@ -1012,9 +918,7 @@ return [
         'value' => 'some string',
         'errors' => [
             'isMatchRegExp' => 1,
-            'isNotMatchRegExp' => 1,
             'isMatchGlob' => 0,
-            'isNotMatchGlob' => 1
         ]
     ],
 // 'not string' -> glob 'some*'
@@ -1024,9 +928,7 @@ return [
         'value' => 'not string',
         'errors' => [
             'isMatchRegExp' => 1,
-            'isNotMatchRegExp' => 1,
             'isMatchGlob' => 1,
-            'isNotMatchGlob' => 0
         ]
     ],
 ];

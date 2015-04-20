@@ -186,20 +186,6 @@ class BeberleiBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isJson($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            beberlei\that($var)->isJsonString();
-        }
-        $this->stop(__FUNCTION__, self::TYPE_BEBERLEI);
-    }
-
-    /**
      * @param string    $var
      * @param int|float $value
      *

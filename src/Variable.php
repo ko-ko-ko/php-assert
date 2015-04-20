@@ -158,31 +158,6 @@ class Variable
     }
 
     /**
-     * @param int $length
-     *
-     * @return $this
-     * @throws \InvalidArgumentException
-     */
-    public function hasLengthNot($length)
-    {
-        if (!is_int($length)) {
-            throw new \InvalidArgumentException('Param $length must be int');
-        }
-
-        if ($length < 0) {
-            throw new \InvalidArgumentException('Param $length must be more than 0');
-        }
-
-        $this->isString();
-
-        if (mb_strlen($this->value) === $length) {
-            throw $this->buildException(self::EXCEPTION_LENGTH_TEXT_NEGATIVE, ['{{value}}' => $length]);
-        }
-
-        return $this;
-    }
-
-    /**
      * Soft check if value has length $from <= $length <= to. Runs only after isString validation
      *
      * @param int $from
@@ -216,47 +191,6 @@ class Variable
         if ($length < $from || $length > $to) {
             throw $this->buildException(
                 self::EXCEPTION_LENGTH_TEXT_POSITIVE,
-                ['{{value}}' => 'between ' . $from . ' and ' . $to]
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * Soft check if value has length $length <= $from or $length >= to. Runs only after isString validation
-     *
-     * @param int $from
-     * @param int $to
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function hasLengthNotBetween($from, $to)
-    {
-        if (!is_int($from)) {
-            throw new \InvalidArgumentException('Param $from must be int');
-        }
-
-        if (!is_int($to)) {
-            throw new \InvalidArgumentException('Param $to must be int');
-        }
-
-        if ($from > $to) {
-            throw new \InvalidArgumentException('Param $from must be less than $to');
-        }
-
-        if ($from < 0) {
-            throw new \InvalidArgumentException('Param $from must be more than 0');
-        }
-
-        $this->isString();
-
-        $length = mb_strlen($this->value);
-
-        if ($length > $from && $length < $to) {
-            throw $this->buildException(
-                self::EXCEPTION_LENGTH_TEXT_NEGATIVE,
                 ['{{value}}' => 'between ' . $from . ' and ' . $to]
             );
         }
@@ -418,41 +352,6 @@ class Variable
     }
 
     /**
-     * Soft check that value $from >= or $to <= value
-     *
-     * @param float|int $from
-     * @param float|int $to
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function isNotBetween($from, $to)
-    {
-        if (!is_int($from) && !is_float($from)) {
-            throw new \InvalidArgumentException('Param $from must be int or float');
-        }
-
-        if (!is_int($to) && !is_float($to)) {
-            throw new \InvalidArgumentException('Param $to must be int or float');
-        }
-
-        if ($from > $to) {
-            throw new \InvalidArgumentException('Param $from must be less than $to');
-        }
-
-        $this->isNumeric()->isNotString();
-
-        if ($this->value > $from && $this->value < $to) {
-            throw $this->buildException(
-                self::EXCEPTION_VALUE_TEXT_NEGATIVE,
-                ['{{value}}' => 'between ' . $from . ' and ' . $to]
-            );
-        }
-
-        return $this;
-    }
-
-    /**
      * Strict check that $from < value < $to
      *
      * @param float|int $from
@@ -480,42 +379,6 @@ class Variable
         if ($this->value <= $from || $this->value >= $to) {
             throw $this->buildException(
                 self::EXCEPTION_VALUE_TEXT_POSITIVE,
-                ['{{value}}' => 'between ' . $from . ' and ' . $to]
-            );
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Soft check that value $from > or $to < value
-     *
-     * @param float|int $from
-     * @param float|int $to
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function isNotBetweenStrict($from, $to)
-    {
-        if (!is_int($from) && !is_float($from)) {
-            throw new \InvalidArgumentException('Param $from must be int or float');
-        }
-
-        if (!is_int($to) && !is_float($to)) {
-            throw new \InvalidArgumentException('Param $to must be int or float');
-        }
-
-        if ($from > $to) {
-            throw new \InvalidArgumentException('Param $from must be less than $to');
-        }
-
-        $this->isNumeric()->isNotString();
-
-        if ($this->value >= $from && $this->value <= $to) {
-            throw $this->buildException(
-                self::EXCEPTION_VALUE_TEXT_NEGATIVE,
                 ['{{value}}' => 'between ' . $from . ' and ' . $to]
             );
         }
@@ -564,23 +427,6 @@ class Variable
         $this->isString();
 
         if (!ctype_digit($this->value)) {
-            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'digit']);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Check if value is not digit (ctype_digit)
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function isNotDigit()
-    {
-        $this->isString();
-
-        if (ctype_digit($this->value)) {
             throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'digit']);
         }
 
@@ -672,44 +518,6 @@ class Variable
     {
         if (is_int($this->value)) {
             throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'int']);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Check if value is json. Run only after isNotEmpty and isString validators
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function isJson()
-    {
-        $this->isString();
-
-        json_decode($this->value);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'json']);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Check if value is not json. Run only after isNotEmpty and isString validators
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function isNotJson()
-    {
-        $this->isNotEmpty()->isString();
-
-        json_decode($this->value);
-
-        if (json_last_error() === JSON_ERROR_NONE) {
-            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'json']);
         }
 
         return $this;
@@ -841,38 +649,6 @@ class Variable
     }
 
     /**
-     * Check if value not match regexp pattern
-     *
-     * @param string $pattern
-     *
-     * @return $this
-     * @throws \InvalidArgumentException
-     */
-    public function isNotMatchRegExp($pattern)
-    {
-        if (empty($pattern)) {
-            throw new \InvalidArgumentException('Param $pattern must be not empty');
-        }
-
-        if (!is_string($pattern)) {
-            throw new \InvalidArgumentException('Param $pattern must be string');
-        }
-
-        // God please sorry for this @
-        $checkResult = @preg_match($pattern, $this->value);
-
-        if ((preg_last_error() !== PREG_NO_ERROR) || ($checkResult === false)) {
-            throw new \InvalidArgumentException('Param $pattern must be correct RegExp');
-        }
-
-        if ($checkResult > 0) {
-            throw $this->buildException(self::EXCEPTION_VALUE_REG_EXP_NEGATIVE, ['{{pattern}}' => $pattern]);
-        }
-
-        return $this;
-    }
-
-    /**
      * Check if value match glob pattern
      *
      * @param string $pattern
@@ -891,31 +667,6 @@ class Variable
         }
 
         if (!fnmatch($pattern, $this->value)) {
-            throw $this->buildException(self::EXCEPTION_VALUE_REG_EXP_NEGATIVE, ['{{pattern}}' => $pattern]);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Check if value match not glob pattern
-     *
-     * @param string $pattern
-     *
-     * @return $this
-     * @throws \InvalidArgumentException
-     */
-    public function isNotMatchGlob($pattern)
-    {
-        if (empty($pattern)) {
-            throw new \InvalidArgumentException('Param $pattern must be not empty');
-        }
-
-        if (!is_string($pattern)) {
-            throw new \InvalidArgumentException('Param $pattern must be string');
-        }
-
-        if (fnmatch($pattern, $this->value)) {
             throw $this->buildException(self::EXCEPTION_VALUE_REG_EXP_NEGATIVE, ['{{pattern}}' => $pattern]);
         }
 
@@ -996,21 +747,6 @@ class Variable
     {
         if (!is_numeric($this->value)) {
             throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'numeric']);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Check if value is not numeric (is_numeric)
-     *
-     * @return Variable
-     * @throws \InvalidArgumentException
-     */
-    public function isNotNumeric()
-    {
-        if (is_numeric($this->value)) {
-            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_NEGATIVE, ['{{type}}' => 'numeric']);
         }
 
         return $this;

@@ -183,70 +183,6 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function hasLengthNot(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function hasLengthNotArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->hasLengthNot('a');
-            $I->fail('First argument must be int');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->hasLengthNot(-1);
-            $I->fail('First argument must be >= 0');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function hasLengthNotBetween(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function hasLengthNotBetweenArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->hasLengthNotBetween('a', 5);
-            $I->fail('First argument must be int');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->hasLengthNotBetween(1, 'b');
-            $I->fail('Second argument must be int');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->hasLengthNotBetween(5, 2);
-            $I->fail('First argument must be less than second');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->hasLengthNotBetween(-1, 2);
-            $I->fail('First argument must be more than 0');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function isArray(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
@@ -372,14 +308,6 @@ class VariableCest
      * @param \UnitTester $I
      */
     public function isInt(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isJson(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -541,91 +469,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isNotBetween(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isNotBetweenArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->isNotBetween('a', 5);
-            $I->fail('First argument must be int');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isNotBetween('a', 5.1);
-            $I->fail('First argument must be int or float');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isNotBetween(1.2, 'b');
-            $I->fail('Second argument must be  int or float');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isNotBetween(100, 50);
-            $I->fail('First argument must be less than second');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isNotBetweenStrict(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isNotBetweenStrictArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->isNotBetweenStrict('a', 5);
-            $I->fail('First argument must be int');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isNotBetweenStrict('a', 5.1);
-            $I->fail('First argument must be int or float');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isNotBetweenStrict(1.2, 'b');
-            $I->fail('Second argument must be  int or float');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isNotBetweenStrict(100, 50);
-            $I->fail('First argument must be less than second');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function isNotBool(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isNotDigit(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }
@@ -665,81 +509,7 @@ class VariableCest
     /**
      * @param \UnitTester $I
      */
-    public function isNotJson(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isNotMatchGlob(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isNotMatchGlobArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->isNotMatchGlob('');
-            $I->fail('First argument must be not empty');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isNotMatchGlob(5);
-            $I->fail('First argument must be string');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isNotMatchRegExp(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isNotMatchRegExpArguments(\UnitTester $I)
-    {
-        try {
-            Variable::assert('var', 'var')->isNotMatchRegExp('');
-            $I->fail('First argument must be not empty');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isNotMatchRegExp(5);
-            $I->fail('First argument must be string');
-        } catch (\InvalidArgumentException $error) {
-        }
-
-        try {
-            Variable::assert('var', 'var')->isNotMatchRegExp('a');
-            $I->fail('First argument must be correct RegExp');
-        } catch (\InvalidArgumentException $error) {
-        }
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
     public function isNotNull(\UnitTester $I)
-    {
-        $this->check($I, __FUNCTION__);
-    }
-
-    /**
-     * @param \UnitTester $I
-     */
-    public function isNotNumeric(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
     }

@@ -219,47 +219,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string $var
-     * @param int    $value
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function hasLengthNot($var, $value)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!is_int($value)) {
-                throw new \InvalidArgumentException('Param $value must be int');
-            }
-
-            if ($value < 0) {
-                throw new \InvalidArgumentException('Param $value must be more than 0');
-            }
-
-            if (!is_string($var)) {
-                throw new \InvalidArgumentException('var must be string');
-            }
-
-            if (mb_strlen($var) === $value) {
-                throw new \InvalidArgumentException('var length must be not ' . $value);
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
-
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            if (!is_string($var)) {
-                throw new \InvalidArgumentException('var must be string');
-            }
-
-            if (mb_strlen($var) === $value) {
-                throw new \InvalidArgumentException('var length must be not ' . $value);
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
      * @param array $var
      *
      * @throws \InvalidArgumentException
@@ -495,28 +454,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (!is_int($var)) {
                 throw new \InvalidArgumentException('var must be int');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isJson($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!is_string($var)) {
-                throw new \InvalidArgumentException('var must be string');
-            }
-
-            json_decode($var);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new \InvalidArgumentException('var must be json');
             }
         }
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);
@@ -827,114 +764,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
     }
 
     /**
-     * @param string    $var
-     * @param int|float $from
-     * @param int|float $to
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isNotBetween($var, $from, $to)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!is_int($from) && !is_float($from)) {
-                throw new \InvalidArgumentException('Param $from must be int or float');
-            }
-
-            if (!is_int($to) && !is_float($to)) {
-                throw new \InvalidArgumentException('Param $to must be int or float');
-            }
-
-            if ($from > $to) {
-                throw new \InvalidArgumentException('Param $from must be less than $to');
-            }
-
-            if (!is_numeric($var)) {
-                throw new \InvalidArgumentException('var must be numeric');
-            }
-
-            if (is_string($var)) {
-                throw new \InvalidArgumentException('var must be not string');
-            }
-
-            if ($var > $from && $var < $to) {
-                throw new \InvalidArgumentException('var must be between ' . $from . ' and ' . $to);
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
-
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            if (!is_numeric($var)) {
-                throw new \InvalidArgumentException('var must be numeric');
-            }
-
-            if (is_string($var)) {
-                throw new \InvalidArgumentException('var must be not string');
-            }
-
-            if ($var > $from && $var < $to) {
-                throw new \InvalidArgumentException('var must be between ' . $from . ' and ' . $to);
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string    $var
-     * @param int|float $from
-     * @param int|float $to
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isNotBetweenStrict($var, $from, $to)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!is_int($from) && !is_float($from)) {
-                throw new \InvalidArgumentException('Param $from must be int or float');
-            }
-
-            if (!is_int($to) && !is_float($to)) {
-                throw new \InvalidArgumentException('Param $to must be int or float');
-            }
-
-            if ($from > $to) {
-                throw new \InvalidArgumentException('Param $from must be less than $to');
-            }
-
-            if (!is_numeric($var)) {
-                throw new \InvalidArgumentException('var must be numeric');
-            }
-
-            if (is_string($var)) {
-                throw new \InvalidArgumentException('var must be not string');
-            }
-
-            if ($var >= $from && $var <= $to) {
-                throw new \InvalidArgumentException('var must be between ' . $from . ' and ' . $to);
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
-
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            if (!is_numeric($var)) {
-                throw new \InvalidArgumentException('var must be numeric');
-            }
-
-            if (is_string($var)) {
-                throw new \InvalidArgumentException('var must be not string');
-            }
-
-            if ($var >= $from && $var <= $to) {
-                throw new \InvalidArgumentException('var must be between ' . $from . ' and ' . $to);
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
      * @param array $var
      *
      * @throws \InvalidArgumentException
@@ -945,26 +774,6 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (is_bool($var)) {
                 throw new \InvalidArgumentException('var must be not bool');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param array $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isNotDigit($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (!is_string($var)) {
-                throw new \InvalidArgumentException('var must be string');
-            }
-
-            if (ctype_digit($var)) {
-                throw new \InvalidArgumentException('var must be not digit');
             }
         }
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);
@@ -1044,134 +853,12 @@ class VariableBenchmarkCommand extends AbstractBenchmarkCommand
      *
      * @throws \InvalidArgumentException
      */
-    public function isNotJson($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (empty($var)) {
-                throw new \InvalidArgumentException('var must be not empty');
-            }
-
-            if (!is_string($var)) {
-                throw new \InvalidArgumentException('var must be string');
-            }
-
-            json_decode($var);
-
-            if (json_last_error() === JSON_ERROR_NONE) {
-                throw new \InvalidArgumentException('var must be not json');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     * @param string $value
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isNotMatchGlob($var, $value)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (empty($value)) {
-                throw new \InvalidArgumentException('Param $value must be not empty');
-            }
-
-            if (!is_string($value)) {
-                throw new \InvalidArgumentException('Param $value must be string');
-            }
-
-            if (fnmatch($value, $var)) {
-                throw new \InvalidArgumentException('var must not apply glob pattern');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
-
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            if (fnmatch($value, $var)) {
-                throw new \InvalidArgumentException('var must not apply glob pattern');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     * @param string $value
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isNotMatchRegExp($var, $value)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (empty($value)) {
-                throw new \InvalidArgumentException('Param $value must be not empty');
-            }
-
-            if (!is_string($value)) {
-                throw new \InvalidArgumentException('Param $value must be string');
-            }
-
-            // God please sorry for this @
-            $checkResult = @preg_match($value, $var);
-
-            if ((preg_last_error() !== PREG_NO_ERROR) || ($checkResult === false)) {
-                throw new \InvalidArgumentException('Param $value must be correct RegExp');
-            }
-
-            if ($checkResult > 0) {
-                throw new \InvalidArgumentException('var must not apply RegExp pattern');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE_ARGUMENTS);
-
-        $this->start();
-        for ($j = 0; $j < self::COUNT_TEST; $j++) {
-            // God please sorry for this @
-            $checkResult = @preg_match($value, $var);
-
-            if ((preg_last_error() !== PREG_NO_ERROR) || ($checkResult === false)) {
-                throw new \InvalidArgumentException('Param $value must be correct RegExp');
-            }
-
-            if ($checkResult > 0) {
-                throw new \InvalidArgumentException('var must not apply RegExp pattern');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
     public function isNotNull($var)
     {
         $this->start();
         for ($i = 0; $i < self::COUNT_TEST; $i++) {
             if (is_null($var)) {
                 throw new \InvalidArgumentException('var must be not null');
-            }
-        }
-        $this->stop(__FUNCTION__, self::TYPE_NATIVE);
-    }
-
-    /**
-     * @param string $var
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function isNotNumeric($var)
-    {
-        $this->start();
-        for ($i = 0; $i < self::COUNT_TEST; $i++) {
-            if (is_numeric($var)) {
-                throw new \InvalidArgumentException('var must be not numeric');
             }
         }
         $this->stop(__FUNCTION__, self::TYPE_NATIVE);

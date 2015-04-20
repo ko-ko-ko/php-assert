@@ -160,18 +160,12 @@ v::assert(5, 'var')->isNotInt();
 
 #### isNumeric `Check if value is numeric`
 
-* Antipode: **isNotNumeric**
-
 ```php
 // OK
 v::assert(15, 'var')->isNumeric();
-v::assert('a', 'var')->isNotNumeric();
-v::assert([], 'var')->isNotNumeric();
 
 // EXCEPTION
 v::assert('*', 'var')->isNumeric();
-v::assert([], 'var')->isNumeric();
-v::assert('-5', 'var')->isNotNumeric();
 ```
 
 #### isNull `Check if value is null`
@@ -195,11 +189,11 @@ v::assert(null, 'var')->isNotNull();
 ```php
 // OK
 v::assert('5', 'var')->isString();
-v::assert([], 'var')->isNotNumeric();
+v::assert([], 'var')->isNotString();
 
 // EXCEPTION
 v::assert([]', 'var')->isString();
-v::assert('-5', 'var')->isNotNumeric();
+v::assert('-5', 'var')->isNotString();
 ```
 
 #### isResource `Check if value is resource`
@@ -263,43 +257,18 @@ All string validators run previously:
 
 #### isDigit `Check if value contains only digits`
 
-* Antipode: **isNotDigit**
-
 ```php
 // OK
 v::assert('5', 'var')->isDigit();
-v::assert('a', 'var')->isNotDigit();
 
 // EXCEPTION
 v::assert('c', 'var')->isDigit();
-v::assert('5', 'var')->isNotDigit();
 
 // EXCEPTION: var MUST be string
 v::assert(5, 'var')->isDigit();
-v::assert([], 'var')->isNotDigit();
-```
-
-#### isJson `Check if value is json string`
-
-* Antipode: **isNotJson**
-
-```php
-// OK
-v::assert('{"a":"b"}', 'var')->isJson();
-v::assert('--', 'var')->isNotJson();
-
-// EXCEPTION
-v::assert('--', 'var')->isJson();
-v::assert('{"a":"b"}', 'var')->isNotJson();
-
-// EXCEPTION: var MUST be string
-v::assert(5, 'var')->isJson();
-v::assert([], 'var')->isNotJson();
 ```
 
 #### isMatchRegExp($pattern) `Check if value match RegExp pattern`
-
-* Antipode: **isNotMatchRegExp**
 
 Arguments:
 
@@ -308,54 +277,40 @@ Arguments:
 ```php
 // OK
 v::assert('a', 'var')->isMatchRegExp('/a/');
-v::assert('b', 'var')->isNotMatchRegExp('/a/');
 
 // EXCEPTION
 v::assert('b', 'var')->isMatchRegExp('/a/');
-v::assert('a', 'var')->isNotMatchRegExp('/a/');
 
 // EXCEPTION: pattern MUST be not empty
 v::assert('a', 'var')->isMatchRegExp('');
-v::assert('a', 'var')->isNotMatchRegExp('');
 
 // EXCEPTION: var MUST be string
 v::assert(5, 'var')->isMatchRegExp('/a/');
-v::assert([], 'var')->isNotMatchRegExp('/a/');
 
 // EXCEPTION: pattern MUST be correct RegExp
 v::assert('a', 'var')->isMatchRegExp('/a');
-v::assert('a', 'var')->isNotMatchRegExp('/a');
 ```
 
 #### isMatchGlob($pattern) `Check if value match glob pattern`
 
-* Antipode: **isNotMatchGlob**
-
 ```php
 // OK
 v::assert('aa', 'var')->isMatchGlob('a*');
-v::assert('bb', 'var')->isNotMatchGlob('a*');
 
 // EXCEPTION
 v::assert('bb', 'var')->isMatchGlob('a*');
-v::assert('aa', 'var')->isNotMatchGlob('a*');
 
 // EXCEPTION: pattern MUST be not empty
 v::assert('a', 'var')->isMatchGlob('');
-v::assert('a', 'var')->isNotMatchGlob('');
 
 // EXCEPTION: pattern MUST be string
-v::assert('a', 'var')->isMatchRegExp(false);
-v::assert('a', 'var')->isNotMatchRegExp(false);
+v::assert('a', 'var')->isMatchGlob(false);
 
 // EXCEPTION: var MUST be string
 v::assert(5, 'var')->isMatchGlob('/a/');
-v::assert([], 'var')->isNotMatchGlob('/a/');
 ```
 
 #### hasLength($length) `Check if value has length exactly $length`
-
-* Antipode: **hasLengthNot**
 
 Arguments:
 
@@ -364,23 +319,18 @@ Arguments:
 ```php
 // OK
 v::assert('aa', 'var')->hasLength(2);
-v::assert('bb', 'var')->hasLengthNot(5);
 
 // EXCEPTION
 v::assert('bb', 'var')->hasLength(5);
-v::assert('aa', 'var')->hasLengthNot(2);
 
 // EXCEPTION: length MUST be int
 v::assert('a', 'var')->hasLength(null);
-v::assert('a', 'var')->hasLengthNot(null);
 
 // EXCEPTION: length MUST be more >= 0
 v::assert('a', 'var')->hasLength(-2);
-v::assert('a', 'var')->hasLengthNot(-2);
 
 // EXCEPTION: var MUST be string
 v::assert(5, 'var')->hasLength(1);
-v::assert([], 'var')->hasLengthNot(1);
 ```
 
 #### hasLengthLess($length) `Check if value has length less than $length`
@@ -417,8 +367,6 @@ v::assert([], 'var')->hasLengthMore(1);
 
 #### hasLengthBetween($from, $to) `Check that value length is $from <= $value <= $to`
 
-* Antipode: **hasLengthNotBetween** `$from > $value > $to`
-
 Arguments:
 
 * `$from` MUST be integer >= 0
@@ -428,33 +376,26 @@ Arguments:
 ```php
 // OK
 v::assert('aa', 'var')->hasLengthBetween(1, 5);
-v::assert('bb', 'var')->hasLengthNotBetween(3, 10);
 
 // EXCEPTION
 v::assert('bb', 'var')->hasLengthBetween(3, 10);
-v::assert('aa', 'var')->hasLengthNotBetween(1, 5);
 
 // ----------
 
 // EXCEPTION: form MUST be int
 v::assert('a', 'var')->hasLengthBetween(null, 5);
-v::assert('a', 'var')->hasLengthNotBetween(null, 5);
 
 // EXCEPTION: to MUST be int
 v::assert('a', 'var')->hasLengthBetween(1, []);
-v::assert('a', 'var')->hasLengthNotBetween(1, []);
 
 // EXCEPTION: form MUST be more >= 0
 v::assert('a', 'var')->hasLengthBetween(-2, 5);
-v::assert('a', 'var')->hasLengthNotBetween(-2, 5);
 
 // EXCEPTION: form MUST be more than to
 v::assert('a', 'var')->hasLengthBetween(5, 1);
-v::assert('a', 'var')->hasLengthNotBetween(5, 1);
 
 // EXCEPTION: var MUST be string
 v::assert(5, 'var')->hasLengthBetween(1);
-v::assert([], 'var')->hasLengthNotBetween(1);
 ```
 
 -- --
@@ -518,8 +459,6 @@ v::assert([], 'var')->isMore(1);
 #### isBetween($from, $to) `Check that value is $from <= $value <= $to`
 
 * Similar: **isBetweenStrict** Check that value is `$from < $value < $to`
-* Antipode: **isNotBetween** Check that value is `$from > $value > $to`
-* Antipode: **isNotBetweenStrict** Check that value is `$from >= $value >= $to`
 
 Arguments:
 
@@ -530,29 +469,23 @@ Arguments:
 ```php
 // OK
 v::assert(2, 'var')->isBetween(1, 5);
-v::assert(2, 'var')->isNotBetween(3, 10);
 
 // EXCEPTION
 v::assert(2.5, 'var')->isBetween(3, 10);
-v::assert(2.5, 'var')->isNotBetween(1, 5);
 
 // ----------
 
 // EXCEPTION: form MUST be int
 v::assert(2, 'var')->isBetween(null, 5);
-v::assert(2, 'var')->isNotBetween(null, 5);
 
 // EXCEPTION: to MUST be int
 v::assert(2, 'var')->isBetween(1, []);
-v::assert(2, 'var')->isNotBetween(1, []);
 
 // EXCEPTION: form MUST be more than to
 v::assert(2, 'var')->isBetween(5, 1);
-v::assert(2, 'var')->isNotBetween(5, 1);
 
 // EXCEPTION: var MUST be int or float
 v::assert('A', 'var')->isBetween(1);
-v::assert([], 'var')->isNotBetween(1);
 ```
 
 -- --
