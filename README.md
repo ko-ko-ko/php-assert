@@ -9,8 +9,8 @@ php-assert
 [quality-img]: https://scrutinizer-ci.com/g/ko-ko-ko/php-assert/badges/quality-score.png?b=master
 [coverage-url]: https://scrutinizer-ci.com/g/ko-ko-ko/php-assert/?branch=master
 [coverage-img]: https://scrutinizer-ci.com/g/ko-ko-ko/php-assert/badges/coverage.png?b=master
-[stable-img]: https://poser.pugx.org/ko-ko-ko/php-assert/license.png
-[license-img]: https://poser.pugx.org/ko-ko-ko/php-assert/license.png
+[stable-img]: https://poser.pugx.org/ko-ko-ko/php-assert/version
+[license-img]: https://poser.pugx.org/ko-ko-ko/php-assert/license
 [package-url]: https://packagist.org/packages/ko-ko-ko/php-assert
 
 ## Yet another assert, WHY??
