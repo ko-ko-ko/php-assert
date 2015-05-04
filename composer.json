@@ -1,6 +1,6 @@
 {
-    "name": "index0h/validator",
-    "description": "Fast flexible php validator",
+    "name": "ko-ko-ko/assert",
+    "description": "Fast flexible php assert",
     "require-dev": {
         "codeception/codeception": "2.0.x",
         "respect/validation": "0.8.x",
@@ -15,8 +15,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "index0h\\validator\\": "src",
-            "index0h\\validator\\tests\\": "tests"
+            "KoKoKo\\assert\\": "src",
+            "KoKoKo\\assert\\tests\\": "tests"
         }
     }
 }

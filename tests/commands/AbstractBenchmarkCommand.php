@@ -6,7 +6,7 @@
  * Time: 18:03
  */
 
-namespace index0h\validator\tests\commands;
+namespace KoKoKo\assert\tests\commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\TableHelper;
@@ -31,9 +31,9 @@ abstract class AbstractBenchmarkCommand extends Command
 
     const TYPE_NATIVE = 'native';
 
-    const TYPE_VALIDATOR = 'validator';
+    const TYPE_VALIDATOR = 'assert';
 
-    const TYPE_VALIDATOR_LIGHT = 'validator_light';
+    const TYPE_VALIDATOR_LIGHT = 'assert_light';
 
     /** @var array */
     protected $fixtures;
@@ -236,7 +236,7 @@ abstract class AbstractBenchmarkCommand extends Command
             return $this->fixtures;
         }
 
-        $this->fixtures = require_once __DIR__ . '/../_data/fixtures/variable.php';
+        $this->fixtures = require_once __DIR__ . '/../_data/fixtures.php';
 
         return $this->fixtures;
     }

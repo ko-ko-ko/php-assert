@@ -1,16 +1,16 @@
 <?php
 /**
- * @link      https://github.com/index0h/php-validator
+ * @link      https://github.com/ko-ko-ko/php-assert
  * @copyright Copyright (c) 2015 Roman Levishchenko <index.0h@gmail.com>
- * @license   https://raw.github.com/index0h/php-validator/master/LICENSE
+ * @license   https://raw.github.com/ko-ko-ko/php-assert/master/LICENSE
  */
 
-namespace index0h\validator;
+namespace KoKoKo\assert;
 
 /**
- * Class Variable
+ * Class Assert
  */
-class Variable
+class Assert
 {
     const EXCEPTION_CLASS = '\InvalidArgumentException';
 
@@ -28,7 +28,7 @@ class Variable
 
     const EXCEPTION_VALUE_PATTERN_POSITIVE = 'Param ${{variable}} must apply pattern {{pattern}}';
 
-    /** @var Variable */
+    /** @var Assert */
     protected static $validator;
 
     /** @var string */
@@ -96,7 +96,7 @@ class Variable
      *
      * @param string $exceptionClass
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function setExceptionClass($exceptionClass)
@@ -157,7 +157,7 @@ class Variable
      * @param int $from
      * @param int $to
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function lengthBetween($from, $to)
@@ -199,7 +199,7 @@ class Variable
      *
      * @param int $length
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function lengthLess($length)
@@ -228,7 +228,7 @@ class Variable
      *
      * @param int $length
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function lengthMore($length)
@@ -257,7 +257,7 @@ class Variable
      *
      * @param array $range
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function inArray(array $range)
@@ -272,7 +272,7 @@ class Variable
     /**
      * Check if value is array
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function isArray()
@@ -290,7 +290,7 @@ class Variable
      * @param float|int $from
      * @param float|int $to
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function between($from, $to)
@@ -327,7 +327,7 @@ class Variable
      * @param float|int $from
      * @param float|int $to
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function betweenStrict($from, $to)
@@ -361,7 +361,7 @@ class Variable
     /**
      * Check if value is boolean (is_bool)
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function bool()
@@ -376,7 +376,7 @@ class Variable
     /**
      * Check if value is digit (ctype_digit)
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function digit()
@@ -395,7 +395,7 @@ class Variable
     /**
      * Check if value is empty (empty)
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function isEmpty()
@@ -410,7 +410,7 @@ class Variable
     /**
      * Check if value is not empty (empty)
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function notEmpty()
@@ -425,7 +425,7 @@ class Variable
     /**
      * Check if value is float (is_float)
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function float()
@@ -440,7 +440,7 @@ class Variable
     /**
      * Check if value is integer (is_int)
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function int()
@@ -457,7 +457,7 @@ class Variable
      *
      * @param float|int $number
      *
-     * @return Variable
+     * @return $this
      * @throws \Exception
      * @throws \InvalidArgumentException
      */
@@ -483,7 +483,7 @@ class Variable
      *
      * @param float|int $number
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function more($number)
@@ -508,7 +508,7 @@ class Variable
      *
      * @param float|int $number
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function lessStrict($number)
@@ -533,7 +533,7 @@ class Variable
      *
      * @param float|int $number
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function moreStrict($number)
@@ -613,7 +613,7 @@ class Variable
     /**
      * Check if value < 0
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function negative()
@@ -632,7 +632,7 @@ class Variable
     /**
      * Check if value > 0
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function positive()
@@ -681,7 +681,7 @@ class Variable
     /**
      * Check if value is numeric (is_numeric)
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function numeric()
@@ -696,7 +696,7 @@ class Variable
     /**
      * Check if value is resource (is_resource)
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function resource()
@@ -711,7 +711,7 @@ class Variable
     /**
      * Check if value is string (is_string)
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function string()
@@ -726,7 +726,7 @@ class Variable
     /**
      * Cast value to bool
      *
-     * @return Variable
+     * @return $this
      */
     public function toBool()
     {
@@ -738,7 +738,7 @@ class Variable
     /**
      * Cast value to float. If it's not numeric - there will be fail cast
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function toFloat()
@@ -755,7 +755,7 @@ class Variable
     /**
      * Cast value to int. If it's not numeric - there will be fail cast
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function toInt()
@@ -772,7 +772,7 @@ class Variable
     /**
      * Cast value to string. If it's simple type or has no method __toString - there will be fail cast
      *
-     * @return Variable
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function toString()

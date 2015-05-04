@@ -1,11 +1,11 @@
 #!/bin/bash
 
-echo "Run scripts from /vagrant/provision/exec/"
+echo "Run scripts from /vagrant/.provision/exec/"
 
 SCRIPT_LOG="/.provision-stuff/execute-files.txt"
 TMP_ALL_PATH="/tmp/execute-files-all.txt"
 TMP_EXECUTED_PATH="/tmp/execute-files-executed.txt"
-FILES_PATH="/vagrant/provision/exec/"
+FILES_PATH="/vagrant/.provision/exec/"
 SPLIT="------------------------------------------------------------------"
 
 if [[ ! -f $SCRIPT_LOG ]]; then
@@ -14,7 +14,7 @@ fi
 
 cat $SCRIPT_LOG > $TMP_EXECUTED_PATH
 
-find $FILES_PATH -maxdepth 1 -not -path '*/\.*' -type f \( ! -iname ".gitignore" \) | sort > $TMP_ALL_PATH
+find $FILES_PATH -maxdepth 1 -not -path $FILES_PATH'.*' -type f \( ! -iname ".gitignore" \) | sort > $TMP_ALL_PATH
 
 FILES_TO_RUN=( `comm -13  $SCRIPT_LOG $TMP_ALL_PATH` )
 

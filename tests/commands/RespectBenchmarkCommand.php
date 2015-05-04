@@ -1,12 +1,12 @@
 <?php
 /**
- * @link      https://github.com/index0h/php-validator
+ * @link      https://github.com/ko-ko-ko/php-assert
  * @copyright Copyright (c) 2015 Roman Levishchenko <index.0h@gmail.com>
- * @license   https://raw.github.com/index0h/php-validator/master/LICENSE
+ * @license   https://raw.github.com/ko-ko-ko/php-assert/master/LICENSE
  */
-namespace index0h\validator\tests\commands;
+namespace KoKoKo\assert\tests\commands;
 
-use index0h\validator\Variable;
+use KoKoKo\assert\Assert;
 use Respect\Validation\Validator as respect;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -376,10 +376,10 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
     protected function configure()
     {
         $this->setName('benchmark:respect')
-            ->setDescription('Benchmark of Variable validator vs Respect Validation');
+            ->setDescription('Benchmark of Assert validator vs Respect Validation');
 
         // Cache object
-        Variable::assert('var', 'var');
+        Assert::assert('var', 'var');
     }
 
     /**
@@ -412,19 +412,19 @@ class RespectBenchmarkCommand extends AbstractBenchmarkCommand
         if (count($arguments) === 0) {
             $this->start();
             for ($i = 0; $i < self::COUNT_TEST; $i++) {
-                Variable::assert($value, 'var')->{$methodName}();
+                Assert::assert($value, 'var')->{$methodName}();
             }
             $this->stop($methodName, self::TYPE_VALIDATOR);
         } elseif (count($arguments) === 1) {
             $this->start();
             for ($i = 0; $i < self::COUNT_TEST; $i++) {
-                Variable::assert($value, 'var')->{$methodName}($arguments[0]);
+                Assert::assert($value, 'var')->{$methodName}($arguments[0]);
             }
             $this->stop($methodName, self::TYPE_VALIDATOR);
         } elseif (count($arguments) === 2) {
             $this->start();
             for ($i = 0; $i < self::COUNT_TEST; $i++) {
-                Variable::assert($value, 'var')->{$methodName}($arguments[0], $arguments[1]);
+                Assert::assert($value, 'var')->{$methodName}($arguments[0], $arguments[1]);
             }
             $this->stop($methodName, self::TYPE_VALIDATOR);
         }

@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://github.com/index0h/php-validator
+ * @link      https://github.com/ko-ko-ko/php-assert
  * @copyright Copyright (c) 2015 Roman Levishchenko <index.0h@gmail.com>
- * @license   https://raw.github.com/index0h/php-validator/master/LICENSE
+ * @license   https://raw.github.com/ko-ko-ko/php-assert/master/LICENSE
  */
 namespace Codeception\Module;
 
@@ -50,7 +50,7 @@ class UnitHelper extends Module
             return self::$fixtures;
         }
 
-        self::$fixtures = require_once __DIR__ . '/../_data/fixtures/variable.php';
+        self::$fixtures = require_once __DIR__ . '/../_data/fixtures.php';
 
         return self::$fixtures;
     }

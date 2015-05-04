@@ -1,17 +1,17 @@
 <?php
 /**
- * @link      https://github.com/index0h/php-validator
+ * @link      https://github.com/ko-ko-ko/php-assert
  * @copyright Copyright (c) 2015 Roman Levishchenko <index.0h@gmail.com>
- * @license   https://raw.github.com/index0h/php-validator/master/LICENSE
+ * @license   https://raw.github.com/ko-ko-ko/php-assert/master/LICENSE
  */
-namespace index0h\validator\tests\unit;
+namespace KoKoKo\assert\tests\unit;
 
-use index0h\validator\Variable;
+use KoKoKo\assert\Assert;
 
 /**
- * Class VariableCest
+ * Class AssertCest
  */
-class VariableCest
+class AssertCest
 {
     /**
      * @param \UnitTester $I
@@ -21,30 +21,30 @@ class VariableCest
     public function assert(\UnitTester $I)
     {
         try {
-            Variable::assert(new \stdClass(), 'var');
+            Assert::assert(new \stdClass(), 'var');
             $I->fail('First argument must not object');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', false);
+            Assert::assert('var', false);
             $I->fail('Second argument must be string');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var', false);
+            Assert::assert('var', 'var', false);
             $I->fail('Third argument must be string');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var', '\ArrayIterator');
+            Assert::assert('var', 'var', '\ArrayIterator');
             $I->fail('Third argument must be sub class of \Exception');
         } catch (\InvalidArgumentException $error) {
         }
 
-        $I->assertTrue(is_object(Variable::assert('var', 'var', '\Exception')));
+        $I->assertTrue(is_object(Assert::assert('var', 'var', '\Exception')));
     }
 
     /**
@@ -55,7 +55,7 @@ class VariableCest
     public function get(\UnitTester $I)
     {
         $expected = 'SOME_DATA_HERE';
-        $actual = Variable::assert($expected, 'var')->get();
+        $actual = Assert::assert($expected, 'var')->get();
 
         $I->assertEquals($expected, $actual);
     }
@@ -67,7 +67,7 @@ class VariableCest
      */
     public function getExceptionClass(\UnitTester $I)
     {
-        $I->assertEquals(Variable::EXCEPTION_CLASS, Variable::assert('var', 'var')->getExceptionClass());
+        $I->assertEquals(Assert::EXCEPTION_CLASS, Assert::assert('var', 'var')->getExceptionClass());
     }
 
     /**
@@ -84,13 +84,13 @@ class VariableCest
     public function lengthArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->length('a');
+            Assert::assert('var', 'var')->length('a');
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->length(-1);
+            Assert::assert('var', 'var')->length(-1);
             $I->fail('First argument must be >= 0');
         } catch (\InvalidArgumentException $error) {
         }
@@ -110,25 +110,25 @@ class VariableCest
     public function lengthBetweenArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->lengthBetween('a', 5);
+            Assert::assert('var', 'var')->lengthBetween('a', 5);
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->lengthBetween(1, 'b');
+            Assert::assert('var', 'var')->lengthBetween(1, 'b');
             $I->fail('Second argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->lengthBetween(5, 2);
+            Assert::assert('var', 'var')->lengthBetween(5, 2);
             $I->fail('First argument must be less than second');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->lengthBetween(-1, 2);
+            Assert::assert('var', 'var')->lengthBetween(-1, 2);
             $I->fail('First argument must be more than 0');
         } catch (\InvalidArgumentException $error) {
         }
@@ -148,13 +148,13 @@ class VariableCest
     public function lengthLessArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->lengthLess('a');
+            Assert::assert('var', 'var')->lengthLess('a');
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->lengthLess(-1);
+            Assert::assert('var', 'var')->lengthLess(-1);
             $I->fail('First argument must be more than 0');
         } catch (\InvalidArgumentException $error) {
         }
@@ -174,13 +174,13 @@ class VariableCest
     public function lengthMoreArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->lengthMore('a');
+            Assert::assert('var', 'var')->lengthMore('a');
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->lengthMore(-1);
+            Assert::assert('var', 'var')->lengthMore(-1);
             $I->fail('First argument must be more than 0');
         } catch (\InvalidArgumentException $error) {
         }
@@ -208,25 +208,25 @@ class VariableCest
     public function betweenArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->between('a', 5);
+            Assert::assert('var', 'var')->between('a', 5);
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->between('a', 5.1);
+            Assert::assert('var', 'var')->between('a', 5.1);
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->between(1.2, 'b');
+            Assert::assert('var', 'var')->between(1.2, 'b');
             $I->fail('Second argument must be  int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->between(100, 50);
+            Assert::assert('var', 'var')->between(100, 50);
             $I->fail('First argument must be less than second');
         } catch (\InvalidArgumentException $error) {
         }
@@ -246,25 +246,25 @@ class VariableCest
     public function betweenStrictArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->betweenStrict('a', 5);
+            Assert::assert('var', 'var')->betweenStrict('a', 5);
             $I->fail('First argument must be int');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->betweenStrict('a', 5.1);
+            Assert::assert('var', 'var')->betweenStrict('a', 5.1);
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->betweenStrict(1.2, 'b');
+            Assert::assert('var', 'var')->betweenStrict(1.2, 'b');
             $I->fail('Second argument must be  int or float');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->betweenStrict(100, 50);
+            Assert::assert('var', 'var')->betweenStrict(100, 50);
             $I->fail('First argument must be less than second');
         } catch (\InvalidArgumentException $error) {
         }
@@ -332,7 +332,7 @@ class VariableCest
     public function lessArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->less('a');
+            Assert::assert('var', 'var')->less('a');
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
@@ -352,7 +352,7 @@ class VariableCest
     public function lessStrictArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->lessStrict('a');
+            Assert::assert('var', 'var')->lessStrict('a');
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
@@ -372,13 +372,13 @@ class VariableCest
     public function globArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->glob('');
+            Assert::assert('var', 'var')->glob('');
             $I->fail('First argument must be not empty');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->glob(5);
+            Assert::assert('var', 'var')->glob(5);
             $I->fail('First argument must be string');
         } catch (\InvalidArgumentException $error) {
         }
@@ -398,19 +398,19 @@ class VariableCest
     public function matchArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->match('');
+            Assert::assert('var', 'var')->match('');
             $I->fail('First argument must be not empty');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->match(5);
+            Assert::assert('var', 'var')->match(5);
             $I->fail('First argument must be string');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->match('a');
+            Assert::assert('var', 'var')->match('a');
             $I->fail('First argument must be correct RegExp');
         } catch (\InvalidArgumentException $error) {
         }
@@ -430,7 +430,7 @@ class VariableCest
     public function moreArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->more('a');
+            Assert::assert('var', 'var')->more('a');
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
@@ -450,7 +450,7 @@ class VariableCest
     public function moreStrictArguments(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->moreStrict('a');
+            Assert::assert('var', 'var')->moreStrict('a');
             $I->fail('First argument must be int or float');
         } catch (\InvalidArgumentException $error) {
         }
@@ -528,18 +528,18 @@ class VariableCest
     public function setExceptionClass(\UnitTester $I)
     {
         try {
-            Variable::assert('var', 'var')->setExceptionClass(false);
+            Assert::assert('var', 'var')->setExceptionClass(false);
             $I->fail('Argument must be string');
         } catch (\InvalidArgumentException $error) {
         }
 
         try {
-            Variable::assert('var', 'var')->setExceptionClass('\ArrayIterator');
+            Assert::assert('var', 'var')->setExceptionClass('\ArrayIterator');
             $I->fail('Argument must be sub class of \Exception');
         } catch (\InvalidArgumentException $error) {
         }
 
-        Variable::assert('var', 'var')->setExceptionClass('\InvalidArgumentException');
+        Assert::assert('var', 'var')->setExceptionClass('\InvalidArgumentException');
     }
 
     /**
@@ -549,12 +549,12 @@ class VariableCest
      */
     public function toBool(\UnitTester $I)
     {
-        $I->assertTrue(Variable::assert('var', 'var')->toBool()->get());
-        $I->assertTrue(Variable::assert(5, 'var')->toBool()->get());
-        $I->assertFalse(Variable::assert('', 'var')->toBool()->get());
-        $I->assertFalse(Variable::assert(null, 'var')->toBool()->get());
-        $I->assertFalse(Variable::assert(false, 'var')->toBool()->get());
-        $I->assertFalse(Variable::assert([], 'var')->toBool()->get());
+        $I->assertTrue(Assert::assert('var', 'var')->toBool()->get());
+        $I->assertTrue(Assert::assert(5, 'var')->toBool()->get());
+        $I->assertFalse(Assert::assert('', 'var')->toBool()->get());
+        $I->assertFalse(Assert::assert(null, 'var')->toBool()->get());
+        $I->assertFalse(Assert::assert(false, 'var')->toBool()->get());
+        $I->assertFalse(Assert::assert([], 'var')->toBool()->get());
     }
 
     /**
@@ -564,15 +564,15 @@ class VariableCest
      */
     public function toFloat(\UnitTester $I)
     {
-        $I->assertEquals(0.0, Variable::assert('var', 'var')->toFloat()->get());
-        $I->assertEquals(0.0, Variable::assert('', 'var')->toFloat()->get());
-        $I->assertEquals(0.0, Variable::assert(null, 'var')->toFloat()->get());
-        $I->assertEquals(0.0, Variable::assert(false, 'var')->toFloat()->get());
-        $I->assertEquals(15.2, Variable::assert('15.2', 'var')->toFloat()->get());
-        $I->assertEquals(2.0, Variable::assert(2, 'var')->toFloat()->get());
+        $I->assertEquals(0.0, Assert::assert('var', 'var')->toFloat()->get());
+        $I->assertEquals(0.0, Assert::assert('', 'var')->toFloat()->get());
+        $I->assertEquals(0.0, Assert::assert(null, 'var')->toFloat()->get());
+        $I->assertEquals(0.0, Assert::assert(false, 'var')->toFloat()->get());
+        $I->assertEquals(15.2, Assert::assert('15.2', 'var')->toFloat()->get());
+        $I->assertEquals(2.0, Assert::assert(2, 'var')->toFloat()->get());
 
         try {
-            Variable::assert([], 'var')->toFloat();
+            Assert::assert([], 'var')->toFloat();
             $I->fail('Value must be not array');
         } catch (\InvalidArgumentException $error) {
         }
@@ -585,15 +585,15 @@ class VariableCest
      */
     public function toInt(\UnitTester $I)
     {
-        $I->assertEquals(0, Variable::assert('var', 'var')->toInt()->get());
-        $I->assertEquals(0, Variable::assert('', 'var')->toInt()->get());
-        $I->assertEquals(0, Variable::assert(null, 'var')->toInt()->get());
-        $I->assertEquals(0, Variable::assert(false, 'var')->toInt()->get());
-        $I->assertEquals(15, Variable::assert('15.2', 'var')->toInt()->get());
-        $I->assertEquals(2, Variable::assert(2.1, 'var')->toInt()->get());
+        $I->assertEquals(0, Assert::assert('var', 'var')->toInt()->get());
+        $I->assertEquals(0, Assert::assert('', 'var')->toInt()->get());
+        $I->assertEquals(0, Assert::assert(null, 'var')->toInt()->get());
+        $I->assertEquals(0, Assert::assert(false, 'var')->toInt()->get());
+        $I->assertEquals(15, Assert::assert('15.2', 'var')->toInt()->get());
+        $I->assertEquals(2, Assert::assert(2.1, 'var')->toInt()->get());
 
         try {
-            Variable::assert([], 'var')->toInt();
+            Assert::assert([], 'var')->toInt();
             $I->fail('Value must be not array');
         } catch (\InvalidArgumentException $error) {
         }
@@ -606,13 +606,13 @@ class VariableCest
      */
     public function toString(\UnitTester $I)
     {
-        $I->assertEquals('17', Variable::assert(17, 'var')->toString()->get());
-        $I->assertEquals('2.1', Variable::assert(2.1, 'var')->toString()->get());
-        $I->assertEquals('', Variable::assert(null, 'var')->toString()->get());
-        $I->assertEquals('', Variable::assert(false, 'var')->toString()->get());
+        $I->assertEquals('17', Assert::assert(17, 'var')->toString()->get());
+        $I->assertEquals('2.1', Assert::assert(2.1, 'var')->toString()->get());
+        $I->assertEquals('', Assert::assert(null, 'var')->toString()->get());
+        $I->assertEquals('', Assert::assert(false, 'var')->toString()->get());
 
         try {
-            Variable::assert([], 'var')->toString();
+            Assert::assert([], 'var')->toString();
             $I->fail('Value must be not array');
         } catch (\InvalidArgumentException $error) {
         }
@@ -634,7 +634,7 @@ class VariableCest
         foreach ($fixtures as $fixture) {
             $I->amGoingTo('check with fixture: ' . $fixture['comment']);
 
-            $validator = Variable::assert($fixture['value'], 'var');
+            $validator = Assert::assert($fixture['value'], 'var');
 
             if ($fixture['errors'] === 0) {
                 call_user_func_array([$validator, $methodName], $fixture['arguments']);
