@@ -13,9 +13,9 @@ php-assert
 [license-img]: https://poser.pugx.org/ko-ko-ko/assert/license
 [package-url]: https://packagist.org/packages/ko-ko-ko/assert
 
-## Yet another assert, WHY??
+## Yet another validator, WHY??
 
-**It's really fast, ugly inside, but fast**
+## It's very fast, but ugly inside
 
 There are many other cool asserts, but for their user-friendly you must pay by time & memory of execution.
 This assert gives you very simple and fast API. You can see benchmark results at bottom of [build logs][build-url].
