@@ -17,7 +17,7 @@ php-assert
 
 ## It's very fast, but ugly inside
 
-There are many other cool asserts, but for their user-friendly you must pay by time & memory of execution.
+There are many other cool asserts, but for their usability you must pay by time & memory of execution.
 This assert gives you very simple and fast API. You can see benchmark results at bottom of [build logs][build-url].
 
 ![](logo.jpg)
