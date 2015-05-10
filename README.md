@@ -406,8 +406,8 @@ Assert::assert(-5, 'var')->negative();
 
 // EXCEPTION
 Assert::assert(-1, 'var')->positive();
-Assert::assert(10, 'var')->positive();
-Assert::assert(0, 'var')->negative();
+Assert::assert(0, 'var')->positive();
+Assert::assert(10, 'var')->negative();
 Assert::assert(0, 'var')->negative();
 
 // ----------
