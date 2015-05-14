@@ -196,15 +196,6 @@ Assert::assert(tmpfile(), 'var')->resource();
 Assert::assert(5, 'var')->resource();
 ```
 
--- --
-
-Array asserts
-----------------
-
-All array asserts run previously:
-
-* **isArray**
-
 #### inArray($range) `Check if value is in array $range`
 
 Arguments:
@@ -213,15 +204,12 @@ Arguments:
 
 ```php
 // OK
-Assert::assert(['a'], 'var')->inArray(['a', 'b']);
+Assert::assert('a', 'var')->inArray(['a', 'b']);
 
 // EXCEPTION
-Assert::assert(['c'], 'var')->inArray(['a', 'b']);
+Assert::assert('c', 'var')->inArray(['a', 'b']);
 
 // ----------
-
-// EXCEPTION: var MUST be array
-Assert::assert('a', 'var')->inArray(['a', 'b']);
 
 // EXCEPTION: $range MUST be array
 Assert::assert(['a'], 'var')->inArray('a');
