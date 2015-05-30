@@ -571,6 +571,10 @@ class Assert
             throw new \InvalidArgumentException('Param $pattern must be string');
         }
 
+        if (!is_string($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'string']);
+        }
+
         // God please sorry for this @
         $checkResult = @preg_match($pattern, $this->value);
 
@@ -601,6 +605,10 @@ class Assert
 
         if (!is_string($pattern)) {
             throw new \InvalidArgumentException('Param $pattern must be string');
+        }
+
+        if (!is_string($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'string']);
         }
 
         if (!fnmatch($pattern, $this->value)) {

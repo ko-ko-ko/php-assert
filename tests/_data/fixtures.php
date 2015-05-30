@@ -800,11 +800,22 @@ return [
             'glob' => 0,
         ]
     ],
-// 'not string' -> glob 'some*'
+// 'string' -> glob 'some*'
     [
         'comment' => '"not string" -> glob "some*"',
         'arguments' => ['some*'],
-        'value' => 'not string',
+        'value' => 'string',
+        'errors' => [
+            'match' => 1,
+            'glob' => 1,
+        ]
+    ],
+
+// [] -> glob 'some*'
+    [
+        'comment' => '[] -> glob "some*"',
+        'arguments' => ['some*'],
+        'value' => [],
         'errors' => [
             'match' => 1,
             'glob' => 1,
