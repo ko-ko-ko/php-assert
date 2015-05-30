@@ -500,7 +500,7 @@ Assert::assert(['a' => 'b'], 'data')->forMap(
 
 #### forMap `Run callable function for each element in map`
 
-Attention: arrays like `['1' => 'a', '2' => 'b']` php will convert to `[1 => 'a', 2 => 'b']`
+**Attention**: arrays like `['1' => 'a', '2' => 'b']` php will convert to `[1 => 'a', 2 => 'b']`
 
 ```php
 // OK
