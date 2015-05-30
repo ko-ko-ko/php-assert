@@ -125,6 +125,80 @@ class Assert
     }
 
     /**
+     * @param callable $callback(Assert $value)
+     *
+     * @return $this
+     */
+    public function forList(callable $callback)
+    {
+        if (!is_array($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'array']);
+        }
+
+        if (empty($this->value)) {
+            return $this;
+        }
+
+        $valueAssert = clone self::$validator;
+
+        if ($this->exceptionClass !== static::EXCEPTION_CLASS) {
+            $valueAssert->setExceptionClass($this->exceptionClass);
+        }
+
+        foreach ($this->value as $key => $value) {
+            if (!is_int($key)) {
+                $this->name = sprintf("%s: key '%s'", $this->name, $key);
+                $this->value = $key;
+
+                throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'int']);
+            }
+
+            $valueAssert->value = $value;
+            $valueAssert->name = sprintf("%s['%s']", $this->name, $key);
+
+            $callback($valueAssert);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param callable $callback(Assert $key, Assert $value)
+     *
+     * @return $this
+     */
+    public function forMap(callable $callback)
+    {
+        if (!is_array($this->value)) {
+            throw $this->buildException(self::EXCEPTION_TYPE_TEXT_POSITIVE, ['{{type}}' => 'array']);
+        }
+
+        if (empty($this->value)) {
+            return $this;
+        }
+
+        $keyAssert = clone self::$validator;
+        $valueAssert = clone self::$validator;
+
+        if ($this->exceptionClass !== static::EXCEPTION_CLASS) {
+            $keyAssert->setExceptionClass($this->exceptionClass);
+            $valueAssert->setExceptionClass($this->exceptionClass);
+        }
+
+        foreach ($this->value as $key => $value) {
+            $keyAssert->value = $key;
+            $valueAssert->value = $value;
+
+            $keyAssert->name = sprintf("%s: key '%s'", $this->name, $key);
+            $valueAssert->name = sprintf("%s['%s']", $this->name, $key);
+
+            $callback($keyAssert, $valueAssert);
+        }
+
+        return $this;
+    }
+
+    /**
      * @param int $length
      *
      * @return $this

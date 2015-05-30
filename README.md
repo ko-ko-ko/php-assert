@@ -469,6 +469,60 @@ Assert::assert('A', 'var')->between(1);
 
 -- --
 
+LOOP ASSERTS
+============
+
+#### forList `Run callable function for each element in list`
+
+```php
+// OK
+$data = [1, 2, 3, 4, 5];
+
+Assert::assert($data, 'data')->forMap(
+    function (Assert $assert) {
+        $assert->int()->positive();
+    }
+);
+
+// ----------
+
+// EXCEPTION: data MUST be array
+Assert::assert('some data', 'data')->forMap(
+    function (Assert $assert) {}
+);
+
+// EXCEPTION: $data: key 'a' MUST be int
+Assert::assert(['a' => 'b'], 'data')->forMap(
+    function (Assert $assert) {}
+);
+
+```
+
+#### forMap `Run callable function for each element in map`
+
+Attention: arrays like `['1' => 'a', '2' => 'b']` php will convert to `[1 => 'a', 2 => 'b']`
+
+```php
+// OK
+$data = ['A' => 'A1', 'B' => 'B1', 'C' => 'C1'];
+
+Assert::assert($data, 'data')->forMap(
+    function (Assert $keyAssert, Assert $valueAssert) {
+        $keyAssert->lengthMore(1);
+        $valueAssert->lengthMore(1);
+    }
+);
+
+// ----------
+
+// EXCEPTION: data MUST be array
+Assert::assert('some data', 'data')->forMap(
+    function (Assert $assert) {}
+);
+```
+
+-- --
+
 CAST API
 ========
 

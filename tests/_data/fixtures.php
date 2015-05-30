@@ -5,6 +5,8 @@
  * @license   https://raw.github.com/ko-ko-ko/php-assert/master/LICENSE
  */
 
+use KoKoKo\Assert\Assert;
+
 return [
 // null
     [
@@ -810,7 +812,6 @@ return [
             'glob' => 1,
         ]
     ],
-
 // [] -> glob 'some*'
     [
         'comment' => '[] -> glob "some*"',
@@ -819,6 +820,87 @@ return [
         'errors' => [
             'match' => 1,
             'glob' => 1,
+        ]
+    ],
+// 'some string' -> forMap function(Assert $key, Assert $value) {}
+    [
+        'comment' => "'some string' -> function(Assert \$value) {}",
+        'arguments' => [function(Assert $value) {}],
+        'value' => 'some string',
+        'errors' => [
+            'forList' => 1,
+        ]
+    ],
+// [] -> forList function(Assert $value) {}
+    [
+        'comment' => '[] -> function(Assert $value) {}',
+        'arguments' => [function(Assert $value) {}],
+        'value' => [],
+        'errors' => [
+            'forList' => 0,
+        ]
+    ],
+// ['A', 'B'] -> forList function(Assert $value) {}
+    [
+        'comment' => '[] -> function(Assert $value) {}',
+        'arguments' => [function(Assert $value) {}],
+        'value' => ['A', 'B'],
+        'errors' => [
+            'forList' => 0,
+        ]
+    ],
+// ['A', 'B'] -> forList function(Assert $value) { $value->int(); }
+    [
+        'comment' => '[] -> function(Assert $value) {}',
+        'arguments' => [function(Assert $value) { $value->int(); }],
+        'value' => ['A', 'B'],
+        'errors' => [
+            'forList' => 1,
+        ]
+    ],
+// ['A' => 'A', 'B' => 'B'] -> forList function(Assert $value) {}
+    [
+        'comment' => '[] -> function(Assert $value) {}',
+        'arguments' => [function(Assert $value) {}],
+        'value' => ['A' => 'A', 'B' => 'B'],
+        'errors' => [
+            'forList' => 1,
+        ]
+    ],
+// 'some string' -> forMap function(Assert $key, Assert $value) {}
+    [
+        'comment' => "'some string' -> function(Assert \$value) {}",
+        'arguments' => [function(Assert $key, Assert $value) {}],
+        'value' => 'some string',
+        'errors' => [
+            'forMap' => 1,
+        ]
+    ],
+// [] -> forMap function(Assert $key, Assert $value) {}
+    [
+        'comment' => '[] -> function(Assert $value) {}',
+        'arguments' => [function(Assert $key, Assert $value) {}],
+        'value' => [],
+        'errors' => [
+            'forMap' => 0,
+        ]
+    ],
+// ['A' => 'A', 'B' => 'B'] -> forList function(Assert $key, Assert $value) {}
+    [
+        'comment' => '[] -> function(Assert $value) {}',
+        'arguments' => [function(Assert $key, Assert $value) {}],
+        'value' => ['A' => 'A', 'B' => 'B'],
+        'errors' => [
+            'forMap' => 0,
+        ]
+    ],
+// ['A' => 'A', 'B' => 'B'] -> forList function(Assert $key, Assert $value) { $key->int(); $value->int(); }
+    [
+        'comment' => '[] -> function(Assert $value) {}',
+        'arguments' => [function(Assert $key, Assert $value) { $key->int(); $value->int(); }],
+        'value' => ['A' => 'A', 'B' => 'B'],
+        'errors' => [
+            'forMap' => 1,
         ]
     ],
 ];

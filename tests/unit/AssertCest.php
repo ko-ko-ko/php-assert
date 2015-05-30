@@ -73,6 +73,49 @@ class AssertCest
     /**
      * @param \UnitTester $I
      */
+    public function forList(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function forListArguments(\UnitTester $I)
+    {
+        $expected = '\RuntimeException';
+        Assert::assert(['A'], 'var', $expected)->forList(
+            function (Assert $assert) use ($I, $expected) {
+                $I->assertEquals($expected, $assert->getExceptionClass());
+            }
+        );
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function forMap(\UnitTester $I)
+    {
+        $this->check($I, __FUNCTION__);
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
+    public function forMapArguments(\UnitTester $I)
+    {
+        $expected = '\RuntimeException';
+        Assert::assert(['A' => 'A'], 'var', $expected)->forMap(
+            function (Assert $keyAssert, Assert $valueAssert) use ($I, $expected) {
+                $I->assertEquals($expected, $keyAssert->getExceptionClass());
+                $I->assertEquals($expected, $valueAssert->getExceptionClass());
+            }
+        );
+    }
+
+    /**
+     * @param \UnitTester $I
+     */
     public function length(\UnitTester $I)
     {
         $this->check($I, __FUNCTION__);
