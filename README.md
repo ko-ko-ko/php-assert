@@ -469,8 +469,8 @@ Assert::assert('A', 'var')->between(1);
 
 -- --
 
-LOOP ASSERTS
-============
+LOOP ASSERTS API
+================
 
 #### forList `Run callable function for each element in list`
 
@@ -517,7 +517,7 @@ Assert::assert($data, 'data')->forMap(
 
 // EXCEPTION: data MUST be array
 Assert::assert('some data', 'data')->forMap(
-    function (Assert $assert) {}
+    function (Assert $keyAssert, Assert $valueAssert) {}
 );
 ```
 
