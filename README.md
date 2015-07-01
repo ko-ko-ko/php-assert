@@ -478,7 +478,7 @@ LOOP ASSERTS API
 // OK
 $data = [1, 2, 3, 4, 5];
 
-Assert::assert($data, 'data')->forMap(
+Assert::assert($data, 'data')->forList(
     function (Assert $assert) {
         $assert->int()->positive();
     }
@@ -487,12 +487,12 @@ Assert::assert($data, 'data')->forMap(
 // ----------
 
 // EXCEPTION: data MUST be array
-Assert::assert('some data', 'data')->forMap(
+Assert::assert('some data', 'data')->forList(
     function (Assert $assert) {}
 );
 
 // EXCEPTION: $data: key 'a' MUST be int
-Assert::assert(['a' => 'b'], 'data')->forMap(
+Assert::assert(['a' => 'b'], 'data')->forList(
     function (Assert $assert) {}
 );
 
