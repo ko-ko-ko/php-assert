@@ -40,7 +40,7 @@ class Assert
     /** @var int|float|string|resource|array|null */
     protected $value;
 
-    protected function __construct()
+    public function __construct()
     {
     }
 
