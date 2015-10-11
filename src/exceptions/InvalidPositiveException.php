@@ -30,7 +30,7 @@ class InvalidPositiveException extends \InvalidArgumentException
                 )
             );
         } elseif (!is_int($variableValue) && !is_float($variableValue)) {
-            throw new \InvalidArgumentException('Variable "$variableValue" must be not "int" and not "float"');
+            throw new \InvalidArgumentException('Variable "$variableValue" must be "int" or "float"');
         }
 
         parent::__construct(
