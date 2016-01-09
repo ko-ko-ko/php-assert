@@ -171,7 +171,7 @@ class Assert
 
         if (!is_string($this->value)) {
             throw new InvalidStringException($this->name, $this->value);
-        } elseif (mb_strlen($this->value) !== $length) {
+        } elseif (strlen($this->value) !== $length) {
             throw new InvalidStringLengthException($this->name, $this->value, $length);
         }
 
@@ -207,7 +207,7 @@ class Assert
             throw new InvalidStringException($this->name, $this->value);
         }
 
-        $length = mb_strlen($this->value);
+        $length = strlen($this->value);
 
         if ($length < $from || $length > $to) {
             throw new LengthNotBetweenException($this->name, $this->value, $from, $to);
@@ -236,7 +236,7 @@ class Assert
 
         if (!is_string($this->value)) {
             throw new InvalidStringException($this->name, $this->value);
-        } elseif (mb_strlen($this->value) > $length) {
+        } elseif (strlen($this->value) > $length) {
             throw new LengthNotLessException($this->name, $this->value, $length);
         }
 
@@ -263,7 +263,7 @@ class Assert
 
         if (!is_string($this->value)) {
             throw new InvalidStringException($this->name, $this->value);
-        } elseif (mb_strlen($this->value) < $length) {
+        } elseif (strlen($this->value) < $length) {
             throw new LengthNotGreaterException($this->name, $this->value, $length);
         }
 

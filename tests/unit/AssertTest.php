@@ -84,7 +84,6 @@ class AssertTest extends BaseUnitTestCase
     public function testLength()
     {
         Assert::assert('ab')->length(2);
-        Assert::assert('Ы')->length(2);
     }
 
     public function testLengthWithInvalidTypeFixtures()
@@ -162,7 +161,6 @@ class AssertTest extends BaseUnitTestCase
         Assert::assert('a')->lengthBetween(1, 3);
         Assert::assert('ab')->lengthBetween(1, 3);
         Assert::assert('abc')->lengthBetween(1, 3);
-        Assert::assert('Ы')->lengthBetween(1, 3);
     }
 
     public function testLengthBetweenWithInvalidTypeFixtures()
