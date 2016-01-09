@@ -48,7 +48,7 @@ class Assert
     /** @var string */
     protected $name;
 
-    /** @var int|float|string|resource|array|null */
+    /** @var int|float|bool|string|resource|array|null */
     protected $value;
 
     /**
@@ -63,7 +63,7 @@ class Assert
     public static function assert($value, $name = 'value')
     {
         if (is_object($value)) {
-            throw new InvalidNotObjectException($name, $value);
+            throw new InvalidNotObjectException($name);
         }
 
         if (!is_string($name)) {
@@ -109,12 +109,8 @@ class Assert
         $valueAssert = clone self::$validator;
 
         foreach ($this->value as $key => $value) {
-            if (!is_int($key)) {
-                throw new InvalidIntException(sprintf("%s: key '%s'", $this->name, $key), $key);
-            }
-
             $valueAssert->value = $value;
-            $valueAssert->name  = sprintf("%s['%s']", $this->name, $key);
+            $valueAssert->name  = sprintf("%s[%s]", $this->name, $key);
 
             $callback($valueAssert);
         }
@@ -690,7 +686,7 @@ class Assert
     public function numeric()
     {
         if (!is_int($this->value) && !is_float($this->value) && !is_string($this->value)) {
-            throw new InvalidIntOrFloatOrStringException($this->name, $this->value, $this->value);
+            throw new InvalidIntOrFloatOrStringException($this->name, $this->value);
         } elseif (!is_numeric($this->value)) {
             throw new InvalidNumericException($this->name, $this->value);
         }

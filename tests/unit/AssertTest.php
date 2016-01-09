@@ -52,7 +52,7 @@ class AssertTest extends BaseUnitTestCase
     {
         $name            = 'value';
         $fixture         = $this->getTypeFixture(self::OBJECT_FIXTURE);
-        $expectedMessage = (new InvalidNotObjectException($name, $fixture))->getMessage();
+        $expectedMessage = (new InvalidNotObjectException($name))->getMessage();
 
         try {
             Assert::assert($fixture, $name);
@@ -79,6 +79,154 @@ class AssertTest extends BaseUnitTestCase
                 $this->assertSame($expectedMessage, $error->getMessage());
             }
         }
+    }
+
+    public function testForList()
+    {
+        Assert::assert([1, 2, 3])->forList(
+            function (Assert $assert) {
+                $assert->int();
+            }
+        );
+    }
+
+    public function testForListWithInvalidTypeFixtures()
+    {
+        $name     = 'variable';
+        $fixtures = $this->getTypeFixturesWithout([self::ARRAY_FIXTURE, self::OBJECT_FIXTURE]);
+
+        foreach ($fixtures as $fixture) {
+            $expectedMessage = (new InvalidArrayException($name, $fixture))->getMessage();
+
+            try {
+                Assert::assert($fixture, $name)->forList(
+                    function (Assert $assert) {
+                    }
+                );
+
+                $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+            } catch (InvalidArrayException $error) {
+                $this->assertSame($expectedMessage, $error->getMessage());
+            }
+        }
+    }
+
+    public function testForListWithInvalidValueFixtures()
+    {
+        $name     = 'variable';
+        $keyName  = 'variable[0]';
+        $fixtures = ['a'];
+
+        $expectedMessage = (new InvalidIntException($keyName, $fixtures[0]))->getMessage();
+
+        try {
+            Assert::assert($fixtures, $name)->forList(
+                function (Assert $assert) {
+                    $assert->int();
+                }
+            );
+
+            $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+        } catch (InvalidIntException $error) {
+            $this->assertSame($expectedMessage, $error->getMessage());
+        }
+    }
+
+    public function testForListWithEmptyValueFixtures()
+    {
+        /** @noinspection PhpUnusedParameterInspection */
+        Assert::assert([], 'value')->forList(
+            function (Assert $assert) {
+                $this->fail('Func must be not called');
+            }
+        );
+    }
+
+    public function testForMap()
+    {
+        Assert::assert([1, 2, 3])->forMap(
+            function (Assert $keyAssert, Assert $valueAssert) {
+                $keyAssert->int();
+                $valueAssert->int();
+
+                $this->assertNotSame($keyAssert->get(), $valueAssert->get());
+            }
+        );
+    }
+
+    public function testForMapWithInvalidTypeFixtures()
+    {
+        $name     = 'variable';
+        $fixtures = $this->getTypeFixturesWithout([self::ARRAY_FIXTURE, self::OBJECT_FIXTURE]);
+
+        foreach ($fixtures as $fixture) {
+            $expectedMessage = (new InvalidArrayException($name, $fixture))->getMessage();
+
+            try {
+                Assert::assert($fixture, $name)->forMap(
+                    function (Assert $keyAssert, Assert $valueAssert) {
+                    }
+                );
+
+                $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+            } catch (InvalidArrayException $error) {
+                $this->assertSame($expectedMessage, $error->getMessage());
+            }
+        }
+    }
+
+    public function testForMapWithInvalidValueFixtures()
+    {
+        $name     = 'variable';
+        $keyName  = "variable['a']";
+        $fixtures = ['a' => 'b'];
+
+        $expectedMessage = (new InvalidIntException($keyName, $fixtures['a']))->getMessage();
+
+        try {
+            Assert::assert($fixtures, $name)->forMap(
+                function (Assert $keyAssert, Assert $valueAssert) {
+                    $keyAssert->string();
+                    $valueAssert->int();
+                }
+            );
+
+            $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+        } catch (InvalidIntException $error) {
+            $this->assertSame($expectedMessage, $error->getMessage());
+        }
+    }
+
+    public function testForMapWithInvalidKeyValueFixtures()
+    {
+        $name     = 'variable';
+        $keyName  = "variable: key 'a'";
+        $fixtures = ['a' => 'b'];
+
+        $expectedMessage = (new InvalidIntException($keyName, $fixtures['a']))->getMessage();
+
+        try {
+            Assert::assert($fixtures, $name)->forMap(
+                function (Assert $keyAssert, Assert $valueAssert) {
+                    $keyAssert->int();
+                    $valueAssert->string();
+                }
+            );
+
+            $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+        } catch (InvalidIntException $error) {
+            $this->assertSame($expectedMessage, $error->getMessage());
+        }
+    }
+
+    public function testForMapWithEmptyValueFixtures()
+    {
+        /** @noinspection PhpUnusedParameterInspection */
+        Assert::assert([], 'value')->forMap(
+            function (Assert $assert) {
+                $this->fail('Func must be not called');
+            }
+        );
     }
 
     public function testLength()
