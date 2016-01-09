@@ -20,7 +20,7 @@ class InvalidArrayException extends ArgumentException
         if (!is_string($variableName)) {
             throw new InvalidStringException('variableName', $variableName);
         } elseif (is_array($variableValue)) {
-            throw new InvalidNotArrayException('variableValue', $variableValue);
+            throw new InvalidNotArrayException('variableValue');
         }
 
         parent::__construct(
