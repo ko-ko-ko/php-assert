@@ -3,8 +3,8 @@ php-assert
 
 [![][build-img]][build-url] [![][quality-img]][quality-url] [![][coverage-img]][coverage-url] [![][stable-img]][package-url] [![][license-img]][package-url]
 
-[build-url]: https://travis-ci.org/ko-ko-ko/php-assert
-[build-img]: https://travis-ci.org/ko-ko-ko/php-assert.svg
+[build-url]: https://travis-ci.org/ko-ko-ko/php-assert?branch=master
+[build-img]: https://travis-ci.org/ko-ko-ko/php-assert.svg?branch=master
 [quality-url]: https://scrutinizer-ci.com/g/ko-ko-ko/php-assert/?branch=master
 [quality-img]: https://scrutinizer-ci.com/g/ko-ko-ko/php-assert/badges/quality-score.png?b=master
 [coverage-url]: https://scrutinizer-ci.com/g/ko-ko-ko/php-assert/?branch=master
@@ -456,8 +456,8 @@ Assert::assert('A', 'var')->between(1);
 
 -- --
 
-LOOP ASSERTS
-============
+LOOP ASSERTS API
+================
 
 #### forList `Run callable function for each element in list`
 
@@ -465,7 +465,7 @@ LOOP ASSERTS
 // OK
 $data = [1, 2, 3, 4, 5];
 
-Assert::assert($data, 'data')->forMap(
+Assert::assert($data, 'data')->forList(
     function (Assert $assert) {
         $assert->int()->positive();
     }
@@ -474,12 +474,12 @@ Assert::assert($data, 'data')->forMap(
 // ----------
 
 // EXCEPTION: data MUST be array
-Assert::assert('some data', 'data')->forMap(
+Assert::assert('some data', 'data')->forList(
     function (Assert $assert) {}
 );
 
 // EXCEPTION: $data: key 'a' MUST be int
-Assert::assert(['a' => 'b'], 'data')->forMap(
+Assert::assert(['a' => 'b'], 'data')->forList(
     function (Assert $assert) {}
 );
 
@@ -504,7 +504,7 @@ Assert::assert($data, 'data')->forMap(
 
 // EXCEPTION: data MUST be array
 Assert::assert('some data', 'data')->forMap(
-    function (Assert $assert) {}
+    function (Assert $keyAssert, Assert $valueAssert) {}
 );
 ```
 
