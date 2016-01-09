@@ -7,35 +7,25 @@
 
 namespace KoKoKo\assert\exceptions;
 
-/**
- * Class InvalidFloatException
- *
- * @package KoKoKo\assert\exceptions
- */
-class InvalidFloatException extends \InvalidArgumentException
+class InvalidFloatException extends ArgumentException
 {
     /**
      * @param string                              $variableName
      * @param array|bool|int|null|resource|string $variableValue
-     *
-     * @throws \InvalidArgumentException
+     * @throws InvalidNotFloatException
+     * @throws InvalidStringException
      */
     public function __construct($variableName, $variableValue)
     {
         if (!is_string($variableName)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Variable "$variableName" must be "string", actual type: "%s"',
-                    gettype($variableName)
-                )
-            );
+            throw new InvalidStringException('variableName', $variableName);
         } elseif (is_float($variableValue)) {
-            throw new \InvalidArgumentException('Variable "$variableValue" must be not "float"');
+            throw new InvalidNotFloatException('variableValue');
         }
 
         parent::__construct(
             sprintf(
-                'Variable "$%s" must be float, actual type: "%s"',
+                'Variable "$%s" must be "float", actual type: "%s"',
                 $variableName,
                 gettype($variableValue)
             )

@@ -7,30 +7,20 @@
 
 namespace KoKoKo\assert\exceptions;
 
-/**
- * Class InvalidResourceException
- *
- * @package KoKoKo\assert\exceptions
- */
-class InvalidResourceException extends \InvalidArgumentException
+class InvalidResourceException extends ArgumentException
 {
     /**
      * @param string                           $variableName
      * @param array|bool|float|int|null|string $variableValue
-     *
-     * @throws \InvalidArgumentException
+     * @throws InvalidNotResourceException
+     * @throws InvalidStringException
      */
     public function __construct($variableName, $variableValue)
     {
         if (!is_string($variableName)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Variable "$variableName" must be "string", actual type: "%s"',
-                    gettype($variableName)
-                )
-            );
+            throw new InvalidStringException('variableName', $variableName);
         } elseif (is_resource($variableValue)) {
-            throw new \InvalidArgumentException('Variable "$variableValue" must be not "resource"');
+            throw new InvalidNotResourceException('variableValue');
         }
 
         parent::__construct(

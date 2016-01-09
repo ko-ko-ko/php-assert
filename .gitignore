@@ -2,5 +2,6 @@
 .vagrant/
 composer.phar
 vendor/
+coverage.txt
 
-tests/_output/*
+!.gitignore

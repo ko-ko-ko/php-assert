@@ -7,30 +7,20 @@
 
 namespace KoKoKo\assert\exceptions;
 
-/**
- * Class InvalidIntOrFloatException
- *
- * @package KoKoKo\assert\exceptions
- */
-class InvalidIntOrFloatException extends \InvalidArgumentException
+class InvalidIntOrFloatException extends ArgumentException
 {
     /**
      * @param string                          $variableName
      * @param array|bool|null|resource|string $variableValue
-     *
-     * @throws \InvalidArgumentException
+     * @throws InvalidNotIntAndNotFloatException
+     * @throws InvalidStringException
      */
     public function __construct($variableName, $variableValue)
     {
         if (!is_string($variableName)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Variable "$variableName" must be "string", actual type: "%s"',
-                    gettype($variableName)
-                )
-            );
+            throw new InvalidStringException('variableName', $variableName);
         } elseif (is_int($variableValue) || is_float($variableValue)) {
-            throw new \InvalidArgumentException('Variable "$variableValue" must be not "int" and not "float"');
+            throw new InvalidNotIntAndNotFloatException('variableValue');
         }
 
         parent::__construct(

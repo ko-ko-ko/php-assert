@@ -7,35 +7,27 @@
 
 namespace KoKoKo\assert\exceptions;
 
-/**
- * Class InvalidNumericException
- *
- * @package KoKoKo\assert\exceptions
- */
-class InvalidNumericException extends \InvalidArgumentException
+class InvalidNumericException extends ArgumentException
 {
     /**
      * @param string $variableName
      * @param int    $variableValue
-     *
-     * @throws \InvalidArgumentException
+     * @throws InvalidIntOrFloatOrStringException
+     * @throws InvalidStringException
      */
     public function __construct($variableName, $variableValue)
     {
         if (!is_string($variableName)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Variable "$variableName" must be "string", actual type: "%s"',
-                    gettype($variableName)
-                )
-            );
+            throw new InvalidStringException('variableName', $variableName);
+        } elseif (!is_int($variableValue) && !is_float($variableValue) && !is_string($variableValue)) {
+            throw new InvalidIntOrFloatOrStringException('variableValue', $variableValue);
         }
 
         parent::__construct(
             sprintf(
-                'Variable "$%s" must be "numeric", actual value: "%v"',
+                'Variable "$%s" must be "numeric", actual value: "%s"',
                 $variableName,
-                $variableValue
+                (string) $variableValue
             )
         );
     }

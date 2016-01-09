@@ -7,36 +7,19 @@
 
 namespace KoKoKo\assert\exceptions;
 
-/**
- * Class InvalidDigitException
- *
- * @package KoKoKo\assert\exceptions
- */
-class InvalidDigitException extends \InvalidArgumentException
+class InvalidDigitException extends ArgumentException
 {
     /**
      * @param string $variableName
      * @param string $variableValue
-     *
-     * @throws \InvalidArgumentException
-     * @throws \LogicException
+     * @throws InvalidStringException
      */
     public function __construct($variableName, $variableValue)
     {
         if (!is_string($variableName)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Variable "$variableName" must be "string", actual type: "%s"',
-                    gettype($variableName)
-                )
-            );
+            throw new InvalidStringException('variableName', $variableName);
         } elseif (!is_string($variableValue)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Variable "$variableValue" must be "string", actual type: "%s"',
-                    gettype($variableValue)
-                )
-            );
+            throw new InvalidStringException('variableValue', $variableValue);
         }
 
         parent::__construct(

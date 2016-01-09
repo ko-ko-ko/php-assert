@@ -7,31 +7,20 @@
 
 namespace KoKoKo\assert\exceptions;
 
-/**
- * Class InvalidArrayException
- *
- * @package KoKoKo\assert\exceptions
- */
-class InvalidArrayException extends \InvalidArgumentException
+class InvalidArrayException extends ArgumentException
 {
     /**
      * @param string                              $variableName
      * @param bool|float|int|null|resource|string $variableValue
-     *
-     * @throws \InvalidArgumentException
-     * @throws \LogicException
+     * @throws InvalidNotArrayException
+     * @throws InvalidStringException
      */
     public function __construct($variableName, $variableValue)
     {
         if (!is_string($variableName)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Variable "$variableName" must be "string", actual type: "%s"',
-                    gettype($variableName)
-                )
-            );
+            throw new InvalidStringException('variableName', $variableName);
         } elseif (is_array($variableValue)) {
-            throw new \InvalidArgumentException('Variable "$variableValue" must be not "array"');
+            throw new InvalidNotArrayException('variableValue', $variableValue);
         }
 
         parent::__construct(

@@ -7,30 +7,20 @@
 
 namespace KoKoKo\assert\exceptions;
 
-/**
- * Class InvalidNullException
- *
- * @package KoKoKo\assert\exceptions
- */
-class InvalidNullException extends \InvalidArgumentException
+class InvalidNullException extends ArgumentException
 {
     /**
      * @param string $variableName
      * @param int    $variableValue
-     *
-     * @throws \InvalidArgumentException
+     * @throws InvalidNotNullException
+     * @throws InvalidStringException
      */
     public function __construct($variableName, $variableValue)
     {
         if (!is_string($variableName)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Variable "$variableName" must be "string", actual type: "%s"',
-                    gettype($variableName)
-                )
-            );
-        } elseif (!is_null($variableValue)) {
-            throw new \InvalidArgumentException('Variable "$variableValue" must be "null"');
+            throw new InvalidStringException('variableName', $variableName);
+        } elseif (is_null($variableValue)) {
+            throw new InvalidNotNullException('variableValue');
         }
 
         parent::__construct(

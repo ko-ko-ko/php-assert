@@ -7,27 +7,16 @@
 
 namespace KoKoKo\assert\exceptions;
 
-/**
- * Class InvalidEmptyException
- *
- * @package KoKoKo\assert\exceptions
- */
-class InvalidEmptyException extends \InvalidArgumentException
+class InvalidEmptyException extends ArgumentException
 {
     /**
      * @param string $variableName
      * @throws \InvalidArgumentException
-     * @throws \LogicException
      */
     public function __construct($variableName)
     {
         if (!is_string($variableName)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Variable "$variableName" must be "string", actual type: "%s"',
-                    gettype($variableName)
-                )
-            );
+            throw new InvalidStringException('variableName', $variableName);
         }
 
         parent::__construct(

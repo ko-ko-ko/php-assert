@@ -7,35 +7,19 @@
 
 namespace KoKoKo\assert\exceptions;
 
-/**
- * Class InvalidRegExpPatternException
- *
- * @package KoKoKo\assert\exceptions
- */
-class InvalidRegExpPatternException extends \InvalidArgumentException
+class InvalidRegExpPatternException extends ArgumentException
 {
     /**
      * @param string $variableName
      * @param string $variableValue
-     *
-     * @throws \InvalidArgumentException
+     * @throws InvalidStringException
      */
     public function __construct($variableName, $variableValue)
     {
         if (!is_string($variableName)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Variable "$variableName" must be "string", actual type: "%s"',
-                    gettype($variableName)
-                )
-            );
+            throw new InvalidStringException('variableName', $variableName);
         } elseif (!is_string($variableValue)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Variable "$variableValue" must be "string", actual type: "%s"',
-                    gettype($variableValue)
-                )
-            );
+            throw new InvalidStringException('variableValue', $variableValue);
         }
 
         parent::__construct(
