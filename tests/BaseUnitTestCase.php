@@ -2,11 +2,6 @@
 
 namespace KoKoKo\assert\tests;
 
-/**
- * Class BaseTestCase
- *
- * @package KoKoKo\assert\tests
- */
 class BaseUnitTestCase extends \PHPUnit_Framework_TestCase
 {
     const NULL_FIXTURE     = 'null';
@@ -31,13 +26,12 @@ class BaseUnitTestCase extends \PHPUnit_Framework_TestCase
             self::STRING_FIXTURE   => '',
             self::ARRAY_FIXTURE    => [],
             self::OBJECT_FIXTURE   => new \StdClass,
-            self::RESOURCE_FIXTURE => stream_context_create()
+            self::RESOURCE_FIXTURE => stream_context_create(),
         ];
     }
 
     /**
      * @param array $fixtureNames
-     *
      * @return array
      * @throws \InvalidArgumentException
      */
@@ -60,7 +54,6 @@ class BaseUnitTestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @param string $fixtureName
-     *
      * @return mixed
      * @throws \InvalidArgumentException
      */

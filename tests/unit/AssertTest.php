@@ -50,8 +50,8 @@ class AssertTest extends BaseUnitTestCase
 
     public function testAssertWithInvalidTypeFixturesForValueArgument()
     {
-        $name     = 'value';
-        $fixture = $this->getTypeFixture(self::OBJECT_FIXTURE);
+        $name            = 'value';
+        $fixture         = $this->getTypeFixture(self::OBJECT_FIXTURE);
         $expectedMessage = (new InvalidNotObjectException($name, $fixture))->getMessage();
 
         try {
