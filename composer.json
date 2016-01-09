@@ -2,9 +2,7 @@
     "name": "ko-ko-ko/assert",
     "description": "Fast flexible php assert",
     "require-dev": {
-        "codeception/codeception": "2.0.x",
-        "respect/validation": "0.8.x",
-        "beberlei/assert": "v2.3"
+        "phpunit/phpunit": "~4.8.21"
     },
     "license": "MIT",
     "authors": [

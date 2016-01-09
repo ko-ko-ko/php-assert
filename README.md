@@ -18,7 +18,7 @@ php-assert
 ## It's very fast, but ugly inside
 
 There are many other cool asserts, but for their usability you must pay by time & memory of execution.
-This assert gives you very simple and fast API. You can see benchmark results at bottom of [build logs][build-url].
+This assert gives you very simple and fast API.
 
 ![](logo.jpg)
 
@@ -27,13 +27,13 @@ This assert gives you very simple and fast API. You can see benchmark results at
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 ```sh
-php composer.phar require --prefer-dist ko-ko-ko/assert "0.2.x"
+php composer.phar require --prefer-dist ko-ko-ko/assert "~1.0.0"
 ```
 
 or add line to require section of `composer.json`
 
 ```json
-"ko-ko-ko/assert": "0.2.x"
+"ko-ko-ko/assert": "~1.0.0"
 ```
 
 ## Usage
@@ -59,13 +59,12 @@ if (!is_string($var)) {
 BASIC API
 =========
 
-#### assert($value, $name, $exceptionClass = '\InvalidArgumentException')
+#### assert($value, $name)
 
 Build validation object
 
 * `$value` checking value. MUST be: array, bool, float, int, null, string
 * `$name` name of variable, used in exception message. MUST be string
-* `$exceptionClass` user specific exception class name. MUST be \Exception, or it's child
 
 ```php
 // OK
@@ -74,19 +73,7 @@ Assert::assert(5, 'var', '\LogicException');
 
 // EXCEPTION: var MUST NOT be an object
 Assert::assert(new stdClass(), 'var');
-
-// EXCEPTION: exceptionClass MUST be \Exception, or it's child
-Assert::assert(5, 'var', '\ArrayIterator');
 ```
-
-#### getExceptionClass
-
-Return name of exception class that will be thrown on validation fail
-
-#### setExceptionClass($exceptionClass)
-
-* `$exceptionClass` user specific exception class name. MUST be \Exception, or it's child
-
 
 -- --
 
@@ -597,10 +584,4 @@ Assert::assert([], 'var')->toString()->get();
 
 ```sh
 make test
-```
-
-#### Run benchmark from console
-
-```sh
-make benchmark
 ```
