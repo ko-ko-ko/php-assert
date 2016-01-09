@@ -83,7 +83,7 @@ class Assert
     /**
      * Return current validation value
      *
-     * @return int|float|string|resource|array
+     * @return int|float|bool|string|resource|array
      */
     public function get()
     {
@@ -746,7 +746,7 @@ class Assert
     public function toFloat()
     {
         if (is_array($this->value)) {
-            throw new InvalidNotArrayException($this->name, $this->value);
+            throw new InvalidNotArrayException($this->name);
         } elseif (!empty($this->value) && !is_numeric($this->value)) {
             throw new InvalidNumericException($this->name, $this->value);
         }
@@ -766,7 +766,7 @@ class Assert
     public function toInt()
     {
         if (is_array($this->value)) {
-            throw new InvalidNotArrayException($this->name, $this->value);
+            throw new InvalidNotArrayException($this->name);
         } elseif (!empty($this->value) && !is_numeric($this->value)) {
             throw new InvalidNumericException($this->name, $this->value);
         }
@@ -785,7 +785,7 @@ class Assert
     public function toString()
     {
         if (is_array($this->value)) {
-            throw new InvalidNotArrayException($this->name, $this->value);
+            throw new InvalidNotArrayException($this->name);
         }
 
         $this->value = (string) $this->value;
