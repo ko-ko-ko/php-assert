@@ -7,11 +7,11 @@
 
 namespace KoKoKo\assert\tests\unit\exceptions;
 
-use KoKoKo\assert\exceptions\InvalidNotStringException;
+use KoKoKo\assert\exceptions\InvalidNotSameValueException;
 use KoKoKo\assert\exceptions\InvalidStringException;
 use KoKoKo\assert\tests\BaseUnitTestCase;
 
-class InvalidStringExceptionTest extends BaseUnitTestCase
+class InvalidNotSameValueExceptionTest extends BaseUnitTestCase
 {
     public function testConstructWithVariableName()
     {
@@ -21,7 +21,7 @@ class InvalidStringExceptionTest extends BaseUnitTestCase
             $expectedMessage = (new InvalidStringException('variableName', $typeValue))->getMessage();
 
             try {
-                new InvalidStringException($typeValue, 'data');
+                new InvalidNotSameValueException($typeValue, 'data');
 
                 $this->fail('Not fail with: ' . $expectedMessage);
             } catch (InvalidStringException $error) {
@@ -30,36 +30,19 @@ class InvalidStringExceptionTest extends BaseUnitTestCase
         }
     }
 
-    public function testConstructWithVariableValue()
-    {
-        $fixtureName     = self::STRING_FIXTURE;
-        $expectedMessage = (new InvalidNotStringException('variableValue'))->getMessage();
-
-        try {
-            new InvalidStringException('data', $this->getTypeFixture($fixtureName));
-
-            $this->fail('Not fail with: ' . $expectedMessage);
-        } catch (InvalidNotStringException $error) {
-            $this->assertSame($expectedMessage, $error->getMessage());
-        }
-
-        foreach ($this->getTypeFixturesWithout([$fixtureName]) as $typeName => $typeValue) {
-            new InvalidStringException('data', $typeValue);
-        }
-    }
-
     public function testMessage()
     {
-        $fixtures = $this->getTypeFixturesWithout([self::STRING_FIXTURE]);
+        $variableName = 'variableName';
+        $fixtures     = $this->getTypeFixtures();
 
         foreach ($fixtures as $typeName => $typeValue) {
-            $error = new InvalidStringException($typeName, $typeValue);
+            $error = new InvalidNotSameValueException($variableName, $typeValue);
 
             $this->assertSame(
                 sprintf(
-                    'Variable "$%s" must be "string", actual type: "%s"',
-                    $typeName,
-                    gettype($typeValue)
+                    'Variable "$%s" must be not same as: "%s"',
+                    $variableName,
+                    print_r($typeValue, true)
                 ),
                 $error->getMessage()
             );

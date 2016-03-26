@@ -7,11 +7,12 @@
 
 namespace KoKoKo\assert\tests\unit\exceptions;
 
-use KoKoKo\assert\exceptions\InvalidNotStringException;
+use KoKoKo\assert\exceptions\InvalidNotNullAndNotIntException;
+use KoKoKo\assert\exceptions\InvalidNullOrIntException;
 use KoKoKo\assert\exceptions\InvalidStringException;
 use KoKoKo\assert\tests\BaseUnitTestCase;
 
-class InvalidStringExceptionTest extends BaseUnitTestCase
+class InvalidNullOrIntExceptionTest extends BaseUnitTestCase
 {
     public function testConstructWithVariableName()
     {
@@ -21,7 +22,7 @@ class InvalidStringExceptionTest extends BaseUnitTestCase
             $expectedMessage = (new InvalidStringException('variableName', $typeValue))->getMessage();
 
             try {
-                new InvalidStringException($typeValue, 'data');
+                new InvalidNullOrIntException($typeValue, 'variableValue');
 
                 $this->fail('Not fail with: ' . $expectedMessage);
             } catch (InvalidStringException $error) {
@@ -32,32 +33,41 @@ class InvalidStringExceptionTest extends BaseUnitTestCase
 
     public function testConstructWithVariableValue()
     {
-        $fixtureName     = self::STRING_FIXTURE;
-        $expectedMessage = (new InvalidNotStringException('variableValue'))->getMessage();
+        $expectedMessage = (new InvalidNotNullAndNotIntException('variableName'))->getMessage();
 
         try {
-            new InvalidStringException('data', $this->getTypeFixture($fixtureName));
+            new InvalidNullOrIntException('variableName', $this->getTypeFixture(self::NULL_FIXTURE));
 
             $this->fail('Not fail with: ' . $expectedMessage);
-        } catch (InvalidNotStringException $error) {
+        } catch (InvalidNotNullAndNotIntException $error) {
             $this->assertSame($expectedMessage, $error->getMessage());
         }
 
-        foreach ($this->getTypeFixturesWithout([$fixtureName]) as $typeName => $typeValue) {
-            new InvalidStringException('data', $typeValue);
+        try {
+            new InvalidNullOrIntException('variableName', $this->getTypeFixture(self::INT_FIXTURE));
+
+            $this->fail('Not fail with: ' . $expectedMessage);
+        } catch (InvalidNotNullAndNotIntException $error) {
+            $this->assertSame($expectedMessage, $error->getMessage());
+        }
+
+        $fixtureTypes = [self::NULL_FIXTURE, self::INT_FIXTURE];
+
+        foreach ($this->getTypeFixturesWithout($fixtureTypes) as $typeName => $typeValue) {
+            new InvalidNullOrIntException('variableName', $typeValue);
         }
     }
 
     public function testMessage()
     {
-        $fixtures = $this->getTypeFixturesWithout([self::STRING_FIXTURE]);
+        $fixtures = $this->getTypeFixturesWithout([self::NULL_FIXTURE, self::INT_FIXTURE]);
 
         foreach ($fixtures as $typeName => $typeValue) {
-            $error = new InvalidStringException($typeName, $typeValue);
+            $error = new InvalidNullOrIntException($typeName, $typeValue);
 
             $this->assertSame(
                 sprintf(
-                    'Variable "$%s" must be "string", actual type: "%s"',
+                    'Variable "$%s" must be: "null" or "int", actual type: "%s"',
                     $typeName,
                     gettype($typeValue)
                 ),

@@ -15,7 +15,7 @@ php-assert
 
 ## Yet another validator, WHY??
 
-## It's very fast, but ugly inside
+## It's very fast and designed to be used in any method
 
 There are many other cool asserts, but for their usability you must pay by time & memory of execution.
 This assert gives you very simple and fast API.
@@ -202,10 +202,52 @@ Assert::assert('c', 'var')->inArray(['a', 'b']);
 Assert::assert(['a'], 'var')->inArray('a');
 ```
 
+#### isSame($anotherValue) `Check if value is same as $anotherValue`
+
+* Antipode: **notSame**
+
+Arguments:
+
+* `$anotherValue` MUST be not object
+
+```php
+// OK
+Assert::assert('a', 'var')->isSame('a');
+
+// EXCEPTION
+Assert::assert('a', 'var')->isSame('b');
+
+// ----------
+
+// EXCEPTION: $anotherValue MUST be not object
+Assert::assert('a', 'var')->isSame(new \stdClass());
+```
+
+#### notSame($anotherValue) `Check if value is not same as $anotherValue`
+
+* Antipode: **isSame**
+
+Arguments:
+
+* `$anotherValue` MUST be not object
+
+```php
+// OK
+Assert::assert('a', 'var')->notSame('b');
+
+// EXCEPTION
+Assert::assert('a', 'var')->notSame('a');
+
+// ----------
+
+// EXCEPTION: $anotherValue MUST be not object
+Assert::assert('a', 'var')->notSame(new \stdClass());
+```
+
 -- --
 
 String asserts
------------------
+--------------
 
 All string asserts run previously:
 
@@ -452,6 +494,60 @@ Assert::assert(2, 'var')->between(5, 1);
 
 // EXCEPTION: var MUST be int or float
 Assert::assert('A', 'var')->between(1);
+```
+
+-- --
+
+Array asserts
+--------------
+
+#### hasKey($key) `Check if array key exists`
+
+Arguments:
+
+* `$key` MUST be string or int
+
+```php
+// OK
+Assert::assert(['a' => 'b', 'c' => 'd'], 'data')->hasKey('a');
+
+// EXCEPTION
+Assert::assert(['a' => 'b', 'c' => 'd'], 'data')->hasKey('e');
+
+// ----------
+
+// EXCEPTION: data MUST be an array
+Assert::assert('notArray', 'data')->hasKey(1);
+
+// EXCEPTION: key MUST be string or int
+Assert::assert(['a' => 'b', 'c' => 'd'], 'data')->hasKey(null);
+
+```
+
+#### count($count) `Check if array elements count is same as $count`
+
+Arguments:
+
+* `$count` MUST be int and greater than 0
+
+```php
+// OK
+Assert::assert(['a', 'b', 'c'], 'data')->count(3);
+
+// EXCEPTION
+Assert::assert(['a', 'c', 'd'], 'data')->count(1);
+
+// ----------
+
+// EXCEPTION: data MUST be an array
+Assert::assert('notArray', 'data')->hasKey(1);
+
+// EXCEPTION: count MUST be int
+Assert::assert(['a', 'c', 'd'], 'data')->count(null);
+
+// EXCEPTION: count MUST be greater than 0
+Assert::assert(['a', 'c', 'd'], 'data')->count(-5);
+
 ```
 
 -- --

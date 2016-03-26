@@ -7,11 +7,11 @@
 
 namespace KoKoKo\assert\tests\unit\exceptions;
 
-use KoKoKo\assert\exceptions\InvalidNotObjectException;
+use KoKoKo\assert\exceptions\InvalidNotNullAndNotStringException;
 use KoKoKo\assert\exceptions\InvalidStringException;
 use KoKoKo\assert\tests\BaseUnitTestCase;
 
-class InvalidNotObjectExceptionTest extends BaseUnitTestCase
+class InvalidNotNullAndNotStringExceptionTest extends BaseUnitTestCase
 {
     public function testConstructWithVariableName()
     {
@@ -21,7 +21,7 @@ class InvalidNotObjectExceptionTest extends BaseUnitTestCase
             $expectedMessage = (new InvalidStringException('variableName', $typeValue))->getMessage();
 
             try {
-                new InvalidNotObjectException($typeValue);
+                new InvalidNotNullAndNotStringException($typeValue);
 
                 $this->fail('Not fail with: ' . $expectedMessage);
             } catch (InvalidStringException $error) {
@@ -32,11 +32,11 @@ class InvalidNotObjectExceptionTest extends BaseUnitTestCase
 
     public function testMessage()
     {
-        $error = new InvalidNotObjectException(self::STRING_FIXTURE);
+        $error = new InvalidNotNullAndNotStringException(self::STRING_FIXTURE);
 
         $this->assertSame(
             sprintf(
-                'Variable "$%s" must be "not object"',
+                'Variable "$%s" must be "not null" and "not string"',
                 self::STRING_FIXTURE
             ),
             $error->getMessage()

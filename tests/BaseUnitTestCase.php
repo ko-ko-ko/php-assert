@@ -1,4 +1,9 @@
 <?php
+/**
+ * @link      https://github.com/ko-ko-ko/php-assert
+ * @copyright Copyright (c) 2015 Roman Levishchenko <index.0h@gmail.com>
+ * @license   https://raw.github.com/ko-ko-ko/php-assert/master/LICENSE
+ */
 
 namespace KoKoKo\assert\tests;
 
@@ -25,7 +30,7 @@ class BaseUnitTestCase extends \PHPUnit_Framework_TestCase
             self::FLOAT_FIXTURE    => 0.0,
             self::STRING_FIXTURE   => '',
             self::ARRAY_FIXTURE    => [],
-            self::OBJECT_FIXTURE   => new \StdClass,
+            self::OBJECT_FIXTURE   => new \stdClass,
             self::RESOURCE_FIXTURE => stream_context_create(),
         ];
     }

@@ -1,8 +1,15 @@
 <?php
+/**
+ * @link      https://github.com/ko-ko-ko/php-assert
+ * @copyright Copyright (c) 2015 Roman Levishchenko <index.0h@gmail.com>
+ * @license   https://raw.github.com/ko-ko-ko/php-assert/master/LICENSE
+ */
 
-namespace KoKoKo\assert\tests\unit\exceptions;
+namespace KoKoKo\assert\tests\unit;
 
 use KoKoKo\assert\Assert;
+use KoKoKo\assert\exceptions\ArrayKeyNotExistsException;
+use KoKoKo\assert\exceptions\InvalidArrayCountException;
 use KoKoKo\assert\exceptions\InvalidArrayException;
 use KoKoKo\assert\exceptions\InvalidBoolException;
 use KoKoKo\assert\exceptions\InvalidDigitException;
@@ -11,14 +18,17 @@ use KoKoKo\assert\exceptions\InvalidFloatException;
 use KoKoKo\assert\exceptions\InvalidIntException;
 use KoKoKo\assert\exceptions\InvalidIntOrFloatException;
 use KoKoKo\assert\exceptions\InvalidIntOrFloatOrStringException;
+use KoKoKo\assert\exceptions\InvalidIntOrStringException;
 use KoKoKo\assert\exceptions\InvalidNotArrayException;
 use KoKoKo\assert\exceptions\InvalidNotEmptyException;
 use KoKoKo\assert\exceptions\InvalidNotNullException;
 use KoKoKo\assert\exceptions\InvalidNotObjectException;
+use KoKoKo\assert\exceptions\InvalidNotSameValueException;
 use KoKoKo\assert\exceptions\InvalidNullException;
 use KoKoKo\assert\exceptions\InvalidNumericException;
 use KoKoKo\assert\exceptions\InvalidRegExpPatternException;
 use KoKoKo\assert\exceptions\InvalidResourceException;
+use KoKoKo\assert\exceptions\InvalidSameValueException;
 use KoKoKo\assert\exceptions\InvalidStringException;
 use KoKoKo\assert\exceptions\InvalidStringLengthException;
 use KoKoKo\assert\exceptions\LengthNotBetweenException;
@@ -666,6 +676,149 @@ class AssertTest extends BaseUnitTestCase
             } catch (InvalidArrayException $error) {
                 $this->assertSame($expectedMessage, $error->getMessage());
             }
+        }
+    }
+
+    public function testHasKey()
+    {
+        Assert::assert(['a' => 'b'])->hasKey('a');
+    }
+
+    public function testHasKeyWithInvalidTypeKey()
+    {
+        $fixtures = $this->getTypeFixturesWithout(
+            [
+                self::INT_FIXTURE,
+                self::STRING_FIXTURE,
+            ]
+        );
+
+        foreach ($fixtures as $fixture) {
+            $expectedMessage = (new InvalidIntOrStringException('key', $fixture))->getMessage();
+
+            try {
+                Assert::assert([])->hasKey($fixture);
+
+                $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+            } catch (InvalidIntOrStringException $error) {
+                $this->assertSame($expectedMessage, $error->getMessage());
+            }
+        }
+    }
+
+    public function testHasKeyWithNotArrayValue()
+    {
+        $name     = 'variable';
+        $fixtures = $this->getTypeFixturesWithout(
+            [
+                self::ARRAY_FIXTURE,
+                self::OBJECT_FIXTURE,
+            ]
+        );
+
+        foreach ($fixtures as $fixture) {
+            $expectedMessage = (new InvalidArrayException($name, $fixture))->getMessage();
+
+            try {
+                Assert::assert($fixture, $name)->hasKey('key');
+
+                $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+            } catch (InvalidArrayException $error) {
+                $this->assertSame($expectedMessage, $error->getMessage());
+            }
+        }
+    }
+
+    public function testHasKeyWithArrayKeyNotExists()
+    {
+        $name    = 'variable';
+        $key     = 'notExistsKey';
+        $fixture = $this->getTypeFixture(self::ARRAY_FIXTURE);
+
+        $expectedMessage = (new ArrayKeyNotExistsException($name, $key))->getMessage();
+
+        try {
+            Assert::assert($fixture, $name)->hasKey($key);
+
+            $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+        } catch (ArrayKeyNotExistsException $error) {
+            $this->assertSame($expectedMessage, $error->getMessage());
+        }
+    }
+
+    public function testCount()
+    {
+        Assert::assert(['a', 'b'])->count(2);
+    }
+
+    public function testCountWithInvalidTypeCount()
+    {
+        $fixtures = $this->getTypeFixturesWithout([self::INT_FIXTURE]);
+
+        foreach ($fixtures as $fixture) {
+            $expectedMessage = (new InvalidIntException('count', $fixture))->getMessage();
+
+            try {
+                Assert::assert([])->count($fixture);
+
+                $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+            } catch (InvalidIntException $error) {
+                $this->assertSame($expectedMessage, $error->getMessage());
+            }
+        }
+    }
+
+    public function testCountWithInvalidValueCount()
+    {
+        $count           = -10;
+        $expectedMessage = (new NumberNotGreaterException('count', $count, 0))->getMessage();
+
+        try {
+            Assert::assert([])->count($count);
+
+            $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+        } catch (NumberNotGreaterException  $error) {
+            $this->assertSame($expectedMessage, $error->getMessage());
+        }
+    }
+
+    public function testCountWithNotArrayValue()
+    {
+        $name     = 'variable';
+        $fixtures = $this->getTypeFixturesWithout(
+            [
+                self::ARRAY_FIXTURE,
+                self::OBJECT_FIXTURE,
+            ]
+        );
+
+        foreach ($fixtures as $fixture) {
+            $expectedMessage = (new InvalidArrayException($name, $fixture))->getMessage();
+
+            try {
+                Assert::assert($fixture, $name)->count(1);
+
+                $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+            } catch (InvalidArrayException $error) {
+                $this->assertSame($expectedMessage, $error->getMessage());
+            }
+        }
+    }
+
+    public function testHasKeyWithInvalidArrayElementsCount()
+    {
+        $name    = 'variable';
+        $count   = 10;
+        $fixture = $this->getTypeFixture(self::ARRAY_FIXTURE);
+
+        $expectedMessage = (new InvalidArrayCountException($name, $fixture, $count))->getMessage();
+
+        try {
+            Assert::assert($fixture, $name)->count($count);
+
+            $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+        } catch (InvalidArrayCountException $error) {
+            $this->assertSame($expectedMessage, $error->getMessage());
         }
     }
 
@@ -1579,6 +1732,87 @@ class AssertTest extends BaseUnitTestCase
 
                 $this->fail(sprintf('Not fail with: %s', $expectedMessage));
             } catch (NumberNotPositiveException $error) {
+                $this->assertSame($expectedMessage, $error->getMessage());
+            }
+        }
+    }
+
+    public function testIsSame()
+    {
+        Assert::assert('a')->isSame('a');
+    }
+
+    public function testIsSameWithInvalidTypeFixtures()
+    {
+        $fixture = $this->getTypeFixture(self::OBJECT_FIXTURE);
+
+        $expectedMessage = (new InvalidNotObjectException('anotherValue'))->getMessage();
+
+        try {
+            Assert::assert(1)->isSame($fixture);
+
+            $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+        } catch (InvalidNotObjectException $error) {
+            $this->assertSame($expectedMessage, $error->getMessage());
+        }
+    }
+
+    public function testIsSameWithVariableValueAndAnotherValue()
+    {
+        $fixtures = $this->getTypeFixturesWithout([self::OBJECT_FIXTURE]);
+
+        foreach ($fixtures as $variableValue) {
+            foreach ($fixtures as $anotherValue) {
+                if ($variableValue === $anotherValue) {
+                    continue;
+                }
+
+                $expectedMessage = (new InvalidSameValueException('value', $variableValue, $anotherValue))
+                    ->getMessage();
+
+                try {
+                    Assert::assert($variableValue)->isSame($anotherValue);
+
+                    $this->fail('Not fail with: ' . $expectedMessage);
+                } catch (InvalidSameValueException $error) {
+                    $this->assertSame($expectedMessage, $error->getMessage());
+                }
+            }
+        }
+    }
+
+    public function testNotSame()
+    {
+        Assert::assert('a')->notSame('b');
+    }
+
+    public function testNotSameWithInvalidTypeFixtures()
+    {
+        $fixture = $this->getTypeFixture(self::OBJECT_FIXTURE);
+
+        $expectedMessage = (new InvalidNotObjectException('anotherValue'))->getMessage();
+
+        try {
+            Assert::assert(1)->notSame($fixture);
+
+            $this->fail(sprintf('Not fail with: %s', $expectedMessage));
+        } catch (InvalidNotObjectException $error) {
+            $this->assertSame($expectedMessage, $error->getMessage());
+        }
+    }
+
+    public function testNotSameWithVariableValueAndAnotherValue()
+    {
+        $fixtures = $this->getTypeFixturesWithout([self::OBJECT_FIXTURE]);
+
+        foreach ($fixtures as $fixture) {
+            $expectedMessage = (new InvalidNotSameValueException('value', $fixture))->getMessage();
+
+            try {
+                Assert::assert($fixture)->notSame($fixture);
+
+                $this->fail('Not fail with: ' . $expectedMessage);
+            } catch (InvalidNotSameValueException $error) {
                 $this->assertSame($expectedMessage, $error->getMessage());
             }
         }

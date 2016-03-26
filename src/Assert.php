@@ -7,6 +7,8 @@
 
 namespace KoKoKo\assert;
 
+use KoKoKo\assert\exceptions\ArrayKeyNotExistsException;
+use KoKoKo\assert\exceptions\InvalidArrayCountException;
 use KoKoKo\assert\exceptions\InvalidArrayException;
 use KoKoKo\assert\exceptions\InvalidBoolException;
 use KoKoKo\assert\exceptions\InvalidDigitException;
@@ -15,14 +17,17 @@ use KoKoKo\assert\exceptions\InvalidFloatException;
 use KoKoKo\assert\exceptions\InvalidIntException;
 use KoKoKo\assert\exceptions\InvalidIntOrFloatException;
 use KoKoKo\assert\exceptions\InvalidIntOrFloatOrStringException;
+use KoKoKo\assert\exceptions\InvalidIntOrStringException;
 use KoKoKo\assert\exceptions\InvalidNotArrayException;
 use KoKoKo\assert\exceptions\InvalidNotEmptyException;
 use KoKoKo\assert\exceptions\InvalidNotNullException;
 use KoKoKo\assert\exceptions\InvalidNotObjectException;
+use KoKoKo\assert\exceptions\InvalidNotSameValueException;
 use KoKoKo\assert\exceptions\InvalidNullException;
 use KoKoKo\assert\exceptions\InvalidNumericException;
-use KoKoKo\assert\exceptions\InvalidRegexpPatternException;
+use KoKoKo\assert\exceptions\InvalidRegExpPatternException;
 use KoKoKo\assert\exceptions\InvalidResourceException;
+use KoKoKo\assert\exceptions\InvalidSameValueException;
 use KoKoKo\assert\exceptions\InvalidStringException;
 use KoKoKo\assert\exceptions\InvalidStringLengthException;
 use KoKoKo\assert\exceptions\LengthNotBetweenException;
@@ -300,6 +305,61 @@ class Assert
     {
         if (!is_array($this->value)) {
             throw new InvalidArrayException($this->name, $this->value);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check if array key exists
+     *
+     * @param string|int $key
+     * @return $this
+     * @throws ArrayKeyNotExistsException
+     * @throws InvalidArrayException
+     * @throws InvalidIntOrStringException
+     */
+    public function hasKey($key)
+    {
+        if (!is_string($key) && !is_int($key)) {
+            throw new InvalidIntOrStringException('key', $key);
+        }
+
+        if (!is_array($this->value)) {
+            throw new InvalidArrayException($this->name, $this->value);
+        }
+
+        if (!array_key_exists($key, $this->value)) {
+            throw new ArrayKeyNotExistsException($this->name, $key);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check if array elements count is same as $count
+     *
+     * @param int $count
+     * @return $this
+     * @throws InvalidArrayCountException
+     * @throws InvalidArrayException
+     * @throws InvalidIntException
+     * @throws NumberNotGreaterException
+     */
+    public function count($count)
+    {
+        if (!is_int($count)) {
+            throw new InvalidIntException('count', $count);
+        } elseif ($count < 0) {
+            throw new NumberNotGreaterException('count', $count, 0);
+        }
+
+        if (!is_array($this->value)) {
+            throw new InvalidArrayException($this->name, $this->value);
+        }
+
+        if (count($this->value) !== $count) {
+            throw new InvalidArrayCountException($this->name, $this->value, $count);
         }
 
         return $this;
@@ -641,6 +701,48 @@ class Assert
             throw new InvalidIntOrFloatException($this->name, $this->value);
         } elseif ($this->value <= 0) {
             throw new NumberNotPositiveException($this->name, $this->value);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check if value is same as $anotherValue
+     *
+     * @param int|float|bool|string|resource|array|null $anotherValue
+     * @return $this
+     * @throws InvalidNotObjectException
+     * @throws InvalidSameValueException
+     */
+    public function isSame($anotherValue)
+    {
+        if (is_object($anotherValue)) {
+            throw new InvalidNotObjectException('anotherValue');
+        }
+
+        if ($this->value !== $anotherValue) {
+            throw new InvalidSameValueException($this->name, $this->value, $anotherValue);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check if value is not same as $anotherValue
+     *
+     * @param int|float|bool|string|resource|array|null $anotherValue
+     * @return $this
+     * @throws InvalidNotObjectException
+     * @throws InvalidNotSameValueException
+     */
+    public function notSame($anotherValue)
+    {
+        if (is_object($anotherValue)) {
+            throw new InvalidNotObjectException('anotherValue');
+        }
+
+        if ($this->value === $anotherValue) {
+            throw new InvalidNotSameValueException($this->name, $this->value);
         }
 
         return $this;

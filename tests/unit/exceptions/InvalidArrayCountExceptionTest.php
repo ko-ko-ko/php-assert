@@ -7,12 +7,14 @@
 
 namespace KoKoKo\assert\tests\unit\exceptions;
 
+use KoKoKo\assert\exceptions\InvalidArrayCountException;
+use KoKoKo\assert\exceptions\InvalidArrayException;
 use KoKoKo\assert\exceptions\InvalidIntException;
 use KoKoKo\assert\exceptions\InvalidStringException;
-use KoKoKo\assert\exceptions\LengthNotGreaterException;
+use KoKoKo\assert\exceptions\NumberNotGreaterException;
 use KoKoKo\assert\tests\BaseUnitTestCase;
 
-class LengthNotGreaterExceptionTest extends BaseUnitTestCase
+class InvalidArrayCountExceptionTest extends BaseUnitTestCase
 {
     public function testConstructWithVariableName()
     {
@@ -22,7 +24,7 @@ class LengthNotGreaterExceptionTest extends BaseUnitTestCase
             $expectedMessage = (new InvalidStringException('variableName', $typeValue))->getMessage();
 
             try {
-                new LengthNotGreaterException($typeValue, 'variableValue', 1);
+                new InvalidArrayCountException($typeValue, 'variableName', 1);
 
                 $this->fail('Not fail with: ' . $expectedMessage);
             } catch (InvalidStringException $error) {
@@ -33,32 +35,30 @@ class LengthNotGreaterExceptionTest extends BaseUnitTestCase
 
     public function testConstructWithVariableValue()
     {
-        $fixtures = $this->getTypeFixturesWithout([self::STRING_FIXTURE]);
+        $fixtures = $this->getTypeFixturesWithout([self::ARRAY_FIXTURE]);
 
         foreach ($fixtures as $typeName => $typeValue) {
-            $expectedMessage = (new InvalidStringException('variableValue', $typeValue))->getMessage();
+            $expectedMessage = (new InvalidArrayException('variableValue', $typeValue))->getMessage();
 
             try {
-                new LengthNotGreaterException('variableName', $typeValue, 1);
+                new InvalidArrayCountException('variableName', $typeValue, 1);
 
                 $this->fail('Not fail with: ' . $expectedMessage);
-            } catch (InvalidStringException $error) {
+            } catch (InvalidArrayException $error) {
                 $this->assertSame($expectedMessage, $error->getMessage());
             }
         }
-
-        new LengthNotGreaterException('variableName', $this->getTypeFixture(self::STRING_FIXTURE), 1);
     }
 
-    public function testConstructWithLength()
+    public function testConstructWithCount()
     {
         $fixtures = $this->getTypeFixturesWithout([self::INT_FIXTURE]);
 
         foreach ($fixtures as $typeName => $typeValue) {
-            $expectedMessage = (new InvalidIntException('length', $typeValue))->getMessage();
+            $expectedMessage = (new InvalidIntException('count', $typeValue))->getMessage();
 
             try {
-                new LengthNotGreaterException('variableName', 'variableValue', $typeValue);
+                new InvalidArrayCountException('variableName', [], $typeValue);
 
                 $this->fail('Not fail with: ' . $expectedMessage);
             } catch (InvalidIntException $error) {
@@ -66,22 +66,31 @@ class LengthNotGreaterExceptionTest extends BaseUnitTestCase
             }
         }
 
-        new LengthNotGreaterException(
-            'variableName', 'variableValue', $this->getTypeFixture(self::INT_FIXTURE)
-        );
+        $count           = -1;
+        $expectedMessage = (new NumberNotGreaterException('count', $count, 0))->getMessage();
+
+        try {
+            new InvalidArrayCountException('variableName', [], $count);
+
+            $this->fail('Not fail with: ' . $expectedMessage);
+        } catch (NumberNotGreaterException $error) {
+            $this->assertSame($expectedMessage, $error->getMessage());
+        }
     }
 
     public function testMessage()
     {
-        $length  = 10;
-        $fixture = $this->getTypeFixture(self::STRING_FIXTURE);
-        $error   = new LengthNotGreaterException('variableName', $fixture, $length);
+        $variableName  = 'variableName';
+        $variableValue = ['test'];
+        $count         = 2;
+        $error         = new InvalidArrayCountException($variableName, $variableValue, $count);
 
         $this->assertSame(
             sprintf(
-                'Variable "$variableName" must have length greater than "%s", actual length: "%s"',
-                (string) $length,
-                mb_strlen($fixture)
+                'Variable "$%s" must contain: "%d" elements, actual count: "%d"',
+                $variableName,
+                $count,
+                count($variableValue)
             ),
             $error->getMessage()
         );

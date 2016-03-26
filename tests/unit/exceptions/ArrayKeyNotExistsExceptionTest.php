@@ -7,12 +7,12 @@
 
 namespace KoKoKo\assert\tests\unit\exceptions;
 
-use KoKoKo\assert\exceptions\InvalidArrayException;
+use KoKoKo\assert\exceptions\ArrayKeyNotExistsException;
+use KoKoKo\assert\exceptions\InvalidIntOrStringException;
 use KoKoKo\assert\exceptions\InvalidStringException;
-use KoKoKo\assert\exceptions\ValueNotInArrayException;
 use KoKoKo\assert\tests\BaseUnitTestCase;
 
-class ValueNotInArrayExceptionTest extends BaseUnitTestCase
+class ArrayKeyNotExistsExceptionTest extends BaseUnitTestCase
 {
     public function testConstructWithVariableName()
     {
@@ -22,7 +22,7 @@ class ValueNotInArrayExceptionTest extends BaseUnitTestCase
             $expectedMessage = (new InvalidStringException('variableName', $typeValue))->getMessage();
 
             try {
-                new ValueNotInArrayException($typeValue, 'variableName', [1]);
+                new ArrayKeyNotExistsException($typeValue, 'variableName');
 
                 $this->fail('Not fail with: ' . $expectedMessage);
             } catch (InvalidStringException $error) {
@@ -31,18 +31,18 @@ class ValueNotInArrayExceptionTest extends BaseUnitTestCase
         }
     }
 
-    public function testConstructWithArray()
+    public function testConstructWithKey()
     {
-        $fixtures = $this->getTypeFixturesWithout([self::ARRAY_FIXTURE]);
+        $fixtures = $this->getTypeFixturesWithout([self::INT_FIXTURE, self::STRING_FIXTURE]);
 
         foreach ($fixtures as $typeName => $typeValue) {
-            $expectedMessage = (new InvalidArrayException('array', $typeValue))->getMessage();
+            $expectedMessage = (new InvalidIntOrStringException('key', $typeValue))->getMessage();
 
             try {
-                new ValueNotInArrayException('variableName', 'variableValue', $typeValue);
+                new ArrayKeyNotExistsException('variableName', $typeValue);
 
                 $this->fail('Not fail with: ' . $expectedMessage);
-            } catch (InvalidArrayException $error) {
+            } catch (InvalidIntOrStringException $error) {
                 $this->assertSame($expectedMessage, $error->getMessage());
             }
         }
@@ -50,15 +50,15 @@ class ValueNotInArrayExceptionTest extends BaseUnitTestCase
 
     public function testMessage()
     {
-        $value   = 'variableValue';
-        $fixture = $this->getTypeFixture(self::ARRAY_FIXTURE);
-        $error   = new ValueNotInArrayException('variableName', $value, $fixture);
+        $variableName = 'variableName';
+        $key          = 'keyName';
+        $error        = new ArrayKeyNotExistsException($variableName, $key);
 
         $this->assertSame(
             sprintf(
-                'Variable "$variableName" must be "in array" {%s}, actual value: "%s"',
-                print_r($fixture, true),
-                print_r($value, true)
+                'Variable "$%s" must contain key: "%s"',
+                $variableName,
+                $key
             ),
             $error->getMessage()
         );
