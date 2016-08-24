@@ -27,13 +27,13 @@ This assert gives you very simple and fast API.
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 ```sh
-php composer.phar require --prefer-dist ko-ko-ko/assert "~1.0.0"
+php composer.phar require --prefer-dist ko-ko-ko/assert "~1.1.0"
 ```
 
 or add line to require section of `composer.json`
 
 ```json
-"ko-ko-ko/assert": "~1.0.0"
+"ko-ko-ko/assert": "~1.1.0"
 ```
 
 ## Usage
