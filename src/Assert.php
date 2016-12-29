@@ -7,6 +7,7 @@
 
 namespace KoKoKo\assert;
 
+use KoKoKo\assert\exceptions\ArgumentException;
 use KoKoKo\assert\exceptions\ArrayKeyNotExistsException;
 use KoKoKo\assert\exceptions\InvalidArrayCountException;
 use KoKoKo\assert\exceptions\InvalidArrayException;
@@ -51,6 +52,9 @@ class Assert
     protected static $validator;
 
     /** @var string */
+    protected static $exceptionClass;
+
+    /** @var string */
     protected $name;
 
     /** @var int|float|bool|string|resource|array|null */
@@ -61,11 +65,12 @@ class Assert
      *
      * @param int|float|string|resource|array|null $value
      * @param string                               $name
+     * @param null|string                          $exceptionClass
      * @return static
      * @throws InvalidNotObjectException
      * @throws InvalidStringException
      */
-    public static function assert($value, $name = 'value')
+    public static function assert($value, $name = 'value', $exceptionClass = null)
     {
         if (is_object($value)) {
             throw new InvalidNotObjectException($name);
@@ -75,12 +80,17 @@ class Assert
             throw new InvalidStringException('name', $name);
         }
 
+        if ($exceptionClass!== null && !is_string($exceptionClass)) {
+            throw new InvalidStringException('exceptionClass', $exceptionClass);
+        }
+
         if (empty(self::$validator)) {
             self::$validator = new static;
         }
 
         self::$validator->name  = $name;
         self::$validator->value = $value;
+        self::$validator->setExceptionClass($exceptionClass);
 
         return self::$validator;
     }
@@ -161,6 +171,7 @@ class Assert
      * @throws InvalidStringLengthException
      * @throws NumberNotPositiveException
      * @throws InvalidStringException
+     * @throws \Exception|\Throwable
      */
     public function length($length)
     {
@@ -171,9 +182,9 @@ class Assert
         }
 
         if (!is_string($this->value)) {
-            throw new InvalidStringException($this->name, $this->value);
+            throw $this->buildException(new InvalidStringException($this->name, $this->value));
         } elseif (strlen($this->value) !== $length) {
-            throw new InvalidStringLengthException($this->name, $this->value, $length);
+            throw $this->buildException(new InvalidStringLengthException($this->name, $this->value, $length));
         }
 
         return $this;
@@ -191,6 +202,7 @@ class Assert
      * @throws NumberNotGreaterException
      * @throws NumberNotLessException
      * @throws InvalidStringException
+     * @throws \Exception|\Throwable
      */
     public function lengthBetween($from, $to)
     {
@@ -205,13 +217,13 @@ class Assert
         }
 
         if (!is_string($this->value)) {
-            throw new InvalidStringException($this->name, $this->value);
+            throw $this->buildException(new InvalidStringException($this->name, $this->value));
         }
 
         $length = strlen($this->value);
 
         if ($length < $from || $length > $to) {
-            throw new LengthNotBetweenException($this->name, $this->value, $from, $to);
+            throw $this->buildException(new LengthNotBetweenException($this->name, $this->value, $from, $to));
         }
 
         return $this;
@@ -226,6 +238,7 @@ class Assert
      * @throws LengthNotLessException
      * @throws NumberNotPositiveException
      * @throws InvalidStringException
+     * @throws \Exception|\Throwable
      */
     public function lengthLess($length)
     {
@@ -236,9 +249,9 @@ class Assert
         }
 
         if (!is_string($this->value)) {
-            throw new InvalidStringException($this->name, $this->value);
+            throw $this->buildException(new InvalidStringException($this->name, $this->value));
         } elseif (strlen($this->value) > $length) {
-            throw new LengthNotLessException($this->name, $this->value, $length);
+            throw $this->buildException(new LengthNotLessException($this->name, $this->value, $length));
         }
 
         return $this;
@@ -253,6 +266,7 @@ class Assert
      * @throws LengthNotGreaterException
      * @throws NumberNotPositiveException
      * @throws InvalidStringException
+     * @throws \Exception|\Throwable
      */
     public function lengthGreater($length)
     {
@@ -263,9 +277,9 @@ class Assert
         }
 
         if (!is_string($this->value)) {
-            throw new InvalidStringException($this->name, $this->value);
+            throw $this->buildException(new InvalidStringException($this->name, $this->value));
         } elseif (strlen($this->value) < $length) {
-            throw new LengthNotGreaterException($this->name, $this->value, $length);
+            throw $this->buildException(new LengthNotGreaterException($this->name, $this->value, $length));
         }
 
         return $this;
@@ -279,6 +293,7 @@ class Assert
      * @throws InvalidArrayException
      * @throws InvalidNotEmptyException
      * @throws ValueNotInArrayException
+     * @throws \Exception|\Throwable
      */
     public function inArray($range)
     {
@@ -289,7 +304,7 @@ class Assert
         }
 
         if (!in_array($this->value, $range, true)) {
-            throw new ValueNotInArrayException($this->name, $this->value, $range);
+            throw $this->buildException(new ValueNotInArrayException($this->name, $this->value, $range));
         }
 
         return $this;
@@ -300,11 +315,12 @@ class Assert
      *
      * @return $this
      * @throws InvalidArrayException
+     * @throws \Exception|\Throwable
      */
     public function isArray()
     {
         if (!is_array($this->value)) {
-            throw new InvalidArrayException($this->name, $this->value);
+            throw $this->buildException(new InvalidArrayException($this->name, $this->value));
         }
 
         return $this;
@@ -318,6 +334,7 @@ class Assert
      * @throws ArrayKeyNotExistsException
      * @throws InvalidArrayException
      * @throws InvalidIntOrStringException
+     * @throws \Exception|\Throwable
      */
     public function hasKey($key)
     {
@@ -326,11 +343,11 @@ class Assert
         }
 
         if (!is_array($this->value)) {
-            throw new InvalidArrayException($this->name, $this->value);
+            throw $this->buildException(new InvalidArrayException($this->name, $this->value));
         }
 
         if (!array_key_exists($key, $this->value)) {
-            throw new ArrayKeyNotExistsException($this->name, $key);
+            throw $this->buildException(new ArrayKeyNotExistsException($this->name, $key));
         }
 
         return $this;
@@ -345,6 +362,7 @@ class Assert
      * @throws InvalidArrayException
      * @throws InvalidIntException
      * @throws NumberNotGreaterException
+     * @throws \Exception|\Throwable
      */
     public function count($count)
     {
@@ -355,11 +373,11 @@ class Assert
         }
 
         if (!is_array($this->value)) {
-            throw new InvalidArrayException($this->name, $this->value);
+            throw $this->buildException(new InvalidArrayException($this->name, $this->value));
         }
 
         if (count($this->value) !== $count) {
-            throw new InvalidArrayCountException($this->name, $this->value, $count);
+            throw $this->buildException(new InvalidArrayCountException($this->name, $this->value, $count));
         }
 
         return $this;
@@ -374,6 +392,7 @@ class Assert
      * @throws NumberNotBetweenException
      * @throws InvalidIntOrFloatException
      * @throws NumberNotLessStrictlyException
+     * @throws \Exception|\Throwable
      */
     public function between($from, $to)
     {
@@ -386,9 +405,9 @@ class Assert
         }
 
         if (!is_int($this->value) && !is_float($this->value)) {
-            throw new InvalidIntOrFloatException($this->name, $this->value);
+            throw $this->buildException(new InvalidIntOrFloatException($this->name, $this->value));
         } elseif ($this->value < $from || $this->value > $to) {
-            throw new NumberNotBetweenException($this->name, $this->value, $from, $to);
+            throw $this->buildException(new NumberNotBetweenException($this->name, $this->value, $from, $to));
         }
 
         return $this;
@@ -403,6 +422,7 @@ class Assert
      * @throws InvalidIntOrFloatException
      * @throws NumberNotBetweenStrictlyException
      * @throws NumberNotLessStrictlyException
+     * @throws \Exception|\Throwable
      */
     public function betweenStrict($from, $to)
     {
@@ -415,9 +435,9 @@ class Assert
         }
 
         if (!is_int($this->value) && !is_float($this->value)) {
-            throw new InvalidIntOrFloatException($this->name, $this->value);
+            throw $this->buildException(new InvalidIntOrFloatException($this->name, $this->value));
         } elseif ($this->value <= $from || $this->value >= $to) {
-            throw new NumberNotBetweenStrictlyException($this->name, $this->value, $from, $to);
+            throw $this->buildException(new NumberNotBetweenStrictlyException($this->name, $this->value, $from, $to));
         }
 
         return $this;
@@ -428,11 +448,12 @@ class Assert
      *
      * @return $this
      * @throws InvalidBoolException
+     * @throws \Exception|\Throwable
      */
     public function bool()
     {
         if (!is_bool($this->value)) {
-            throw new InvalidBoolException($this->name, $this->value);
+            throw $this->buildException(new InvalidBoolException($this->name, $this->value));
         }
 
         return $this;
@@ -444,13 +465,14 @@ class Assert
      * @return $this
      * @throws InvalidDigitException
      * @throws InvalidStringException
+     * @throws \Exception|\Throwable
      */
     public function digit()
     {
         if (!is_string($this->value)) {
-            throw new InvalidStringException($this->name, $this->value);
+            throw $this->buildException(new InvalidStringException($this->name, $this->value));
         } elseif (!ctype_digit($this->value)) {
-            throw new InvalidDigitException($this->name, $this->value);
+            throw $this->buildException(new InvalidDigitException($this->name, $this->value));
         }
 
         return $this;
@@ -461,11 +483,12 @@ class Assert
      *
      * @return $this
      * @throws InvalidEmptyException
+     * @throws \Exception|\Throwable
      */
     public function isEmpty()
     {
         if (!empty($this->value)) {
-            throw new InvalidEmptyException($this->name);
+            throw $this->buildException(new InvalidEmptyException($this->name));
         }
 
         return $this;
@@ -476,11 +499,12 @@ class Assert
      *
      * @return $this
      * @throws InvalidNotEmptyException
+     * @throws \Exception|\Throwable
      */
     public function notEmpty()
     {
         if (empty($this->value)) {
-            throw new InvalidNotEmptyException($this->name);
+            throw $this->buildException(new InvalidNotEmptyException($this->name));
         }
 
         return $this;
@@ -491,11 +515,12 @@ class Assert
      *
      * @return $this
      * @throws InvalidFloatException
+     * @throws \Exception|\Throwable
      */
     public function float()
     {
         if (!is_float($this->value)) {
-            throw new InvalidFloatException($this->name, $this->value);
+            throw $this->buildException(new InvalidFloatException($this->name, $this->value));
         }
 
         return $this;
@@ -506,11 +531,12 @@ class Assert
      *
      * @return $this
      * @throws InvalidIntException
+     * @throws \Exception|\Throwable
      */
     public function int()
     {
         if (!is_int($this->value)) {
-            throw new InvalidIntException($this->name, $this->value);
+            throw $this->buildException(new InvalidIntException($this->name, $this->value));
         }
 
         return $this;
@@ -523,6 +549,7 @@ class Assert
      * @return $this
      * @throws InvalidIntOrFloatException
      * @throws NumberNotLessException
+     * @throws \Exception|\Throwable
      */
     public function less($number)
     {
@@ -531,9 +558,9 @@ class Assert
         }
 
         if (!is_int($this->value) && !is_float($this->value)) {
-            throw new InvalidIntOrFloatException($this->name, $this->value);
+            throw $this->buildException(new InvalidIntOrFloatException($this->name, $this->value));
         } elseif ($this->value > $number) {
-            throw new NumberNotLessException($this->name, $this->value, $number);
+            throw $this->buildException(new NumberNotLessException($this->name, $this->value, $number));
         }
 
         return $this;
@@ -546,6 +573,7 @@ class Assert
      * @return $this
      * @throws NumberNotGreaterException
      * @throws InvalidIntOrFloatException
+     * @throws \Exception|\Throwable
      */
     public function greater($number)
     {
@@ -554,9 +582,9 @@ class Assert
         }
 
         if (!is_int($this->value) && !is_float($this->value)) {
-            throw new InvalidIntOrFloatException($this->name, $this->value);
+            throw $this->buildException(new InvalidIntOrFloatException($this->name, $this->value));
         } elseif ($this->value < $number) {
-            throw new NumberNotGreaterException($this->name, $this->value, $number);
+            throw $this->buildException(new NumberNotGreaterException($this->name, $this->value, $number));
         }
 
         return $this;
@@ -569,6 +597,7 @@ class Assert
      * @return $this
      * @throws InvalidIntOrFloatException
      * @throws NumberNotLessStrictlyException
+     * @throws \Exception|\Throwable
      */
     public function lessStrict($number)
     {
@@ -577,9 +606,9 @@ class Assert
         }
 
         if (!is_int($this->value) && !is_float($this->value)) {
-            throw new InvalidIntOrFloatException($this->name, $this->value);
+            throw $this->buildException(new InvalidIntOrFloatException($this->name, $this->value));
         } elseif ($this->value >= $number) {
-            throw new NumberNotLessStrictlyException($this->name, $this->value, $number);
+            throw $this->buildException(new NumberNotLessStrictlyException($this->name, $this->value, $number));
         }
 
         return $this;
@@ -592,6 +621,7 @@ class Assert
      * @return $this
      * @throws InvalidIntOrFloatException
      * @throws NumberNotGreaterStrictlyException
+     * @throws \Exception|\Throwable
      */
     public function greaterStrict($number)
     {
@@ -600,9 +630,9 @@ class Assert
         }
 
         if (!is_int($this->value) && !is_float($this->value)) {
-            throw new InvalidIntOrFloatException($this->name, $this->value);
+            throw $this->buildException(new InvalidIntOrFloatException($this->name, $this->value));
         } elseif ($this->value <= $number) {
-            throw new NumberNotGreaterStrictlyException($this->name, $this->value, $number);
+            throw $this->buildException(new NumberNotGreaterStrictlyException($this->name, $this->value, $number));
         }
 
         return $this;
@@ -617,6 +647,7 @@ class Assert
      * @throws InvalidRegexpPatternException
      * @throws InvalidStringException
      * @throws StringNotMatchRegExpException
+     * @throws \Exception|\Throwable
      */
     public function match($pattern)
     {
@@ -627,18 +658,18 @@ class Assert
         }
 
         if (!is_string($this->value)) {
-            throw new InvalidStringException($this->name, $this->value);
+            throw $this->buildException(new InvalidStringException($this->name, $this->value));
         }
 
         // God please sorry for this @
         $checkResult = @preg_match($pattern, $this->value);
 
         if ((preg_last_error() !== PREG_NO_ERROR) || ($checkResult === false)) {
-            throw new InvalidRegExpPatternException('pattern', $pattern);
+            throw $this->buildException(new InvalidRegExpPatternException('pattern', $pattern));
         }
 
         if ($checkResult === 0) {
-            throw new StringNotMatchRegExpException($this->name, $this->value, $pattern);
+            throw $this->buildException(new StringNotMatchRegExpException($this->name, $this->value, $pattern));
         }
 
         return $this;
@@ -652,6 +683,7 @@ class Assert
      * @throws InvalidNotEmptyException
      * @throws InvalidStringException
      * @throws StringNotMatchGlobException
+     * @throws \Exception|\Throwable
      */
     public function glob($pattern)
     {
@@ -662,9 +694,9 @@ class Assert
         }
 
         if (!is_string($this->value)) {
-            throw new InvalidStringException($this->name, $this->value);
+            throw $this->buildException(new InvalidStringException($this->name, $this->value));
         } elseif (!fnmatch($pattern, $this->value)) {
-            throw new StringNotMatchGlobException($this->name, $this->value, $pattern);
+            throw $this->buildException(new StringNotMatchGlobException($this->name, $this->value, $pattern));
         }
 
         return $this;
@@ -676,13 +708,14 @@ class Assert
      * @return $this
      * @throws InvalidIntOrFloatException
      * @throws NumberNotNegativeException
+     * @throws \Exception|\Throwable
      */
     public function negative()
     {
         if (!is_int($this->value) && !is_float($this->value)) {
-            throw new InvalidIntOrFloatException($this->name, $this->value);
+            throw $this->buildException(new InvalidIntOrFloatException($this->name, $this->value));
         } elseif ($this->value >= 0) {
-            throw new NumberNotNegativeException($this->name, $this->value);
+            throw $this->buildException(new NumberNotNegativeException($this->name, $this->value));
         }
 
         return $this;
@@ -694,13 +727,14 @@ class Assert
      * @return $this
      * @throws InvalidIntOrFloatException
      * @throws NumberNotPositiveException
+     * @throws \Exception|\Throwable
      */
     public function positive()
     {
         if (!is_int($this->value) && !is_float($this->value)) {
-            throw new InvalidIntOrFloatException($this->name, $this->value);
+            throw $this->buildException(new InvalidIntOrFloatException($this->name, $this->value));
         } elseif ($this->value <= 0) {
-            throw new NumberNotPositiveException($this->name, $this->value);
+            throw $this->buildException(new NumberNotPositiveException($this->name, $this->value));
         }
 
         return $this;
@@ -713,6 +747,7 @@ class Assert
      * @return $this
      * @throws InvalidNotObjectException
      * @throws InvalidSameValueException
+     * @throws \Exception|\Throwable
      */
     public function isSame($anotherValue)
     {
@@ -721,7 +756,7 @@ class Assert
         }
 
         if ($this->value !== $anotherValue) {
-            throw new InvalidSameValueException($this->name, $this->value, $anotherValue);
+            throw $this->buildException(new InvalidSameValueException($this->name, $this->value, $anotherValue));
         }
 
         return $this;
@@ -734,6 +769,7 @@ class Assert
      * @return $this
      * @throws InvalidNotObjectException
      * @throws InvalidNotSameValueException
+     * @throws \Exception|\Throwable
      */
     public function notSame($anotherValue)
     {
@@ -742,7 +778,7 @@ class Assert
         }
 
         if ($this->value === $anotherValue) {
-            throw new InvalidNotSameValueException($this->name, $this->value);
+            throw $this->buildException(new InvalidNotSameValueException($this->name, $this->value));
         }
 
         return $this;
@@ -753,11 +789,12 @@ class Assert
      *
      * @return $this
      * @throws InvalidNullException
+     * @throws \Exception|\Throwable
      */
     public function isNull()
     {
         if (!is_null($this->value)) {
-            throw new InvalidNullException($this->name, $this->value);
+            throw $this->buildException(new InvalidNullException($this->name, $this->value));
         }
 
         return $this;
@@ -768,11 +805,12 @@ class Assert
      *
      * @return $this
      * @throws InvalidNotNullException
+     * @throws \Exception|\Throwable
      */
     public function notNull()
     {
         if (is_null($this->value)) {
-            throw new InvalidNotNullException($this->name);
+            throw $this->buildException(new InvalidNotNullException($this->name));
         }
 
         return $this;
@@ -784,13 +822,14 @@ class Assert
      * @return $this
      * @throws InvalidIntOrFloatOrStringException
      * @throws InvalidNumericException
+     * @throws \Exception|\Throwable
      */
     public function numeric()
     {
         if (!is_int($this->value) && !is_float($this->value) && !is_string($this->value)) {
-            throw new InvalidIntOrFloatOrStringException($this->name, $this->value);
+            throw $this->buildException(new InvalidIntOrFloatOrStringException($this->name, $this->value));
         } elseif (!is_numeric($this->value)) {
-            throw new InvalidNumericException($this->name, $this->value);
+            throw $this->buildException(new InvalidNumericException($this->name, $this->value));
         }
 
         return $this;
@@ -801,11 +840,12 @@ class Assert
      *
      * @return $this
      * @throws InvalidResourceException
+     * @throws \Exception|\Throwable
      */
     public function resource()
     {
         if (!is_resource($this->value)) {
-            throw new InvalidResourceException($this->name, $this->value);
+            throw $this->buildException(new InvalidResourceException($this->name, $this->value));
         }
 
         return $this;
@@ -816,11 +856,12 @@ class Assert
      *
      * @return $this
      * @throws InvalidStringException
+     * @throws \Exception|\Throwable
      */
     public function string()
     {
         if (!is_string($this->value)) {
-            throw new InvalidStringException($this->name, $this->value);
+            throw $this->buildException(new InvalidStringException($this->name, $this->value));
         }
 
         return $this;
@@ -893,5 +934,103 @@ class Assert
         $this->value = (string) $this->value;
 
         return $this;
+    }
+
+    /**
+     * Process fail validation
+     *
+     * @param \InvalidArgumentException $originalException
+     *
+     * @return \InvalidArgumentException|\Exception|\Throwable
+     */
+    protected function buildException(\InvalidArgumentException $originalException)
+    {
+        if (self::$exceptionClass) {
+            return new self::$exceptionClass(
+                $originalException->getMessage(),
+                $originalException->getCode(),
+                $originalException
+            );
+        }
+        return $originalException;
+    }
+
+    /**
+     * Return class of exception, which will be thrown on fail test
+     *
+     * @return string
+     * @deprecated Method will be removed
+     */
+    public function getExceptionClass()
+    {
+        return self::$exceptionClass ?: ArgumentException::class;
+    }
+
+    /**
+     * Update default exception class
+     *
+     * @param string $exceptionClass
+     *
+     * @return $this
+     * @throws InvalidStringException|ArgumentException
+     * @deprecated Method will be removed
+     */
+    public function setExceptionClass($exceptionClass)
+    {
+        if (!is_string($exceptionClass)) {
+            throw new InvalidStringException('Param $exceptionClass must be string', $exceptionClass);
+        }
+        if (!is_a($exceptionClass, '\Exception', true) || !is_a($exceptionClass, '\Throwable', true)) {
+            throw new ArgumentException('Param $exceptionClass must be subclass of \Exception or \Throwable');
+        }
+        self::$exceptionClass = $exceptionClass;
+        return self::$validator;
+    }
+
+    /**
+     * Soft check that value >= $min
+     *
+     * @param float|int $number
+     * @return $this
+     * @throws NumberNotGreaterException
+     * @throws InvalidIntOrFloatException
+     * @throws \Exception|\Throwable
+     * @deprecated Method will be removed
+     */
+    public function more($number)
+    {
+        return $this->greater($number);
+    }
+
+    /**
+     * Strict check that value > $min
+     *
+     * @param float|int $number
+     * @return $this
+     * @throws InvalidIntOrFloatException
+     * @throws NumberNotGreaterStrictlyException
+     * @throws \Exception|\Throwable
+     * @deprecated Method will be removed
+     */
+    public function moreStrict($number)
+    {
+        return $this->greaterStrict($number);
+    }
+
+    /**
+     * Soft check if value has length less than $length. Runs only after notEmpty and string validations
+     *
+     * @param int $length
+     * @return $this
+     * @throws InvalidIntException
+     * @throws LengthNotGreaterException
+     * @throws NumberNotPositiveException
+     * @throws InvalidStringException
+     * @throws \Exception|\Throwable
+     * @deprecated Method will be removed
+     */
+    public function lengthMore($length)
+    {
+        return $this->lengthGreater($length);
     }
 }
